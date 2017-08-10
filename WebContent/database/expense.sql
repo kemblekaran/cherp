@@ -1,0 +1,1 @@
+ create table expense(id int auto_increment,description varchar(1000),status int,primary key(id));

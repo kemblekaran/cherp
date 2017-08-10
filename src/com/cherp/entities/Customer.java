@@ -1,0 +1,174 @@
+package com.cherp.entities;
+
+public class Customer {
+private int id;
+private String fname;
+private String lname;
+private String shopName;
+private String curAdd;
+private String perAdd;
+private String state;
+private String city;
+private String area;
+private int mobile;
+private int phone;
+private int opBal; 
+private int status;
+/**
+ * @return the id
+ */
+public int getId() {
+	return id;
+}
+/**
+ * @param id the id to set
+ */
+public void setId(int id) {
+	this.id = id;
+}
+/**
+ * @return the fname
+ */
+public String getFname() {
+	return fname;
+}
+/**
+ * @param fname the fname to set
+ */
+public void setFname(String fname) {
+	this.fname = fname;
+}
+/**
+ * @return the lname
+ */
+public String getLname() {
+	return lname;
+}
+/**
+ * @param lname the lname to set
+ */
+public void setLname(String lname) {
+	this.lname = lname;
+}
+/**
+ * @return the shopName
+ */
+public String getShopName() {
+	return shopName;
+}
+/**
+ * @param shopName the shopName to set
+ */
+public void setShopName(String shopName) {
+	this.shopName = shopName;
+}
+/**
+ * @return the curAdd
+ */
+public String getCurAdd() {
+	return curAdd;
+}
+/**
+ * @param curAdd the curAdd to set
+ */
+public void setCurAdd(String curAdd) {
+	this.curAdd = curAdd;
+}
+/**
+ * @return the perAdd
+ */
+public String getPerAdd() {
+	return perAdd;
+}
+/**
+ * @param perAdd the perAdd to set
+ */
+public void setPerAdd(String perAdd) {
+	this.perAdd = perAdd;
+}
+/**
+ * @return the state
+ */
+public String getState() {
+	return state;
+}
+/**
+ * @param state the state to set
+ */
+public void setState(String state) {
+	this.state = state;
+}
+/**
+ * @return the city
+ */
+public String getCity() {
+	return city;
+}
+/**
+ * @param city the city to set
+ */
+public void setCity(String city) {
+	this.city = city;
+}
+/**
+ * @return the area
+ */
+public String getArea() {
+	return area;
+}
+/**
+ * @param area the area to set
+ */
+public void setArea(String area) {
+	this.area = area;
+}
+/**
+ * @return the mobile
+ */
+public int getMobile() {
+	return mobile;
+}
+/**
+ * @param mobile the mobile to set
+ */
+public void setMobile(int mobile) {
+	this.mobile = mobile;
+}
+/**
+ * @return the phone
+ */
+public int getPhone() {
+	return phone;
+}
+/**
+ * @param phone the phone to set
+ */
+public void setPhone(int phone) {
+	this.phone = phone;
+}
+/**
+ * @return the opBal
+ */
+public int getOpBal() {
+	return opBal;
+}
+/**
+ * @param opBal the opBal to set
+ */
+public void setOpBal(int opBal) {
+	this.opBal = opBal;
+}
+/**
+ * @return the status
+ */
+public int getStatus() {
+	return status;
+}
+/**
+ * @param status the status to set
+ */
+public void setStatus(int status) {
+	this.status = status;
+}
+
+}

@@ -1,0 +1,1 @@
+ create table location(id int auto_increment,location varchar(255),status int,primary key(id));

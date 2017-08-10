@@ -1,0 +1,194 @@
+<html>
+
+<head>
+    <title>Bank</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="validate.css">
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+</head>
+
+
+<body>
+<div w3-include-html="main.html"></div>
+    <!--Main container-->
+    <div class="container" id="mainContainer">
+        <div class="jumbotron">
+
+            <!-- Button Row           -->
+            <div class="row well" id="buttonRow">
+                <div class="col-sm-4 ">
+                    <button id="addBtn" class="btn btn-primary" data-toggle="modal" data-target="#addModal">ADD</button>
+                </div>
+                <div class="col-sm-4 ">
+                    <button id="updateBtn" class="btn btn-success" data-toggle="modal" data-target="#updateModal">UPDATE</button>
+                </div>
+                <div class="col-sm-4 ">
+                    <button id="deleteBtn" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">DELETE</button>
+                </div>
+            </div>
+
+            <!--Table Row-->
+            <div class="row well" id="tableRow">
+                <table id="dataTable" class="table-bordered">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Bank name</th>
+                            <th>Bank branch</th>
+                            <th>Account Type</th>
+                            <th>Account no</th>
+                            <th>IFSC Code</th>
+                            <th>Opening Balance</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+
+            <!-- Add Button Modal-->
+            <div id="addModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <!--Modal header-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Bank</h4>
+                        </div>
+
+                        <!--Modal body-->
+                        <div class="modal-body">
+                            <!--Add UserForm-->
+                            <form role="form" id="InsertForm">
+                                <input type="hidden" id="actionURL" value="BankServlet">
+                                <div class="form-group">
+                                    <label for="id">ID</label>
+                                    <input type="text" disabled="true" id="id" name="id" class="form-control" value="11">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="bank_name">Bank Name</label>
+                                    <input type="text" class="form-control" id="bankName" name="bankName">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="branch_name">Branch Name</label>
+                                    <input type="text" class="form-control" id="branchName" name="branchName">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="acc_type">Type of a/c</label>
+
+                                    <div class="radio">
+                                        <label>
+                        <input type="radio" name="accType" id="saving" value="saving" >
+                       Saving
+                        </label>
+
+                                        <label>
+                        <input type="radio" name="accType" id="current" value="current" >
+                       Current
+                      </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="acc_no">Account No</label>
+                                    <input type="text" class="form-control" id="accNo" name="accNo">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <input type="text" class="form-control" id="address" name="address">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ifsc">IFSC code</label>
+                                    <input type="text" class="form-control" id="ifscCode" name="ifscCode">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="op_bal">Opening Balance</label>
+                                    <input type="text" class="form-control" id="opBal" name="opBal" value="0">
+                                </div>
+
+                                <input type="hidden" name="operation" value="insert">
+
+                                <div class="form-group">
+                                    <button id="insertBtn" class="btn btn-info">Insert</button>
+
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--JS source files-->
+    <script>
+		w3.includeHTML();
+	</script>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
+    <script type="text/javascript" src="validation/validateBank.js"></script>
+    <script src="js/dataTables.cellEdit.js"></script>
+    <script src="js/dataTable.js" type="text/javascript"></script>
+    <script type="text/javascript">
+  //variable for number of columns in table
+    var noOfCols = $("#dataTable tr:visible th").length;
+    var editableCols = new Array();
+    var validationResult ;
+
+    //creates array for editable columns parameter
+    for (var i = 1; i < noOfCols; i++) {
+        editableCols.push(i);
+
+    }
+
+    //add data to datatable(very important)
+    var CherpDataTable = $('#dataTable').DataTable({
+        dom: 'Bfrtip',
+        select: true,
+        buttons: [{
+            text: 'Get selected data',
+            action: function() {
+                var count = table.rows({
+                    selected: true
+                }).count();
+
+                events.prepend('<div>' + count + ' row(s) selected</div>');
+            }
+        }],
+        "ajax": "/server/jsonfiles/bank.json",  										//E:/EclipseNeon/com/cherp/jsonfiles/bank.json
+        "columns": [{
+            "data": "id"
+        }, {
+            "data": "bankName"
+        }, {
+            "data": "branchName"
+        }, {
+            "data": "accType"
+        }, {
+            "data": "accNo"
+        }, {
+            "data": "ifscCode"
+        }, {
+            "data": "opBal"
+        }, {
+            "data": "address"
+        }]
+    });
+    </script>
+</body>
+
+</html>
