@@ -52,8 +52,10 @@ $(function() {
 
 	}
 
+	
 	// insertButtonListener and insert data function
 	insertData.addEventListener('click', function() {
+		
 		if ($('#InsertForm').valid()) {
 			$('#InsertForm').submit(function(e) {
 				$.ajax({
