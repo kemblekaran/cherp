@@ -1,5 +1,5 @@
 $(function() {
-
+	
 	var updateButton = document.getElementById('updateBtn');
 	var deleteButton = document.getElementById('deleteBtn');
 	var dbActionPerformed;
