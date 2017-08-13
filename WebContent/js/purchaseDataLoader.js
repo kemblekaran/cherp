@@ -11,11 +11,11 @@ $(function() {
 		},
 		error : function() {
 			alert('error');
-			s
+			
 		}
 	});
 
-	$.getJSON('/server/jsonfiles/purchaseData.json', function(data) {
+	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
 
 		var jsonData = data['van'];
 		$.each(jsonData, function(key, val) {
@@ -25,8 +25,8 @@ $(function() {
 		});
 	});
 
-	$.getJSON('/server/jsonfiles/purchaseData.json', function(data) {
-		var jsonData = data['drivers'];
+	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
+		var jsonData = data['driver'];
 		$.each(jsonData, function(key, val) {
 			$('#driverList1').append(
 					'<option value="' + val.name + '">' + val.name
@@ -37,7 +37,7 @@ $(function() {
 		});
 	});
 
-	$.getJSON('/server/jsonfiles/purchaseData.json', function(data) {
+	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
 		var jsonData = data['cleaner'];
 		$.each(jsonData, function(key, val) {
 			$('#cleanerList1').append(

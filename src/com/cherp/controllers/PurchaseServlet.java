@@ -5,7 +5,11 @@ import java.io.IOException;
 import java.io.Writer;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,8 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cherp.data.PurchaseDataManager;
-import com.cherp.entities.Area;
-import com.google.gson.Gson;
 import com.google.gson.stream.JsonWriter;
 
 public class PurchaseServlet extends HttpServlet {
@@ -31,40 +33,41 @@ public class PurchaseServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("In Purchase Servlet");
-		
+
 		dataLoader = request.getParameter("dataLoader");
 		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
-		List<ResultSet> resultSetList = new ArrayList<>();
+		Map<String, ArrayList<String>> resultSetList = new HashMap<>();
 		if (dataLoader.equals("true")) {
 			resultSetList = new PurchaseDataManager().formDataGenerator();
-			
+
 		}
-		
+
 		jsonFileWriter(resultSetList);
 
 	}
 
 	// method for creating json file
-	public void jsonFileWriter(List<ResultSet> resultSetList) {
+	public void jsonFileWriter(Map<String, ArrayList<String>> resultSetList) {
 		try {
-			Writer writer = new FileWriter(jsonFilePath + "purchaseData.json");
-			
+			Writer writer = new FileWriter(jsonFilePath + "purchaseLoader.json");
+
 			JsonWriter jw = new JsonWriter(writer);
 			jw.beginObject();
-			System.out.println("ArrayList Size:"+resultSetList.size());
-			System.out.println("Table name:"+resultSetList.get(1).getMetaData().getTableName(1));
-			for (ResultSet rs : resultSetList) {
-				
-				jw.name("name");
+			
+			for (Map.Entry<String, ArrayList<String>> map : resultSetList.entrySet()) {
+				jw.name(map.getKey());
 				jw.beginArray();
-				jw.beginObject();
-				while (rs.next()) {
-					jw.name("name").value(rs.getString(1));
-					System.out.println(rs.getString(1));
+
+				for (String value : map.getValue()) {
+					jw.beginObject();
+					jw.name("name").value(value);
+					jw.endObject();
+					System.out.println("key:" + map.getKey() + ",value:" + value);
 				}
-				jw.endObject();
+				
 				jw.endArray();
 			}
+			
 			jw.endObject();
 			jw.close();
 		} catch (Exception e) {
