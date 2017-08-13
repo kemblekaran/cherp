@@ -16,134 +16,145 @@
 <body>
 	<div w3-include-html="main.html"></div>
 	<div class="container" style="margin-top: 5%">
-		<div class="">
-			<div class="">
-				<div class="row well">
+		<form id="InsertForm">
+			<input type="hidden" id="actionURL" value="PurchaseServlet">
+			<div class="row well">
 
-					<div class="col-md-2 col-width ">
-						<select id="dateList" class="form-control" name="date">
-							<option>Select Date</option>
-						</select>
-					</div>
-
-					<div class="col-md-2 col-width ">
-
-						<select id="vanList" class="form-control" name="van">
-							<option>Select Van</option>
-						</select>
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<select id="driverList1" class="form-control" name="driver">
-							<option value="">Driver</option>
-						</select>
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<select id="driverList2" class="form-control" name="driver">
-							<option>Driver</option>
-						</select>
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<select id="cleanerList1" class="form-control" name="cleaner">
-							<option>Cleaner</option>
-						</select>
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<select id="cleanerList2" class="form-control">
-							<option>Cleaner</option>
-						</select>
-					</div>
-
-					<!--             <div class="col-md-2 col-width "> -->
-					<!--                 <div class="dropdown"> -->
-					<!--                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Cleaner 3 -->
-					<!--                         <span class="caret"></span> -->
-					<!--                     </button> -->
-					<!--                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"> -->
-					<!--                         <li><a href="#">Cleaner1</a></li> -->
-					<!--                         <li><a href="#">Cleaner2</a></li> -->
-					<!--                     </ul> -->
-					<!--                 </div> -->
-					<!--             </div> -->
-
-
+				<div class="col-md-2 col-width ">
+					<select id="dateList" class="form-control" name="date">
+						<option>Select Date</option>
+					</select>
 				</div>
 
-				<div class="row well">
+				<div class="col-md-2 col-width ">
 
-					<!--             <div class="col-md-2 col-width "> -->
-					<!--                 <div class="dropdown"> -->
-					<!--                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Cleaner 4 -->
-					<!--                         <span class="caret"></span> -->
-					<!--                     </button> -->
-					<!--                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"> -->
-					<!--                         <li><a href="#">Cleaner1</a></li> -->
-					<!--                         <li><a href="#">Cleaner2</a></li> -->
-					<!--                     </ul> -->
-					<!--                 </div> -->
-					<!--             </div> -->
-
-					<div class="col-md-2 col-width ">
-						<select id="companyList" class="form-control" name="company">
-							<option>Company</option>
-						</select>
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<select id="locationList" class="form-control" name="location">
-							<option>Location</option>
-						</select>
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<input type="text" class="form-control" id="outstanding"
-							placeholder="OutStanding">
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<input type="text" class="form-control" id="challano"
-							placeholder="Challan No.">
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<input type="text" class="form-control" id="purchaseid"
-							placeholder="Purchase ID" disabled>
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<input type="text" class="form-control" id="rent"
-							placeholder="Rent">
-					</div>
-
-
+					<select id="vanList" class="form-control" name="van">
+						<option>Select Van</option>
+					</select>
 				</div>
 
-
-				<!--Table Row-->
-				<div class="row jumbotron" id="tableRow">
-
-					<table id="dataTable" class="table-bordered">
-						<thead>
-							<tr>
-								<th>Product</th>
-								<th>Pieces</th>
-								<th>kg</th>
-								<th>Rate</th>
-								<th>Amount</th>
-								<th>AvgBodyWeight</th>
-							</tr>
-
-						</thead>
-					</table>
-
+				<div class="col-md-2 col-width ">
+					<select id="driverList1" class="form-control" name="driver">
+						<option value="">Driver</option>
+					</select>
 				</div>
+
+				<div class="col-md-2 col-width ">
+					<select id="driverList2" class="form-control" name="driver">
+						<option>Driver</option>
+					</select>
+				</div>
+
+				<div class="col-md-2 col-width ">
+					<select id="cleanerList1" class="form-control" name="cleaner">
+						<option>Cleaner</option>
+					</select>
+				</div>
+
+				<div class="col-md-2 col-width ">
+					<select id="cleanerList2" class="form-control">
+						<option>Cleaner</option>
+					</select>
+				</div>
+
+				<!--             <div class="col-md-2 col-width "> -->
+				<!--                 <div class="dropdown"> -->
+				<!--                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Cleaner 3 -->
+				<!--                         <span class="caret"></span> -->
+				<!--                     </button> -->
+				<!--                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"> -->
+				<!--                         <li><a href="#">Cleaner1</a></li> -->
+				<!--                         <li><a href="#">Cleaner2</a></li> -->
+				<!--                     </ul> -->
+				<!--                 </div> -->
+				<!--             </div> -->
+
 
 			</div>
 
-		</div>
+			<div class="row well">
+
+				<!--             <div class="col-md-2 col-width "> -->
+				<!--                 <div class="dropdown"> -->
+				<!--                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Cleaner 4 -->
+				<!--                         <span class="caret"></span> -->
+				<!--                     </button> -->
+				<!--                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"> -->
+				<!--                         <li><a href="#">Cleaner1</a></li> -->
+				<!--                         <li><a href="#">Cleaner2</a></li> -->
+				<!--                     </ul> -->
+				<!--                 </div> -->
+				<!--             </div> -->
+
+				<div class="col-md-2 col-width ">
+					<select id="companyList" class="form-control" name="company">
+						<option>Company</option>
+					</select>
+				</div>
+
+				<div class="col-md-2 col-width ">
+					<select id="locationList" class="form-control" name="location">
+						<option>Location</option>
+					</select>
+				</div>
+
+				<div class="col-md-2 col-width ">
+					<input type="text" class="form-control" id="outstanding"
+						placeholder="OutStanding" value="0.0">
+				</div>
+
+				<div class="col-md-2 col-width ">
+					<input type="text" class="form-control" id="challano"
+						placeholder="Challan No.">
+				</div>
+
+				<div class="col-md-2 col-width ">
+					<input type="text" class="form-control" id="purchaseid"
+						placeholder="Purchase ID" disabled>
+				</div>
+
+				<div class="col-md-2 col-width ">
+					<input type="text" class="form-control" id="rent"
+						placeholder="Rent">
+				</div>
+
+
+			</div>
+
+
+			<!--Table Row-->
+			<div class="row jumbotron" id="tableRow">
+
+				<table id="purchaseTable" class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Product</th>
+							<th>Pieces</th>
+							<th>kg</th>
+							<th>Rate</th>
+							<th>Amount</th>
+							<th>AvgBodyWeight</th>
+						</tr>
+
+					</thead>
+					<tbody>
+						<tr>
+							<td><select id="productSelect" name="product">
+									<option>Select Product</option>
+							</select></td>
+
+							<td><input type="number" placeholder="Enter Pieces"></td>
+							<td><input type="number" placeholder="kilograms"></td>
+							<td><input type="number" placeholder="Enter Rate"></td>
+							<td><input type="number" placeholder="Enter Amount"></td>
+							<td><input type="number" placeholder="Enter weight"></td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="hidden" name="operation" value="insert">
+			</div>
+			<button id="insertBtn" class="btn btn-success">save</button>
+		</form>
 	</div>
 
 
@@ -174,24 +185,26 @@
 
 		}
 
+		$('#purchaseTable').DataTable();
 		//add data to datatable(very important)
-		var userDataTable = $('#dataTable').DataTable({
-			"ajax" : "/server/jsonfiles/purchase.json",
-			"columns" : [ {
-				"data" : "Product"
-			}, {
-				"data" : "Pieces"
-			}, {
-				"data" : "kg"
-			}, {
-				"data" : "Rate"
-			}, {
-				"data" : "Amount"
-			}, {
-				"data" : "AvgBodyWeight"
-			} ]
-		});
+		// 						var userDataTable = $('#purchaseTable').DataTable({
+		// 							"ajax" : "/server/jsonfiles/productData.json",
+		// 							"columns" : [ {
+		// 								"data" : "product"
+		// 							}, {
+		// 								"data" : "pieces"
+		// 							}, {
+		// 								"data" : "kg"
+		// 							}, {
+		// 								"data" : "rate"
+		// 							}, {
+		// 								"data" : "amount"
+		// 							}, {
+		// 								"data" : "weight"
+		// 							} ]
+		// 						});
 	</script>
+	
 </body>
 
 </html>

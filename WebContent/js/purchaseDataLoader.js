@@ -7,11 +7,11 @@ $(function() {
 		},
 		type : 'POST',
 		success : function() {
-			alert('success');
+			alert('Data Loaded Successfully from Database');
 		},
 		error : function() {
-			alert('error');
-			
+			alert('Error Loading Data from Database');
+
 		}
 	});
 
@@ -48,4 +48,40 @@ $(function() {
 							+ '</option>');
 		});
 	});
+	
+	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
+		var jsonDataProduct = data['product'];
+		$.each(jsonDataProduct, function(key, val) {
+			$('#productSelect').append(
+					'<option value="' + val.name + '">' + val.name
+							+ '</option>');
+		});
+		
+		//***********Create the selects in table (In case we need it in future)**********
+//		var jsonDataPieces = data['pieces'];
+//		$.each(jsonDataPieces,function(key,val){
+//		$('#pieces').append('<option value="'+ val.name+'">'+val.name+'</option>');
+//		});
+		
+//		var jsonDataPieces = data['kg'];
+//		$.each(jsonDataPieces,function(key,val){
+//		$('#kg').append('<option value="'+ val.name+'">'+val.name+'</option>');
+//		});
+		
+//		var jsonDataPieces = data['rate'];
+//		$.each(jsonDataPieces,function(key,val){
+//		$('#rate').append('<option value="'+ val.name+'">'+val.name+'</option>');
+//		});
+		
+//		var jsonDataPieces = data['amount'];
+//		$.each(jsonDataPieces,function(key,val){
+//		$('#amount').append('<option value="'+ val.name+'">'+val.name+'</option>');
+//		});
+		
+//		var jsonDataPieces = data['weight'];
+//		$.each(jsonDataPieces,function(key,val){
+//		$('#weight').append('<option value="'+ val.name+'">'+val.name+'</option>');
+//		});
+	});
+
 });

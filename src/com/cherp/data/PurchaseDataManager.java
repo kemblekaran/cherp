@@ -23,21 +23,22 @@ public class PurchaseDataManager {
 		String driverQuery = "select fname from driver where status=1";
 		String cleanerQuery = "select fname from cleaner where status=1";
 		String companyQuery = "select name from company where status=1";
+		String productQuery = "select prodName from product where status=1";
 
-		ResultSet vanRs, driverRs, cleanerRs, companyRs;
+		ResultSet vanRs, driverRs, cleanerRs, companyRs, productRs;
 
 		Map<String, ArrayList<String>> resultSetList = new HashMap<>();
-		ArrayList<String> a1,a2,a3,a4;
+		ArrayList<String> a1,a2,a3,a4,a5;
 
 		handler = DBHandler.getInstance();
 		con = handler.getConnection();
 		try {
 			stmt = con.createStatement();
-			
+			String tableName = "";
 			//store table data in hasmap with table name as the key data in arraylist
 			//For van
 			vanRs = stmt.executeQuery(vanQuery);
-			String tableName = vanRs.getMetaData().getTableName(1);
+			tableName = vanRs.getMetaData().getTableName(1);
 			a1 = new ArrayList<String>();
 			while (vanRs.next()) {
 				a1.add(vanRs.getString(1));
@@ -70,6 +71,15 @@ public class PurchaseDataManager {
 				a4.add(companyRs.getString(1));
 			}
 			resultSetList.put(tableName, a4);
+			
+			//For product
+			productRs = stmt.executeQuery(productQuery);
+			tableName = productRs.getMetaData().getTableName(1);
+			a5 = new ArrayList<String>();
+			while (productRs.next()) {
+				a5.add(productRs.getString(1));
+			}
+			resultSetList.put(tableName, a5);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
