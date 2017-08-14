@@ -23,7 +23,7 @@ public class CleanersDataManager {
 
 		try {
 
-			String query = "insert into cleaner(fname,lname,curAdd,perAdd,state,city,mobile,phone,drLisence,panNo,adhaarNo,photo,status) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+			String query = "insert into cleaner(fname,lname,curAdd,perAdd,state,city,mobile,phone,drLisence,panNo,adhaarNo,photo,status) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			// set status 1 for area
 			cls.setStatus(1);
@@ -38,17 +38,17 @@ public class CleanersDataManager {
 			// if (hasRecord) {
 			ps.setString(1, cls.getFname());
 			ps.setString(2, cls.getLname());
-			ps.setString(3, cls.getCur_add());
-			ps.setString(4, cls.getPer_add());
+			ps.setString(3, cls.getCurAdd());
+			ps.setString(4, cls.getPerAdd());
 			ps.setString(5, cls.getState());
 			ps.setString(6, cls.getCity());
-			ps.setInt(6, cls.getMobile());
-			ps.setInt(7, cls.getPhone());
-			ps.setInt(8, cls.getDr_lisence());
-			ps.setInt(9, cls.getPan_no());
-			ps.setInt(10, cls.getAdhaar_no());
-			ps.setString(11, cls.getPhoto());
-			ps.setInt(12,cls.getStatus());
+			ps.setInt(7, cls.getMobile());
+			ps.setInt(8, cls.getPhone());
+			ps.setInt(9, cls.getDrLisence());
+			ps.setInt(10, cls.getPanNo());
+			ps.setInt(11, cls.getAdhaarNo());
+			ps.setString(12, cls.getPhoto());
+			ps.setInt(13,cls.getStatus());
 			ps.executeUpdate();
 			// }
 			response = "Data added successfully!";
@@ -75,15 +75,15 @@ public class CleanersDataManager {
 			PreparedStatement ps = con.prepareStatement(uquery);
 			ps.setString(1, cls.getFname());
 			ps.setString(2, cls.getLname());
-			ps.setString(3, cls.getCur_add());
-			ps.setString(4, cls.getPer_add());
+			ps.setString(3, cls.getCurAdd());
+			ps.setString(4, cls.getPerAdd());
 			ps.setString(5, cls.getState());
 			ps.setString(6, cls.getCity());
 			ps.setInt(7, cls.getMobile());
 			ps.setInt(8, cls.getPhone());
-			ps.setInt(9, cls.getDr_lisence());
-			ps.setInt(10, cls.getPan_no());
-			ps.setInt(11, cls.getAdhaar_no());
+			ps.setInt(9, cls.getDrLisence());
+			ps.setInt(10, cls.getPanNo());
+			ps.setInt(11, cls.getAdhaarNo());
 			ps.setString(12, cls.getPhoto());
 			ps.setInt(13, cls.getId());
 
@@ -147,14 +147,14 @@ public class CleanersDataManager {
 				cls.setId(rs.getInt("id"));
 				cls.setFname(rs.getString("fname"));
 				cls.setLname(rs.getString("lname"));
-				cls.setCur_add(rs.getString("curAdd"));
-				cls.setPer_add(rs.getString("perAdd"));
+				cls.setCurAdd(rs.getString("curAdd"));
+				cls.setPerAdd(rs.getString("perAdd"));
 				cls.setState(rs.getString("state"));
 				cls.setCity(rs.getString("city"));
 				cls.setMobile(rs.getInt("mobile"));
 				cls.setPhone(rs.getInt("phone"));
-				cls.setPan_no(rs.getInt("panNo"));
-				cls.setAdhaar_no(rs.getInt("adhaarNo"));
+				cls.setPanNo(rs.getInt("panNo"));
+				cls.setAdhaarNo(rs.getInt("adhaarNo"));
 				cls.setPhoto(rs.getString("photo"));
 				cls.setStatus(rs.getInt("status"));
 

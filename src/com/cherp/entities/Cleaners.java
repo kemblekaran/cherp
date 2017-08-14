@@ -5,15 +5,15 @@ public class Cleaners {
 	private int id;
 	private String fname;
 	private String lname;
-	private String cur_add;
-	private String per_add;
+	private String curAdd;
+	private String perAdd;
 	private String state;
 	private String city;
 	private int mobile;
 	private int phone;
-	private int dr_lisence;
-	private int pan_no;
-	private int adhaar_no;
+	private int drLisence;
+	private int panNo;
+	private int adhaarNo;
 	private String photo;
 	private int status;
 	
@@ -35,17 +35,17 @@ public class Cleaners {
 	public void setLname(String lname) {
 		this.lname = lname;
 	}
-	public String getCur_add() {
-		return cur_add;
+	public String getCurAdd() {
+		return curAdd;
 	}
-	public void setCur_add(String cur_add) {
-		this.cur_add = cur_add;
+	public void setCurAdd(String curAdd) {
+		this.curAdd = curAdd;
 	}
-	public String getPer_add() {
-		return per_add;
+	public String getPerAdd() {
+		return perAdd;
 	}
-	public void setPer_add(String per_add) {
-		this.per_add = per_add;
+	public void setPerAdd(String perAdd) {
+		this.perAdd = perAdd;
 	}
 	public String getState() {
 		return state;
@@ -71,23 +71,23 @@ public class Cleaners {
 	public void setPhone(int phone) {
 		this.phone = phone;
 	}
-	public int getDr_lisence() {
-		return dr_lisence;
+	public int getDrLisence() {
+		return drLisence;
 	}
-	public void setDr_lisence(int dr_lisence) {
-		this.dr_lisence = dr_lisence;
+	public void setDrLisence(int drLisence) {
+		this.drLisence = drLisence;
 	}
-	public int getPan_no() {
-		return pan_no;
+	public int getPanNo() {
+		return panNo;
 	}
-	public void setPan_no(int pan_no) {
-		this.pan_no = pan_no;
+	public void setPanNo(int panNo) {
+		this.panNo = panNo;
 	}
-	public int getAdhaar_no() {
-		return adhaar_no;
+	public int getAdhaarNo() {
+		return adhaarNo;
 	}
-	public void setAdhaar_no(int adhaar_no) {
-		this.adhaar_no = adhaar_no;
+	public void setAdhaarNo(int adhaarNo) {
+		this.adhaarNo = adhaarNo;
 	}
 	public String getPhoto() {
 		return photo;

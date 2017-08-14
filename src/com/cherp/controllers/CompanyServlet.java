@@ -25,33 +25,32 @@ public class CompanyServlet extends HttpServlet {
 	private String jsonFilePath = "";
 
 	private String name = "";
-	private String pre_add = "";
-	private String sec_add = "";
+	private String preAdd = "";
+	private String secAdd = "";
 	private String mobile = "";
 	private String phone = "";
 	private String state = "";
 	private String city = "";
-	private String pin_code = "";
-	private String own_name = "";
-	private String pan_no = "";
-	private String op_bal = "";
+	private String pinCode = "";
+	private String ownName = "";
+	private String panNo = "";
+	private String opBal = "";
 	private String operation = "";
 
 	private String operationResp = "";
 
 	private String rowId = "";
-	private String updatedCellId = "";
 	private String updatedCellName = "";
-	private String updatedCellPre_add = "";
-	private String updatedCellSec_add = "";
+	private String updatedCellPreAdd = "";
+	private String updatedCellSecAdd = "";
 	private String updatedCellMobile = "";
 	private String updatedCellPhone = "";
 	private String updatedCellState = "";
 	private String updatedCellCity = "";
-	private String updatedCellPin_code = "";
-	private String updatedCellOwn_name = "";
-	private String updatedCellPan_no = "";
-	private String updatedCellOp_bal = "";
+	private String updatedCellPinCode = "";
+	private String updatedCellOwnName = "";
+	private String updatedCellPanNo = "";
+	private String updatedCellOpBal = "";
 
 	public CompanyServlet() {
 		super();
@@ -68,30 +67,30 @@ public class CompanyServlet extends HttpServlet {
 
 		// Insert Form Parameters
 		name = request.getParameter("name");
-		pre_add = request.getParameter("pre_add");
-		sec_add = request.getParameter("sec_add");
+		preAdd = request.getParameter("preAdd");
+		secAdd = request.getParameter("secAdd");
 		mobile = request.getParameter("mobile");
 		phone = request.getParameter("phone");
 		state = request.getParameter("state");
 		city = request.getParameter("city");
-		pin_code = request.getParameter("pin_code");
-		own_name = request.getParameter("own_name");
-		pan_no = request.getParameter("pan_no");
-		op_bal = request.getParameter("op_bal");
+		pinCode = request.getParameter("pinCode");
+		ownName = request.getParameter("ownName");
+		panNo = request.getParameter("panNo");
+		opBal = request.getParameter("opBal");
 
 		// Update Or Delete Parameters
 		rowId = request.getParameter("updatedRow[id]");
 		updatedCellName = request.getParameter("updatedRow[name]");
-		updatedCellPre_add = request.getParameter("updatedRow[pre_add]");
-		updatedCellSec_add = request.getParameter("updatedRow[sec_add]");
+		updatedCellPreAdd = request.getParameter("updatedRow[preAdd]");
+		updatedCellSecAdd = request.getParameter("updatedRow[secAdd]");
 		updatedCellMobile = request.getParameter("updatedRow[mobile]");
 		updatedCellPhone = request.getParameter("updatedRow[phone]");
 		updatedCellState = request.getParameter("updatedRow[state]");
 		updatedCellCity = request.getParameter("updatedRow[city]");
-		updatedCellPin_code = request.getParameter("updatedRow[pin_code]");
-		updatedCellOwn_name = request.getParameter("updatedRow[own_name]");
-		updatedCellPan_no = request.getParameter("updatedRow[pan_no]");
-		updatedCellOp_bal = request.getParameter("updatedRow[op_bal]");
+		updatedCellPinCode = request.getParameter("updatedRow[pinCode]");
+		updatedCellOwnName = request.getParameter("updatedRow[ownName]");
+		updatedCellPanNo = request.getParameter("updatedRow[panNo]");
+		updatedCellOpBal = request.getParameter("updatedRow[opBal]");
 
 	}
 
@@ -113,16 +112,16 @@ public class CompanyServlet extends HttpServlet {
 
 				System.out.println("Insert Function");
 				comp.setName(name);
-				comp.setPre_add(pre_add);
-				comp.setSec_add(sec_add);
+				comp.setPreAdd(preAdd);
+				comp.setSecAdd(secAdd);
 				comp.setMobile(Integer.parseInt(mobile));
 				comp.setPhone(Integer.parseInt(phone));
 				comp.setState(state);
 				comp.setCity(city);
-				comp.setPin_code(Integer.parseInt(pin_code));
-				comp.setOwn_name(own_name);
-				comp.setPan_no(Integer.parseInt(pan_no));
-				comp.setOp_bal(Integer.parseInt(op_bal));
+				comp.setPinCode(Integer.parseInt(pinCode));
+				comp.setOwnName(ownName);
+				comp.setPanNo(Integer.parseInt(panNo));
+				comp.setOpBal(Integer.parseInt(opBal));
 
 				operationResp = cdm.addData(comp);
 				pw.println(operationResp);
@@ -132,16 +131,16 @@ public class CompanyServlet extends HttpServlet {
 				System.out.println("Update Function");
 				comp.setId(Integer.parseInt(rowId));
 				comp.setName(updatedCellName);
-				comp.setPre_add(updatedCellPre_add);
-				comp.setSec_add(updatedCellSec_add);
+				comp.setPreAdd(updatedCellPreAdd);
+				comp.setSecAdd(updatedCellSecAdd);
 				comp.setMobile(Integer.parseInt(updatedCellMobile));
 				comp.setPhone(Integer.parseInt(updatedCellPhone));
 				comp.setState(updatedCellState);
 				comp.setCity(updatedCellCity);
-				comp.setPin_code(Integer.parseInt(updatedCellPin_code));
-				comp.setOwn_name(updatedCellOwn_name);
-				comp.setPan_no(Integer.parseInt(updatedCellPan_no));
-				comp.setOp_bal(Integer.parseInt(updatedCellOp_bal));
+				comp.setPinCode(Integer.parseInt(updatedCellPinCode));
+				comp.setOwnName(updatedCellOwnName);
+				comp.setPanNo(Integer.parseInt(updatedCellPanNo));
+				comp.setOpBal(Integer.parseInt(updatedCellOpBal));
 
 				operationResp = cdm.updateData(comp);
 				pw.println(operationResp);
@@ -174,16 +173,16 @@ public class CompanyServlet extends HttpServlet {
 
 				jw.name("id").value(c.getId());
 				jw.name("name").value(c.getName());
-				jw.name("pre_add").value(c.getPre_add());
-				jw.name("sec_add").value(c.getSec_add());
+				jw.name("preAdd").value(c.getPreAdd());
+				jw.name("secAdd").value(c.getSecAdd());
 				jw.name("mobile").value(c.getMobile());
 				jw.name("phone").value(c.getPhone());
 				jw.name("state").value(c.getState());
 				jw.name("city").value(c.getCity());
-				jw.name("pin_code").value(c.getPin_code());
-				jw.name("own_name").value(c.getOwn_name());
-				jw.name("pan_no").value(c.getPan_no());
-				jw.name("op_bal").value(c.getOp_bal());
+				jw.name("pinCode").value(c.getPinCode());
+				jw.name("ownName").value(c.getOwnName());
+				jw.name("panNo").value(c.getPanNo());
+				jw.name("opBal").value(c.getOpBal());
 
 				jw.endObject();
 			}

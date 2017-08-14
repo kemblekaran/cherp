@@ -25,15 +25,15 @@ public class CleanersServlet extends HttpServlet {
 	private String id = "";
 	private String fname = "";
 	private String lname = "";
-	private String cur_add = "";
-	private String per_add = "";
+	private String curAdd = "";
+	private String perAdd = "";
 	private String state = "";
 	private String city = "";
 	private String mobile = "";
 	private String phone = "";
-	private String dr_lisence = "";
-	private String pan_no = "";
-	private String adhaar_no = "";
+	private String drLisence = "";
+	private String panNo = "";
+	private String adhaarNo = "";
 	private String photo = "";
 	private String operation = "";
 
@@ -42,15 +42,15 @@ public class CleanersServlet extends HttpServlet {
 	private String rowId = "";
 	private String updatedCellFname = "";
 	private String updatedCellLname = "";
-	private String updatedCur_add = "";
-	private String updatedPer_add = "";
+	private String updatedCurAdd = "";
+	private String updatedPerAdd = "";
 	private String updatedCellState = "";
 	private String updatedCellCity = "";
 	private String updatedCellMobile = "";
 	private String updatedCellPhone = "";
-	private String updatedCellDr_lisence = "";
-	private String updatedCellPan_no = "";
-	private String updatedCellAdhaar_no = "";
+	private String updatedCellDrLisence = "";
+	private String updatedCellPanNo = "";
+	private String updatedCellAdhaarNo = "";
 	private String updatedCellPhoto = "";
 
 	public CleanersServlet() {
@@ -62,6 +62,7 @@ public class CleanersServlet extends HttpServlet {
 	public void getParaValues(HttpServletRequest request, HttpServletResponse response) {
 		// Add Update Or Delete Parameters
 		operation = request.getParameter("operation");
+		System.out.println("Name:"+fname);
 
 		// context para for json files location
 		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
@@ -69,30 +70,30 @@ public class CleanersServlet extends HttpServlet {
 		// Insert Form Parameters
 		fname = request.getParameter("fname");
 		lname = request.getParameter("lname");
-		cur_add = request.getParameter("cur_add");
-		per_add = request.getParameter("per_add");
+		curAdd = request.getParameter("curAdd");
+		perAdd = request.getParameter("perAdd");
 		state = request.getParameter("state");
 		city = request.getParameter("city");
 		mobile = request.getParameter("mobile");
 		phone = request.getParameter("phone");
-		dr_lisence = request.getParameter("dr_lisence");
-		pan_no = request.getParameter("pan_no");
-		adhaar_no = request.getParameter("adhaar_no");
+		drLisence = request.getParameter("drLisence");
+		panNo = request.getParameter("panNo");
+		adhaarNo = request.getParameter("adhaarNo");
 		photo = request.getParameter("photo");
 
 		// Update Or Delete Parameters
 		rowId = request.getParameter("updatedRow[id]");
 		updatedCellFname = request.getParameter("updatedRow[fname]");
 		updatedCellLname = request.getParameter("updatedRow[lname]");
-		updatedCur_add = request.getParameter("updatedRow[cur_add]");
-		updatedPer_add = request.getParameter("updatedRow[per_add]");
+		updatedCurAdd = request.getParameter("updatedRow[curAdd]");
+		updatedPerAdd = request.getParameter("updatedRow[perAdd]");
 		updatedCellState = request.getParameter("updatedRow[state]");
 		updatedCellCity = request.getParameter("updatedRow[city]");
 		updatedCellMobile = request.getParameter("updatedRow[mobile]");
 		updatedCellPhone = request.getParameter("updatedRow[phone]");
-		updatedCellDr_lisence = request.getParameter("updatedRow[dr_lisence]");
-		updatedCellPan_no = request.getParameter("updatedRow[pan_no]");
-		updatedCellAdhaar_no = request.getParameter("updatedRow[adhaar_no]");
+		updatedCellDrLisence = request.getParameter("updatedRow[drLisence]");
+		updatedCellPanNo = request.getParameter("updatedRow[panNo]");
+		updatedCellAdhaarNo = request.getParameter("updatedRow[adhaarNo]");
 		updatedCellPhoto = request.getParameter("updatedRow[photo]");
 
 	}
@@ -100,7 +101,7 @@ public class CleanersServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		System.out.println("In ExpensesServlet");
+		System.out.println("In Cleansers Servlet");
 
 		PrintWriter pw = response.getWriter();
 
@@ -118,15 +119,15 @@ public class CleanersServlet extends HttpServlet {
 
 				cls.setFname(fname);
 				cls.setLname(lname);
-				cls.setCur_add(cur_add);
-				cls.setPer_add(per_add);
+				cls.setCurAdd(curAdd);
+				cls.setPerAdd(perAdd);
 				cls.setState(state);
 				cls.setCity(city);
 				cls.setMobile(Integer.parseInt(mobile));
 				cls.setPhone(Integer.parseInt(phone));
-				cls.setDr_lisence(Integer.parseInt(dr_lisence));
-				cls.setPan_no(Integer.parseInt(pan_no));
-				cls.setAdhaar_no(Integer.parseInt(adhaar_no));
+				cls.setDrLisence(Integer.parseInt(drLisence));
+				cls.setPanNo(Integer.parseInt(panNo));
+				cls.setAdhaarNo(Integer.parseInt(adhaarNo));
 				cls.setPhoto(photo);
 
 				operationResp = cdm.addData(cls);
@@ -138,15 +139,15 @@ public class CleanersServlet extends HttpServlet {
 				cls.setId(Integer.parseInt(rowId));
 				cls.setFname(updatedCellFname);
 				cls.setLname(updatedCellLname);
-				cls.setCur_add(updatedCur_add);
-				cls.setPer_add(updatedPer_add);
+				cls.setCurAdd(updatedCurAdd);
+				cls.setPerAdd(updatedPerAdd);
 				cls.setState(updatedCellState);
 				cls.setCity(updatedCellCity);
 				cls.setMobile(Integer.parseInt(updatedCellMobile));
 				cls.setPhone(Integer.parseInt(updatedCellPhone));
-				cls.setDr_lisence(Integer.parseInt(updatedCellDr_lisence));
-				cls.setPan_no(Integer.parseInt(updatedCellPan_no));
-				cls.setAdhaar_no(Integer.parseInt(updatedCellAdhaar_no));
+				cls.setDrLisence(Integer.parseInt(updatedCellDrLisence));
+				cls.setPanNo(Integer.parseInt(updatedCellPanNo));
+				cls.setAdhaarNo(Integer.parseInt(updatedCellAdhaarNo));
 				cls.setPhoto(updatedCellPhoto);
 
 				operationResp = cdm.updateData(cls);
@@ -174,29 +175,30 @@ public class CleanersServlet extends HttpServlet {
 
 			Writer writer = new FileWriter(jsonFilePath+"cleaners.json");
 			JsonWriter jw = new JsonWriter(writer);
-			jw.beginObject();
+			jw.beginObject();//{
 			jw.name("data");
-			jw.beginArray();
+			jw.beginArray();//[
 			for (Cleaners c : clsList) {
-				jw.beginObject();
+				jw.beginObject();//{
+				
 				jw.name("id").value(c.getId());
 				jw.name("fname").value(c.getFname());
 				jw.name("lname").value(c.getLname());
-				jw.name("cur_add").value(c.getCur_add());
-				jw.name("per_add").value(c.getPer_add());
+				jw.name("curAdd").value(c.getCurAdd());
+				jw.name("perAdd").value(c.getPerAdd());
 				jw.name("state").value(c.getState());
 				jw.name("city").value(c.getCity());
 				jw.name("mobile").value(c.getMobile());
 				jw.name("phone").value(c.getPhone());
-				jw.name("dr_lisence").value(c.getDr_lisence());
-				jw.name("pan_no").value(c.getPan_no());
-				jw.name("adhaar_no").value(c.getAdhaar_no());
+				jw.name("drLisence").value(c.getDrLisence());
+				jw.name("panNo").value(c.getPanNo());
+				jw.name("adhaarNo").value(c.getAdhaarNo());
 				jw.name("photo").value(c.getPhoto());
 
-				jw.endObject();
+				jw.endObject();//}
 			}
-			jw.endArray();
-			jw.endObject();
+			jw.endArray();//]
+			jw.endObject();//}
 			jw.close();
 		} catch (Exception e) {
 		}

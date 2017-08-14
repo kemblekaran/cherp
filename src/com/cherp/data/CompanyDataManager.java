@@ -19,6 +19,7 @@ public class CompanyDataManager {
 	private String response = "";
 	private boolean hasRecord;
 	PreparedStatement ps;
+
 	// insert data into database
 	public String addData(Company comp) {
 
@@ -30,30 +31,30 @@ public class CompanyDataManager {
 			con = handler.getConnection();
 
 			Statement stmt = con.createStatement();
-			String query = "insert into company(name,pre_add,sec_add,mobile,phone,state,city,pin_code,own_name,pan_no,op_bal,status)values( ?,?,?,?,?,?,?,?,?,?,?,?)";
+			String query = "insert into company(name,preAdd,secAdd,mobile,phone,state,city,pinCode,ownName,panNo,opBal,status)values( ?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			// String squery = "select * from product where prodName='" +
 			// prod.getProd_name() + "'";
 			ps = con.prepareStatement(query);
-			
+
 			ps.setString(1, comp.getName());
-			ps.setString(2, comp.getPre_add());
-			ps.setString(3, comp.getSec_add());
+			ps.setString(2, comp.getPreAdd());
+			ps.setString(3, comp.getSecAdd());
 			ps.setInt(4, comp.getMobile());
 			ps.setInt(5, comp.getPhone());
 			ps.setString(6, comp.getState());
 			ps.setString(7, comp.getCity());
-			ps.setInt(8, comp.getPin_code());
-			ps.setString(9, comp.getOwn_name());
-			ps.setInt(10, comp.getPan_no());
-			ps.setInt(11, comp.getOp_bal());
+			ps.setInt(8, comp.getPinCode());
+			ps.setString(9, comp.getOwnName());
+			ps.setInt(10, comp.getPanNo());
+			ps.setInt(11, comp.getOpBal());
 			ps.setInt(12, comp.getStatus());
-			
-//			System.out.println(query);
+
+			// System.out.println(query);
 			// check if record already exists or not
 			// boolean hasRecord = hasData(stmt, squery);
 			// if (hasRecord) {
-//			stmt.execute(query);
+			// stmt.execute(query);
 			ps.executeUpdate();
 			response = "Data added successfully!";
 			// }
@@ -74,8 +75,7 @@ public class CompanyDataManager {
 
 			Statement stmt = con.createStatement();
 
-			String uquery = "update company set name=?,pre_add=? ,sec_add=? ,mobile=?,phone=? ,"
-					+ "state=? ,city=? ,pin_code='? ,own_name=? ,pan_no=? ,op_bal=? where id=?";
+			String uquery = "update company set name=?,preAdd=? ,secAdd=? ,mobile=?,phone=?,state=? ,city=? ,pinCode=? ,ownName=? ,panNo=? ,opBal=? where id=?";
 
 			String squery = "select * from company where name='" + comp.getName() + "'";
 			// String squery = "select * from company where prodName='" +
@@ -86,26 +86,25 @@ public class CompanyDataManager {
 			// hasRecord = hasData(stmt, squery);
 
 			// if (hasRecord) {
-			
+
 			ps = con.prepareStatement(uquery);
-			
+
 			ps.setString(1, comp.getName());
-			ps.setString(2, comp.getPre_add());
-			ps.setString(3, comp.getSec_add());
+			ps.setString(2, comp.getPreAdd());
+			ps.setString(3, comp.getSecAdd());
 			ps.setInt(4, comp.getMobile());
 			ps.setInt(5, comp.getPhone());
 			ps.setString(6, comp.getState());
 			ps.setString(7, comp.getCity());
-			ps.setInt(8, comp.getPin_code());
-			ps.setString(9, comp.getOwn_name());
-			ps.setInt(10, comp.getPan_no());
-			ps.setInt(11, comp.getOp_bal());
+			ps.setInt(8, comp.getPinCode());
+			ps.setString(9, comp.getOwnName());
+			ps.setInt(10, comp.getPanNo());
+			ps.setInt(11, comp.getOpBal());
 			ps.setInt(12, comp.getId());
 			ps.executeUpdate();
-			
-//			stmt.executeUpdate(uquery);
+
+			// stmt.executeUpdate(uquery);
 			// }
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -127,15 +126,16 @@ public class CompanyDataManager {
 
 			Statement stmt = con.createStatement();
 
-			String dquery = "update company set status=? where id=?" ;
-					
+			String dquery = "update company set status=? where id=?";
+
 			ps = con.prepareStatement(dquery);
 
 			ps.setInt(1, comp.getStatus());
-			ps.setInt(2, comp.getId());;
-			
+			ps.setInt(2, comp.getId());
+			;
+
 			ps.executeUpdate();
-//			stmt.executeUpdate(dquery);
+			// stmt.executeUpdate(dquery);
 			response = "Data deleted successfully";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -163,18 +163,17 @@ public class CompanyDataManager {
 				Company comp = new Company();
 				comp.setId(rs.getInt("id"));
 				comp.setName(rs.getString("name"));
-				comp.setPre_add(rs.getString("pre_add"));
-				comp.setSec_add(rs.getString("sec_add"));
+				comp.setPreAdd(rs.getString("preAdd"));
+				comp.setSecAdd(rs.getString("secAdd"));
 				comp.setMobile(rs.getInt("mobile"));
 				comp.setPhone(rs.getInt("phone"));
 				comp.setState(rs.getString("state"));
 				comp.setCity(rs.getString("city"));
-				comp.setPin_code(rs.getInt("pin_code"));
-				comp.setOwn_name(rs.getString("own_name"));
-				comp.setPan_no(rs.getInt("pan_no"));
-				comp.setOp_bal(rs.getInt("op_bal"));
-				
-				
+				comp.setPinCode(rs.getInt("pinCode"));
+				comp.setOwnName(rs.getString("ownName"));
+				comp.setPanNo(rs.getInt("panNo"));
+				comp.setOpBal(rs.getInt("opBal"));
+
 				compList.add(comp);
 			}
 
