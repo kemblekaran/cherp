@@ -7,7 +7,7 @@ public class Van {
 	private String vanModel;
 	private String ownerName;
 	private int fitness;
-	private int capacity;
+	private int vanCapacity;
 	private int insuranceNo;
 	private String insStartDate;
 	private String insEndDate;
@@ -64,12 +64,12 @@ public class Van {
 		this.fitness = fitness;
 	}
 
-	public int getCapacity() {
-		return capacity;
+	public int getVanCapacity() {
+		return vanCapacity;
 	}
 
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
+	public void setVanCapacity(int vanCapacity) {
+		this.vanCapacity = vanCapacity;
 	}
 
 	public int getInsuranceNo() {

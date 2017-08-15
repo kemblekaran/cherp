@@ -33,7 +33,7 @@ create table state(id int auto_increment,stateName varchar(255) ,status int,prim
 
 create table user(id int auto_increment,name varchar(255) , pwd varchar(255), status int,primary key(id));
 
-create table van(id int auto_increment,vanNumber varchar(255),companyName varchar(255),Vanmodel varchar(255),ownerName varchar(255),fitness int,capacity int,insuranceNo int,insStartDate varchar(255),
+create table van(id int auto_increment,vanNumber varchar(255),companyName varchar(255),VanModel varchar(255),ownerName varchar(255),fitness int,vanCapacity int,insuranceNo int,insStartDate varchar(255),
 insEndDate varchar(255),permitNo int,permitStartDate varchar(255),permitEndDate varchar(255),status
 int,primary key(id));
 

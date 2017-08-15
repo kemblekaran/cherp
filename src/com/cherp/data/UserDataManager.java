@@ -17,6 +17,7 @@ public class UserDataManager {
 	private String response = "";
 	private boolean hasRecord;
 	PreparedStatement ps;
+
 	// insert data into database
 	public String addData(User user) {
 
@@ -28,25 +29,24 @@ public class UserDataManager {
 			con = handler.getConnection();
 
 			Statement stmt = con.createStatement();
-			String query = "insert into user(name,pwd,status) values( ?,?,?)";
-//			String squery = "select * from user where name='" + user.getUsername() + "'";
+			String squery = "select username from user where username='"+user.getUsername()+"'";
+			String query = "insert into user(username,password,status) values(?,?,?)";
 
+			boolean hasRecord = hasData(stmt, squery);
+			if(hasRecord) {
+			// inserts New User into database
 			ps = con.prepareStatement(query);
-			
+
 			ps.setString(1, user.getUsername());
 			ps.setString(2, user.getPassword());
 			ps.setInt(3, user.getStatus());
-			
-			ps.executeUpdate();
-			
-			response = "Data Added Succefully";
-			
-			// check if record already exists or not
-//			boolean hasRecord = hasData(stmt, squery);
-//			if (hasRecord) {
-//				stmt.execute(query);
-//			}
 
+			ps.executeUpdate();
+			response = "User Added Successfully!";
+			}
+			else {
+				response = "User Already Exist";
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -63,10 +63,9 @@ public class UserDataManager {
 
 			Statement stmt = con.createStatement();
 
-			String uquery = "update user set name = ? where id = ?";
-			String squery = "select * from user where name='" + user.getUsername() + "'";
+			String uquery = "update user set username = ? where id = ?";
+			String squery = "select * from user where username='" + user.getUsername() + "'";
 
-			
 			// check if record already exists or not
 			hasRecord = hasData(stmt, squery);
 			if (hasRecord) {
@@ -75,7 +74,10 @@ public class UserDataManager {
 				pst.setString(1, user.getUsername());
 				pst.setInt(2, user.getId());
 				pst.executeUpdate();
+				response = "User Updated Successfully";
 				System.out.println("Update Finished!");
+			} else {
+				response = "User Already Exist!";
 			}
 
 		} catch (Exception e) {
@@ -105,9 +107,7 @@ public class UserDataManager {
 			ps.setInt(2, user.getId());
 
 			ps.executeUpdate();
-			response = "Data deleted succesfully";
-//			stmt.executeUpdate(dquery);
-			response = "Data deleted succesfully";
+			response = "User deleted succesfully";
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -133,15 +133,12 @@ public class UserDataManager {
 			while (rs.next()) {
 				User user = new User();
 				user.setId(rs.getInt("id"));
-				user.setUsername(rs.getString("name"));
-				user.setPassword(rs.getString("pwd"));
+				user.setUsername(rs.getString("username"));
+				user.setPassword(rs.getString("password"));
 				userList.add(user);
 
 			}
 
-			// for(User u : userList) {
-			// System.out.println("Uname:"+u.getUsername()+", Pass:"+u.getPassword());
-			// }
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -152,12 +149,9 @@ public class UserDataManager {
 	// It return if data exists or not
 	private boolean hasData(Statement stmt, String squery) throws SQLException {
 		ResultSet rs = stmt.executeQuery(squery);
-
 		if (!rs.next()) {
-			response = "Data added successfully!";
 			return true;
 		} else {
-			response = "Data already exists!";
 			return false;
 		}
 

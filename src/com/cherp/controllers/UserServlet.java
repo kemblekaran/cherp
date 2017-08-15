@@ -22,14 +22,14 @@ public class UserServlet extends HttpServlet {
 	
 	private String jsonFilePath;
 
-	private String name = "";
-	private String pwd = "";
+	private String username = "";
+	private String password = "";
 	private String operation = "";
 
 	private String operationResp = "";
 
 	private String rowId = "";
-	private String updatedUName = "";
+	private String updatedCellUsername = "";
 
 	public UserServlet() {
 		super();
@@ -45,12 +45,14 @@ public class UserServlet extends HttpServlet {
 				System.out.println(jsonFilePath);
 		
 		//Insert Form Parameters
-		name = request.getParameter("username");
-		pwd = request.getParameter("password");
-		System.out.println("username="+name);
+		username = request.getParameter("username");
+		password = request.getParameter("password");
+		
+		System.out.println("username="+username);
+		
 		//Update Or Delete Parameters
 		rowId = request.getParameter("updatedRow[id]");
-		updatedUName = request.getParameter("updatedRow[username]");
+		updatedCellUsername = request.getParameter("updatedRow[username]");
 		
 	}
 
@@ -66,16 +68,18 @@ public class UserServlet extends HttpServlet {
 
 		UserDataManager udm = new UserDataManager();
 		User user = new User();
+		
 		System.out.println("Data = "+operation);
-		System.out.println("Name="+name);
 		
 		if (operation != null) {
 			//For insert set ALL Parameters except ID
 			if (operation.equals("insert")) {
 				
 				System.out.println("Insert Function");
-				user.setUsername(name);
-				user.setPassword(pwd);
+				
+				user.setUsername(username);
+				user.setPassword(password);
+				
 				operationResp = udm.addData(user);
 				pw.println(operationResp);
 				
@@ -83,7 +87,7 @@ public class UserServlet extends HttpServlet {
 				//For update set ALL Parameters
 				System.out.println("Update Function");
 				user.setId(Integer.parseInt(rowId));
-				user.setUsername(updatedUName);
+				user.setUsername(updatedCellUsername);
 				operationResp = udm.updateData(user);
 				pw.println(operationResp);
 				

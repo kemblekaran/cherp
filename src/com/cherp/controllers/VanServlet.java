@@ -23,7 +23,7 @@ import com.google.gson.stream.JsonWriter;
 public class VanServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private String jsonFilePath;
 
 	private String vanNumber = "";
@@ -31,7 +31,7 @@ public class VanServlet extends HttpServlet {
 	private String vanModel = "";
 	private String ownerName = "";
 	private String fitness = "";
-	private String capacity = "";
+	private String vanCapacity = "";
 	private String insuranceNo = "";
 	private String insStartDate = "";
 	private String insEndDate = "";
@@ -50,8 +50,8 @@ public class VanServlet extends HttpServlet {
 	private String updatedCellVanModel = "";
 	private String updatedCellOwnerName = "";
 	private String updatedCellFitness = "";
-	private String updatedCellCapacity = "";
-	private String updatedCellInsurance = "";
+	private String updatedCellVanCapacity = "";
+	private String updatedCellInsuranceNo = "";
 	private String updatedCellInsStartDate = "";
 	private String updatedCellInsEndDate = "";
 	private String updatedCellPermitNo = "";
@@ -70,7 +70,6 @@ public class VanServlet extends HttpServlet {
 
 		// context para for json files location
 		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
-		
 
 		// Insert Form Parameters
 
@@ -79,7 +78,7 @@ public class VanServlet extends HttpServlet {
 		vanModel = request.getParameter("vanModel");
 		ownerName = request.getParameter("ownerName");
 		fitness = request.getParameter("fitness");
-		capacity = request.getParameter("capacity");
+		vanCapacity = request.getParameter("vanCapacity");
 		insuranceNo = request.getParameter("insuranceNo");
 		insStartDate = request.getParameter("insStartDate");
 		insEndDate = request.getParameter("insEndDate");
@@ -90,17 +89,17 @@ public class VanServlet extends HttpServlet {
 		// Update Or Delete Parameters
 		rowId = request.getParameter("updatedRow[id]");
 		updatedCellVanNumber = request.getParameter("updatedRow[vanNumber]");
-		updatedCellCompanyName = request.getParameter("updatedRow[company_name]");
+		updatedCellCompanyName = request.getParameter("updatedRow[companyName]");
 		updatedCellVanModel = request.getParameter("updatedRow[vanModel]");
-		updatedCellOwnerName = request.getParameter("updatedRow[owner_name]");
+		updatedCellOwnerName = request.getParameter("updatedRow[ownerName]");
 		updatedCellFitness = request.getParameter("updatedRow[fitness]");
-		updatedCellCapacity = request.getParameter("updatedRow[capacity]");
-		updatedCellInsurance = request.getParameter("updatedRow[insurance]");
-		updatedCellInsStartDate = request.getParameter("updatedRow[insurance_start_date]");
-		updatedCellInsEndDate = request.getParameter("updatedRow[insurance_end_date]");
-		updatedCellPermitNo = request.getParameter("updatedRow[permit_no]");
-		updatedCellPermitStartDate = request.getParameter("updatedRow[permit_start_date]");
-		updatedCellPermitEndDate = request.getParameter("updatedRow[permit_end_date]");
+		updatedCellVanCapacity = request.getParameter("updatedRow[vanCapacity]");
+		updatedCellInsuranceNo = request.getParameter("updatedRow[insuranceNo]");
+		updatedCellInsStartDate = request.getParameter("updatedRow[insStartDate]");
+		updatedCellInsEndDate = request.getParameter("updatedRow[insEndDate]");
+		updatedCellPermitNo = request.getParameter("updatedRow[permitNo]");
+		updatedCellPermitStartDate = request.getParameter("updatedRow[permitStartDate]");
+		updatedCellPermitEndDate = request.getParameter("updatedRow[permitEndDate]");
 
 	}
 
@@ -126,7 +125,7 @@ public class VanServlet extends HttpServlet {
 				van.setVanModel(vanModel);
 				van.setOwnerName(ownerName);
 				van.setFitness(Integer.parseInt(fitness));
-				van.setCapacity(Integer.parseInt(capacity));
+				van.setVanCapacity(Integer.parseInt(vanCapacity));
 				van.setInsuranceNo(Integer.parseInt(insuranceNo));
 				van.setInsStartDate(insStartDate);
 				van.setInsEndDate(insEndDate);
@@ -146,8 +145,8 @@ public class VanServlet extends HttpServlet {
 				van.setVanModel(updatedCellVanModel);
 				van.setOwnerName(updatedCellOwnerName);
 				van.setFitness(Integer.parseInt(updatedCellFitness));
-				van.setCapacity(Integer.parseInt(updatedCellCapacity));
-				van.setInsuranceNo(Integer.parseInt(updatedCellInsurance));
+				van.setVanCapacity(Integer.parseInt(updatedCellVanCapacity));
+				van.setInsuranceNo(Integer.parseInt(updatedCellInsuranceNo));
 				van.setInsStartDate(updatedCellInsStartDate);
 				van.setInsEndDate(updatedCellInsEndDate);
 				van.setPermitNo(Integer.parseInt(updatedCellPermitNo));
@@ -178,7 +177,7 @@ public class VanServlet extends HttpServlet {
 	public void jsonFileWriter(List<Van> vanList) {
 		try {
 			Writer writer = new FileWriter(jsonFilePath + "van.json");
-			
+
 			JsonWriter jw = new JsonWriter(writer);
 			jw.beginObject();
 			jw.name("data");
@@ -192,7 +191,7 @@ public class VanServlet extends HttpServlet {
 				jw.name("vanModel").value(v.getVanModel());
 				jw.name("ownerName").value(v.getOwnerName());
 				jw.name("fitness").value(v.getFitness());
-				jw.name("capacity").value(v.getCapacity());
+				jw.name("vanCapacity").value(v.getVanCapacity());
 				jw.name("insuranceNo").value(v.getInsuranceNo());
 				jw.name("insStartDate").value(v.getInsStartDate());
 				jw.name("insEndDate").value(v.getInsEndDate());
