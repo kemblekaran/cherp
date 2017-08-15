@@ -3,7 +3,6 @@ package com.cherp.data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +14,8 @@ public class ProductDataManager {
 	private DBHandler handler;
 	private Connection con;
 	private String response = "";
-	private boolean hasRecord;
 	PreparedStatement ps;
+
 	// insert data into database
 	public String addData(Product prod) {
 
@@ -27,26 +26,23 @@ public class ProductDataManager {
 			handler = DBHandler.getInstance();
 			con = handler.getConnection();
 
-			Statement stmt = con.createStatement();
 			String query = "insert into product(prodName,prodType,status)values( ?,?,?)";
 
-//			String squery = "select * from product where prodName='" + prod.getProd_name() + "'";
-
 			ps = con.prepareStatement(query);
-			
+
 			ps.setString(1, prod.getProd_name());
 			ps.setString(2, prod.getProd_type());
 			ps.setInt(3, prod.getStatus());
-			
+
 			ps.executeUpdate();
-			
+
 			response = "data added successfully";
-//			System.out.println(squery);
+			// System.out.println(squery);
 			// check if record already exists or not
-//			boolean hasRecord = hasData(stmt, squery);
-//			if (hasRecord) {
-//				stmt.execute(query);
-//			}
+			// boolean hasRecord = hasData(stmt, squery);
+			// if (hasRecord) {
+			// stmt.execute(query);
+			// }
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,29 +58,17 @@ public class ProductDataManager {
 			handler = DBHandler.getInstance();
 			con = handler.getConnection();
 
-			Statement stmt = con.createStatement();
-
 			String uquery = "update product set prodName=? ,prodType=?  where id=?";
 
 			ps = con.prepareStatement(uquery);
-			
+
 			ps.setString(1, prod.getProd_name());
 			ps.setString(2, prod.getProd_type());
 			ps.setInt(3, prod.getId());
-			
-			ps.executeUpdate();
-			
-			response = "Data Updated successfully";
-//			String squery = "select * from product where prodName='" + prod.getProd_name() + "'";
 
-//			System.out.println("U:" + uquery + ",s:" + squery);
-			// check if record already exists or not
-//			hasRecord = hasData(stmt, squery);
-//			ResultSet rs;
-//			if (hasRecord) {
-//
-//				stmt.executeUpdate(uquery);
-//			}
+			ps.executeUpdate();
+
+			response = "Data Updated successfully";
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -93,9 +77,7 @@ public class ProductDataManager {
 		return response;
 	}
 
-	// delete data from datatables (changes the status in db to 0 for
-	// invisibility
-	// in datatables)
+	// delete data from datatables (changes the status in db to 0 for invisibility in datatables)
 	public String deleteData(Product prod) {
 		try {
 
@@ -104,11 +86,9 @@ public class ProductDataManager {
 			handler = DBHandler.getInstance();
 			con = handler.getConnection();
 
-			Statement stmt = con.createStatement();
-
 			String dquery = "update product set status=? where id=?";
 
-//			stmt.executeUpdate(dquery);
+			// stmt.executeUpdate(dquery);
 			ps = con.prepareStatement(dquery);
 
 			ps.setInt(1, prod.getStatus());
@@ -135,7 +115,6 @@ public class ProductDataManager {
 
 			// select if status is 1
 			String squery = "select * from product where status=1";
-			// System.out.println("Query: " + squery);
 
 			ResultSet rs = stmt.executeQuery(squery);
 			while (rs.next()) {
@@ -155,17 +134,4 @@ public class ProductDataManager {
 		return prodList;
 	}
 
-	// It return if data exists or not
-	private boolean hasData(Statement stmt, String squery) throws SQLException {
-		ResultSet rs = stmt.executeQuery(squery);
-
-		if (!rs.next()) {
-			response = "Data added successfully!";
-			return true;
-		} else {
-			response = "Data already exists!";
-			return false;
-		}
-
-	}
 }

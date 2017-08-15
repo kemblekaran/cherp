@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cherp.data.AreaDataManager;
 import com.cherp.data.ProductDataManager;
-import com.cherp.entities.Area;
 import com.cherp.entities.Product;
 import com.google.gson.stream.JsonWriter;
 
