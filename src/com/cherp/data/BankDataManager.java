@@ -10,7 +10,6 @@ import java.util.List;
 
 import com.cherp.dbconnection.DBHandler;
 import com.cherp.entities.Bank;
-import com.cherp.entities.User;
 
 public class BankDataManager {
 	private DBHandler handler;
@@ -29,7 +28,6 @@ public class BankDataManager {
 			handler = DBHandler.getInstance();
 			con = handler.getConnection();
 
-			Statement stmt = con.createStatement();
 			String query = "insert into bank(bankName,branchName,accType,accNo,ifscCode,opBal,address,status) values(?,?,?,?,?,?,?,?)";
 
 			ps = con.prepareStatement(query);
@@ -60,7 +58,6 @@ public class BankDataManager {
 			handler = DBHandler.getInstance();
 			con = handler.getConnection();
 
-			Statement stmt = con.createStatement();
 
 			String uquery = "update bank set bankName=?,branchName=?,accType=?,accNo=?,ifscCode=?,opBal=?,address=? where id = ?";
 			String squery = "select * from bank where bankName='" + bank.getBankName() + "'";
@@ -102,8 +99,6 @@ public class BankDataManager {
 			bank.setStatus(0);
 			handler = DBHandler.getInstance();
 			con = handler.getConnection();
-
-			Statement stmt = con.createStatement();
 
 			String dquery = "update bank set status=? where id=?";
 
