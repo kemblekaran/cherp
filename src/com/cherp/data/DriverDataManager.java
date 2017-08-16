@@ -31,7 +31,7 @@ public class DriverDataManager {
 
 //			Statement stmt = con.createStatement();
 			String query = "insert into driver(fname,lname,curAdd,perAdd,state,city,mobile,"
-					+ "phone,adhaarNo,panNo,drLiscense,photo,status) values( ?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					+ "phone,adhaarNo,panNo,drlicense,photo,status) values( ?,?,?,?,?,?,?,?,?,?,?,?,?)";
 //			 String squery = "select * from driver where fname='" + driver.getFname() +  "'";
 
 			ps = con.prepareStatement(query);
@@ -42,11 +42,11 @@ public class DriverDataManager {
 			ps.setString(4, driver.getPerAdd());
 			ps.setString(5,driver.getState());
 			ps.setString(6, driver.getCity());
-			ps.setInt(7, driver.getMobile());
-			ps.setInt(8, driver.getPhone());
-			ps.setInt(9, driver.getAdhaarNo());
-			ps.setInt(10, driver.getPanNo());
-			ps.setInt(11, driver.getDrLiscense());
+			ps.setLong(7, driver.getMobile());
+			ps.setLong(8, driver.getPhone());
+			ps.setString(9, driver.getAdhaarNo());
+			ps.setString(10, driver.getPanNo());
+			ps.setString(11, driver.getDrlicense());
 			ps.setString(12, driver.getPhoto());
 			ps.setInt(13, driver.getStatus());
 			
@@ -77,7 +77,7 @@ public class DriverDataManager {
 			String squery = "select * from driver where fname='" + driver.getFname() + "'";
 
 			String uquery = "update driver set fname=? ,lname=? ,curAdd=? ,perAdd=?, state=? ,city=? ,photo=? ,mobile=? ,phone=? ,"
-					+ "adhaarNo=? ,drLiscense=? ,photo=? where id=?" ;
+					+ "adhaarNo=? ,drlicense=? ,photo=? where id=?" ;
 
 			ps = con.prepareStatement(uquery);
 			
@@ -87,11 +87,11 @@ public class DriverDataManager {
 			ps.setString(4, driver.getPerAdd());
 			ps.setString(5,driver.getState());
 			ps.setString(6, driver.getCity());
-			ps.setInt(7, driver.getMobile());
-			ps.setInt(8, driver.getPhone());
-			ps.setInt(9, driver.getAdhaarNo());
-			ps.setInt(10, driver.getPanNo());
-			ps.setInt(11, driver.getDrLiscense());
+			ps.setLong(7, driver.getMobile());
+			ps.setLong(8, driver.getPhone());
+			ps.setString(9, driver.getAdhaarNo());
+			ps.setString(10, driver.getPanNo());
+			ps.setString(11, driver.getDrlicense());
 			ps.setString(12, driver.getPhoto());
 			ps.setInt(13, driver.getId());
 			
@@ -165,13 +165,13 @@ public class DriverDataManager {
 				driver.setPerAdd(rs.getString("perAdd"));
 				driver.setState(rs.getString("state"));
 				driver.setCity(rs.getString("city"));
-				driver.setPanNo(rs.getInt("panNo"));
-				driver.setAdhaarNo(rs.getInt("adhaarNo"));
-				driver.setMobile(rs.getInt("mobile"));
-				driver.setPhone(rs.getInt("phone"));
+				driver.setPanNo(rs.getString("panNo"));
+				driver.setAdhaarNo(rs.getString("adhaarNo"));		
 				driver.setPhoto(rs.getString("photo"));
-				driver.setDrLiscense(rs.getInt("drLiscense"));
-
+				driver.setDrlicense(rs.getString("drlicense"));
+				driver.setMobile(rs.getLong("mobile"));
+				driver.setPhone(rs.getLong("phone"));
+				
 				driverList.add(driver);
 
 			}

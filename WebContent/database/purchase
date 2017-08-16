@@ -25,8 +25,8 @@ perAdd varchar(255), state varchar(255), city varchar(255), area varchar(255), m
 phone long, opBal long,status int,primary key(id));
 
 create table driver(id int auto_increment,fname varchar(255),lname varchar(255),curAdd varchar(255),
-perAdd varchar(255), state varchar(255), city varchar(255), mobile long, phone long, adhaarNo long, panNo long,
-drLiscense long, photo varchar(255),status int,primary key(id));
+perAdd varchar(255), state varchar(255), city varchar(255), mobile long, phone long, adhaarNo varchar(255), panNo varchar(255),
+drlicense varchar(255), photo varchar(255),status int,primary key(id));
 
 create table expense(id int auto_increment,description varchar(1000),status int,primary key(id));
 
@@ -39,7 +39,7 @@ create table state(id int auto_increment,stateName varchar(255) ,status int,prim
 
 create table user(id int auto_increment,name varchar(255) , pwd varchar(255), status int,primary key(id));
 
-create table van(id int auto_increment,vanNumber varchar(255),companyName varchar(255),Vanmodel varchar(255),ownerName varchar(255),fitness int,capacity int,insuranceNo int,insStartDate varchar(255),
+create table van(id int auto_increment,vanNumber varchar(255),companyName varchar(255),VanModel varchar(255),ownerName varchar(255),fitness int,vanCapacity int,insuranceNo int,insStartDate varchar(255),
 insEndDate varchar(255),permitNo int,permitStartDate varchar(255),permitEndDate varchar(255),status
 int,primary key(id));
 

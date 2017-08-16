@@ -58,6 +58,7 @@ $(function() {
 		
 		if ($('#InsertForm').valid()) {
 			$('#InsertForm').submit(function(e) {
+				e.preventDefault();
 				$.ajax({
 					url : actionURL,
 					type : "POST",

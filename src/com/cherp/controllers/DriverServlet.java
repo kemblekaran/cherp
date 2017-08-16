@@ -115,12 +115,12 @@ public class DriverServlet extends HttpServlet {
 				driver.setPerAdd(perAdd);
 				driver.setState(state);
 				driver.setCity(city);
-				driver.setMobile(Integer.parseInt(mobile));
-				driver.setPhone(Integer.parseInt(phone));
-				driver.setDrLiscense(Integer.parseInt(drLiscense));
-				driver.setPanNo(Integer.parseInt(panNo));
-				driver.setAdhaarNo(Integer.parseInt(adhaarNo));
+				driver.setPanNo(panNo);
+				driver.setAdhaarNo(adhaarNo);
 				driver.setPhoto(photo);
+				driver.setMobile(Long.parseLong(mobile));
+				driver.setPhone(Long.parseLong(phone));
+				driver.setDrlicense(drLiscense);
 
 				operationResp = ddm.addData(driver);
 				pw.println(operationResp);
@@ -135,11 +135,11 @@ public class DriverServlet extends HttpServlet {
 				driver.setPerAdd(updatedCellPerAdd);
 				driver.setState(updatedCellState);
 				driver.setCity(updatedCellCity);
-				driver.setPanNo(Integer.parseInt(updatedCellPanNo));
-				driver.setAdhaarNo(Integer.parseInt(updatedCellAdhaarNo));
-				driver.setMobile(Integer.parseInt(updatedCellMobile));
-				driver.setPhone(Integer.parseInt(updatedCellPhone));
-				driver.setDrLiscense(Integer.parseInt(updatedCellDrLiscense));
+				driver.setPanNo(updatedCellPanNo);
+				driver.setAdhaarNo(updatedCellAdhaarNo);
+				driver.setMobile(Long.parseLong(updatedCellMobile));
+				driver.setPhone(Long.parseLong(updatedCellPhone));
+				driver.setDrlicense(updatedCellDrLiscense);
 				driver.setPhoto(updatedCellPhoto);
 
 				operationResp = ddm.updateData(driver);
@@ -183,7 +183,7 @@ public class DriverServlet extends HttpServlet {
 				jw.name("panNo").value(d.getPanNo());
 				jw.name("mobile").value(d.getMobile());
 				jw.name("phone").value(d.getPhone());
-				jw.name("drLiscense").value(d.getDrLiscense());
+				jw.name("drLiscense").value(d.getDrlicense());
 				jw.name("photo").value(d.getPhoto());
 				jw.endObject();
 			}
