@@ -3,8 +3,8 @@ package com.cherp.entities;
 public class Product {
 
 	private int id;
-	private String prod_name;
-	private String prod_type;
+	private String prodName;
+	private String prodType;
 	private int status;
 	public int getId() {
 		return id;
@@ -12,17 +12,18 @@ public class Product {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getProd_name() {
-		return prod_name;
+	
+	public String getProdName() {
+		return prodName;
 	}
-	public void setProd_name(String prod_name) {
-		this.prod_name = prod_name;
+	public void setProdName(String prodName) {
+		this.prodName = prodName;
 	}
-	public String getProd_type() {
-		return prod_type;
+	public String getProdType() {
+		return prodType;
 	}
-	public void setProd_type(String prod_type) {
-		this.prod_type = prod_type;
+	public void setProdType(String prodType) {
+		this.prodType = prodType;
 	}
 	public int getStatus() {
 		return status;

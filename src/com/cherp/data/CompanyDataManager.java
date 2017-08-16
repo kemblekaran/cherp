@@ -31,7 +31,7 @@ public class CompanyDataManager {
 			con = handler.getConnection();
 
 			Statement stmt = con.createStatement();
-			String query = "insert into company(name,preAdd,secAdd,mobile,phone,state,city,pinCode,ownName,panNo,opBal,status)values( ?,?,?,?,?,?,?,?,?,?,?,?)";
+			String query = "insert into company(name,preAdd,secAdd,mobile,phone,state,city,pinCode,ownerName,panNo,opBal,status)values( ?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			// String squery = "select * from product where prodName='" +
 			// prod.getProd_name() + "'";
@@ -45,7 +45,7 @@ public class CompanyDataManager {
 			ps.setString(6, comp.getState());
 			ps.setString(7, comp.getCity());
 			ps.setInt(8, comp.getPinCode());
-			ps.setString(9, comp.getOwnName());
+			ps.setString(9, comp.getOwnerName());
 			ps.setString(10, comp.getPanNo());
 			ps.setInt(11, comp.getOpBal());
 			ps.setInt(12, comp.getStatus());
@@ -75,7 +75,7 @@ public class CompanyDataManager {
 
 			Statement stmt = con.createStatement();
 
-			String uquery = "update company set name=?,preAdd=? ,secAdd=? ,mobile=?,phone=?,state=? ,city=? ,pinCode=? ,ownName=? ,panNo=? ,opBal=? where id=?";
+			String uquery = "update company set name=?,preAdd=? ,secAdd=? ,mobile=?,phone=?,state=? ,city=? ,pinCode=? ,ownerName=? ,panNo=? ,opBal=? where id=?";
 
 			String squery = "select * from company where name='" + comp.getName() + "'";
 			// String squery = "select * from company where prodName='" +
@@ -97,7 +97,7 @@ public class CompanyDataManager {
 			ps.setString(6, comp.getState());
 			ps.setString(7, comp.getCity());
 			ps.setInt(8, comp.getPinCode());
-			ps.setString(9, comp.getOwnName());
+			ps.setString(9, comp.getOwnerName());
 			ps.setString(10, comp.getPanNo());
 			ps.setInt(11, comp.getOpBal());
 			ps.setInt(12, comp.getId());
@@ -170,7 +170,7 @@ public class CompanyDataManager {
 				comp.setState(rs.getString("state"));
 				comp.setCity(rs.getString("city"));
 				comp.setPinCode(rs.getInt("pinCode"));
-				comp.setOwnName(rs.getString("ownName"));
+				comp.setOwnerName(rs.getString("ownerName"));
 				comp.setPanNo(rs.getString("panNo"));
 				comp.setOpBal(rs.getInt("opBal"));
 

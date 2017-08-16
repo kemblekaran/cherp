@@ -32,7 +32,7 @@ public class CompanyServlet extends HttpServlet {
 	private String state = "";
 	private String city = "";
 	private String pinCode = "";
-	private String ownName = "";
+	private String ownerName = "";
 	private String panNo = "";
 	private String opBal = "";
 	private String operation = "";
@@ -48,7 +48,7 @@ public class CompanyServlet extends HttpServlet {
 	private String updatedCellState = "";
 	private String updatedCellCity = "";
 	private String updatedCellPinCode = "";
-	private String updatedCellOwnName = "";
+	private String updatedCellOwnerName = "";
 	private String updatedCellPanNo = "";
 	private String updatedCellOpBal = "";
 
@@ -74,7 +74,7 @@ public class CompanyServlet extends HttpServlet {
 		state = request.getParameter("state");
 		city = request.getParameter("city");
 		pinCode = request.getParameter("pinCode");
-		ownName = request.getParameter("ownName");
+		ownerName = request.getParameter("ownerName");
 		panNo = request.getParameter("panNo");
 		opBal = request.getParameter("opBal");
 
@@ -88,7 +88,7 @@ public class CompanyServlet extends HttpServlet {
 		updatedCellState = request.getParameter("updatedRow[state]");
 		updatedCellCity = request.getParameter("updatedRow[city]");
 		updatedCellPinCode = request.getParameter("updatedRow[pinCode]");
-		updatedCellOwnName = request.getParameter("updatedRow[ownName]");
+		updatedCellOwnerName = request.getParameter("updatedRow[ownerName]");
 		updatedCellPanNo = request.getParameter("updatedRow[panNo]");
 		updatedCellOpBal = request.getParameter("updatedRow[opBal]");
 
@@ -119,7 +119,7 @@ public class CompanyServlet extends HttpServlet {
 				comp.setState(state);
 				comp.setCity(city);
 				comp.setPinCode(Integer.parseInt(pinCode));
-				comp.setOwnName(ownName);
+				comp.setOwnerName(ownerName);
 				comp.setPanNo(panNo);
 				comp.setOpBal(Integer.parseInt(opBal));
 
@@ -138,7 +138,7 @@ public class CompanyServlet extends HttpServlet {
 				comp.setState(updatedCellState);
 				comp.setCity(updatedCellCity);
 				comp.setPinCode(Integer.parseInt(updatedCellPinCode));
-				comp.setOwnName(updatedCellOwnName);
+				comp.setOwnerName(updatedCellOwnerName);
 				comp.setPanNo(updatedCellPanNo);
 				comp.setOpBal(Integer.parseInt(updatedCellOpBal));
 
@@ -180,7 +180,7 @@ public class CompanyServlet extends HttpServlet {
 				jw.name("state").value(c.getState());
 				jw.name("city").value(c.getCity());
 				jw.name("pinCode").value(c.getPinCode());
-				jw.name("ownName").value(c.getOwnName());
+				jw.name("ownerName").value(c.getOwnerName());
 				jw.name("panNo").value(c.getPanNo());
 				jw.name("opBal").value(c.getOpBal());
 

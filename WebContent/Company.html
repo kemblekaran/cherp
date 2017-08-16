@@ -134,7 +134,7 @@
 								</div>
 								<div class="form-group">
 									<label for="ownName">Owner Name</label> <input type="text"
-										class="form-control" id="ownName" name="ownName">
+										class="form-control" id="ownerName" name="ownerName">
 								</div>
 								<div class="form-group">
 									<label for="panNo">PAN No.</label> <input type="text"
@@ -194,6 +194,7 @@
 		//add data to datatable(very important)
 		var CherpDataTable = $('#dataTable').DataTable({
 			"ajax" : "/server/jsonfiles/company.json",
+			"scrollX" : true,
 			"columns" : [ {
 				"data" : "id"
 			}, {
@@ -213,7 +214,7 @@
 			}, {
 				"data" : "pinCode"
 			}, {
-				"data" : "ownName"
+				"data" : "ownerName"
 			}, {
 				"data" : "panNo"
 			}, {

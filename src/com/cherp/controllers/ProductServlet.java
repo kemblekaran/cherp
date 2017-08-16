@@ -73,8 +73,8 @@ public class ProductServlet extends HttpServlet {
 			if (operation.equals("insert")) {
 
 				System.out.println("Insert Function");
-				prod.setProd_name(prodName);
-				prod.setProd_type(prodType);
+				prod.setProdName(prodName);
+				prod.setProdType(prodType);
 
 				operationResp = pdm.addData(prod);
 				pw.println(operationResp);
@@ -83,8 +83,8 @@ public class ProductServlet extends HttpServlet {
 				// For update set ALL Parameters
 				System.out.println("Update Function");
 				prod.setId(Integer.parseInt(rowId));
-				prod.setProd_name(updatedCellProdName);
-				prod.setProd_type(updatedCellProdType);
+				prod.setProdName(updatedCellProdName);
+				prod.setProdType(updatedCellProdType);
 				operationResp = pdm.updateData(prod);
 				pw.println(operationResp);
 
@@ -118,8 +118,8 @@ public class ProductServlet extends HttpServlet {
 			for (Product p : prodList) {
 				jw.beginObject();
 				jw.name("id").value(p.getId());
-				jw.name("prodName").value(p.getProd_name());
-				jw.name("prodType").value(p.getProd_type());
+				jw.name("prodName").value(p.getProdName());
+				jw.name("prodType").value(p.getProdType());
 				jw.endObject();
 			}
 			jw.endArray();

@@ -6,6 +6,14 @@ public class Company {
 	private String name;
 	private String preAdd;
 	private String secAdd;
+	private Long phone;
+	private String state;
+	private String city;
+	private int pinCode;
+	private String ownerName;
+	private String panNo;
+	private int opBal;
+	private int status;
 	
 	public String getPanNo() {
 		return panNo;
@@ -28,14 +36,7 @@ public class Company {
 	public void setPanNo(String panNo) {
 		this.panNo = panNo;
 	}
-	private Long phone;
-	private String state;
-	private String city;
-	private int pinCode;
-	private String ownName;
-	private String panNo;
-	private int opBal;
-	private int status;
+	
 	public int getId() {
 		return id;
 	}
@@ -79,13 +80,13 @@ public class Company {
 	public void setPinCode(int pinCode) {
 		this.pinCode = pinCode;
 	}
-	public String getOwnName() {
-		return ownName;
+		
+	public String getOwnerName() {
+		return ownerName;
 	}
-	public void setOwnName(String ownName) {
-		this.ownName = ownName;
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
 	}
-	
 	public int getOpBal() {
 		return opBal;
 	}

@@ -30,8 +30,8 @@ public class ProductDataManager {
 
 			ps = con.prepareStatement(query);
 
-			ps.setString(1, prod.getProd_name());
-			ps.setString(2, prod.getProd_type());
+			ps.setString(1, prod.getProdName());
+			ps.setString(2, prod.getProdType());
 			ps.setInt(3, prod.getStatus());
 
 			ps.executeUpdate();
@@ -62,8 +62,8 @@ public class ProductDataManager {
 
 			ps = con.prepareStatement(uquery);
 
-			ps.setString(1, prod.getProd_name());
-			ps.setString(2, prod.getProd_type());
+			ps.setString(1, prod.getProdName());
+			ps.setString(2, prod.getProdType());
 			ps.setInt(3, prod.getId());
 
 			ps.executeUpdate();
@@ -120,8 +120,8 @@ public class ProductDataManager {
 			while (rs.next()) {
 				Product prod = new Product();
 				prod.setId(rs.getInt("id"));
-				prod.setProd_name(rs.getString("prodName"));
-				prod.setProd_type(rs.getString("prodType"));
+				prod.setProdName(rs.getString("prodName"));
+				prod.setProdType(rs.getString("prodType"));
 
 				prodList.add(prod);
 
