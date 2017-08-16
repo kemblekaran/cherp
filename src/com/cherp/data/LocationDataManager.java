@@ -23,7 +23,7 @@ public class LocationDataManager {
 
 		try {
 
-			String query = "insert into location(loc,status) values(?,?)";
+			String query = "insert into location(location,status) values(?,?)";
 
 			// set status 1 for area
 			loc.setStatus(1);
@@ -52,7 +52,7 @@ public class LocationDataManager {
 	public String updateData(Location loc) {
 		try {
 
-			String uquery = "update location set loc=? where id=?";
+			String uquery = "update location set location=? where id=?";
 
 			handler = DBHandler.getInstance();
 			con = handler.getConnection();
@@ -123,7 +123,7 @@ public class LocationDataManager {
 			while (rs.next()) {
 				Location loc = new Location();
 				loc.setId(rs.getInt("id"));
-				loc.setLocation(rs.getString("loc"));
+				loc.setLocation(rs.getString("location"));
 
 				locList.add(loc);
 			}
