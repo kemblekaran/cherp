@@ -40,13 +40,13 @@ public class CompanyDataManager {
 			ps.setString(1, comp.getName());
 			ps.setString(2, comp.getPreAdd());
 			ps.setString(3, comp.getSecAdd());
-			ps.setInt(4, comp.getMobile());
-			ps.setInt(5, comp.getPhone());
+			ps.setLong(4, comp.getMobile());
+			ps.setLong(5, comp.getPhone());
 			ps.setString(6, comp.getState());
 			ps.setString(7, comp.getCity());
 			ps.setInt(8, comp.getPinCode());
 			ps.setString(9, comp.getOwnName());
-			ps.setInt(10, comp.getPanNo());
+			ps.setString(10, comp.getPanNo());
 			ps.setInt(11, comp.getOpBal());
 			ps.setInt(12, comp.getStatus());
 
@@ -92,13 +92,13 @@ public class CompanyDataManager {
 			ps.setString(1, comp.getName());
 			ps.setString(2, comp.getPreAdd());
 			ps.setString(3, comp.getSecAdd());
-			ps.setInt(4, comp.getMobile());
-			ps.setInt(5, comp.getPhone());
+			ps.setLong(4, comp.getMobile());
+			ps.setLong(5, comp.getPhone());
 			ps.setString(6, comp.getState());
 			ps.setString(7, comp.getCity());
 			ps.setInt(8, comp.getPinCode());
 			ps.setString(9, comp.getOwnName());
-			ps.setInt(10, comp.getPanNo());
+			ps.setString(10, comp.getPanNo());
 			ps.setInt(11, comp.getOpBal());
 			ps.setInt(12, comp.getId());
 			ps.executeUpdate();
@@ -165,13 +165,13 @@ public class CompanyDataManager {
 				comp.setName(rs.getString("name"));
 				comp.setPreAdd(rs.getString("preAdd"));
 				comp.setSecAdd(rs.getString("secAdd"));
-				comp.setMobile(rs.getInt("mobile"));
-				comp.setPhone(rs.getInt("phone"));
+				comp.setMobile(rs.getLong("mobile"));
+				comp.setPhone(rs.getLong("phone"));
 				comp.setState(rs.getString("state"));
 				comp.setCity(rs.getString("city"));
 				comp.setPinCode(rs.getInt("pinCode"));
 				comp.setOwnName(rs.getString("ownName"));
-				comp.setPanNo(rs.getInt("panNo"));
+				comp.setPanNo(rs.getString("panNo"));
 				comp.setOpBal(rs.getInt("opBal"));
 
 				compList.add(comp);

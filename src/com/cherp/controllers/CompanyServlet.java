@@ -114,13 +114,13 @@ public class CompanyServlet extends HttpServlet {
 				comp.setName(name);
 				comp.setPreAdd(preAdd);
 				comp.setSecAdd(secAdd);
-				comp.setMobile(Integer.parseInt(mobile));
-				comp.setPhone(Integer.parseInt(phone));
+				comp.setMobile(Long.parseLong(mobile));
+				comp.setPhone(Long.parseLong(phone));
 				comp.setState(state);
 				comp.setCity(city);
 				comp.setPinCode(Integer.parseInt(pinCode));
 				comp.setOwnName(ownName);
-				comp.setPanNo(Integer.parseInt(panNo));
+				comp.setPanNo(panNo);
 				comp.setOpBal(Integer.parseInt(opBal));
 
 				operationResp = cdm.addData(comp);
@@ -133,13 +133,13 @@ public class CompanyServlet extends HttpServlet {
 				comp.setName(updatedCellName);
 				comp.setPreAdd(updatedCellPreAdd);
 				comp.setSecAdd(updatedCellSecAdd);
-				comp.setMobile(Integer.parseInt(updatedCellMobile));
-				comp.setPhone(Integer.parseInt(updatedCellPhone));
+				comp.setMobile(Long.parseLong(updatedCellMobile));
+				comp.setPhone(Long.parseLong(updatedCellPhone));
 				comp.setState(updatedCellState);
 				comp.setCity(updatedCellCity);
 				comp.setPinCode(Integer.parseInt(updatedCellPinCode));
 				comp.setOwnName(updatedCellOwnName);
-				comp.setPanNo(Integer.parseInt(updatedCellPanNo));
+				comp.setPanNo(updatedCellPanNo);
 				comp.setOpBal(Integer.parseInt(updatedCellOpBal));
 
 				operationResp = cdm.updateData(comp);

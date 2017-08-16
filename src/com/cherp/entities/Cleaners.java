@@ -9,11 +9,11 @@ public class Cleaners {
 	private String perAdd;
 	private String state;
 	private String city;
-	private int mobile;
-	private int phone;
-	private int drLisence;
-	private int panNo;
-	private int adhaarNo;
+	private long mobile;
+	private long phone;
+	private String drLicense;
+	private String panNo;
+	private String adhaarNo;
 	private String photo;
 	private int status;
 	
@@ -59,34 +59,37 @@ public class Cleaners {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public int getMobile() {
+	public long getMobile() {
 		return mobile;
 	}
-	public void setMobile(int mobile) {
+	public void setMobile(long mobile) {
 		this.mobile = mobile;
 	}
-	public int getPhone() {
+	public long getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(long phone) {
 		this.phone = phone;
 	}
-	public int getDrLisence() {
-		return drLisence;
+	
+	
+	public String getDrLicense() {
+		return drLicense;
 	}
-	public void setDrLisence(int drLisence) {
-		this.drLisence = drLisence;
+	public void setDrLicense(String drLicense) {
+		this.drLicense = drLicense;
 	}
-	public int getPanNo() {
+	public String getPanNo() {
 		return panNo;
 	}
-	public void setPanNo(int panNo) {
+	public void setPanNo(String panNo) {
 		this.panNo = panNo;
 	}
-	public int getAdhaarNo() {
+	
+	public String getAdhaarNo() {
 		return adhaarNo;
 	}
-	public void setAdhaarNo(int adhaarNo) {
+	public void setAdhaarNo(String adhaarNo) {
 		this.adhaarNo = adhaarNo;
 	}
 	public String getPhoto() {
@@ -101,5 +104,7 @@ public class Cleaners {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	
+	
 	
 }

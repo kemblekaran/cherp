@@ -31,7 +31,7 @@ public class CleanersServlet extends HttpServlet {
 	private String city = "";
 	private String mobile = "";
 	private String phone = "";
-	private String drLisence = "";
+	private String drLicense = "";
 	private String panNo = "";
 	private String adhaarNo = "";
 	private String photo = "";
@@ -48,7 +48,7 @@ public class CleanersServlet extends HttpServlet {
 	private String updatedCellCity = "";
 	private String updatedCellMobile = "";
 	private String updatedCellPhone = "";
-	private String updatedCellDrLisence = "";
+	private String updatedCellDrLicense = "";
 	private String updatedCellPanNo = "";
 	private String updatedCellAdhaarNo = "";
 	private String updatedCellPhoto = "";
@@ -76,7 +76,7 @@ public class CleanersServlet extends HttpServlet {
 		city = request.getParameter("city");
 		mobile = request.getParameter("mobile");
 		phone = request.getParameter("phone");
-		drLisence = request.getParameter("drLisence");
+		drLicense = request.getParameter("drLicense");
 		panNo = request.getParameter("panNo");
 		adhaarNo = request.getParameter("adhaarNo");
 		photo = request.getParameter("photo");
@@ -91,7 +91,7 @@ public class CleanersServlet extends HttpServlet {
 		updatedCellCity = request.getParameter("updatedRow[city]");
 		updatedCellMobile = request.getParameter("updatedRow[mobile]");
 		updatedCellPhone = request.getParameter("updatedRow[phone]");
-		updatedCellDrLisence = request.getParameter("updatedRow[drLisence]");
+		updatedCellDrLicense = request.getParameter("updatedRow[drLicense]");
 		updatedCellPanNo = request.getParameter("updatedRow[panNo]");
 		updatedCellAdhaarNo = request.getParameter("updatedRow[adhaarNo]");
 		updatedCellPhoto = request.getParameter("updatedRow[photo]");
@@ -123,11 +123,11 @@ public class CleanersServlet extends HttpServlet {
 				cls.setPerAdd(perAdd);
 				cls.setState(state);
 				cls.setCity(city);
-				cls.setMobile(Integer.parseInt(mobile));
-				cls.setPhone(Integer.parseInt(phone));
-				cls.setDrLisence(Integer.parseInt(drLisence));
-				cls.setPanNo(Integer.parseInt(panNo));
-				cls.setAdhaarNo(Integer.parseInt(adhaarNo));
+				cls.setMobile(Long.parseLong(mobile));
+				cls.setPhone(Long.parseLong(phone));
+				cls.setDrLicense(drLicense);
+				cls.setPanNo(panNo);
+				cls.setAdhaarNo(adhaarNo);
 				cls.setPhoto(photo);
 
 				operationResp = cdm.addData(cls);
@@ -143,11 +143,11 @@ public class CleanersServlet extends HttpServlet {
 				cls.setPerAdd(updatedPerAdd);
 				cls.setState(updatedCellState);
 				cls.setCity(updatedCellCity);
-				cls.setMobile(Integer.parseInt(updatedCellMobile));
-				cls.setPhone(Integer.parseInt(updatedCellPhone));
-				cls.setDrLisence(Integer.parseInt(updatedCellDrLisence));
-				cls.setPanNo(Integer.parseInt(updatedCellPanNo));
-				cls.setAdhaarNo(Integer.parseInt(updatedCellAdhaarNo));
+				cls.setMobile(Long.parseLong(updatedCellMobile));
+				cls.setPhone(Long.parseLong(updatedCellPhone));
+				cls.setDrLicense(updatedCellDrLicense);
+				cls.setPanNo(updatedCellPanNo);
+				cls.setAdhaarNo(updatedCellAdhaarNo);
 				cls.setPhoto(updatedCellPhoto);
 
 				operationResp = cdm.updateData(cls);
@@ -190,7 +190,7 @@ public class CleanersServlet extends HttpServlet {
 				jw.name("city").value(c.getCity());
 				jw.name("mobile").value(c.getMobile());
 				jw.name("phone").value(c.getPhone());
-				jw.name("drLisence").value(c.getDrLisence());
+				jw.name("drLisence").value(c.getDrLicense());
 				jw.name("panNo").value(c.getPanNo());
 				jw.name("adhaarNo").value(c.getAdhaarNo());
 				jw.name("photo").value(c.getPhoto());

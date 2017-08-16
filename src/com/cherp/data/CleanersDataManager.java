@@ -23,7 +23,7 @@ public class CleanersDataManager {
 
 		try {
 
-			String query = "insert into cleaner(fname,lname,curAdd,perAdd,state,city,mobile,phone,drLisence,panNo,adhaarNo,photo,status) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String query = "insert into cleaner(fname,lname,curAdd,perAdd,state,city,mobile,phone,drLicense,panNo,adhaarNo,photo,status) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			// set status 1 for area
 			cls.setStatus(1);
@@ -42,11 +42,11 @@ public class CleanersDataManager {
 			ps.setString(4, cls.getPerAdd());
 			ps.setString(5, cls.getState());
 			ps.setString(6, cls.getCity());
-			ps.setInt(7, cls.getMobile());
-			ps.setInt(8, cls.getPhone());
-			ps.setInt(9, cls.getDrLisence());
-			ps.setInt(10, cls.getPanNo());
-			ps.setInt(11, cls.getAdhaarNo());
+			ps.setLong(7, cls.getMobile());
+			ps.setLong(8, cls.getPhone());
+			ps.setString(9, cls.getDrLicense());
+			ps.setString(10, cls.getPanNo());
+			ps.setString(11, cls.getAdhaarNo());
 			ps.setString(12, cls.getPhoto());
 			ps.setInt(13,cls.getStatus());
 			ps.executeUpdate();
@@ -63,7 +63,7 @@ public class CleanersDataManager {
 	public String updateData(Cleaners cls) {
 		try {
 
-			String uquery = "update cleaner set fname=?,lname=?,curAdd=?,perAdd=?,state=?,city=?,mobile=?,phone=?,drLisence=?,panNo=?,adhaarNo=?,photo=? where id=?";
+			String uquery = "update cleaner set fname=?,lname=?,curAdd=?,perAdd=?,state=?,city=?,mobile=?,phone=?,drLicense=?,panNo=?,adhaarNo=?,photo=? where id=?";
 
 			handler = DBHandler.getInstance();
 			con = handler.getConnection();
@@ -79,11 +79,11 @@ public class CleanersDataManager {
 			ps.setString(4, cls.getPerAdd());
 			ps.setString(5, cls.getState());
 			ps.setString(6, cls.getCity());
-			ps.setInt(7, cls.getMobile());
-			ps.setInt(8, cls.getPhone());
-			ps.setInt(9, cls.getDrLisence());
-			ps.setInt(10, cls.getPanNo());
-			ps.setInt(11, cls.getAdhaarNo());
+			ps.setLong(7, cls.getMobile());
+			ps.setLong(8, cls.getPhone());
+			ps.setString(9, cls.getDrLicense());
+			ps.setString(10, cls.getPanNo());
+			ps.setString(11, cls.getAdhaarNo());
 			ps.setString(12, cls.getPhoto());
 			ps.setInt(13, cls.getId());
 
@@ -151,10 +151,11 @@ public class CleanersDataManager {
 				cls.setPerAdd(rs.getString("perAdd"));
 				cls.setState(rs.getString("state"));
 				cls.setCity(rs.getString("city"));
-				cls.setMobile(rs.getInt("mobile"));
-				cls.setPhone(rs.getInt("phone"));
-				cls.setPanNo(rs.getInt("panNo"));
-				cls.setAdhaarNo(rs.getInt("adhaarNo"));
+				cls.setMobile(rs.getLong("mobile"));
+				cls.setPhone(rs.getLong("phone"));
+				cls.setPanNo(rs.getString("panNo"));
+				cls.setAdhaarNo(rs.getString("adhaarNo"));
+				cls.setDrLicense(rs.getString("drLicense"));
 				cls.setPhoto(rs.getString("photo"));
 				cls.setStatus(rs.getInt("status"));
 

@@ -6,13 +6,34 @@ public class Company {
 	private String name;
 	private String preAdd;
 	private String secAdd;
-	private int mobile;
-	private int phone;
+	
+	public String getPanNo() {
+		return panNo;
+	}
+	private Long mobile;
+	
+	
+	public Long getMobile() {
+		return mobile;
+	}
+	public void setMobile(Long mobile) {
+		this.mobile = mobile;
+	}
+	public Long getPhone() {
+		return phone;
+	}
+	public void setPhone(Long phone) {
+		this.phone = phone;
+	}
+	public void setPanNo(String panNo) {
+		this.panNo = panNo;
+	}
+	private Long phone;
 	private String state;
 	private String city;
 	private int pinCode;
 	private String ownName;
-	private int panNo;
+	private String panNo;
 	private int opBal;
 	private int status;
 	public int getId() {
@@ -39,18 +60,7 @@ public class Company {
 	public void setSecAdd(String secAdd) {
 		this.secAdd = secAdd;
 	}
-	public int getMobile() {
-		return mobile;
-	}
-	public void setMobile(int mobile) {
-		this.mobile = mobile;
-	}
-	public int getPhone() {
-		return phone;
-	}
-	public void setPhone(int phone) {
-		this.phone = phone;
-	}
+	
 	public String getState() {
 		return state;
 	}
@@ -75,12 +85,7 @@ public class Company {
 	public void setOwnName(String ownName) {
 		this.ownName = ownName;
 	}
-	public int getPanNo() {
-		return panNo;
-	}
-	public void setPanNo(int panNo) {
-		this.panNo = panNo;
-	}
+	
 	public int getOpBal() {
 		return opBal;
 	}
