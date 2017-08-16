@@ -15,145 +15,150 @@
 
 <body>
 	<div w3-include-html="main.html"></div>
-	<div class="container" style="margin-top: 5%">
+	<div class="container body-top" style="margin-top: 5%">
 		<form id="InsertForm">
-			<div>
-				<input type="hidden" id="actionURL" value="PurchaseServlet">
+			<input type="hidden" id="actionURL" value="PurchaseServlet">
+			<div class="row well">
 
-				<div class="row well">
-
-					<div class="col-md-2 col-width ">
-						<input type="date" name="date">
-					</div>
-
-					<div class="col-md-2 col-width ">
-
-						<select id="vanList" class="form-control" name="van">
-							<option>Select Van</option>
-						</select>
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<select id="driverList1" class="form-control" name="driver1">
-							<option value="">Driver</option>
-						</select>
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<select id="driverList2" class="form-control" name="driver2">
-							<option>Driver</option>
-						</select>
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<select id="cleanerList1" class="form-control" name="cleaner1">
-							<option>Cleaner</option>
-						</select>
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<select id="cleanerList2" class="form-control" name="cleaner2">
-							<option>Cleaner</option>
-						</select>
-					</div>
-
-
+				<div class="col-md-2 col-width ">
+<!-- 					<select id="dateList" class="form-control" name="date"> -->
+						<input type="date" name="date" class="form-control"></option>
+<!-- 					</select> -->
 				</div>
 
-				<div class="row well">
+				<div class="col-md-2 col-width ">
 
-					<div class="col-md-2 col-width ">
-						<select id="companyList" class="form-control" name="company">
-							<option>Company</option>
-						</select>
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<select id="locationList" class="form-control" name="location">
-							<option>Location</option>
-						</select>
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<input type="text" class="form-control" id="outstanding"
-							placeholder="OutStanding" value="0.0" name="outstanding">
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<input type="text" class="form-control" id="challano"
-							placeholder="Challan No." name="challanNo">
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<input type="text" class="form-control" id="purchaseid"
-							placeholder="Purchase ID" disabled>
-					</div>
-
-					<div class="col-md-2 col-width ">
-						<input type="text" class="form-control" id="rent"
-							placeholder="Rent" name="rent">
-					</div>
-
-
+					<select id="vanList" class="form-control" name="van">
+						<option>Select Van</option>
+					</select>
 				</div>
 
-				<div class="row">
-					<table class="table" id="dataSelector">
-						<thead>
-							<tr>
-								<th>Product</th>
-								<th>Pieces</th>
-								<th>kg</th>
-								<th>Rate</th>
-								<th>Amount</th>
-								<th>AvgBodyWeight</th>
-							</tr>
-						</thead>
-						<tbody>
-							<h3 class="h4">Select Product From Below</h3>
-							<tr>
-								<td><select id="productSelect" name="prodName"><option>Select Product</option></select>
-								</td>
-								<td><input type="text" placeholder="Enter Pieces"
-									name="prodPieces"></td>
-								<td><input type="text" placeholder="Enter kg" name="prodKG"></td>
-								<td><input type="text" placeholder="Rate" name="prodRate"
-									disabled></td>
-								<td><input type="text" placeholder="Amount"
-									name="prodAmount" disabled></td>
-								<td><input type="text" placeholder="Average Body Weight"
-									name="prodWeight" disabled></td>
-							</tr>
-						</tbody>
-					</table>
+				<div class="col-md-2 col-width ">
+					<select id="driverList1" class="form-control" name="driver1">
+						<option value="">Driver</option>
+					</select>
 				</div>
-				<input type="hidden" name="operation" value="insert">
-				<button id="insertBtn" class="btn btn-success form-control">save</button>
+
+				<div class="col-md-2 col-width ">
+					<select id="driverList2" class="form-control" name="driver2">
+						<option>Driver</option>
+					</select>
+				</div>
+
+				<div class="col-md-2 col-width ">
+					<select id="cleanerList1" class="form-control" name="cleaner1">
+						<option>Cleaner</option>
+					</select>
+				</div>
+
+				<div class="col-md-2 col-width ">
+					<select id="cleanerList2" class="form-control" name="cleaner2">
+						<option>Cleaner</option>
+					</select>
+				</div>
+
+				<!--             <div class="col-md-2 col-width "> -->
+				<!--                 <div class="dropdown"> -->
+				<!--                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Cleaner 3 -->
+				<!--                         <span class="caret"></span> -->
+				<!--                     </button> -->
+				<!--                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"> -->
+				<!--                         <li><a href="#">Cleaner1</a></li> -->
+				<!--                         <li><a href="#">Cleaner2</a></li> -->
+				<!--                     </ul> -->
+				<!--                 </div> -->
+				<!--             </div> -->
+
+
 			</div>
+
+			<div class="row well">
+
+				<!--             <div class="col-md-2 col-width "> -->
+				<!--                 <div class="dropdown"> -->
+				<!--                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Cleaner 4 -->
+				<!--                         <span class="caret"></span> -->
+				<!--                     </button> -->
+				<!--                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"> -->
+				<!--                         <li><a href="#">Cleaner1</a></li> -->
+				<!--                         <li><a href="#">Cleaner2</a></li> -->
+				<!--                     </ul> -->
+				<!--                 </div> -->
+				<!--             </div> -->
+
+				<div class="col-md-2 col-width ">
+					<select id="companyList" class="form-control" name="company">
+						<option>Company</option>
+					</select>
+				</div>
+
+				<div class="col-md-2 col-width ">
+					<select id="locationList" class="form-control" name="location">
+						<option>Location</option>
+					</select>
+				</div>
+
+				<div class="col-md-2 col-width ">
+					<input type="text" class="form-control" id="outstanding"
+						placeholder="OutStanding" value="0" name="outstanding" >
+				</div>
+
+				<div class="col-md-2 col-width ">
+					<input type="text" class="form-control" id="challanNo"
+						placeholder="Challan No." name="challanNo" value="0">
+				</div>
+
+				<div class="col-md-2 col-width ">
+					<input type="text" class="form-control" id="purchaseid"
+						placeholder="Purchase ID" disabled>
+				</div>
+
+				<div class="col-md-2 col-width ">
+					<input type="text" class="form-control" id="rent"
+						placeholder="Rent" name="rent" value="0">
+				</div>
+
+
+			</div>
+
+
+			<!--Table Row-->
+			<div class="row jumbotron" id="tableRow">
+
+				<table id="purchaseTable" class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Product</th>
+							<th>Pieces</th>
+							<th>kg</th>
+							<th>Rate</th>
+							<th>Amount</th>
+							<th>AvgBodyWeight</th>
+						</tr>
+
+					</thead>
+					<tbody>
+						<tr>
+							<td><select id="productSelect" name="product">
+									<option>Select Product</option>
+							</select></td>
+
+							<td><input type="number" placeholder="Enter Pieces" name="pieces" value="0"></td>
+							<td><input type="number" placeholder="kilograms" name="kg" value="0"></td>
+							<td><input type="number" placeholder="Enter Rate" name="rate" value="0"></td>
+							<td><input type="number" placeholder="Enter Amount" name="amount" value="0"></td>
+							<td><input type="number" placeholder="Enter weight" name="avgWeight" value="0"></td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="hidden" name="operation" value="insert">
+			</div>
+			<button id="insertBtn" class="btn btn-success">save</button>
 		</form>
-
-
-
-		<!--Table Row-->
-		<div class="row jumbotron col-md-12" id="tableRow">
-
-			<table id="purchaseTable" class="table table-bordered">
-				<thead>
-					<tr>
-						<th>Product</th>
-						<th>Pieces</th>
-						<th>kg</th>
-						<th>Rate</th>
-						<th>Amount</th>
-						<th>AvgBodyWeight</th>
-					</tr>
-				</thead>
-			</table>
-
-		</div>
-
 	</div>
-	<!--JS source files-->
+
+
+	<!--JS source files-->                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 	<script>
 		w3.includeHTML();
 	</script>
@@ -180,19 +185,6 @@
 
 		}
 
-		// 		$('#insertBtn').click(function(){
-		// 			$.ajax({
-		// 				url: 'productFormServlet',
-		// 				type: 'post',
-		// 				data: $('#prodForm').serializeArray(),
-		// 				success : function(){
-		// 					alert('Product Form submitted Successfully');
-		// 				},
-		// 				error : function(){
-		// 					alert('Product form submission failed');
-		// 				}
-		// 			});
-		// 		});
 		$('#purchaseTable').DataTable();
 		//add data to datatable(very important)
 		// 						var userDataTable = $('#purchaseTable').DataTable({
@@ -212,7 +204,7 @@
 		// 							} ]
 		// 						});
 	</script>
-
+	
 </body>
 
 </html>
