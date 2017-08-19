@@ -163,14 +163,4 @@
     <servlet-name>PurchaseServlet</servlet-name>
     <url-pattern>/PurchaseServlet</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>productFormServlet</display-name>
-    <servlet-name>productFormServlet</servlet-name>
-    <servlet-class>com.cherp.controllers.productFormServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>productFormServlet</servlet-name>
-    <url-pattern>/productFormServlet</url-pattern>
-  </servlet-mapping>
 </web-app>

@@ -5,7 +5,7 @@ public class Purchase {
 	private int id;
 	private int purchaseId;
 	private String date;
-	private String van;
+	private String vanName;
 	private String driver1;
 	private String driver2;
 	private String cleaner1;
@@ -49,12 +49,12 @@ public class Purchase {
 		this.date = date;
 	}
 
-	public String getVan() {
-		return van;
+	public String getVanName() {
+		return vanName;
 	}
 
-	public void setVan(String van) {
-		this.van = van;
+	public void setVanName(String vanName) {
+		this.vanName = vanName;
 	}
 
 	public String getDriver1() {

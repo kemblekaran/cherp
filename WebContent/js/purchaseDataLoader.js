@@ -7,10 +7,10 @@ $(function() {
 		},
 		type : 'POST',
 		success : function() {
-			alert('Data Loaded Successfully from Database');
+			console.log('Data Loaded Successfully!')
 		},
 		error : function() {
-			alert('Error Loading Data from Database');
+			console.log('Error Loading Data from Database');
 
 		}
 	});
@@ -56,32 +56,23 @@ $(function() {
 					'<option value="' + val.name + '">' + val.name
 							+ '</option>');
 		});
-		
-		//***********Create the selects in table (In case we need it in future)**********
-//		var jsonDataPieces = data['pieces'];
-//		$.each(jsonDataPieces,function(key,val){
-//		$('#pieces').append('<option value="'+ val.name+'">'+val.name+'</option>');
-//		});
-		
-//		var jsonDataPieces = data['kg'];
-//		$.each(jsonDataPieces,function(key,val){
-//		$('#kg').append('<option value="'+ val.name+'">'+val.name+'</option>');
-//		});
-		
-//		var jsonDataPieces = data['rate'];
-//		$.each(jsonDataPieces,function(key,val){
-//		$('#rate').append('<option value="'+ val.name+'">'+val.name+'</option>');
-//		});
-		
-//		var jsonDataPieces = data['amount'];
-//		$.each(jsonDataPieces,function(key,val){
-//		$('#amount').append('<option value="'+ val.name+'">'+val.name+'</option>');
-//		});
-		
-//		var jsonDataPieces = data['weight'];
-//		$.each(jsonDataPieces,function(key,val){
-//		$('#weight').append('<option value="'+ val.name+'">'+val.name+'</option>');
-//		});
+	});
+	
+	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
+		var jsonDataProduct = data['location'];
+		$.each(jsonDataProduct, function(key, val) {
+			$('#locationList').append(
+					'<option value="' + val.name + '">' + val.name
+							+ '</option>');
+		});
 	});
 
+	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
+		var jsonDataProduct = data['company'];
+		$.each(jsonDataProduct, function(key, val) {
+			$('#companyList').append(
+					'<option value="' + val.name + '">' + val.name
+							+ '</option>');
+		});
+	});
 });

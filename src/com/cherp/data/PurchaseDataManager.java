@@ -116,7 +116,7 @@ public class PurchaseDataManager {
 
 			purchase.setStatus(1);
 			String purchaseMaxIdQuery = "select max(purchaseId) from purchase";
-			String query = "insert into purchase(purchaseId,date,van,driver1,driver2,cleaner1,cleaner2,company,location,outstanding,challanNo,rent,product,pieces,kg,rate,amount,avgWeight,status)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String query = "insert into purchase(purchaseId,date,vanName,driver1,driver2,cleaner1,cleaner2,company,location,outstanding,challanNo,rent,product,pieces,kg,rate,amount,avgWeight,status)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			ps = con.prepareStatement(purchaseMaxIdQuery);
 
@@ -137,7 +137,7 @@ public class PurchaseDataManager {
 			ps = con.prepareStatement(query);
 			ps.setInt(1, purchase.getPurchaseId());
 			ps.setString(2, purchase.getDate());
-			ps.setString(3, purchase.getVan());
+			ps.setString(3, purchase.getVanName());
 			ps.setString(4, purchase.getDriver1());
 			ps.setString(5, purchase.getDriver2());
 			ps.setString(6, purchase.getCleaner1());
@@ -168,9 +168,9 @@ public class PurchaseDataManager {
 
 		return response;
 	}
-	
+
 	// select all data
-		public List<Purchase> selectData() {
+	public List<Purchase> selectData() {
 			List<Purchase> purchaseViewList = new ArrayList<>();
 			try {
 
@@ -189,7 +189,7 @@ public class PurchaseDataManager {
 					purchase.setId(rs.getInt("id"));
 					purchase.setPurchaseId(rs.getInt("purchaseId"));
 					purchase.setDate(rs.getString("date"));
-					purchase.setVan(rs.getString("van"));
+					purchase.setVanName(rs.getString("vanName"));
 					purchase.setDriver1(rs.getString("driver1"));
 					purchase.setDriver2(rs.getString("driver2"));
 					purchase.setCleaner1(rs.getString("cleaner1"));

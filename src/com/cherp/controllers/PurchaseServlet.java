@@ -1,5 +1,11 @@
 package com.cherp.controllers;
 
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,11 +19,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.cherp.data.AreaDataManager;
 import com.cherp.data.PurchaseDataManager;
@@ -38,7 +39,7 @@ public class PurchaseServlet extends HttpServlet {
 	private String operationResp = "";
 
 	private String date = "";
-	private String van = "";
+	private String vanName = "";
 	private String driver1 = "";
 	private String driver2 = "";
 	private String cleaner1 = "";
@@ -63,7 +64,7 @@ public class PurchaseServlet extends HttpServlet {
 		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
 
 		date = request.getParameter("date");
-		van = request.getParameter("van");
+		vanName = request.getParameter("vanName");
 		driver1 = request.getParameter("driver1");
 		driver2 = request.getParameter("driver2");
 		cleaner1 = request.getParameter("cleaner1");
@@ -92,10 +93,10 @@ public class PurchaseServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		PrintWriter pw = response.getWriter();
-		getParaValues(request, response);
 		System.out.println("In Purchase Servlet");
+		getParaValues(request, response);
 
-		System.out.println(date + " " + van + " " + driver1 + " " + driver2 + "  " + product + " " + company + " "
+		System.out.println(date + " " + vanName + " " + driver1 + " " + driver2 + "  " + product + " " + company + " "
 				+ location + " " + outstanding + " " + challanNo + " " + rent);
 
 		
@@ -108,7 +109,7 @@ public class PurchaseServlet extends HttpServlet {
 			if (operation.equals("insert")) {
 				System.out.println("In insert");
 				purchase.setDate(date);
-				purchase.setVan(van);
+				purchase.setVanName(vanName);
 				purchase.setDriver1(driver1);
 				purchase.setDriver2(driver2);
 				purchase.setCleaner1(cleaner1);
@@ -191,7 +192,7 @@ public class PurchaseServlet extends HttpServlet {
 					jw.name("id").value(p.getId());
 					jw.name("purchaseId").value(p.getPurchaseId());
 					jw.name("date").value(p.getDate());
-					jw.name("van").value(p.getVan());
+					jw.name("vanName").value(p.getVanName());
 					jw.name("driver1").value(p.getDriver1());
 					jw.name("driver2").value(p.getDriver2());
 					jw.name("cleaner1").value(p.getCleaner1());
@@ -219,3 +220,4 @@ public class PurchaseServlet extends HttpServlet {
 
 
 }
+

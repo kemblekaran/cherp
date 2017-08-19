@@ -1,6 +1,6 @@
-create table purchase(purchaseId int auto_increment,date varchar(255),van varchar(255),driver1 varchar(255),driver2 varchar(255),
+create table purchase(id int auto_increment,purchaseId int,date varchar(255),vanName varchar(255),driver1 varchar(255),driver2 varchar(255),
 cleaner1 varchar(255),cleaner2 varchar(255),company varchar(255),location varchar(255),outstanding long,challanNo long,rent long,
-product varchar(255),pieces int,kg long,rate long,amount long,weight long,status int,primary key(purchaseId));
+product varchar(255),pieces int,kg long,rate long,amount long,avgWeight long,status int,primary key(id));
 
 
 
