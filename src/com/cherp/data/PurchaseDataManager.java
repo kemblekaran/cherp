@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.cherp.dbconnection.DBHandler;
+import com.cherp.entities.Area;
 import com.cherp.entities.Purchase;
 
 public class PurchaseDataManager {
@@ -41,7 +42,8 @@ public class PurchaseDataManager {
 		try {
 			stmt = con.createStatement();
 			String tableName = "";
-			// store table data in hasmap with table name as the key data in arraylist
+			// store table data in hasmap with table name as the key data in
+			// arraylist
 			// For van
 			vanRs = stmt.executeQuery(vanQuery);
 			tableName = vanRs.getMetaData().getTableName(1);
@@ -112,34 +114,50 @@ public class PurchaseDataManager {
 			handler = DBHandler.getInstance();
 			con = handler.getConnection();
 
-
 			purchase.setStatus(1);
-			String query = "insert into purchase(date,van,driver1,driver2,cleaner1,cleaner2,company,location,outstanding,challanNo,rent,product,pieces,kg,rate,amount,weight,status)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String purchaseMaxIdQuery = "select max(purchaseId) from purchase";
+			String query = "insert into purchase(purchaseId,date,van,driver1,driver2,cleaner1,cleaner2,company,location,outstanding,challanNo,rent,product,pieces,kg,rate,amount,avgWeight,status)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
+			ps = con.prepareStatement(purchaseMaxIdQuery);
+
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				int purchaseMaxId = rs.getInt(1);
+
+				System.out.println("purchaseMaxId:" + purchaseMaxId);
+				if (purchase.getCombinePurchaseToggle().equals("on")) {
+					if (purchaseMaxId == 0) {
+						purchaseMaxId = 1;
+					}
+					purchase.setPurchaseId(purchaseMaxId);
+				} else {
+					purchase.setPurchaseId(purchaseMaxId + 1);
+				}
+			}
 			ps = con.prepareStatement(query);
-			ps.setString(1, purchase.getDate());
-			ps.setString(2, purchase.getVan());
-			ps.setString(3, purchase.getDriver1());
-			ps.setString(4, purchase.getDriver2());
-			ps.setString(5, purchase.getCleaner1());
-			ps.setString(6, purchase.getCleaner2());
-			ps.setString(7, purchase.getCompany());
-			ps.setString(8, purchase.getLocation());
-			ps.setLong(9, purchase.getOutstanding());
-			ps.setLong(10, purchase.getChallanNo());
-			ps.setLong(11, purchase.getRent());
-			ps.setString(12, purchase.getProduct());
-			ps.setInt(13, purchase.getPieces());
-			ps.setLong(14, purchase.getKg());
-			ps.setLong(15, purchase.getRate());
-			ps.setLong(16, purchase.getAmount());
-			ps.setLong(17, purchase.getAvgWeight());
-			ps.setInt(18, purchase.getStatus());
+			ps.setInt(1, purchase.getPurchaseId());
+			ps.setString(2, purchase.getDate());
+			ps.setString(3, purchase.getVan());
+			ps.setString(4, purchase.getDriver1());
+			ps.setString(5, purchase.getDriver2());
+			ps.setString(6, purchase.getCleaner1());
+			ps.setString(7, purchase.getCleaner2());
+			ps.setString(8, purchase.getCompany());
+			ps.setString(9, purchase.getLocation());
+			ps.setLong(10, purchase.getOutstanding());
+			ps.setLong(11, purchase.getChallanNo());
+			ps.setLong(12, purchase.getRent());
+			ps.setString(13, purchase.getProduct());
+			ps.setInt(14, purchase.getPieces());
+			ps.setLong(15, purchase.getKg());
+			ps.setLong(16, purchase.getRate());
+			ps.setLong(17, purchase.getAmount());
+			ps.setLong(18, purchase.getAvgWeight());
+			ps.setInt(19, purchase.getStatus());
 
 			if (ps.executeUpdate() == 1) {
 				response = "Data added successfully...";
-			}
-			else {
+			} else {
 				response = "Data not inserted..";
 			}
 		} catch (Exception e) {
@@ -150,4 +168,55 @@ public class PurchaseDataManager {
 
 		return response;
 	}
+	
+	// select all data
+		public List<Purchase> selectData() {
+			List<Purchase> purchaseViewList = new ArrayList<>();
+			try {
+
+				handler = DBHandler.getInstance();
+				con = handler.getConnection();
+
+				Statement stmt = con.createStatement();
+
+				// select if status is 1
+				String squery = "select * from purchase where status=1";
+				// System.out.println("Query: " + squery);
+
+				ResultSet rs = stmt.executeQuery(squery);
+				while (rs.next()) {
+					Purchase purchase = new Purchase();
+					purchase.setId(rs.getInt("id"));
+					purchase.setPurchaseId(rs.getInt("purchaseId"));
+					purchase.setDate(rs.getString("date"));
+					purchase.setVan(rs.getString("van"));
+					purchase.setDriver1(rs.getString("driver1"));
+					purchase.setDriver2(rs.getString("driver2"));
+					purchase.setCleaner1(rs.getString("cleaner1"));
+					purchase.setCleaner2(rs.getString("cleaner2"));
+					purchase.setCompany(rs.getString("company"));
+					purchase.setLocation(rs.getString("location"));
+					purchase.setOutstanding(rs.getInt("outstanding"));
+					purchase.setChallanNo(rs.getInt("challanNo"));
+					purchase.setRent(rs.getInt("rent"));
+					purchase.setProduct(rs.getString("product"));
+					purchase.setPieces(rs.getInt("kg"));
+					purchase.setPieces(rs.getInt("rate"));
+					purchase.setPieces(rs.getInt("amount"));
+					purchase.setPieces(rs.getInt("avgWeight"));
+					
+					purchaseViewList.add(purchase);
+
+				}
+
+				// for(area u : areaList) {
+				// System.out.println("Uname:"+u.getareaname()+", Pass:"+u.getPassword());
+				// }
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			}
+			return purchaseViewList;
+		}
+
 }

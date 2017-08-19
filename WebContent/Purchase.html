@@ -15,15 +15,16 @@
 
 <body>
 	<div w3-include-html="main.html"></div>
-	<div class="container body-top" style="margin-top: 5%">
+	<div class="container-fluid body-top" style="margin-top: 5%">
 		<form id="InsertForm">
 			<input type="hidden" id="actionURL" value="PurchaseServlet">
 			<div class="row well">
 
 				<div class="col-md-2 col-width ">
-<!-- 					<select id="dateList" class="form-control" name="date"> -->
-						<input type="date" name="date" class="form-control"></option>
-<!-- 					</select> -->
+					<!-- 					<select id="dateList" class="form-control" name="date"> -->
+					<input type="date" name="date" class="form-control">
+					</option>
+					<!-- 					</select> -->
 				</div>
 
 				<div class="col-md-2 col-width ">
@@ -100,7 +101,7 @@
 
 				<div class="col-md-2 col-width ">
 					<input type="text" class="form-control" id="outstanding"
-						placeholder="OutStanding" value="0" name="outstanding" >
+						placeholder="OutStanding" value="0" name="outstanding">
 				</div>
 
 				<div class="col-md-2 col-width ">
@@ -121,44 +122,81 @@
 
 			</div>
 
+			<div class="jumbotron">
+				<select id="productSelect" name="product">
+					<option>Select Product</option>
+				</select> <input type="text" placeholder="Enter Pieces" name="pieces"
+					value="0"> <input type="text" placeholder="kilograms"
+					name="kg" value="0"> <input type="text"
+					placeholder="Enter Rate" name="rate" value="0"> <input
+					type="text" placeholder="Enter Amount" name="amount" value="0">
+				<input type="text" placeholder="Enter weight" name="avgWeight"
+					value="0"> <input type="checkbox"
+					name="combinePurchaseToggle" id="combinePurchaseToggle">Add
+				Multiple Purchase
 
-			<!--Table Row-->
-			<div class="row jumbotron" id="tableRow">
-
-				<table id="purchaseTable" class="table table-bordered">
-					<thead>
-						<tr>
-							<th>Product</th>
-							<th>Pieces</th>
-							<th>kg</th>
-							<th>Rate</th>
-							<th>Amount</th>
-							<th>AvgBodyWeight</th>
-						</tr>
-
-					</thead>
-					<tbody>
-						<tr>
-							<td><select id="productSelect" name="product">
-									<option>Select Product</option>
-							</select></td>
-
-							<td><input type="number" placeholder="Enter Pieces" name="pieces" value="0"></td>
-							<td><input type="number" placeholder="kilograms" name="kg" value="0"></td>
-							<td><input type="number" placeholder="Enter Rate" name="rate" value="0"></td>
-							<td><input type="number" placeholder="Enter Amount" name="amount" value="0"></td>
-							<td><input type="number" placeholder="Enter weight" name="avgWeight" value="0"></td>
-						</tr>
-					</tbody>
-				</table>
-				<input type="hidden" name="operation" value="insert">
 			</div>
+			<input type="hidden" name="operation" value="insert">
 			<button id="insertBtn" class="btn btn-success">save</button>
 		</form>
+
+		<button id="viewBtn" class="btn btn-primary" data-toggle="modal"
+			data-target="#viewModal">view</button>
+
+		<!-- Add Button Modal-->
+		<div id="viewModal" class="modal fade" role="dialog">
+			<div class="modal-dialog modal-lg">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<!--Modal header-->
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Area</h4>
+					</div>
+
+					<!--Modal body-->
+					<div class="modal-body">
+						<!--Table Row-->
+						<div class="" id="tableRow">
+							<table id="purchaseViewTable" class="table-bordered responsive">
+								<thead>
+									<tr>
+										<th>Purchase Id</th>
+										<th>Date</th>
+										<th>Van</th>
+										<th>Driver 1</th>
+										<th>Driver 2</th>
+										<th>Cleaner 1</th>
+										<th>Cleaner 2</th>
+										<th>Company</th>
+										<th>Location</th>
+										<th>Outstanding</th>
+										<th>Challan No</th>
+										<th>Rent</th>
+										<th>Product</th>
+										<th>Pieces</th>
+										<th>KG</th>
+										<th>Rate</th>
+										<th>Amount</th>
+										<th>Average Weight</th>
+									</tr>
+								</thead>
+							</table>
+
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+
 	</div>
 
 
-	<!--JS source files-->                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+	<!--JS source files-->
 	<script>
 		w3.includeHTML();
 	</script>
@@ -185,26 +223,50 @@
 
 		}
 
-		$('#purchaseTable').DataTable();
 		//add data to datatable(very important)
-		// 						var userDataTable = $('#purchaseTable').DataTable({
-		// 							"ajax" : "/server/jsonfiles/productData.json",
-		// 							"columns" : [ {
-		// 								"data" : "product"
-		// 							}, {
-		// 								"data" : "pieces"
-		// 							}, {
-		// 								"data" : "kg"
-		// 							}, {
-		// 								"data" : "rate"
-		// 							}, {
-		// 								"data" : "amount"
-		// 							}, {
-		// 								"data" : "weight"
-		// 							} ]
-		// 						});
+		var dataTable = $('#purchaseViewTable').DataTable({
+			"ajax" : "/server/jsonfiles/purchaseView.json",
+			"scrollX" : true,
+			"columns" : [ {
+				"data" : "purchaseId"
+			}, {
+				"data" : "date"
+			}, {
+				"data" : "van"
+			}, {
+				"data" : "driver1"
+			}, {
+				"data" : "driver2"
+			}, {
+				"data" : "cleaner1"
+			}, {
+				"data" : "cleaner2"
+			}, {
+				"data" : "company"
+			}, {
+				"data" : "location"
+			}, {
+				"data" : "outstanding"
+			}, {
+				"data" : "challanNo"
+			}, {
+				"data" : "rent"
+			}, {
+				"data" : "product"
+			}, {
+				"data" : "pieces"
+			}, {
+				"data" : "kg"
+			}, {
+				"data" : "rate"
+			}, {
+				"data" : "amount"
+			}, {
+				"data" : "avgWeight"
+			} ]
+		});
 	</script>
-	
+
 </body>
 
 </html>

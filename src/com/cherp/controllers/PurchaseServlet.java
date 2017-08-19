@@ -19,17 +19,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cherp.data.AreaDataManager;
 import com.cherp.data.PurchaseDataManager;
 import com.cherp.dbconnection.DBHandler;
+import com.cherp.entities.Area;
 import com.cherp.entities.Purchase;
 import com.google.gson.stream.JsonWriter;
 
 public class PurchaseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	//parameter with value true of false needed for formGenerator method
+	// parameter with value true of false needed for formGenerator method
 	private String dataLoader = "";
-	
+
 	private String jsonFilePath = "";
 
 	private String operation = "";
@@ -52,6 +54,7 @@ public class PurchaseServlet extends HttpServlet {
 	private String rate = "";
 	private String amount = "";
 	private String avgWeight = "";
+	private String combinePurchaseToggle = "";
 
 	public void getParaValues(HttpServletRequest request, HttpServletResponse response) {
 
@@ -78,6 +81,11 @@ public class PurchaseServlet extends HttpServlet {
 		amount = request.getParameter("amount");
 		avgWeight = request.getParameter("avgWeight");
 
+		combinePurchaseToggle = request.getParameter("combinePurchaseToggle");
+		if (combinePurchaseToggle == null) {
+			combinePurchaseToggle = "off";
+		}
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -89,14 +97,16 @@ public class PurchaseServlet extends HttpServlet {
 
 		System.out.println(date + " " + van + " " + driver1 + " " + driver2 + "  " + product + " " + company + " "
 				+ location + " " + outstanding + " " + challanNo + " " + rent);
-		
 
-		//check which operation is performed(insert,update or delete)
+		
+		PurchaseDataManager pdm = new PurchaseDataManager();
+		Purchase purchase = new Purchase();
+		
+		// check which operation is performed(insert,update or delete)
 		if (operation != null) {
-			//For insert set ALL Parameters except ID
+			// For insert set ALL Parameters except ID
 			if (operation.equals("insert")) {
 				System.out.println("In insert");
-				Purchase purchase = new Purchase();
 				purchase.setDate(date);
 				purchase.setVan(van);
 				purchase.setDriver1(driver1);
@@ -114,6 +124,7 @@ public class PurchaseServlet extends HttpServlet {
 				purchase.setAvgWeight(Integer.parseInt(avgWeight));
 				purchase.setAmount(Integer.parseInt(amount));
 				purchase.setRate(Integer.parseInt(rate));
+				purchase.setCombinePurchaseToggle(combinePurchaseToggle);
 
 				operationResp = new PurchaseDataManager().insertData(purchase);
 				pw.println(operationResp);
@@ -121,23 +132,25 @@ public class PurchaseServlet extends HttpServlet {
 			}
 		}
 
-		
-		//List for storing data that will be loaded into purchase form elements
+		// List for storing data that will be loaded into purchase form elements
 		Map<String, ArrayList<String>> resultSetList = new HashMap<>();
 		if (dataLoader != null) {
 			if (dataLoader.equals("true")) {
 				System.out.println("In Form Data Generator");
 				resultSetList = new PurchaseDataManager().formDataGenerator();
 				jsonFileWriter(resultSetList);
-				
+
 			}
 		}
+		
+		// Contains All Data in table
+				List<Purchase> purchaseViewList = new ArrayList<>();
+				purchaseViewList = pdm.selectData();
+				jsonFileWriter(purchaseViewList);
 
-		
-		
 	}
 
-	// method for creating json file
+	// method for creating json file for loading data into inputs of purchase.html
 	public void jsonFileWriter(Map<String, ArrayList<String>> resultSetList) {
 		try {
 			Writer writer = new FileWriter(jsonFilePath + "purchaseLoader.json");
@@ -153,7 +166,7 @@ public class PurchaseServlet extends HttpServlet {
 					jw.beginObject();
 					jw.name("name").value(value);
 					jw.endObject();
-					//System.out.println("key:" + map.getKey() + ",value:" + value);
+					// System.out.println("key:" + map.getKey() + ",value:" + value);
 				}
 
 				jw.endArray();
@@ -164,5 +177,45 @@ public class PurchaseServlet extends HttpServlet {
 		} catch (Exception e) {
 		}
 	}
+	
+	// method for creating json file for purchaseView.json
+		public void jsonFileWriter(List<Purchase> purchaseViewList) {
+			try {
+				Writer writer = new FileWriter(jsonFilePath + "purchaseView.json");
+				JsonWriter jw = new JsonWriter(writer);
+				jw.beginObject();
+				jw.name("data");
+				jw.beginArray();
+				for (Purchase p : purchaseViewList) {
+					jw.beginObject();
+					jw.name("id").value(p.getId());
+					jw.name("purchaseId").value(p.getPurchaseId());
+					jw.name("date").value(p.getDate());
+					jw.name("van").value(p.getVan());
+					jw.name("driver1").value(p.getDriver1());
+					jw.name("driver2").value(p.getDriver2());
+					jw.name("cleaner1").value(p.getCleaner1());
+					jw.name("cleaner2").value(p.getCleaner2());
+					jw.name("company").value(p.getCompany());
+					jw.name("location").value(p.getLocation());
+					jw.name("outstanding").value(p.getOutstanding());
+					jw.name("challanNo").value(p.getChallanNo());
+					jw.name("rent").value(p.getRent());
+					jw.name("product").value(p.getProduct());
+					jw.name("pieces").value(p.getPieces());
+					jw.name("kg").value(p.getKg());
+					jw.name("rate").value(p.getRate());
+					jw.name("amount").value(p.getAmount());
+					jw.name("avgWeight").value(p.getAvgWeight());
+					
+					jw.endObject();
+				}
+				jw.endArray();
+				jw.endObject();
+				jw.close();
+			} catch (Exception e) {
+			}
+		}
+
 
 }

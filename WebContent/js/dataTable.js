@@ -1,37 +1,41 @@
 $(function() {
-	
+
 	var updateButton = document.getElementById('updateBtn');
 	var deleteButton = document.getElementById('deleteBtn');
 	var dbActionPerformed;
 	var insertData = document.getElementById('insertBtn');
 	var actionURL = $('#actionURL').val();
-//	var className = $('#InsertForm').attr('class');
+	// var className = $('#InsertForm').attr('class');
 
 	// update button listener
-	updateButton.addEventListener('click', function() {
+	if (updateButton != null) {
+		updateButton.addEventListener('click', function() {
 
-		dbActionPerformed = "update";
-		CherpDataTable.MakeCellsEditable({
-			"onUpdate" : dataManipulator,
-			"columns" : editableCols
-		});
-	});
-
-	// delete button listener
-	deleteButton.addEventListener('click', function() {
-
-		var permisssion = confirm("Do you want to delete ?");
-
-		if (permisssion == true) {
-			dbActionPerformed = "delete";
+			dbActionPerformed = "update";
 			CherpDataTable.MakeCellsEditable({
 				"onUpdate" : dataManipulator,
 				"columns" : editableCols
 			});
-		} else {
-			alert("No");
-		}
-	});
+		});
+	}
+
+	// delete button listener
+	if (deleteButton != null) {
+		deleteButton.addEventListener('click', function() {
+
+			var permisssion = confirm("Do you want to delete ?");
+
+			if (permisssion == true) {
+				dbActionPerformed = "delete";
+				CherpDataTable.MakeCellsEditable({
+					"onUpdate" : dataManipulator,
+					"columns" : editableCols
+				});
+			} else {
+				alert("No");
+			}
+		});
+	}
 
 	// prompts user to confirms delete or not
 	function getConfirmation() {
@@ -52,30 +56,31 @@ $(function() {
 
 	}
 
-	
 	// insertButtonListener and insert data function
 	insertData.addEventListener('click', function() {
 		
-		if ($('#InsertForm').valid()) {
-			$('#InsertForm').submit(function(e) {
-				e.preventDefault();
-				$.ajax({
-					url : actionURL,
-					type : "POST",
-					data : $('#InsertForm').serializeArray(),
-					async : false,
-					success : function(data) {
-						if (data != null) {
-							alert(data);
-						}
-					},
-					error : function(xhr, ajaxOptions, thrownError) {
-						alert("Insert Form Error");
+		// if ($('#InsertForm').valid()) {
+		$('#InsertForm').submit(function(e) {
+			e.preventDefault();
+			e.stopImmediatePropagation();
+			$.ajax({
+				url : actionURL,
+				type : "POST",
+				data : $('#InsertForm').serializeArray(),
+				async : false,
+				success : function(data) {
+					if (data != null) {
+						alert(data);
 					}
-				});
-
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert("Insert Form Error");
+				}
 			});
-		}
+			
+
+		});
+		// }
 	});
 
 	// update or delete data method
@@ -104,19 +109,22 @@ $(function() {
 			});
 		}
 	}
-
+	
+	
+//select data from json file
 	function selectAllAjax() {
+		if (actionURL !== 'PurchaseServlet') {
+			$.ajax({
+				url : actionURL,
+				type : "post",
+				success : function(data) {
 
-		$.ajax({
-			url : actionURL,
-			type : "post",
-			success : function(data) {
-
-			},
-			error : function() {
-				alert('selectAllAjax error');
-			}
-		});
+				},
+				error : function() {
+					alert('selectAllAjax error');
+				}
+			});
+		}
 	}
 	selectAllAjax();
 

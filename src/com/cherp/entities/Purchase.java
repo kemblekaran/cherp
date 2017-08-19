@@ -2,6 +2,7 @@ package com.cherp.entities;
 
 public class Purchase {
 
+	private int id;
 	private int purchaseId;
 	private String date;
 	private String van;
@@ -21,6 +22,16 @@ public class Purchase {
 	private long amount;
 	private long avgWeight;
 	private int status;
+	private String combinePurchaseToggle;
+
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getPurchaseId() {
 		return purchaseId;
@@ -174,5 +185,12 @@ public class Purchase {
 		this.status = status;
 	}
 
+	public String getCombinePurchaseToggle() {
+		return combinePurchaseToggle;
+	}
+
+	public void setCombinePurchaseToggle(String combinePurchaseToggle) {
+		this.combinePurchaseToggle = combinePurchaseToggle;
+	}
 
 }
