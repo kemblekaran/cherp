@@ -58,11 +58,14 @@ $(function() {
 
 	// insertButtonListener and insert data function
 	insertData.addEventListener('click', function() {
-		
+
 		// if ($('#InsertForm').valid()) {
 		$('#InsertForm').submit(function(e) {
-			e.preventDefault();
-			e.stopImmediatePropagation();
+
+			if (actionURL === 'PurchaseServlet') {
+				e.preventDefault();
+				e.stopImmediatePropagation();
+			}
 			$.ajax({
 				url : actionURL,
 				type : "POST",
@@ -77,7 +80,6 @@ $(function() {
 					alert("Insert Form Error");
 				}
 			});
-			
 
 		});
 		// }
@@ -109,9 +111,8 @@ $(function() {
 			});
 		}
 	}
-	
-	
-//select data from json file
+
+	// select data from json file
 	function selectAllAjax() {
 		if (actionURL !== 'PurchaseServlet') {
 			$.ajax({
