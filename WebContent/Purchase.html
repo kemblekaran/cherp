@@ -303,6 +303,7 @@
 			console.log(purchaseId);
 			$.ajax({
 				url : 'SalesServlet',
+				async : false,
 				data : {
 					purchaseId : purchaseId,
 					purchaseView : 'true'

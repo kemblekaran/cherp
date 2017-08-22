@@ -14,13 +14,44 @@
 <script src="https://www.w3schools.com/lib/w3.js"></script>
 </head>
 <body>
+
+	<input type="date">
+	<select>
+		<option>Van</option>
+	</select>
 	<!--Table Row-->
+	<h3>Purchase</h3>
 	<div class="" id="tableRow">
 		<table id="salesViewTable" class="table-bordered responsive">
 			<thead>
 				<tr>
 					<th>Purchase Id</th>
 					<th>Date</th>
+					<th>Van</th>
+					<th>Company</th>
+					<th>Product</th>
+					<th>Location</th>
+					<th>Outstanding</th>
+					<th>Challan No</th>
+					<th>Rent</th>
+					<th>Pieces</th>
+					<th>KG</th>
+					<th>Rate</th>
+					<th>Amount</th>
+					<th>Average Weight</th>
+				</tr>
+			</thead>
+		</table>
+
+	</div>
+	
+	<h3>Sales</h3>
+	<div class="" id="tableRow">
+		<table id="salesTable" class="table-bordered responsive">
+			<thead>
+				<tr>
+					<th>Invoice Number</th>
+					<th>Customer</th>
 					<th>Van</th>
 					<th>Company</th>
 					<th>Product</th>
@@ -51,7 +82,7 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 	<script src="validation/validatePurchase.js"></script>
 	<script src="js/dataTables.cellEdit.js"></script>
-	<script src="js/dataTable.js" type="text/javascript"></script>
+<!-- 	<script src="js/dataTable.js" type="text/javascript"></script> -->
 	<script src="js/purchaseDataLoader.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		//add data to datatable(very important)
@@ -88,6 +119,7 @@
 				"data" : "avgWeight"
 			} ]
 		});
+		
 	</script>
 </body>
 </html>

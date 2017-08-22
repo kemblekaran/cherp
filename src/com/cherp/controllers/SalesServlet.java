@@ -18,6 +18,7 @@ import com.cherp.data.PurchaseDataManager;
 import com.cherp.data.SalesDataManager;
 import com.cherp.entities.Purchase;
 import com.cherp.entities.Sales;
+import com.cherp.entities.User;
 import com.google.gson.stream.JsonWriter;
 
 public class SalesServlet extends HttpServlet {
@@ -55,7 +56,8 @@ public class SalesServlet extends HttpServlet {
 
 		getParaValues(request, response);
 
-//		System.out.println("van : " + van + ", date :" + date + ", dataLoader :" + dataLoader);
+		// System.out.println("van : " + van + ", date :" + date + ", dataLoader :" +
+		// dataLoader);
 		System.out.println("purchaseId" + purchaseId);
 
 		// Select purchase data according to purchaseid
@@ -91,12 +93,17 @@ public class SalesServlet extends HttpServlet {
 	// method for creating json file for saleView.json
 	public void jsonFileWriterSale(List<Purchase> saleViewList) {
 		try {
-			Writer writer = new FileWriter(jsonFilePath + "saleView.json");
+
+			// MOST IMPORTANT
+			// The second parameter in constructor of FileWriter opens file in append mode
+			Writer writer = new FileWriter(jsonFilePath + "saleView.json", true);
 			JsonWriter jw = new JsonWriter(writer);
+
 			jw.beginObject();
 			jw.name("data");
-			jw.beginArray();
 			for (Purchase p : saleViewList) {
+
+				jw.beginArray();
 				jw.beginObject();
 				jw.name("id").value(p.getId());
 				jw.name("purchaseId").value(p.getPurchaseId());
@@ -117,10 +124,10 @@ public class SalesServlet extends HttpServlet {
 				jw.name("rate").value(p.getRate());
 				jw.name("amount").value(p.getAmount());
 				jw.name("avgWeight").value(p.getAvgWeight());
-
 				jw.endObject();
+				jw.endArray();
 			}
-			jw.endArray();
+			
 			jw.endObject();
 			jw.close();
 		} catch (Exception e) {
