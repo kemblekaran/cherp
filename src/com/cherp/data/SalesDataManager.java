@@ -18,7 +18,6 @@ public class SalesDataManager {
 	private Connection con;
 	private Statement stmt;
 	private PreparedStatement ps;
-	private String response = "";
 
 	public List<Purchase> tableDataGenerator(Sales sale) {
 		List<Purchase> purchaseList = new ArrayList<>();
@@ -26,12 +25,13 @@ public class SalesDataManager {
 		Purchase purchase = new Purchase();
 		// // queries to select records from each table
 		//
-		ResultSet purchaseRs, salesRs;
+		ResultSet purchaseRs;
 		//
 		// List<String> salesList = new ArrayList<>();
 		//
 		handler = DBHandler.getInstance();
 		con = handler.getConnection();
+		
 		try {
 			stmt = con.createStatement();
 			String purchaseQuery = "select * from purchase where status=1";
@@ -72,9 +72,62 @@ public class SalesDataManager {
 			purchaseList.add(purchase);
 //			System.out.println("sales list:");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return purchaseList;
 	}
+	
+	// select all data
+		public List<Purchase> selectSales(Purchase purchase) {
+			System.out.println("In Sales");
+			List<Purchase> purchaseViewList = new ArrayList<>();
+			try {
+
+				handler = DBHandler.getInstance();
+				con = handler.getConnection();
+				purchase.setPurchaseId(purchase.getPurchaseId());
+				String squery = "select * from purchase where purchaseId=?";
+
+				// System.out.println("Query: " + squery);
+				PreparedStatement ps = con.prepareStatement(squery);
+				ps.setInt(1, purchase.getPurchaseId());
+
+				ResultSet rs = ps.executeQuery();
+
+				while (rs.next()) {
+
+					purchase.setId(rs.getInt("id"));
+					purchase.setPurchaseId(rs.getInt("purchaseId"));
+					purchase.setDate(rs.getString("date"));
+					purchase.setVanName(rs.getString("vanName"));
+					purchase.setDriver1(rs.getString("driver1"));
+					purchase.setDriver2(rs.getString("driver2"));
+					purchase.setCleaner1(rs.getString("cleaner1"));
+					purchase.setCleaner2(rs.getString("cleaner2"));
+					purchase.setCompany(rs.getString("company"));
+					purchase.setLocation(rs.getString("location"));
+					purchase.setOutstanding(rs.getInt("outstanding"));
+					purchase.setChallanNo(rs.getLong("challanNo"));
+					purchase.setRent(rs.getInt("rent"));
+					purchase.setProduct(rs.getString("product"));
+					purchase.setKg(rs.getInt("kg"));
+					purchase.setRate(rs.getInt("rate"));
+					purchase.setAmount(rs.getInt("amount"));
+					purchase.setAvgWeight(rs.getDouble("avgWeight"));
+
+					purchaseViewList.add(purchase);
+
+				}
+
+				// for(area u : areaList) {
+				// System.out.println("Uname:"+u.getareaname()+", Pass:"+u.getPassword());
+				// }
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			}
+			return purchaseViewList;
+		}
+
 }

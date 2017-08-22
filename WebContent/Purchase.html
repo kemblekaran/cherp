@@ -288,21 +288,21 @@
 			});
 		});
 
-		//set purchase id
+		//set purchase id value
 		$.getJSON('/server/jsonfiles/purchaseView.json', function(result) {
 			var length = result.data.length;
 			var purchaseId = result.data[length - 1].purchaseId;
-			console.log(purchaseId);
 
 			$('#purchaseid').val(purchaseId + 1);
 		});
 
 		//on double click in purchaseView send data to SalesServlet
 		$('#purchaseViewTable tbody').on('dblclick', 'tr', function() {
-			var purchaseId = dataTable.row().data().purchaseId;
+			//By adding this to the row() it will select the current row
+			var purchaseId = dataTable.row(this).data().purchaseId;
 			console.log(purchaseId);
 			$.ajax({
-				url : 'PurchaseServlet',
+				url : 'SalesServlet',
 				data : {
 					purchaseId : purchaseId,
 					purchaseView : 'true'
@@ -315,7 +315,7 @@
 					console.log('error in purchase double click ajax!');
 				}
 			});
-		})
+		});
 	</script>
 
 </body>

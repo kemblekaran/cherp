@@ -32,8 +32,6 @@ public class PurchaseServlet extends HttpServlet {
 
 	// parameter with value true of false needed for formGenerator method
 	private String dataLoader = "";
-	private String purchaseId = "";
-	private String purchaseView = "";
 
 	private String jsonFilePath = "";
 
@@ -63,8 +61,6 @@ public class PurchaseServlet extends HttpServlet {
 
 		operation = request.getParameter("operation");
 		dataLoader = request.getParameter("dataLoader");
-		purchaseId = request.getParameter("purchaseId");
-		purchaseView = request.getParameter("purchaseView");
 
 		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
 
@@ -105,8 +101,7 @@ public class PurchaseServlet extends HttpServlet {
 				+ ",Product:" + product + ",Company:" + company + ",Location:" + location + ",Outstanding:"
 				+ outstanding + ",ChallanNo:" + challanNo + ",Rent:" + rent + ",AvgWeight:" + avgWeight);
 
-		System.out.println("purchaseId" + purchaseId);
-
+		System.out.println("Rate :" + rate);
 		PurchaseDataManager pdm = new PurchaseDataManager();
 		Purchase purchase = new Purchase();
 
@@ -123,15 +118,15 @@ public class PurchaseServlet extends HttpServlet {
 				purchase.setCleaner2(cleaner2);
 				purchase.setCompany(company);
 				purchase.setLocation(location);
-				purchase.setOutstanding(Long.parseLong(outstanding));
+				purchase.setOutstanding(Integer.parseInt(outstanding));
 				purchase.setChallanNo(Long.parseLong(challanNo));
 				purchase.setRent(Integer.parseInt(rent));
 				purchase.setProduct(product);
 				purchase.setPieces(Integer.parseInt(pieces));
-				purchase.setKg(Long.parseLong(kg));
-				purchase.setAvgWeight(Long.parseLong(avgWeight));
-				purchase.setAmount(Long.parseLong(amount));
-				purchase.setRate(Long.parseLong(rate));
+				purchase.setKg(Integer.parseInt(kg));
+				purchase.setAvgWeight(Double.parseDouble(avgWeight));
+				purchase.setAmount(Integer.parseInt(amount));
+				purchase.setRate(Integer.parseInt(rate));
 				purchase.setCombinePurchaseToggle(combinePurchaseToggle);
 
 				operationResp = new PurchaseDataManager().insertData(purchase);
@@ -139,17 +134,7 @@ public class PurchaseServlet extends HttpServlet {
 
 			}
 		}
-		
-		//Select purchase data according to purchaseid
-		if (purchaseView != null) {
-			if (purchaseView.equals("true")) {
-				List<Purchase> saleViewList = new ArrayList<>();
-				purchase.setPurchaseId(Integer.parseInt(purchaseId));;
-				saleViewList = pdm.selectSales(purchase);
-				jsonFileWriterSale(saleViewList);
-			}
-		}
-		
+
 		// List for storing data that will be loaded into purchase form elements
 		Map<String, ArrayList<String>> resultSetList = new HashMap<>();
 		if (dataLoader != null) {
@@ -234,44 +219,5 @@ public class PurchaseServlet extends HttpServlet {
 		} catch (Exception e) {
 		}
 	}
-	
-	// method for creating json file for saleView.json
-		public void jsonFileWriterSale(List<Purchase> saleViewList) {
-			try {
-				Writer writer = new FileWriter(jsonFilePath + "saleView.json");
-				JsonWriter jw = new JsonWriter(writer);
-				jw.beginObject();
-				jw.name("data");
-				jw.beginArray();
-				for (Purchase p : saleViewList) {
-					jw.beginObject();
-					jw.name("id").value(p.getId());
-					jw.name("purchaseId").value(p.getPurchaseId());
-					jw.name("date").value(p.getDate());
-					jw.name("vanName").value(p.getVanName());
-					jw.name("driver1").value(p.getDriver1());
-					jw.name("driver2").value(p.getDriver2());
-					jw.name("cleaner1").value(p.getCleaner1());
-					jw.name("cleaner2").value(p.getCleaner2());
-					jw.name("company").value(p.getCompany());
-					jw.name("location").value(p.getLocation());
-					jw.name("outstanding").value(p.getOutstanding());
-					jw.name("challanNo").value(p.getChallanNo());
-					jw.name("rent").value(p.getRent());
-					jw.name("product").value(p.getProduct());
-					jw.name("pieces").value(p.getPieces());
-					jw.name("kg").value(p.getKg());
-					jw.name("rate").value(p.getRate());
-					jw.name("amount").value(p.getAmount());
-					jw.name("avgWeight").value(p.getAvgWeight());
-
-					jw.endObject();
-				}
-				jw.endArray();
-				jw.endObject();
-				jw.close();
-			} catch (Exception e) {
-			}
-		}
 
 }

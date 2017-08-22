@@ -1,7 +1,9 @@
 package com.cherp.controllers;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +18,7 @@ import com.cherp.data.PurchaseDataManager;
 import com.cherp.data.SalesDataManager;
 import com.cherp.entities.Purchase;
 import com.cherp.entities.Sales;
+import com.google.gson.stream.JsonWriter;
 
 public class SalesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,6 +29,8 @@ public class SalesServlet extends HttpServlet {
 
 	private String date = "";
 	private String van = "";
+	private String purchaseId = "";
+	private String purchaseView = "";
 
 	// method for getting parameters
 	public void getParaValues(HttpServletRequest request, HttpServletResponse response) {
@@ -37,17 +42,33 @@ public class SalesServlet extends HttpServlet {
 		date = request.getParameter("date");
 		van = request.getParameter("van");
 		dataLoader = request.getParameter("dataLoader");
-		
-		
+		purchaseId = request.getParameter("purchaseId");
+		purchaseView = request.getParameter("purchaseView");
 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		Purchase purchase = new Purchase();
 		System.out.println("In sales Servlet");
 		PrintWriter pw = response.getWriter();
+
 		getParaValues(request, response);
-		System.out.println("van : " + van + ", date :" + date + ", dataLoader :" + dataLoader);
+
+//		System.out.println("van : " + van + ", date :" + date + ", dataLoader :" + dataLoader);
+		System.out.println("purchaseId" + purchaseId);
+
+		// Select purchase data according to purchaseid
+		if (purchaseView != null) {
+			if (purchaseView.equals("true")) {
+				List<Purchase> saleViewList = new ArrayList<>();
+				SalesDataManager sdm = new SalesDataManager();
+				purchase.setPurchaseId(Integer.parseInt(purchaseId));
+
+				saleViewList = sdm.selectSales(purchase);
+				jsonFileWriterSale(saleViewList);
+			}
+		}
 
 		// List for storing data that will be loaded into purchase form elements
 		List<Purchase> salesList = new ArrayList<>();
@@ -60,11 +81,50 @@ public class SalesServlet extends HttpServlet {
 
 		System.out.println("In Table Data Generator");
 		salesList = sdm.tableDataGenerator(sales);
-		System.out.println("sales"+salesList);
-//		 jsonFileWriter(salesList);
+		System.out.println("sales" + salesList);
+		// jsonFileWriter(salesList);
 
 		// }
 		// }
+	}
+
+	// method for creating json file for saleView.json
+	public void jsonFileWriterSale(List<Purchase> saleViewList) {
+		try {
+			Writer writer = new FileWriter(jsonFilePath + "saleView.json");
+			JsonWriter jw = new JsonWriter(writer);
+			jw.beginObject();
+			jw.name("data");
+			jw.beginArray();
+			for (Purchase p : saleViewList) {
+				jw.beginObject();
+				jw.name("id").value(p.getId());
+				jw.name("purchaseId").value(p.getPurchaseId());
+				jw.name("date").value(p.getDate());
+				jw.name("vanName").value(p.getVanName());
+				jw.name("driver1").value(p.getDriver1());
+				jw.name("driver2").value(p.getDriver2());
+				jw.name("cleaner1").value(p.getCleaner1());
+				jw.name("cleaner2").value(p.getCleaner2());
+				jw.name("company").value(p.getCompany());
+				jw.name("location").value(p.getLocation());
+				jw.name("outstanding").value(p.getOutstanding());
+				jw.name("challanNo").value(p.getChallanNo());
+				jw.name("rent").value(p.getRent());
+				jw.name("product").value(p.getProduct());
+				jw.name("pieces").value(p.getPieces());
+				jw.name("kg").value(p.getKg());
+				jw.name("rate").value(p.getRate());
+				jw.name("amount").value(p.getAmount());
+				jw.name("avgWeight").value(p.getAvgWeight());
+
+				jw.endObject();
+			}
+			jw.endArray();
+			jw.endObject();
+			jw.close();
+		} catch (Exception e) {
+		}
 	}
 
 }
