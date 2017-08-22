@@ -37,6 +37,8 @@ public class SalesServlet extends HttpServlet {
 		date = request.getParameter("date");
 		van = request.getParameter("van");
 		dataLoader = request.getParameter("dataLoader");
+		
+		
 
 	}
 

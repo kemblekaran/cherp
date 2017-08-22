@@ -59,7 +59,7 @@ $(function() {
 	// insertButtonListener and insert data function
 	insertData.addEventListener('click', function() {
 
-		// if ($('#InsertForm').valid()) {
+		 if ($('#InsertForm').valid()) {
 		$('#InsertForm').submit(function(e) {
 
 			if (actionURL === 'PurchaseServlet') {
@@ -82,7 +82,7 @@ $(function() {
 			});
 
 		});
-		// }
+		 }
 	});
 
 	// update or delete data method

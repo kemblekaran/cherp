@@ -6,3 +6,7 @@
     
     width: 14.285714286%;
 }
+
+tr.selected{
+	background-color: red;
+}

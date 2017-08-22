@@ -126,12 +126,12 @@
 				<select id="productSelect" name="product">
 					<option>Select Product</option>
 				</select> <input type="text" placeholder="Enter Pieces" name="pieces"
-					value="0"> <input type="text" placeholder="kilograms"
-					name="kg" value="0"> <input type="text"
-					placeholder="Enter Rate" name="rate" value="0"> <input
-					type="text" placeholder="Enter Amount" name="amount" value="0">
-				<input type="text" placeholder="Enter weight" name="avgWeight"
-					value="0"> <input type="checkbox"
+					id="pieces"> <input type="text" placeholder="kilograms"
+					name="kg" id="kg"> <input type="text"
+					placeholder="Enter Rate" name="rate" id="rate"> <input
+					type="text" name="amount" id="amount" readonly="readonly">
+				<input type="text" name="avgWeight" id="avgWeight"
+					readonly="readonly"> <input type="checkbox"
 					name="combinePurchaseToggle" id="combinePurchaseToggle">Add
 				Multiple Purchase
 
@@ -268,6 +268,54 @@
 				"data" : "avgWeight"
 			} ]
 		});
+
+		//calculate amount and avg weight
+		$(function() {
+			var kg = $('#kg');
+			var pieces = $('#pieces');
+			var rate = $('#rate');
+			var amt = $('#amount');
+			var avgWeight = $('#avgWeight');
+
+			rate.on('input', function() {
+
+				var newAmt = parseInt(rate.val()) * parseInt(kg.val());
+				var newAvgWeight = parseInt(kg.val()) / parseInt(pieces.val());
+				if (newAmt !== null || newAvgWeight !== null) {
+					amt.val(newAmt);
+					avgWeight.val(newAvgWeight);
+				}
+			});
+		});
+
+		//set purchase id
+		$.getJSON('/server/jsonfiles/purchaseView.json', function(result) {
+			var length = result.data.length;
+			var purchaseId = result.data[length - 1].purchaseId;
+			console.log(purchaseId);
+
+			$('#purchaseid').val(purchaseId + 1);
+		});
+
+		//on double click in purchaseView send data to SalesServlet
+		$('#purchaseViewTable tbody').on('dblclick', 'tr', function() {
+			var purchaseId = dataTable.row().data().purchaseId;
+			console.log(purchaseId);
+			$.ajax({
+				url : 'PurchaseServlet',
+				data : {
+					purchaseId : purchaseId,
+					purchaseView : 'true'
+				},
+				type : 'post',
+				success : function(data) {
+					console.log('Purchase successfully retrieved in sales!');
+				},
+				error : function() {
+					console.log('error in purchase double click ajax!');
+				}
+			});
+		})
 	</script>
 
 </body>

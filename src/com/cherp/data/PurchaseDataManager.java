@@ -171,52 +171,104 @@ public class PurchaseDataManager {
 
 	// select all data
 	public List<Purchase> selectData() {
-			List<Purchase> purchaseViewList = new ArrayList<>();
-			try {
+		List<Purchase> purchaseViewList = new ArrayList<>();
+		try {
 
-				handler = DBHandler.getInstance();
-				con = handler.getConnection();
+			handler = DBHandler.getInstance();
+			con = handler.getConnection();
 
-				Statement stmt = con.createStatement();
+			Statement stmt = con.createStatement();
 
-				// select if status is 1
-				String squery = "select * from purchase where status=1";
-				// System.out.println("Query: " + squery);
+			// select if status is 1
+			String squery = "select * from purchase where status=1";
+			// System.out.println("Query: " + squery);
 
-				ResultSet rs = stmt.executeQuery(squery);
-				while (rs.next()) {
-					Purchase purchase = new Purchase();
-					purchase.setId(rs.getInt("id"));
-					purchase.setPurchaseId(rs.getInt("purchaseId"));
-					purchase.setDate(rs.getString("date"));
-					purchase.setVanName(rs.getString("vanName"));
-					purchase.setDriver1(rs.getString("driver1"));
-					purchase.setDriver2(rs.getString("driver2"));
-					purchase.setCleaner1(rs.getString("cleaner1"));
-					purchase.setCleaner2(rs.getString("cleaner2"));
-					purchase.setCompany(rs.getString("company"));
-					purchase.setLocation(rs.getString("location"));
-					purchase.setOutstanding(rs.getInt("outstanding"));
-					purchase.setChallanNo(rs.getInt("challanNo"));
-					purchase.setRent(rs.getInt("rent"));
-					purchase.setProduct(rs.getString("product"));
-					purchase.setPieces(rs.getInt("kg"));
-					purchase.setPieces(rs.getInt("rate"));
-					purchase.setPieces(rs.getInt("amount"));
-					purchase.setPieces(rs.getInt("avgWeight"));
-					
-					purchaseViewList.add(purchase);
+			ResultSet rs = stmt.executeQuery(squery);
+			while (rs.next()) {
+				Purchase purchase = new Purchase();
+				purchase.setId(rs.getInt("id"));
+				purchase.setPurchaseId(rs.getInt("purchaseId"));
+				purchase.setDate(rs.getString("date"));
+				purchase.setVanName(rs.getString("vanName"));
+				purchase.setDriver1(rs.getString("driver1"));
+				purchase.setDriver2(rs.getString("driver2"));
+				purchase.setCleaner1(rs.getString("cleaner1"));
+				purchase.setCleaner2(rs.getString("cleaner2"));
+				purchase.setCompany(rs.getString("company"));
+				purchase.setLocation(rs.getString("location"));
+				purchase.setOutstanding(rs.getInt("outstanding"));
+				purchase.setChallanNo(rs.getInt("challanNo"));
+				purchase.setRent(rs.getInt("rent"));
+				purchase.setProduct(rs.getString("product"));
+				purchase.setPieces(rs.getInt("kg"));
+				purchase.setPieces(rs.getInt("rate"));
+				purchase.setPieces(rs.getInt("amount"));
+				purchase.setPieces(rs.getInt("avgWeight"));
 
-				}
-
-				// for(area u : areaList) {
-				// System.out.println("Uname:"+u.getareaname()+", Pass:"+u.getPassword());
-				// }
-			} catch (Exception e) {
-				e.printStackTrace();
+				purchaseViewList.add(purchase);
 
 			}
-			return purchaseViewList;
+
+			// for(area u : areaList) {
+			// System.out.println("Uname:"+u.getareaname()+", Pass:"+u.getPassword());
+			// }
+		} catch (Exception e) {
+			e.printStackTrace();
+
 		}
+		return purchaseViewList;
+	}
+
+	// select all data
+	public List<Purchase> selectSales(Purchase purchase) {
+		System.out.println("In Sales");
+		List<Purchase> purchaseViewList = new ArrayList<>();
+		try {
+
+			handler = DBHandler.getInstance();
+			con = handler.getConnection();
+			purchase.setPurchaseId(purchase.getPurchaseId());
+			String squery = "select * from purchase where purchaseId=?";
+
+			// System.out.println("Query: " + squery);
+			PreparedStatement ps = con.prepareStatement(squery);
+			ps.setInt(1, purchase.getPurchaseId());
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				purchase.setId(rs.getInt("id"));
+				purchase.setPurchaseId(rs.getInt("purchaseId"));
+				purchase.setDate(rs.getString("date"));
+				purchase.setVanName(rs.getString("vanName"));
+				purchase.setDriver1(rs.getString("driver1"));
+				purchase.setDriver2(rs.getString("driver2"));
+				purchase.setCleaner1(rs.getString("cleaner1"));
+				purchase.setCleaner2(rs.getString("cleaner2"));
+				purchase.setCompany(rs.getString("company"));
+				purchase.setLocation(rs.getString("location"));
+				purchase.setOutstanding(rs.getInt("outstanding"));
+				purchase.setChallanNo(rs.getInt("challanNo"));
+				purchase.setRent(rs.getInt("rent"));
+				purchase.setProduct(rs.getString("product"));
+				purchase.setPieces(rs.getInt("kg"));
+				purchase.setPieces(rs.getInt("rate"));
+				purchase.setPieces(rs.getInt("amount"));
+				purchase.setPieces(rs.getInt("avgWeight"));
+
+				purchaseViewList.add(purchase);
+
+			}
+
+			// for(area u : areaList) {
+			// System.out.println("Uname:"+u.getareaname()+", Pass:"+u.getPassword());
+			// }
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return purchaseViewList;
+	}
 
 }
