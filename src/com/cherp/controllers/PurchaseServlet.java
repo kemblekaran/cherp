@@ -55,6 +55,7 @@ public class PurchaseServlet extends HttpServlet {
 	private String rate = "";
 	private String amount = "";
 	private String avgWeight = "";
+	private String finalAmount = "";
 	private String combinePurchaseToggle = "";
 
 	public void getParaValues(HttpServletRequest request, HttpServletResponse response) {
@@ -82,6 +83,9 @@ public class PurchaseServlet extends HttpServlet {
 		rate = request.getParameter("rate");
 		amount = request.getParameter("amount");
 		avgWeight = request.getParameter("avgWeight");
+		finalAmount = request.getParameter("finalAmount");
+		
+		
 
 		combinePurchaseToggle = request.getParameter("combinePurchaseToggle");
 		if (combinePurchaseToggle == null) {
@@ -102,6 +106,7 @@ public class PurchaseServlet extends HttpServlet {
 				+ outstanding + ",ChallanNo:" + challanNo + ",Rent:" + rent + ",AvgWeight:" + avgWeight);
 
 		System.out.println("Rate :" + rate);
+		System.out.println("finalAmount" + finalAmount);
 		PurchaseDataManager pdm = new PurchaseDataManager();
 		Purchase purchase = new Purchase();
 
@@ -127,6 +132,7 @@ public class PurchaseServlet extends HttpServlet {
 				purchase.setAvgWeight(Double.parseDouble(avgWeight));
 				purchase.setAmount(Integer.parseInt(amount));
 				purchase.setRate(Integer.parseInt(rate));
+				purchase.setFinalAmount(Integer.parseInt(finalAmount));
 				purchase.setCombinePurchaseToggle(combinePurchaseToggle);
 
 				operationResp = new PurchaseDataManager().insertData(purchase);
@@ -210,7 +216,7 @@ public class PurchaseServlet extends HttpServlet {
 				jw.name("rate").value(p.getRate());
 				jw.name("amount").value(p.getAmount());
 				jw.name("avgWeight").value(p.getAvgWeight());
-
+				jw.name("finalAmount").value(p.getFinalAmount());
 				jw.endObject();
 			}
 			jw.endArray();

@@ -7,6 +7,8 @@ $(function() {
 	var rate = $('#rate');
 	var amt = $('#amount');
 	var avgWeight = $('#avgWeight');
+	var finalAmount = $('#finalAmount');
+	var purchaseId = $('#purchaseid');
 
 	var json;
 
@@ -72,19 +74,30 @@ $(function() {
 				if (e.keyCode === 13) {
 					console.log(productRow.product);
 					productRowData.push(productRow);
-					
+
 					productTable.row.add(
 							[ product.val(), pieces.val(), kg.val(),
 									rate.val(), amt.val(), avgWeight.val() ])
 							.draw();
 					json = JSON.stringify(productRow);
-					
+
 					console.log('Json' + productJsonArray);
 					console.log(productRowData);
+					
 				}
+
+				// for setting final amount
+				for (var i = 0; i < productRowData.length; i++) {
+					var fa = productRowData[i].amt;
+
+				}
+				console.log('final amount: ' + fa);
+				finalAmount.attr('value', fa);
+				
+				
+
 			});
 
-	
 	// to prevent form submission on enter key press
 	$(window).keydown(function(event) {
 		if (event.keyCode == 13) {

@@ -42,7 +42,7 @@ public class PurchaseDataManager {
 		try {
 			stmt = con.createStatement();
 			String tableName = "";
-			// store table data in hasmap with table name as the key data in
+			// store table data in hahsmap with table name as the key data in
 			// arraylist
 			// For van
 			vanRs = stmt.executeQuery(vanQuery);
@@ -116,7 +116,7 @@ public class PurchaseDataManager {
 
 			purchase.setStatus(1);
 			String purchaseMaxIdQuery = "select max(purchaseId) from purchase";
-			String query = "insert into purchase(purchaseId,date,vanName,driver1,driver2,cleaner1,cleaner2,company,location,outstanding,challanNo,rent,product,pieces,kg,rate,amount,avgWeight,status)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String query = "insert into purchase(purchaseId,date,vanName,driver1,driver2,cleaner1,cleaner2,company,location,outstanding,challanNo,rent,product,pieces,kg,rate,amount,avgWeight,finalAmount,status)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			ps = con.prepareStatement(purchaseMaxIdQuery);
 
@@ -153,7 +153,8 @@ public class PurchaseDataManager {
 			ps.setInt(16, purchase.getRate());
 			ps.setInt(17, purchase.getAmount());
 			ps.setDouble(18, purchase.getAvgWeight());
-			ps.setInt(19, purchase.getStatus());
+			ps.setInt(19, purchase.getFinalAmount());
+			ps.setInt(20, purchase.getStatus());
 
 			if (ps.executeUpdate() == 1) {
 				response = "Data added successfully...";
@@ -205,7 +206,8 @@ public class PurchaseDataManager {
 				purchase.setRate(rs.getInt("rate"));
 				purchase.setAmount(rs.getInt("amount"));
 				purchase.setAvgWeight(rs.getDouble("avgWeight"));
-
+				purchase.setFinalAmount(rs.getInt("finalAmount"));
+				
 				purchaseViewList.add(purchase);
 
 			}
