@@ -9,6 +9,7 @@ $(function() {
 	var avgWeight = $('#avgWeight');
 	var finalAmount = $('#finalAmount');
 	var purchaseId = $('#purchaseid');
+	var outstanding = $('#outstanding');
 
 	var json;
 
@@ -91,11 +92,12 @@ $(function() {
 					var fa = productRowData[i].amt;
 
 				}
-				console.log('final amount: ' + fa);
-				finalAmount.attr('value', fa);
 				
+				//finalAmount = outstanding + value of amount from table row
+				var finalAmountResult = +outstanding.val() +  +fa;
 				
-
+				finalAmount.attr('value', finalAmountResult);
+			
 			});
 
 	// to prevent form submission on enter key press
