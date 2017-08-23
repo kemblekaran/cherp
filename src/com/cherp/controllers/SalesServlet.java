@@ -56,7 +56,8 @@ public class SalesServlet extends HttpServlet {
 
 		getParaValues(request, response);
 
-		// System.out.println("van : " + van + ", date :" + date + ", dataLoader :" +
+		// System.out.println("van : " + van + ", date :" + date + ", dataLoader
+		// :" +
 		// dataLoader);
 		System.out.println("purchaseId" + purchaseId);
 
@@ -95,15 +96,18 @@ public class SalesServlet extends HttpServlet {
 		try {
 
 			// MOST IMPORTANT
-			// The second parameter in constructor of FileWriter opens file in append mode
-			Writer writer = new FileWriter(jsonFilePath + "saleView.json", true);
+			// The second parameter in constructor of FileWriter opens file in
+			// append mode
+			Writer writer = new FileWriter(jsonFilePath + "saleView.json");
 			JsonWriter jw = new JsonWriter(writer);
+			System.out.println("Inside jsonFileWriterSale");
 
 			jw.beginObject();
 			jw.name("data");
+			jw.beginArray();
 			for (Purchase p : saleViewList) {
 
-				jw.beginArray();
+				System.out.println("Id:"+p.getId()+",Pid:"+p.getPurchaseId());
 				jw.beginObject();
 				jw.name("id").value(p.getId());
 				jw.name("purchaseId").value(p.getPurchaseId());
@@ -125,9 +129,9 @@ public class SalesServlet extends HttpServlet {
 				jw.name("amount").value(p.getAmount());
 				jw.name("avgWeight").value(p.getAvgWeight());
 				jw.endObject();
-				jw.endArray();
+
 			}
-			
+			jw.endArray();
 			jw.endObject();
 			jw.close();
 		} catch (Exception e) {
