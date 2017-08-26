@@ -124,7 +124,7 @@ public class PurchaseDataManager {
 			while (rs.next()) {
 				int purchaseMaxId = rs.getInt(1);
 
-				System.out.println("purchaseMaxId:" + purchaseMaxId);
+//				System.out.println("purchaseMaxId:" + purchaseMaxId);
 				if (purchase.getCombinePurchaseToggle().equals("on")) {
 					if (purchaseMaxId == 0) {
 						purchaseMaxId = 1;

@@ -11,6 +11,7 @@ $(function() {
 	var purchaseId = $('#purchaseid');
 	var outstanding = $('#outstanding');
 
+	var productRowData = [];
 	var json;
 
 	// calculate amount and avg weight
@@ -61,8 +62,6 @@ $(function() {
 	$('#productTable tbody tr td').keydown(
 			function(e) {
 
-				var productRowData = [];
-
 				var productRow = {
 					"product" : product.val(),
 					"pieces" : pieces.val(),
@@ -80,11 +79,10 @@ $(function() {
 							[ product.val(), pieces.val(), kg.val(),
 									rate.val(), amt.val(), avgWeight.val() ])
 							.draw();
-					json = JSON.stringify(productRow);
 
 					console.log('Json' + productJsonArray);
 					console.log(productRowData);
-					
+
 				}
 
 				// for setting final amount
@@ -92,13 +90,39 @@ $(function() {
 					var fa = productRowData[i].amt;
 
 				}
-				
-				//finalAmount = outstanding + value of amount from table row
-				var finalAmountResult = +outstanding.val() +  +fa;
-				
+
+				// finalAmount = outstanding + value of amount from table row
+				var finalAmountResult = +outstanding.val() + +fa;
+
 				finalAmount.attr('value', finalAmountResult);
-			
+
 			});
+
+	// ajaxCall to purchaseServlet
+	$('#insertBtn').on('click', function() {
+
+		alert('click');
+
+		var productJson = '{data:' + JSON.stringify(productRowData) + '}';
+		$('#productJson').val(productJson);
+
+		console.log(productJson);
+		$('#PurchaseForm').submit(function(e) {
+			
+			$.ajax({
+				url : 'PurchaseServlet',
+				type : 'post',
+				data : $('#PurchaseForm').serialize(),
+
+				success : function(data) {
+					console.log('success');
+				},
+				error : function() {
+
+				}
+			})
+		});
+	});
 
 	// to prevent form submission on enter key press
 	$(window).keydown(function(event) {
