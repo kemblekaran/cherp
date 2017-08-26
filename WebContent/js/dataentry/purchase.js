@@ -80,7 +80,7 @@ $(function() {
 									rate.val(), amt.val(), avgWeight.val() ])
 							.draw();
 
-					console.log('Json' + productJsonArray);
+//					console.log('Json' + productJsonArray);
 					console.log(productRowData);
 
 				}
@@ -101,11 +101,10 @@ $(function() {
 	// ajaxCall to purchaseServlet
 	$('#insertBtn').on('click', function() {
 
-		alert('click');
+		
 
 		var productJson = '{data:' + JSON.stringify(productRowData) + '}';
 		$('#productJson').val(productJson);
-
 		console.log(productJson);
 		$('#PurchaseForm').submit(function(e) {
 			
