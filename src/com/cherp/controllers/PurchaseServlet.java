@@ -95,7 +95,7 @@ public class PurchaseServlet extends HttpServlet {
 		System.out.println("In Purchase Servlet\n\n");
 		getParaValues(request, response);
 
-		System.out.println("Data:" + date);
+		System.out.println("Date:" + date);
 		System.out.println("finalAmount:" + finalAmount+"\n");
 		PurchaseDataManager pdm = new PurchaseDataManager();
 		// Purchase purchase = new Purchase();
