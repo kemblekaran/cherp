@@ -24,7 +24,16 @@ $(function() {
 				console.log('error');
 			}
 		});
+		// gets product value from saleView.json
+		$.getJSON('/server/jsonfiles/salesDataSelector.json', function(data) {
+			var jsonData = data['data'];
+			$.each(jsonData, function(key, val) {
+				$('#purchaseId').attr('value',val.purchaseId);
+			});
+		});
 
+		salesReady.ajax.reload();
+		
 		// console.log('DataSelector'+DataSelector.date);
 	});
 
@@ -47,6 +56,15 @@ $(function() {
 		$.each(jsonData, function(key, val) {
 			$('#salesProductSelect').append(
 					'<option value="' + val.name + '">' + val.name
+							+ '</option>');
+		});
+	});
+
+	$.getJSON('/server/jsonfiles/customer.json', function(data) {
+		var jsonData = data['data'];
+		$.each(jsonData, function(key, val) {
+			$('#customerSelect').append(
+					'<option value="' + val.fname + '">' + val.fname
 							+ '</option>');
 		});
 	});
@@ -86,9 +104,19 @@ $(function() {
 				$('#salesReadyTable tbody tr td').keydown(
 						function(e) {
 
-							var salesKgNew = $('#salesKg').val();
+							
 							var salesPiecesNew = $('#salesPieces').val();
-
+			
+							//Determines the balance KG Quantity amount and sales KG Quantity
+							$('#salesKg').on('input',function() {
+						
+								var salesKgNew = $('#salesKg').val();
+								
+										var BalanceKg =( parseInt(salesKg) - parseInt(salesKgNew));
+										$('#balanceQtyKg').attr('value',BalanceKg);
+										$('#salesQtyKg').attr('value',salesKgNew);
+										
+									});
 							if (e.keyCode === 13) {
 
 								// checks against existing pieces and disables
@@ -110,10 +138,10 @@ $(function() {
 
 							// sets the amount and average weight value
 							var newAmt = parseInt(salesRate)
-									* parseInt(salesPiecesNew);
+									* parseInt(salesKg);
 							var newAvgWeight = parseInt(salesKg)
 									/ parseInt(salesPiecesNew);
-							console.log(newAmt);
+							// console.log(newAmt);
 							if (newAmt !== null || newAvgWeight !== null) {
 								salesAmount.val(newAmt);
 								salesAvgWeight.val(newAvgWeight);
