@@ -75,8 +75,7 @@ public class SalesServlet extends HttpServlet {
 
 		// List for storing data that will be loaded into purchase form elements
 		List<Purchase> salesList = new ArrayList<>();
-		// if (dataLoader != null) {
-		// if (dataLoader.equals("true")) {
+	
 		SalesDataManager sdm = new SalesDataManager();
 		Sales sales = new Sales();
 		sales.setDate(date);
@@ -84,10 +83,7 @@ public class SalesServlet extends HttpServlet {
 
 		
 		salesList = sdm.tableDataGenerator(sales);
-		// jsonFileWriter(salesList);
-
-		// }
-		// }
+		
 	}
 
 	// method for creating json file for saleView.json
@@ -95,8 +91,7 @@ public class SalesServlet extends HttpServlet {
 		try {
 
 			// MOST IMPORTANT
-			// The second parameter in constructor of FileWriter opens file in
-			// append mode
+			// The second parameter in constructor of FileWriter opens file in append mode
 			Writer writer = new FileWriter(jsonFilePath + "saleView.json");
 			JsonWriter jw = new JsonWriter(writer);
 			System.out.println("Inside jsonFileWriterSale");

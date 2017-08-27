@@ -20,9 +20,6 @@ import com.cherp.entities.Data;
 import com.cherp.entities.Purchase;
 import com.google.gson.stream.JsonWriter;
 
-/**
- * Servlet implementation class SalesDataDecider
- */
 public class SalesDataDecider extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	String jsonFilePath = "";
