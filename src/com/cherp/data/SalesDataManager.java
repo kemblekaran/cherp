@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.cherp.dbconnection.DBHandler;
@@ -24,11 +23,11 @@ public class SalesDataManager {
 		 Sales sales = new Sales();
 		Purchase purchase = new Purchase();
 		// // queries to select records from each table
-		//
+
 		ResultSet purchaseRs;
-		//
+	
 		// List<String> salesList = new ArrayList<>();
-		//
+
 		handler = DBHandler.getInstance();
 		con = handler.getConnection();
 		
