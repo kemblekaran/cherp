@@ -24,6 +24,7 @@ $(function() {
 				console.log('error');
 			}
 		});
+		
 		// gets product value from saleView.json
 		$.getJSON('/server/jsonfiles/salesDataSelector.json', function(data) {
 			var jsonData = data['data'];
@@ -111,10 +112,21 @@ $(function() {
 							$('#salesKg').on('input',function() {
 						
 								var salesKgNew = $('#salesKg').val();
-								
-										var BalanceKg =( parseInt(salesKg) - parseInt(salesKgNew));
+					
+								var BalanceKg =( parseInt(salesKg) - parseInt(salesKgNew));
 										$('#balanceQtyKg').attr('value',BalanceKg);
 										$('#salesQtyKg').attr('value',salesKgNew);
+										
+									});
+							
+							//Determines the balance KG Quantity amount and sales KG Quantity
+							$('#salesPieces').on('input',function() {
+						
+								var salesPiecesNew = $('#salesPieces').val();
+								
+										var BalancePieces =( parseInt(salesPieces) - parseInt(salesPiecesNew));
+										$('#balanceQtyPieces').attr('value',BalancePieces);
+										$('#salesQtyPieces').attr('value',salesPiecesNew);
 										
 									});
 							if (e.keyCode === 13) {
