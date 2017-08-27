@@ -82,9 +82,8 @@ public class SalesServlet extends HttpServlet {
 		sales.setDate(date);
 		sales.setVan(van);
 
-		System.out.println("In Table Data Generator");
+		
 		salesList = sdm.tableDataGenerator(sales);
-		System.out.println("sales" + salesList);
 		// jsonFileWriter(salesList);
 
 		// }

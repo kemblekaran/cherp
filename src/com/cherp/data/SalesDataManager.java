@@ -67,7 +67,6 @@ public class SalesDataManager {
 			while (purchaseRs.next()) {
 				purchase.setProduct(purchaseRs.getString("product"));
 				purchase.setDriver1(purchaseRs.getString("driver1"));
-				System.out.println("Product :" + purchase.getProduct());
 			}
 			purchaseList.add(purchase);
 //			System.out.println("sales list:");
@@ -111,6 +110,7 @@ public class SalesDataManager {
 					purchase.setChallanNo(rs.getLong("challanNo"));
 					purchase.setRent(rs.getInt("rent"));
 					purchase.setProduct(rs.getString("product"));
+					purchase.setPieces(rs.getInt("pieces"));
 					purchase.setKg(rs.getInt("kg"));
 					purchase.setRate(rs.getInt("rate"));
 					purchase.setAmount(rs.getInt("amount"));
