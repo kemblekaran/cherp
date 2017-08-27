@@ -9,7 +9,7 @@ $(function() {
 	var avgWeight = $('#avgWeight');
 	var finalAmount = $('#finalAmount');
 	var purchaseId = $('#purchaseid');
-	var outstanding = $('#outstanding');
+	var outstanding = $('#outstanding').val();
 
 	var productRowData = [];
 	var json;
@@ -17,11 +17,13 @@ $(function() {
 	// calculate amount and avg weight
 	rate.on('input', function() {
 
-		var newAmt = parseInt(rate.val()) * parseInt(pieces.val());
+		var newAmt = parseInt(rate.val()) * parseInt(kg.val());
 		var newAvgWeight = parseInt(kg.val()) / parseInt(pieces.val());
 		if (newAmt !== null || newAvgWeight !== null) {
-			amt.val(newAmt);
-			avgWeight.val(newAvgWeight);
+			
+			//toFixed() method places the decimal point after digits specified as a parameter
+			amt.val(newAmt.toFixed(2));
+			avgWeight.val(newAvgWeight.toFixed(2));
 		}
 	});
 
@@ -62,6 +64,8 @@ $(function() {
 	$('#productTable tbody tr td').keydown(
 			function(e) {
 
+				var outstanding = $('#outstanding').val();
+
 				var productRow = {
 					"product" : product.val(),
 					"pieces" : pieces.val(),
@@ -80,34 +84,33 @@ $(function() {
 									rate.val(), amt.val(), avgWeight.val() ])
 							.draw();
 
-//					console.log('Json' + productJsonArray);
+					// console.log('Json' + productJsonArray);
 					console.log(productRowData);
 
 				}
-
+				
+//				console.log(outstanding);
+				var fa;
 				// for setting final amount
 				for (var i = 0; i < productRowData.length; i++) {
-					var fa = productRowData[i].amt;
+					fa = productRowData[i].amt;
 
 				}
+				//for setting final amount
+				fa = parseInt(fa) + parseInt(outstanding); 	
 
-				// finalAmount = outstanding + value of amount from table row
-				var finalAmountResult = +outstanding.val() + +fa;
-
-				finalAmount.attr('value', finalAmountResult);
+				 finalAmount.attr('value', fa.toFixed(2));
 
 			});
 
 	// ajaxCall to purchaseServlet
 	$('#insertBtn').on('click', function() {
 
-		
-
 		var productJson = '{data:' + JSON.stringify(productRowData) + '}';
 		$('#productJson').val(productJson);
 		console.log(productJson);
 		$('#PurchaseForm').submit(function(e) {
-			
+
 			$.ajax({
 				url : 'PurchaseServlet',
 				type : 'post',
