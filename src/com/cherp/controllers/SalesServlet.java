@@ -25,6 +25,7 @@ public class SalesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private String jsonFilePath;
+	private String responses = "";
 
 	private String dataLoader = "";
 
@@ -32,6 +33,16 @@ public class SalesServlet extends HttpServlet {
 	private String van = "";
 	private String purchaseId = "";
 	private String purchaseView = "";
+
+	private String invoiceNo = "";
+	private String customer = "";
+	private String product = "";
+	private String pieces = "";
+	private String kg = "";
+	private String rate = "";
+	private String amount = "";
+	private String avgWeight = "";
+	private String operation = "";
 
 	// method for getting parameters
 	public void getParaValues(HttpServletRequest request, HttpServletResponse response) {
@@ -46,6 +57,17 @@ public class SalesServlet extends HttpServlet {
 		purchaseId = request.getParameter("purchaseId");
 		purchaseView = request.getParameter("purchaseView");
 
+		// Insert Form Parameters for sales records
+		invoiceNo = request.getParameter("invoiceNo");
+		customer = request.getParameter("customer");
+		product = request.getParameter("product");
+		pieces = request.getParameter("pieces");
+		kg = request.getParameter("kg");
+		rate = request.getParameter("rate");
+		amount = request.getParameter("amount");
+		avgWeight = request.getParameter("avgWeight");
+		operation = request.getParameter("operation");
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -53,19 +75,31 @@ public class SalesServlet extends HttpServlet {
 		Purchase purchase = new Purchase();
 		System.out.println("In sales Servlet");
 		PrintWriter pw = response.getWriter();
-
+		SalesDataManager sdm = new SalesDataManager();
+		Sales sales = new Sales();
 		getParaValues(request, response);
+		System.out.println("purchaseId"+purchaseId);
+		if (operation.equals("insert")) {
+			System.out.println("In sales Insert");
+			sales.setDate(date);
+			sales.setVan(van);
+			sales.setPurchaseId(Integer.parseInt(purchaseId));
+			sales.setInvoiceNo(Integer.parseInt(invoiceNo));
+			sales.setCustomer(customer);
+			sales.setProduct(product);
+			sales.setPieces(Integer.parseInt(pieces));
+			sales.setKg(Integer.parseInt(kg));
+			sales.setRate(Integer.parseInt(rate));
+			sales.setAmount(Double.parseDouble(amount));
+			sales.setAvgWeight(Double.parseDouble(avgWeight));
+			sdm.addData(sales);
 
-		// System.out.println("van : " + van + ", date :" + date + ", dataLoader
-		// :" +
-		// dataLoader);
-		System.out.println("purchaseId" + purchaseId);
+		}
 
 		// Select purchase data according to purchaseid
 		if (purchaseView != null) {
 			if (purchaseView.equals("true")) {
 				List<Purchase> saleViewList = new ArrayList<>();
-				SalesDataManager sdm = new SalesDataManager();
 				purchase.setPurchaseId(Integer.parseInt(purchaseId));
 
 				saleViewList = sdm.selectSales(purchase);
@@ -75,15 +109,12 @@ public class SalesServlet extends HttpServlet {
 
 		// List for storing data that will be loaded into purchase form elements
 		List<Purchase> salesList = new ArrayList<>();
-	
-		SalesDataManager sdm = new SalesDataManager();
-		Sales sales = new Sales();
+
 		sales.setDate(date);
 		sales.setVan(van);
 
-		
 		salesList = sdm.tableDataGenerator(sales);
-		
+
 	}
 
 	// method for creating json file for saleView.json
@@ -101,7 +132,7 @@ public class SalesServlet extends HttpServlet {
 			jw.beginArray();
 			for (Purchase p : saleViewList) {
 
-				System.out.println("Id:"+p.getId()+",Pid:"+p.getPurchaseId());
+				System.out.println("Id:" + p.getId() + ",Pid:" + p.getPurchaseId());
 				jw.beginObject();
 				jw.name("id").value(p.getId());
 				jw.name("purchaseId").value(p.getPurchaseId());

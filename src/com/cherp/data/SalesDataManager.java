@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cherp.dbconnection.DBHandler;
+import com.cherp.entities.Area;
 import com.cherp.entities.Purchase;
 import com.cherp.entities.Sales;
 import java.sql.PreparedStatement;
@@ -17,6 +18,43 @@ public class SalesDataManager {
 	private Connection con;
 	private Statement stmt;
 	private PreparedStatement ps;
+	private String response = "";
+	
+	// insert data into database
+		public String addData(Sales sales) {
+
+			try {
+
+				// set status 1 for area
+				sales.setStatus(1);
+				handler = DBHandler.getInstance();
+				con = handler.getConnection();
+
+				String query = "insert into sales(invoiceNo,date,van,purchaseId,customer,product,pieces,kg,rate,amount,avgWeight,status)values(?,?,?,?,?,?,?,?,?,?,?,?)";
+				
+				ps = con.prepareStatement(query);
+				
+				ps.setInt(1,sales.getInvoiceNo());
+				ps.setString(2, sales.getDate());
+				ps.setString(3, sales.getVan());
+				ps.setInt(4, sales.getPurchaseId());
+				ps.setString(5, sales.getCustomer());
+				ps.setString(6, sales.getProduct());
+				ps.setInt(7,sales.getPieces());
+				ps.setInt(8,sales.getKg());
+				ps.setInt(9,sales.getRate());
+				ps.setDouble(10,sales.getAmount());
+				ps.setDouble(11,sales.getAvgWeight());
+				ps.setInt(12, sales.getStatus());
+				
+				response = "Product Sell Successfully";
+
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			}
+			return response;
+		}
 
 	public List<Purchase> tableDataGenerator(Sales sale) {
 		List<Purchase> purchaseList = new ArrayList<>();

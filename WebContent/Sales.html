@@ -15,15 +15,16 @@
 <link rel="stylesheet" href="validate.css">
 </head>
 <body>
-	
-		<b>Date</b>
-		<input type="date" name="date" id="date"> 
-		<b>Van</b>
-		<select name="van" id="vanList">
-			<option>Select Van</option>
-		</select>
-		<b>Purchase Id</b>
-		 <input type="text" id="purchaseId" name="purchaseId">
+<form id="InsertForm">
+<input type="hidden" id="actionURL" value="SalesServlet">
+	<b>Date</b>
+	<input type="date" name="date" id="date">
+	<b>Van</b>
+	<select name="van" id="vanList">
+		<option>Select Van</option>
+	</select>
+	<b>Purchase Id</b>
+	<input type="text" id="purchaseId" name="purchaseId" readonly>
 
 	<div class="" id="tableRow">
 		<h4>Ready For Sales</h4>
@@ -53,17 +54,16 @@
 		</table>
 
 	</div>
+
 	<div class="row">
 		<div class="col-md-2">
 			<label>Balance Qty</label>
 		</div>
 		<div class="col-md-2">
-			<label>KG</label> <input type="text" id="balanceQtyKg"
-				name="balanceQtyKg">
+			<label>KG</label> <br><input type="text" id="balanceQtyKg" name="balanceQtyKg">
 		</div>
 		<div class="col-md-2">
-			<label>Pieces</label> <input type="text" id="balanceQtyPieces"
-				name="balanceQtyPieces">
+			<label>Pieces</label> <input type="text" id="balanceQtyPieces" name="balanceQtyPieces">
 		</div>
 	</div>
 	<div class="row">
@@ -72,12 +72,10 @@
 		</div>
 		<br>
 		<div class="col-md-2">
-		<input type="text" id="salesQtyKg"
-				name="salesQtyKg">
+			<input type="text" id="salesQtyKg" name="salesQtyKg">
 		</div>
 		<div class="col-md-2">
-		<input type="text" id="salesQtyPieces"
-				name="salesQtyPieces">
+			<input type="text" id="salesQtyPieces" name="salesQtyPieces">
 		</div>
 	</div>
 	<!-- Table for Product  -->
@@ -115,9 +113,9 @@
 		</tbody>
 
 	</table>
-
-	</div>
-
+	<input type="hidden" name="operation" value="insert">
+	<button id="insertBtn" class="btn btn-primary">Save</button>
+</form>
 	<script src="http://code.jquery.com/jquery-3.2.1.min.js"
 		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 		crossorigin="anonymous"></script>
@@ -131,7 +129,7 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 	<script src="validation/validateSales.js"></script>
 	<script src="js/dataTables.cellEdit.js"></script>
-<!-- 	<script src="js/dataTable.js" type="text/javascript"></script> -->
+		<script src="js/dataTable.js" type="text/javascript"></script>
 	<script src="js/SalesDataLoader.js" type="text/javascript"></script>
 	<script
 		src="https://cdn.datatables.net/select/1.2.2/js/dataTables.select.min.js"></script>
@@ -180,9 +178,6 @@
 				"data" : "avgWeight"
 			} ]
 		});
-		
-		
-		
 	</script>
 </body>
 </html>

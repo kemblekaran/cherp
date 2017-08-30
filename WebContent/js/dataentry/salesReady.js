@@ -108,7 +108,8 @@ $(function() {
 							
 							var salesPiecesNew = $('#salesPieces').val();
 			
-							//Determines the balance KG Quantity amount and sales KG Quantity
+							// Determines the balance KG Quantity amount and
+							// sales KG Quantity
 							$('#salesKg').on('input',function() {
 						
 								var salesKgNew = $('#salesKg').val();
@@ -119,7 +120,8 @@ $(function() {
 										
 									});
 							
-							//Determines the balance KG Quantity amount and sales KG Quantity
+							// Determines the balance KG Quantity amount and
+							// sales KG Quantity
 							$('#salesPieces').on('input',function() {
 						
 								var salesPiecesNew = $('#salesPieces').val();
@@ -162,6 +164,45 @@ $(function() {
 
 						});
 
+			});
+	
+	$('#salesReadyTable tbody tr td').keydown(function(e) {
+		
+			var invoiceNo = $('#invoiceNo');
+			var customer = $("#customerSelect");
+			var product = $('#salesProductSelect');
+			var salesPieces = $('#salesPieces');
+			var salesKg = $('#salesKg');
+			var salesRate = $('#salesRate');
+			var salesAmount = $('#salesAmount');
+			var salesAvgWeight = $('#salesAvgWeight');
+			
+				var salesRow = {
+					"InvoiceNo" : invoiceNo.val(),
+					"customer"  : customer.val(),
+					"product" : product.val(),
+					"salesPieces" : salesPieces.val(),
+					"salesKg" : salesKg.val(),
+					"salesRate" : salesRate.val(),
+					"salesAmount" : salesAmount.val(),
+					"salesAvgWeight" : salesAvgWeight.val()
+				}
+				
+				console.log(salesRow);
+
+				if (e.keyCode === 13) {
+//					console.log(productRow.product);
+//					productRowData.push(productRow);
+//
+//					productTable.row.add(
+//							[ product.val(), pieces.val(), kg.val(),
+//									rate.val(), amt.val(), avgWeight.val() ])
+//							.draw();
+//
+//					// console.log('Json' + productJsonArray);
+//					console.log(productRowData);
+
+				}
 			});
 
 });

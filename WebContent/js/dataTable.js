@@ -1,5 +1,5 @@
 $(function() {
-
+	
 	var updateButton = document.getElementById('updateBtn');
 	var deleteButton = document.getElementById('deleteBtn');
 	var dbActionPerformed;
@@ -58,7 +58,7 @@ $(function() {
 
 	// insertButtonListener and insert data function
 	insertData.addEventListener('click', function() {
-
+		
 		 if ($('#InsertForm').valid()) {
 		$('#InsertForm').submit(function(e) {
 
@@ -73,11 +73,11 @@ $(function() {
 				async : false,
 				success : function(data) {
 					if (data != null) {
-						alert(data);
+						console.log(data);
 					}
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
-					alert("Insert Form Error");
+					console.log("Insert Form Error");
 				}
 			});
 
