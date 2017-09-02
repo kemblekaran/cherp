@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Data {
 	private List<Purchase> data = new ArrayList<>();
+	private List<Sales> salesData = new ArrayList<>();
 	private List<Purchase> dataSelector = new ArrayList<>();
 	
 	
@@ -24,5 +25,14 @@ public class Data {
 	public void setData(List<Purchase> data) {
 		this.data = data;
 	}
+
+	public List<Sales> getSalesData() {
+		return salesData;
+	}
+
+	public void setSalesData(List<Sales> salesData) {
+		this.salesData = salesData;
+	}
+	
 
 }

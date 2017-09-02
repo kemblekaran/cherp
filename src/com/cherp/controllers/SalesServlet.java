@@ -16,21 +16,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.cherp.data.PurchaseDataManager;
 import com.cherp.data.SalesDataManager;
+import com.cherp.entities.Data;
 import com.cherp.entities.Purchase;
 import com.cherp.entities.Sales;
 import com.cherp.entities.User;
+import com.google.gson.Gson;
 import com.google.gson.stream.JsonWriter;
 
 public class SalesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private String jsonFilePath;
-	private String responses = "";
+	private String operation = "";
+	private String operationResp = "";
 
 	private String dataLoader = "";
 
 	private String date = "";
 	private String van = "";
+	private String purchase = "";
 	private String purchaseId = "";
 	private String purchaseView = "";
 
@@ -42,10 +46,13 @@ public class SalesServlet extends HttpServlet {
 	private String rate = "";
 	private String amount = "";
 	private String avgWeight = "";
-	private String operation = "";
+
+	private String productJson = "";
 
 	// method for getting parameters
 	public void getParaValues(HttpServletRequest request, HttpServletResponse response) {
+
+		productJson = request.getParameter("productJson");
 
 		// context para for json files location
 		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
@@ -54,6 +61,7 @@ public class SalesServlet extends HttpServlet {
 		date = request.getParameter("date");
 		van = request.getParameter("van");
 		dataLoader = request.getParameter("dataLoader");
+		purchase = request.getParameter("purchase");
 		purchaseId = request.getParameter("purchaseId");
 		purchaseView = request.getParameter("purchaseView");
 
@@ -67,33 +75,43 @@ public class SalesServlet extends HttpServlet {
 		amount = request.getParameter("amount");
 		avgWeight = request.getParameter("avgWeight");
 		operation = request.getParameter("operation");
-
+		System.out.println("operation" + operation);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		getParaValues(request, response);
+
 		Purchase purchase = new Purchase();
 		System.out.println("In sales Servlet");
 		PrintWriter pw = response.getWriter();
 		SalesDataManager sdm = new SalesDataManager();
-		Sales sales = new Sales();
-		getParaValues(request, response);
-		System.out.println("purchaseId"+purchaseId);
-		if (operation.equals("insert")) {
-			System.out.println("In sales Insert");
-			sales.setDate(date);
-			sales.setVan(van);
-			sales.setPurchaseId(Integer.parseInt(purchaseId));
-			sales.setInvoiceNo(Integer.parseInt(invoiceNo));
-			sales.setCustomer(customer);
-			sales.setProduct(product);
-			sales.setPieces(Integer.parseInt(pieces));
-			sales.setKg(Integer.parseInt(kg));
-			sales.setRate(Integer.parseInt(rate));
-			sales.setAmount(Double.parseDouble(amount));
-			sales.setAvgWeight(Double.parseDouble(avgWeight));
-			sdm.addData(sales);
 
+		Gson gson = new Gson();
+		Data jsonData = gson.fromJson(productJson, Data.class);
+
+		// System.out.println("purchaseId" + purchaseId);
+		if (operation != null) {
+			if (operation.equals("insert")) {
+				System.out.println("In sales Insert");
+				for (Sales sales : jsonData.getSalesData()) {
+					sales.setDate(date);
+					sales.setVan(van);
+					sales.setPurchaseId(Integer.parseInt(purchaseId));
+					// sales.setInvoiceNo(Integer.parseInt(invoiceNo));
+					// sales.setCustomer(customer);
+					// sales.setProduct(product);
+					// sales.setPieces(Integer.parseInt(pieces));
+					// sales.setKg(Integer.parseInt(kg));
+					// sales.setRate(Integer.parseInt(rate));
+					// sales.setAmount(Double.parseDouble(amount));
+					// sales.setAvgWeight(Double.parseDouble(avgWeight));
+
+					operationResp = sdm.addData(sales);
+				}
+
+			}
 		}
 
 		// Select purchase data according to purchaseid
@@ -110,6 +128,7 @@ public class SalesServlet extends HttpServlet {
 		// List for storing data that will be loaded into purchase form elements
 		List<Purchase> salesList = new ArrayList<>();
 
+		Sales sales = new Sales();
 		sales.setDate(date);
 		sales.setVan(van);
 
