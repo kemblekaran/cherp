@@ -58,7 +58,6 @@ public class SalesDataSelectorManager {
 
 				// data.setDataSelector(dataSelector);
 
-				System.out.println(dataSelectorList.toString());
 			}
 		} catch (Exception e) {
 			System.out.println(e.getStackTrace());

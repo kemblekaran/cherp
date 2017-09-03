@@ -1,5 +1,31 @@
 $(function() {
 
+	// $.ajax({
+	// url : 'SalesServlet',
+	// data : {
+	// dataLoader : true
+	// },
+	// type : 'POST',
+	// success : function() {
+	// console.log('Data Loaded Successfully!')
+	// },
+	// error : function() {
+	// console.log('Error Loading Data from Database');
+	//
+	// }
+	// });
+
+	// Loads van data
+	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
+
+		var jsonData = data['van'];
+		$.each(jsonData, function(key, val) {
+			$('#vanList').append(
+					'<option value="' + val.name + '">' + val.name
+							+ '</option>');
+		});
+	});
+
 	$('#vanList').on('change', function() {
 		var date = $('#date').val();
 		var van = $('#vanList').val();
@@ -106,37 +132,20 @@ $(function() {
 
 						// on entering the value checks for the certain
 						// operations
-						$('#salesReadyTable tbody tr td')
-								.keydown(
-										function(e) {
+						$('#salesReadyTable tbody tr td').keydown(function(e) {
 
-											var salesPiecesNew = $(
-													'#salesPieces').val();
+							var salesPiecesNew = $('#salesPieces').val();
+							var salesKgNew;
 
-											// Determines the balance KG
-											// Quantity amount and
-											// sales KG Quantity
-											$('#salesKg')
-													.on(
-															'input',
-															function() {
+											// Determines the balance KG Quantity amount and sales KG Quantity
+											$('#salesKg').on('input',function() {
 
-																var salesKgNew = $(
-																		'#salesKg')
-																		.val();
-
-																var BalanceKg = (parseInt(salesKg) - parseInt(salesKgNew));
-																$(
-																		'#balanceQtyKg')
-																		.attr(
-																				'value',
-																				BalanceKg);
-																$('#salesQtyKg')
-																		.attr(
-																				'value',
-																				salesKgNew);
-
-															});
+												salesKgNew = $('#salesKg').val();
+												var BalanceKg = (parseInt(salesKg) - parseInt(salesKgNew));
+												$('#balanceQtyKg').attr('value',BalanceKg);
+												$('#salesQtyKg').attr('value',salesKgNew);
+												
+												});
 
 											// Determines the balance KG
 											// Quantity amount and
@@ -232,10 +241,9 @@ $(function() {
 					"salesAvgWeight" : salesAvgWeight.val()
 				}
 
-				console.log(productRow);
 
 				if (e.keyCode === 13) {
-					console.log(productRow.product);
+					
 					productRowData.push(productRow);
 
 					salesReadyTable.row.add(
@@ -243,33 +251,33 @@ $(function() {
 									salesPieces.val(), salesKg.val(),
 									salesRate.val(), salesAmount.val(),
 									salesAvgWeight.val() ]).draw();
+					
+					var productJson = '{salesData:' + JSON.stringify(productRowData) + '}';
+					$('#productJson').val(productJson);
 
-					// console.log('Json' + productJsonArray);
-					console.log(productRowData);
-
+					console.log('productJson' + productJson);
 				}
 			});
 
 	// ajaxCall to purchaseServlet
 	$('#insertBtn').on('click', function() {
 
-		var productJson = '{salesData:' + JSON.stringify(productRowData) + '}';
-		$('#productJson').val(productJson);
-		console.log(productJson);
 		$('#SalesForm').submit(function(e) {
 
 			$.ajax({
 				url : 'SalesServlet',
-				type : 'post',
-				data : $('#SalesForm').serialize(),
-
+				type : 'POST',
+				data : $('#SalesForm').serializeArray(),
+				async : false,
 				success : function(data) {
-					console.log('success');
+					if (data != null) {
+						alert(data);
+					}
 				},
-				error : function() {
-
+				error : function(xhr, ajaxOptions, thrownError) {
+					console.log("Sales Form Error");
 				}
-			})
+			});
 		});
 	});
 

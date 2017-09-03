@@ -30,7 +30,7 @@ public class SalesServlet extends HttpServlet {
 	private String operation = "";
 	private String operationResp = "";
 
-	private String dataLoader = "";
+	// private String dataLoader = "";
 
 	private String date = "";
 	private String van = "";
@@ -60,7 +60,7 @@ public class SalesServlet extends HttpServlet {
 		// Insert Form Parameters
 		date = request.getParameter("date");
 		van = request.getParameter("van");
-		dataLoader = request.getParameter("dataLoader");
+		// dataLoader = request.getParameter("dataLoader");
 		purchase = request.getParameter("purchase");
 		purchaseId = request.getParameter("purchaseId");
 		purchaseView = request.getParameter("purchaseView");
@@ -75,7 +75,6 @@ public class SalesServlet extends HttpServlet {
 		amount = request.getParameter("amount");
 		avgWeight = request.getParameter("avgWeight");
 		operation = request.getParameter("operation");
-		System.out.println("operation" + operation);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -91,7 +90,6 @@ public class SalesServlet extends HttpServlet {
 		Gson gson = new Gson();
 		Data jsonData = gson.fromJson(productJson, Data.class);
 
-		// System.out.println("purchaseId" + purchaseId);
 		if (operation != null) {
 			if (operation.equals("insert")) {
 				System.out.println("In sales Insert");
@@ -99,17 +97,19 @@ public class SalesServlet extends HttpServlet {
 					sales.setDate(date);
 					sales.setVan(van);
 					sales.setPurchaseId(Integer.parseInt(purchaseId));
-					// sales.setInvoiceNo(Integer.parseInt(invoiceNo));
-					// sales.setCustomer(customer);
-					// sales.setProduct(product);
-					// sales.setPieces(Integer.parseInt(pieces));
-					// sales.setKg(Integer.parseInt(kg));
-					// sales.setRate(Integer.parseInt(rate));
-					// sales.setAmount(Double.parseDouble(amount));
-					// sales.setAvgWeight(Double.parseDouble(avgWeight));
+					sales.setInvoiceNo(Integer.parseInt(invoiceNo));
+					sales.setCustomer(customer);
+					sales.setProduct(product);
+					sales.setPieces(Integer.parseInt(pieces));
+					sales.setKg(Integer.parseInt(kg));
+					sales.setRate(Integer.parseInt(rate));
+					sales.setAmount(Double.parseDouble(amount));
+					sales.setAvgWeight(Double.parseDouble(avgWeight));
 
 					operationResp = sdm.addData(sales);
 				}
+
+				pw.write(operationResp);
 
 			}
 		}

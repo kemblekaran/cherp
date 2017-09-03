@@ -1,10 +1,12 @@
 package com.cherp.data;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import com.cherp.dbconnection.DBHandler;
@@ -19,56 +21,60 @@ public class SalesDataManager {
 	private Statement stmt;
 	private PreparedStatement ps;
 	private String response = "";
-	
+
 	// insert data into database
-		public String addData(Sales sales) {
+	public String addData(Sales sales) {
+		System.out.println("inside addData");
+		try {
 
-			try {
+			// set status 1 for area
+			sales.setStatus(1);
+			handler = DBHandler.getInstance();
+			con = handler.getConnection();
 
-				// set status 1 for area
-				sales.setStatus(1);
-				handler = DBHandler.getInstance();
-				con = handler.getConnection();
+			String query = "insert into sales(invoiceNo,date,van,purchaseId,customer,product,pieces,kg,rate,amount,avgWeight,status)values(?,?,?,?,?,?,?,?,?,?,?,?)";
 
-				String query = "insert into sales(invoiceNo,date,van,purchaseId,customer,product,pieces,kg,rate,amount,avgWeight,status)values(?,?,?,?,?,?,?,?,?,?,?,?)";
-				
-				ps = con.prepareStatement(query);
-				
-				ps.setInt(1,sales.getInvoiceNo());
-				ps.setString(2, sales.getDate());
-				ps.setString(3, sales.getVan());
-				ps.setInt(4, sales.getPurchaseId());
-				ps.setString(5, sales.getCustomer());
-				ps.setString(6, sales.getProduct());
-				ps.setInt(7,sales.getPieces());
-				ps.setInt(8,sales.getKg());
-				ps.setInt(9,sales.getRate());
-				ps.setDouble(10,sales.getAmount());
-				ps.setDouble(11,sales.getAvgWeight());
-				ps.setInt(12, sales.getStatus());
-				
-				response = "Product Sell Successfully";
+			ps = con.prepareStatement(query);
+		
+			ps.setInt(1, sales.getInvoiceNo());
+			//sets the sales date to current date 
+			ps.setString(2, Calendar.getInstance().getTime().toString());
+			ps.setString(3, sales.getVan());
+			ps.setInt(4, sales.getPurchaseId());
+			ps.setString(5, sales.getCustomer());
+			ps.setString(6, sales.getProduct());
+			ps.setInt(7, sales.getPieces());
+			ps.setInt(8, sales.getKg());
+			ps.setInt(9, sales.getRate());
+			ps.setDouble(10, sales.getAmount());
+			ps.setDouble(11, sales.getAvgWeight());
+			ps.setInt(12, sales.getStatus());
+			
+			ps.executeUpdate();
 
-			} catch (Exception e) {
-				e.printStackTrace();
+			System.out.println(sales.getPurchaseId()+sales.getVan()+sales.getPieces()+sales.getAmount()+sales.getRate());
+			response = "Product Sell Successfully";
 
-			}
-			return response;
+		} catch (Exception e) {
+			e.printStackTrace();
+
 		}
+		return response;
+	}
 
 	public List<Purchase> tableDataGenerator(Sales sale) {
 		List<Purchase> purchaseList = new ArrayList<>();
-		 Sales sales = new Sales();
+		Sales sales = new Sales();
 		Purchase purchase = new Purchase();
 		// // queries to select records from each table
 
 		ResultSet purchaseRs;
-	
+
 		// List<String> salesList = new ArrayList<>();
 
 		handler = DBHandler.getInstance();
 		con = handler.getConnection();
-		
+
 		try {
 			stmt = con.createStatement();
 			String purchaseQuery = "select * from purchase where status=1";
@@ -99,72 +105,72 @@ public class SalesDataManager {
 			// }
 			// }
 
-//			String data = "select * from purchase where vanName=" + sales.getVan();
-//			salesRs = stmt.executeQuery(data);
+			// String data = "select * from purchase where vanName=" + sales.getVan();
+			// salesRs = stmt.executeQuery(data);
 			while (purchaseRs.next()) {
 				purchase.setProduct(purchaseRs.getString("product"));
 				purchase.setDriver1(purchaseRs.getString("driver1"));
 			}
 			purchaseList.add(purchase);
-//			System.out.println("sales list:");
+			// System.out.println("sales list:");
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		}
 		return purchaseList;
 	}
-	
+
 	// select all data
-		public List<Purchase> selectSales(Purchase purchase) {
-			System.out.println("In Sales");
-			List<Purchase> purchaseViewList = new ArrayList<>();
-			try {
+	public List<Purchase> selectSales(Purchase purchase) {
+		System.out.println("In Sales");
+		List<Purchase> purchaseViewList = new ArrayList<>();
+		try {
 
-				handler = DBHandler.getInstance();
-				con = handler.getConnection();
-				purchase.setPurchaseId(purchase.getPurchaseId());
-				String squery = "select * from purchase where purchaseId=?";
+			handler = DBHandler.getInstance();
+			con = handler.getConnection();
+			purchase.setPurchaseId(purchase.getPurchaseId());
+			String squery = "select * from purchase where purchaseId=?";
 
-				// System.out.println("Query: " + squery);
-				PreparedStatement ps = con.prepareStatement(squery);
-				ps.setInt(1, purchase.getPurchaseId());
+			// System.out.println("Query: " + squery);
+			PreparedStatement ps = con.prepareStatement(squery);
+			ps.setInt(1, purchase.getPurchaseId());
 
-				ResultSet rs = ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
 
-				while (rs.next()) {
+			while (rs.next()) {
 
-					purchase.setId(rs.getInt("id"));
-					purchase.setPurchaseId(rs.getInt("purchaseId"));
-					purchase.setDate(rs.getString("date"));
-					purchase.setVanName(rs.getString("vanName"));
-					purchase.setDriver1(rs.getString("driver1"));
-					purchase.setDriver2(rs.getString("driver2"));
-					purchase.setCleaner1(rs.getString("cleaner1"));
-					purchase.setCleaner2(rs.getString("cleaner2"));
-					purchase.setCompany(rs.getString("company"));
-					purchase.setLocation(rs.getString("location"));
-					purchase.setOutstanding(rs.getInt("outstanding"));
-					purchase.setChallanNo(rs.getLong("challanNo"));
-					purchase.setRent(rs.getInt("rent"));
-					purchase.setProduct(rs.getString("product"));
-					purchase.setPieces(rs.getInt("pieces"));
-					purchase.setKg(rs.getInt("kg"));
-					purchase.setRate(rs.getInt("rate"));
-					purchase.setAmount(rs.getInt("amount"));
-					purchase.setAvgWeight(rs.getDouble("avgWeight"));
+				purchase.setId(rs.getInt("id"));
+				purchase.setPurchaseId(rs.getInt("purchaseId"));
+				purchase.setDate(rs.getString("date"));
+				purchase.setVanName(rs.getString("vanName"));
+				purchase.setDriver1(rs.getString("driver1"));
+				purchase.setDriver2(rs.getString("driver2"));
+				purchase.setCleaner1(rs.getString("cleaner1"));
+				purchase.setCleaner2(rs.getString("cleaner2"));
+				purchase.setCompany(rs.getString("company"));
+				purchase.setLocation(rs.getString("location"));
+				purchase.setOutstanding(rs.getInt("outstanding"));
+				purchase.setChallanNo(rs.getLong("challanNo"));
+				purchase.setRent(rs.getInt("rent"));
+				purchase.setProduct(rs.getString("product"));
+				purchase.setPieces(rs.getInt("pieces"));
+				purchase.setKg(rs.getInt("kg"));
+				purchase.setRate(rs.getInt("rate"));
+				purchase.setAmount(rs.getInt("amount"));
+				purchase.setAvgWeight(rs.getDouble("avgWeight"));
 
-					purchaseViewList.add(purchase);
-
-				}
-
-				// for(area u : areaList) {
-				// System.out.println("Uname:"+u.getareaname()+", Pass:"+u.getPassword());
-				// }
-			} catch (Exception e) {
-				e.printStackTrace();
+				purchaseViewList.add(purchase);
 
 			}
-			return purchaseViewList;
+
+			// for(area u : areaList) {
+			// System.out.println("Uname:"+u.getareaname()+", Pass:"+u.getPassword());
+			// }
+		} catch (Exception e) {
+			e.printStackTrace();
+
 		}
+		return purchaseViewList;
+	}
 
 }
