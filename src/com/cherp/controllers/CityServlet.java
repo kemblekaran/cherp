@@ -16,6 +16,7 @@ import com.cherp.data.CityDataManager;
 import com.cherp.data.UserDataManager;
 import com.cherp.entities.City;
 import com.cherp.entities.User;
+import com.cherp.json.JSONFileWriter;
 import com.google.gson.stream.JsonWriter;
 
 public class CityServlet extends HttpServlet {
@@ -100,30 +101,10 @@ public class CityServlet extends HttpServlet {
 		// Contains All Data in table
 		List<City> cityList = new ArrayList<>();
 		cityList = cdm.selectData();
-		jsonFileWriter(cityList);
-	}
-
-	// method for creating json file
-	public void jsonFileWriter(List<City> cityList) {
-		try {
-			Writer writer = new FileWriter(jsonFilePath +"city.json");
-
-			JsonWriter jw = new JsonWriter(writer);
-			jw.beginObject();
-			jw.name("data");
-			jw.beginArray();
-			for (City c : cityList) {
-				jw.beginObject();
-				jw.name("id").value(c.getId());
-				jw.name("cityName").value(c.getCityName());
-				jw.name("stateName").value(c.getStateName());
-				jw.endObject();
-			}
-			jw.endArray();
-			jw.endObject();
-			jw.close();
-		} catch (Exception e) {
-		}
+		
+		System.out.println(cityList);
+//		new JSONFileWriter().jsonCreator(cityList);
+		new JSONFileWriter().jsonCreator(cityList,City.class);
 	}
 
 }

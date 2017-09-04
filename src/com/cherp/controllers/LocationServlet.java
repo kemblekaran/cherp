@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.cherp.data.LocationDataManager;
 import com.cherp.entities.Expenses;
 import com.cherp.entities.Location;
+import com.cherp.json.JSONFileWriter;
 import com.google.gson.stream.JsonWriter;
 
 public class LocationServlet extends HttpServlet {
@@ -96,36 +97,37 @@ public class LocationServlet extends HttpServlet {
 		// Contains All Data in table
 		List<Location> locList = new ArrayList<>();
 		locList = ldm.selectData();
-		jsonFileWriter(locList);
+		// jsonFileWriter(locList);
+		new JSONFileWriter().jsonCreator(locList, Location.class);
 	}
 
-	// method for creating json file
-	public void jsonFileWriter(List<Location> locList) {
-		// System.out.println("hello");
-		try {
-			Writer writer = new FileWriter(jsonFilePath + "location.json");
-
-			JsonWriter jw = new JsonWriter(writer);
-			jw.beginObject();
-			jw.name("data");
-			jw.beginArray();
-			for (Location l : locList) {
-				jw.beginObject();
-				jw.name("id").value(l.getId());
-				jw.name("location").value(l.getLocation());
-
-				jw.endObject();
-			}
-			jw.endArray();
-			jw.endObject();
-			jw.close();
-		} catch (Exception e) {
-		}
-	}
-
-	public LocationServlet() {
-		super();
-
-	}
+	// // method for creating json file
+	// public void jsonFileWriter(List<Location> locList) {
+	// // System.out.println("hello");
+	// try {
+	// Writer writer = new FileWriter(jsonFilePath + "location.json");
+	//
+	// JsonWriter jw = new JsonWriter(writer);
+	// jw.beginObject();
+	// jw.name("data");
+	// jw.beginArray();
+	// for (Location l : locList) {
+	// jw.beginObject();
+	// jw.name("id").value(l.getId());
+	// jw.name("location").value(l.getLocation());
+	//
+	// jw.endObject();
+	// }
+	// jw.endArray();
+	// jw.endObject();
+	// jw.close();
+	// } catch (Exception e) {
+	// }
+	// }
+	//
+	// public LocationServlet() {
+	// super();
+	//
+	// }
 
 }
