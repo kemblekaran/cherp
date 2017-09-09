@@ -9,6 +9,7 @@ import java.util.List;
 import com.cherp.dbconnection.DBHandler;
 import com.cherp.entities.Data;
 import com.cherp.entities.Purchase;
+import com.cherp.entities.Sales;
 
 public class SalesDataSelectorManager {
 	private PreparedStatement ps;
@@ -21,9 +22,22 @@ public class SalesDataSelectorManager {
 		con = handler.getConnection();
 
 		List<Purchase> dataSelectorList = new ArrayList<>();
+//		List<Purchase> SelectorList = new ArrayList<>();
+//		List<Sales> salesInvoice = new ArrayList<>();
 
 		String dataSelectorQuery = "select * from purchase where vanName=? and date=?";
+//		String invoiceNoQuery = "select ? from sales";
 		try {
+//			ps = con.prepareStatement(invoiceNoQuery);
+//			ps.setInt(1, Integer.parseInt("invoiceNo"));
+//			rs = ps.executeQuery();
+//
+//			while (rs.next()) {
+//				Sales sales = new Sales();
+//				sales.setInvoiceNo(rs.getInt("invoiceNo"));
+//				salesInvoice.add(sales);
+//			}
+			
 			ps = con.prepareStatement(dataSelectorQuery);
 			ps.setString(1, purchase.getVanName());
 			ps.setString(2, purchase.getDate());
@@ -62,7 +76,6 @@ public class SalesDataSelectorManager {
 		} catch (Exception e) {
 			System.out.println(e.getStackTrace());
 		}
-
 		return dataSelectorList;
 	}
 

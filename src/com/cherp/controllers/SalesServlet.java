@@ -30,7 +30,7 @@ public class SalesServlet extends HttpServlet {
 	private String operation = "";
 	private String operationResp = "";
 
-	// private String dataLoader = "";
+	 private String dataLoader = "";
 
 	private String date = "";
 	private String van = "";
@@ -60,7 +60,7 @@ public class SalesServlet extends HttpServlet {
 		// Insert Form Parameters
 		date = request.getParameter("date");
 		van = request.getParameter("van");
-		// dataLoader = request.getParameter("dataLoader");
+		 dataLoader = request.getParameter("dataLoader");
 		purchase = request.getParameter("purchase");
 		purchaseId = request.getParameter("purchaseId");
 		purchaseView = request.getParameter("purchaseView");

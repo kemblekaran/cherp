@@ -1,19 +1,19 @@
 $(function() {
 
-	// $.ajax({
-	// url : 'SalesServlet',
-	// data : {
-	// dataLoader : true
-	// },
-	// type : 'POST',
-	// success : function() {
-	// console.log('Data Loaded Successfully!')
-	// },
-	// error : function() {
-	// console.log('Error Loading Data from Database');
-	//
-	// }
-	// });
+	$.ajax({
+		url : 'SalesServlet',
+		data : {
+			dataLoader : true
+		},
+		type : 'POST',
+		success : function() {
+			console.log('Data Loaded Successfully!')
+		},
+		error : function() {
+			console.log('Error Loading Data from Database');
+
+		}
+	});
 
 	// Loads van data
 	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
@@ -132,20 +132,37 @@ $(function() {
 
 						// on entering the value checks for the certain
 						// operations
-						$('#salesReadyTable tbody tr td').keydown(function(e) {
+						$('#salesReadyTable tbody tr td')
+								.keydown(
+										function(e) {
 
-							var salesPiecesNew = $('#salesPieces').val();
-							var salesKgNew;
+											var salesPiecesNew = $(
+													'#salesPieces').val();
+											var salesKgNew;
 
-											// Determines the balance KG Quantity amount and sales KG Quantity
-											$('#salesKg').on('input',function() {
+											// Determines the balance KG
+											// Quantity amount and sales KG
+											// Quantity
+											$('#salesKg')
+													.on(
+															'input',
+															function() {
 
-												salesKgNew = $('#salesKg').val();
-												var BalanceKg = (parseInt(salesKg) - parseInt(salesKgNew));
-												$('#balanceQtyKg').attr('value',BalanceKg);
-												$('#salesQtyKg').attr('value',salesKgNew);
-												
-												});
+																salesKgNew = $(
+																		'#salesKg')
+																		.val();
+																var BalanceKg = (parseInt(salesKg) - parseInt(salesKgNew));
+																$(
+																		'#balanceQtyKg')
+																		.attr(
+																				'value',
+																				BalanceKg);
+																$('#salesQtyKg')
+																		.attr(
+																				'value',
+																				salesKgNew);
+
+															});
 
 											// Determines the balance KG
 											// Quantity amount and
@@ -241,9 +258,8 @@ $(function() {
 					"salesAvgWeight" : salesAvgWeight.val()
 				}
 
-
 				if (e.keyCode === 13) {
-					
+
 					productRowData.push(productRow);
 
 					salesReadyTable.row.add(
@@ -251,8 +267,9 @@ $(function() {
 									salesPieces.val(), salesKg.val(),
 									salesRate.val(), salesAmount.val(),
 									salesAvgWeight.val() ]).draw();
-					
-					var productJson = '{salesData:' + JSON.stringify(productRowData) + '}';
+
+					var productJson = '{salesData:'
+							+ JSON.stringify(productRowData) + '}';
 					$('#productJson').val(productJson);
 
 					console.log('productJson' + productJson);
