@@ -66,7 +66,7 @@ public class SalesDataSelectorManager {
 				purchase.setRate(rs.getInt("rate"));
 				purchase.setAmount(rs.getInt("amount"));
 				purchase.setAvgWeight(rs.getDouble("avgWeight"));
-				purchase.setFinalAmount(rs.getInt("finalAmount"));
+				purchase.setFinalAmount(rs.getDouble("finalAmount"));
 
 				dataSelectorList.add(purchase);
 

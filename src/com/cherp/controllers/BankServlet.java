@@ -16,6 +16,7 @@ import com.cherp.data.BankDataManager;
 import com.cherp.data.UserDataManager;
 import com.cherp.entities.Bank;
 import com.cherp.entities.User;
+import com.cherp.utils.JsonCreator;
 import com.google.gson.stream.JsonWriter;
 
 public class BankServlet extends HttpServlet {
@@ -129,35 +130,8 @@ public class BankServlet extends HttpServlet {
 		// Contains All Data in table
 		List<Bank> bankList = new ArrayList<>();
 		bankList = bdm.selectData();
-		jsonFileWriter(bankList);
+		new JsonCreator().createJson(bankList,jsonFilePath+"bank.json");
 
-	}
-
-	// method for creating json file
-	public void jsonFileWriter(List<Bank> bankList) {
-		try {
-			Writer writer = new FileWriter(jsonFilePath + "bank.json");
-			JsonWriter jw = new JsonWriter(writer);
-			jw.beginObject();
-			jw.name("data");
-			jw.beginArray();
-			for (Bank b : bankList) {
-				jw.beginObject();
-				jw.name("id").value(b.getId());
-				jw.name("bankName").value(b.getBankName());
-				jw.name("branchName").value(b.getBrachName());
-				jw.name("address").value(b.getAddress());
-				jw.name("accType").value(b.getAccType());
-				jw.name("accNo").value(b.getAccNo());
-				jw.name("ifscCode").value(b.getIfscCode());
-				jw.name("opBal").value(b.getOpBal());
-				jw.endObject();
-			}
-			jw.endArray();
-			jw.endObject();
-			jw.close();
-		} catch (Exception e) {
-		}
 	}
 
 }

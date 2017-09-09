@@ -16,6 +16,7 @@ import com.cherp.data.CustomerDataManager;
 import com.cherp.data.UserDataManager;
 import com.cherp.entities.Customer;
 import com.cherp.entities.User;
+import com.cherp.utils.JsonCreator;
 import com.google.gson.stream.JsonWriter;
 
 public class CustomerServlet extends HttpServlet {
@@ -112,8 +113,8 @@ public class CustomerServlet extends HttpServlet {
 				cust.setState(state);
 				cust.setCity(city);
 				cust.setArea(area);
-				cust.setMobile(Integer.parseInt(mobile));
-				cust.setPhone(Integer.parseInt(phone));
+				cust.setMobile(Long.parseLong(mobile));
+				cust.setPhone(Long.parseLong(phone));
 				cust.setOpBal(Integer.parseInt(opBal));
 
 				operationResp = custdm.addData(cust);
@@ -131,8 +132,8 @@ public class CustomerServlet extends HttpServlet {
 				cust.setState(updatedCellState);
 				cust.setCity(updatedCellCity);
 				cust.setArea(updatedCellArea);
-				cust.setMobile(Integer.parseInt(updatedCellMobile));
-				cust.setPhone(Integer.parseInt(updatedCellPhone));
+				cust.setMobile(Long.parseLong(updatedCellMobile));
+				cust.setPhone(Long.parseLong(updatedCellPhone));
 				cust.setOpBal(Integer.parseInt(updatedCellOpBal));
 
 				operationResp = custdm.updateData(cust);
@@ -151,40 +152,8 @@ public class CustomerServlet extends HttpServlet {
 		// Contains All Data in table
 		List<Customer> custList = new ArrayList<>();
 		custList = custdm.selectData();
-		jsonFileWriter(custList);
+		new JsonCreator().createJson(custList,jsonFilePath+"customer.json");
 	}
 
-	// method for creating json file
-	public void jsonFileWriter(List<Customer> custList) {
-		try {
-			Writer writer = new FileWriter(jsonFilePath + "customer.json");
-
-			JsonWriter jw = new JsonWriter(writer);
-			jw.beginObject();
-			jw.name("data");
-			jw.beginArray();
-			for (Customer cust : custList) {
-				jw.beginObject();
-				jw.name("id").value(cust.getId());
-				jw.name("fname").value(cust.getFname());
-				jw.name("lname").value(cust.getLname());
-				jw.name("shopName").value(cust.getShopName());
-				jw.name("curAdd").value(cust.getCurAdd());
-				jw.name("perAdd").value(cust.getPerAdd());
-				jw.name("state").value(cust.getState());
-				jw.name("city").value(cust.getCity());
-				jw.name("area").value(cust.getArea());
-				jw.name("mobile").value(cust.getMobile());
-				jw.name("phone").value(cust.getPhone());
-				jw.name("opBal").value(cust.getOpBal());
-				jw.endObject();
-			}
-			jw.endArray();
-			jw.endObject();
-			jw.close();
-
-		} catch (Exception e) {
-		}
-	}
 
 }

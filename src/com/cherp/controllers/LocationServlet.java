@@ -1,7 +1,9 @@
 package com.cherp.controllers;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,24 +13,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cherp.data.LocationDataManager;
+import com.cherp.entities.Expenses;
 import com.cherp.entities.Location;
-import com.cherp.json.JSONFileWriter;
+import com.cherp.utils.JsonCreator;
+import com.google.gson.stream.JsonWriter;
 
 public class LocationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private String jsonFilePath = "";
+
+	private String id = "";
 	private String location = "";
 	private String operation = "";
 
 	private String operationResp = "";
 
 	private String rowId = "";
+	private String updatedCellId = "";
 	private String updatedCellLocation = "";
 
 	// method for getting parameters
 	public void getParaValues(HttpServletRequest request, HttpServletResponse response) {
 		// Add Update Or Delete Parameters
 		operation = request.getParameter("operation");
+
+		// context para for json files location
+		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
 
 		// Insert Form Parameters
 		location = request.getParameter("location");
@@ -39,7 +50,6 @@ public class LocationServlet extends HttpServlet {
 
 	}
 
-	@SuppressWarnings("static-access")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -87,7 +97,9 @@ public class LocationServlet extends HttpServlet {
 		// Contains All Data in table
 		List<Location> locList = new ArrayList<>();
 		locList = ldm.selectData();
-		new JSONFileWriter().jsonCreator(locList, Location.class);
+		new JsonCreator().createJson(locList,jsonFilePath+"location.json");
 	}
+
+
 
 }

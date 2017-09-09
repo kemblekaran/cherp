@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.cherp.data.ProductDataManager;
 import com.cherp.entities.Product;
+import com.cherp.utils.JsonCreator;
 import com.google.gson.stream.JsonWriter;
 
 public class ProductServlet extends HttpServlet {
@@ -102,30 +103,30 @@ public class ProductServlet extends HttpServlet {
 		// Contains All Data in table
 		List<Product> prodList = new ArrayList<>();
 		prodList = pdm.selectData();
-		jsonFileWriter(prodList);
+		new JsonCreator().createJson(prodList,jsonFilePath+"product.json");
 	}
 
-	// method for creating json file
-	public void jsonFileWriter(List<Product> prodList) {
-
-		try {
-
-			Writer writer = new FileWriter(jsonFilePath + "product.json");
-			JsonWriter jw = new JsonWriter(writer);
-			jw.beginObject();
-			jw.name("data");
-			jw.beginArray();
-			for (Product p : prodList) {
-				jw.beginObject();
-				jw.name("id").value(p.getId());
-				jw.name("prodName").value(p.getProdName());
-				jw.name("prodType").value(p.getProdType());
-				jw.endObject();
-			}
-			jw.endArray();
-			jw.endObject();
-			jw.close();
-		} catch (Exception e) {
-		}
-	}
+//	// method for creating json file
+//	public void jsonFileWriter(List<Product> prodList) {
+//
+//		try {
+//
+//			Writer writer = new FileWriter(jsonFilePath + "product.json");
+//			JsonWriter jw = new JsonWriter(writer);
+//			jw.beginObject();
+//			jw.name("data");
+//			jw.beginArray();
+//			for (Product p : prodList) {
+//				jw.beginObject();
+//				jw.name("id").value(p.getId());
+//				jw.name("prodName").value(p.getProdName());
+//				jw.name("prodType").value(p.getProdType());
+//				jw.endObject();
+//			}
+//			jw.endArray();
+//			jw.endObject();
+//			jw.close();
+//		} catch (Exception e) {
+//		}
+//	}
 }

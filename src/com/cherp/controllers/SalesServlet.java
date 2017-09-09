@@ -56,6 +56,7 @@ public class SalesServlet extends HttpServlet {
 
 		// context para for json files location
 		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
+		dataLoader = request.getParameter("dataLoader");
 
 		// Insert Form Parameters
 		date = request.getParameter("date");

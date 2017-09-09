@@ -16,6 +16,7 @@ import com.cherp.data.CleanersDataManager;
 import com.cherp.data.ExpensesDataManager;
 import com.cherp.entities.Cleaners;
 import com.cherp.entities.Expenses;
+import com.cherp.utils.JsonCreator;
 import com.google.gson.stream.JsonWriter;
 
 public class CleanersServlet extends HttpServlet {
@@ -166,41 +167,7 @@ public class CleanersServlet extends HttpServlet {
 		// Contains All Data in table
 		List<Cleaners> clsList = new ArrayList<>();
 		clsList = cdm.selectData();
-		jsonFileWriter(clsList);
+		new JsonCreator().createJson(clsList,jsonFilePath+"cleaners.json");
 	}
 
-	// method for creating json file
-	public void jsonFileWriter(List<Cleaners> clsList) {
-		try {
-
-			Writer writer = new FileWriter(jsonFilePath+"cleaners.json");
-			JsonWriter jw = new JsonWriter(writer);
-			jw.beginObject();//{
-			jw.name("data");
-			jw.beginArray();//[
-			for (Cleaners c : clsList) {
-				jw.beginObject();//{
-				
-				jw.name("id").value(c.getId());
-				jw.name("fname").value(c.getFname());
-				jw.name("lname").value(c.getLname());
-				jw.name("curAdd").value(c.getCurAdd());
-				jw.name("perAdd").value(c.getPerAdd());
-				jw.name("state").value(c.getState());
-				jw.name("city").value(c.getCity());
-				jw.name("mobile").value(c.getMobile());
-				jw.name("phone").value(c.getPhone());
-				jw.name("drLisence").value(c.getDrLicense());
-				jw.name("panNo").value(c.getPanNo());
-				jw.name("adhaarNo").value(c.getAdhaarNo());
-				jw.name("photo").value(c.getPhoto());
-
-				jw.endObject();//}
-			}
-			jw.endArray();//]
-			jw.endObject();//}
-			jw.close();
-		} catch (Exception e) {
-		}
-	}
 }

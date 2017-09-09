@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.cherp.data.UserDataManager;
 import com.cherp.entities.User;
+import com.cherp.utils.JsonCreator;
 import com.google.gson.stream.JsonWriter;
 
 public class UserServlet extends HttpServlet {
@@ -104,29 +105,11 @@ public class UserServlet extends HttpServlet {
 		//Contains All Data in table
 		List<User> userList = new ArrayList<>();
 		userList = udm.selectData();
-		jsonFileWriter(userList);
+		new JsonCreator().createJson(userList,jsonFilePath+"user.json");
 
 	}
 	
 	
-	//method for creating json file
-	public void jsonFileWriter(List<User> userList) {
-		try (Writer writer = new FileWriter(jsonFilePath + "user.json")) {
-			JsonWriter jw = new JsonWriter(writer);
-			jw.beginObject();
-			jw.name("data");
-			jw.beginArray();
-			for (User u : userList) {
-				jw.beginObject();
-				jw.name("id").value(u.getId());
-				jw.name("username").value(u.getUsername());
-				jw.endObject();
-			}
-			jw.endArray();
-			jw.endObject();
-			jw.close();
-		} catch (Exception e) {
-		}
-	}
+
 
 }

@@ -128,7 +128,7 @@ public class PurchaseServlet extends HttpServlet {
 					// purchase.setAvgWeight(Double.parseDouble(avgWeight));
 					// purchase.setAmount(Integer.parseInt(amount));
 					// purchase.setRate(Integer.parseInt(rate));
-					purchase.setFinalAmount(Integer.parseInt(finalAmount));
+					purchase.setFinalAmount(Double.parseDouble(finalAmount));
 					purchase.setCombinePurchaseToggle(combinePurchaseToggle);
 
 					operationResp = pdm.insertData(purchase);

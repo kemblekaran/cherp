@@ -21,7 +21,7 @@ public class Purchase {
 	private int rate;
 	private int amount;
 	private Double avgWeight;
-	private int finalAmount;
+	private Double finalAmount;
 	private int status;
 	private String combinePurchaseToggle;
 
@@ -177,11 +177,11 @@ public class Purchase {
 		this.avgWeight = avgWeight;
 	}
 
-	public int getFinalAmount() {
+	public Double getFinalAmount() {
 		return finalAmount;
 	}
 
-	public void setFinalAmount(int finalAmount) {
+	public void setFinalAmount(Double finalAmount) {
 		this.finalAmount = finalAmount;
 	}
 

@@ -18,6 +18,7 @@ import com.cherp.data.VanDataManager;
 import com.cherp.entities.Area;
 import com.cherp.entities.Company;
 import com.cherp.entities.Van;
+import com.cherp.utils.JsonCreator;
 import com.google.gson.stream.JsonWriter;
 
 public class VanServlet extends HttpServlet {
@@ -170,41 +171,9 @@ public class VanServlet extends HttpServlet {
 		// Contains All Data in table
 		List<Van> vanList = new ArrayList<>();
 		vanList = vdm.selectData();
-		jsonFileWriter(vanList);
+		new JsonCreator().createJson(vanList,jsonFilePath+"van.json");
 	}
 
-	// method for creating json file
-	public void jsonFileWriter(List<Van> vanList) {
-		try {
-			Writer writer = new FileWriter(jsonFilePath + "van.json");
 
-			JsonWriter jw = new JsonWriter(writer);
-			jw.beginObject();
-			jw.name("data");
-			jw.beginArray();
-			for (Van v : vanList) {
-				jw.beginObject();
-
-				jw.name("id").value(v.getId());
-				jw.name("vanNumber").value(v.getVanNumber());
-				jw.name("companyName").value(v.getCompanyName());
-				jw.name("vanModel").value(v.getVanModel());
-				jw.name("ownerName").value(v.getOwnerName());
-				jw.name("fitness").value(v.getFitness());
-				jw.name("vanCapacity").value(v.getVanCapacity());
-				jw.name("insuranceNo").value(v.getInsuranceNo());
-				jw.name("insStartDate").value(v.getInsStartDate());
-				jw.name("insEndDate").value(v.getInsEndDate());
-				jw.name("permitNo").value(v.getPermitNo());
-				jw.name("permitStartDate").value(v.getPermitStartDate());
-				jw.name("permitEndDate").value(v.getPermitEndDate());
-				jw.endObject();
-			}
-			jw.endArray();
-			jw.endObject();
-			jw.close();
-		} catch (Exception e) {
-		}
-	}
 
 }

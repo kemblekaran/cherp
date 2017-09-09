@@ -16,6 +16,7 @@ import com.cherp.data.AreaDataManager;
 import com.cherp.data.CompanyDataManager;
 import com.cherp.entities.Area;
 import com.cherp.entities.Company;
+import com.cherp.utils.JsonCreator;
 import com.google.gson.stream.JsonWriter;
 
 public class CompanyServlet extends HttpServlet {
@@ -158,39 +159,7 @@ public class CompanyServlet extends HttpServlet {
 		// Contains All Data in table
 		List<Company> compList = new ArrayList<>();
 		compList = cdm.selectData();
-		jsonFileWriter(compList);
-	}
-
-	// method for creating json file
-	public void jsonFileWriter(List<Company> compList) {
-		try (Writer writer = new FileWriter(jsonFilePath + "company.json")) {
-			JsonWriter jw = new JsonWriter(writer);
-			jw.beginObject();
-			jw.name("data");
-			jw.beginArray();
-			for (Company c : compList) {
-				jw.beginObject();
-
-				jw.name("id").value(c.getId());
-				jw.name("name").value(c.getName());
-				jw.name("preAdd").value(c.getPreAdd());
-				jw.name("secAdd").value(c.getSecAdd());
-				jw.name("mobile").value(c.getMobile());
-				jw.name("phone").value(c.getPhone());
-				jw.name("state").value(c.getState());
-				jw.name("city").value(c.getCity());
-				jw.name("pinCode").value(c.getPinCode());
-				jw.name("ownerName").value(c.getOwnerName());
-				jw.name("panNo").value(c.getPanNo());
-				jw.name("opBal").value(c.getOpBal());
-
-				jw.endObject();
-			}
-			jw.endArray();
-			jw.endObject();
-			jw.close();
-		} catch (Exception e) {
-		}
+		new JsonCreator().createJson(compList,jsonFilePath+"company.json");
 	}
 
 }

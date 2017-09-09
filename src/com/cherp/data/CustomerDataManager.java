@@ -46,8 +46,8 @@ public class CustomerDataManager {
 			ps.setString(6, cust.getState());
 			ps.setString(7, cust.getCity());
 			ps.setString(8, cust.getArea());
-			ps.setInt(9, cust.getMobile());
-			ps.setInt(10, cust.getPhone());
+			ps.setLong(9, cust.getMobile());
+			ps.setLong(10, cust.getPhone());
 			ps.setInt(11, cust.getOpBal());
 			ps.setInt(12, cust.getStatus());
 			
@@ -91,8 +91,8 @@ public class CustomerDataManager {
 			ps.setString(6, cust.getState());
 			ps.setString(7, cust.getCity());
 			ps.setString(8, cust.getArea());
-			ps.setInt(9, cust.getMobile());
-			ps.setInt(10, cust.getPhone());
+			ps.setLong(9, cust.getMobile());
+			ps.setLong(10, cust.getPhone());
 			ps.setInt(11, cust.getOpBal());
 			ps.setInt(12, cust.getId());
 			
@@ -170,8 +170,8 @@ public class CustomerDataManager {
 				cust.setState(rs.getString("state"));
 				cust.setCity(rs.getString("city"));
 				cust.setArea(rs.getString("area"));
-				cust.setMobile(rs.getInt("mobile"));
-				cust.setPhone(rs.getInt("phone"));
+				cust.setMobile(rs.getLong("mobile"));
+				cust.setPhone(rs.getLong("phone"));
 				cust.setOpBal(rs.getInt("opBal"));
 
 				custList.add(cust);

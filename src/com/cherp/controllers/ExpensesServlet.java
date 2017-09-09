@@ -16,6 +16,7 @@ import com.cherp.data.AreaDataManager;
 import com.cherp.data.ExpensesDataManager;
 import com.cherp.entities.Area;
 import com.cherp.entities.Expenses;
+import com.cherp.utils.JsonCreator;
 import com.google.gson.stream.JsonWriter;
 
 public class ExpensesServlet extends HttpServlet {
@@ -100,29 +101,8 @@ public class ExpensesServlet extends HttpServlet {
 		// Contains All Data in table
 		List<Expenses> expList = new ArrayList<>();
 		expList = edm.selectData();
-		jsonFileWriter(expList);
+		new JsonCreator().createJson(expList,jsonFilePath+"expenses.json");
 	}
 
-	// method for creating json file
-	public void jsonFileWriter(List<Expenses> expList) {
-		try {
-			Writer writer = new FileWriter(jsonFilePath + "expenses.json");
-			JsonWriter jw = new JsonWriter(writer);
-			jw.beginObject();
-			jw.name("data");
-			jw.beginArray();
-			for (Expenses e : expList) {
-				jw.beginObject();
-				jw.name("id").value(e.getId());
-				jw.name("description").value(e.getDescription());
-
-				jw.endObject();
-			}
-			jw.endArray();
-			jw.endObject();
-			jw.close();
-		} catch (Exception e) {
-		}
-	}
 
 }
