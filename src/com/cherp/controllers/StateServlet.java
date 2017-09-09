@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.cherp.data.StateDataManager;
 import com.cherp.entities.Area;
 import com.cherp.entities.State;
+import com.cherp.utils.JsonCreator;
 import com.google.gson.stream.JsonWriter;
 
 public class StateServlet extends HttpServlet {
@@ -89,29 +90,9 @@ public class StateServlet extends HttpServlet {
 		// Contains All Data in table
 		List<State> stateList = new ArrayList<>();
 		stateList = std.selectData();
-		jsonFileWriter(stateList);
+		new JsonCreator().createJson(stateList,jsonFilePath+"state.json");
 	}
 
-	// method for creating json file
-	public void jsonFileWriter(List<State> stateList) {
 
-		try {
-			Writer writer = new FileWriter(jsonFilePath + "state.json");
-			JsonWriter jw = new JsonWriter(writer);
-			jw.beginObject();
-			jw.name("data");
-			jw.beginArray();
-			for (State s : stateList) {
-				jw.beginObject();
-				jw.name("id").value(s.getId());
-				jw.name("stateName").value(s.getStateName());
-				jw.endObject();
-			}
-			jw.endArray();
-			jw.endObject();
-			jw.close();
-		} catch (Exception e) {
-		}
-	}
 
 }

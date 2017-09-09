@@ -1,7 +1,9 @@
 package com.cherp.controllers;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +13,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cherp.data.CityDataManager;
+import com.cherp.data.UserDataManager;
 import com.cherp.entities.City;
-import com.cherp.json.JSONFileWriter;
+import com.cherp.entities.User;
+import com.cherp.utils.JsonCreator;
+import com.google.gson.stream.JsonWriter;
 
 public class CityServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+
+	private String jsonFilePath = "";
 	
 	private String stateName = "";
 	private String cityName = "";
@@ -33,6 +40,9 @@ public class CityServlet extends HttpServlet {
 		// Add Update Or Delete Parameters
 		operation = request.getParameter("operation");
 
+		// context para for json files location
+		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
+
 		// Insert Form Parameters
 		stateName = request.getParameter("stateName");
 		cityName = request.getParameter("cityName");
@@ -44,7 +54,6 @@ public class CityServlet extends HttpServlet {
 
 	}
 
-	@SuppressWarnings("static-access")
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -92,8 +101,8 @@ public class CityServlet extends HttpServlet {
 		// Contains All Data in table
 		List<City> cityList = new ArrayList<>();
 		cityList = cdm.selectData();
-	
-		new JSONFileWriter().jsonCreator(cityList,City.class);
+		new JsonCreator().createJson(cityList,jsonFilePath+"city.json");
 	}
+
 
 }

@@ -16,6 +16,7 @@ import com.cherp.data.CustomerDataManager;
 import com.cherp.data.DriverDataManager;
 import com.cherp.entities.Customer;
 import com.cherp.entities.Drivers;
+import com.cherp.utils.JsonCreator;
 import com.google.gson.stream.JsonWriter;
 
 public class DriverServlet extends HttpServlet {
@@ -158,41 +159,9 @@ public class DriverServlet extends HttpServlet {
 		// Contains All Data in table
 		List<Drivers> driverList = new ArrayList<>();
 		driverList = ddm.selectData();
-		jsonFileWriter(driverList);
+		new JsonCreator().createJson(driverList,jsonFilePath+"driver.json");
 	}
 
-	// method for creating json file
-	public void jsonFileWriter(List<Drivers> driverList) {
-		try {
-			Writer writer = new FileWriter(jsonFilePath + "driver.json");
 
-			JsonWriter jw = new JsonWriter(writer);
-			jw.beginObject();
-			jw.name("data");
-			jw.beginArray();
-			for (Drivers d : driverList) {
-				jw.beginObject();
-				jw.name("id").value(d.getId());
-				jw.name("fname").value(d.getFname());
-				jw.name("lname").value(d.getLname());
-				jw.name("adhaarNo").value(d.getAdhaarNo());
-				jw.name("curAdd").value(d.getCurAdd());
-				jw.name("perAdd").value(d.getPerAdd());
-				jw.name("state").value(d.getState());
-				jw.name("city").value(d.getCity());
-				jw.name("panNo").value(d.getPanNo());
-				jw.name("mobile").value(d.getMobile());
-				jw.name("phone").value(d.getPhone());
-				jw.name("drLiscense").value(d.getDrlicense());
-				jw.name("photo").value(d.getPhoto());
-				jw.endObject();
-			}
-			jw.endArray();
-			jw.endObject();
-			jw.close();
-
-		} catch (Exception e) {
-		}
-	}
 
 }
