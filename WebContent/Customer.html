@@ -108,9 +108,7 @@
 									<label for="state">State</label> <select id="state"
 										name="state" class="form-control">
 										<option value="">select state</option>
-										<option>Maharashtra</option>
-										<option>Karnatak</option>
-										<option>Gujrat</option>
+										
 									</select>
 								</div>
 
@@ -118,9 +116,7 @@
 									<label for="city">City</label> <select id="city" name="city"
 										class="form-control">
 										<option value="">select city</option>
-										<option>Mumbai</option>
-										<option>Delhi</option>
-										<option>Banglore</option>
+										
 									</select>
 								</div>
 
@@ -228,6 +224,26 @@
 		}, {
 			"data" : "opBal"
 		} ]
+	});
+	
+	//loads city data into dropdown
+	$.getJSON('/server/jsonfiles/city.json', function(data) {
+		var jsonData = data['data'];
+		$.each(jsonData, function(key, val) {
+			$('#city').append(
+					'<option value="' + val.cityName + '">' + val.cityName
+							+ '</option>');
+		});
+	});	
+	
+	//loads state data into dropdown
+	$.getJSON('/server/jsonfiles/state.json', function(data) {
+		var jsonData = data['data'];
+		$.each(jsonData, function(key, val) {
+			$('#state').append(
+					'<option value="' + val.stateName + '">' + val.stateName
+							+ '</option>');
+		});
 	});
 	</script>
 </body>

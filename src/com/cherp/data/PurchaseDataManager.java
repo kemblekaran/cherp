@@ -153,7 +153,7 @@ public class PurchaseDataManager {
 			ps.setInt(16, purchase.getRate());
 			ps.setInt(17, purchase.getAmount());
 			ps.setDouble(18, purchase.getAvgWeight());
-			ps.setInt(19, purchase.getFinalAmount());
+			ps.setDouble(19, purchase.getFinalAmount());
 			ps.setInt(20, purchase.getStatus());
 
 			if (ps.executeUpdate() == 1) {
@@ -206,7 +206,7 @@ public class PurchaseDataManager {
 				purchase.setRate(rs.getInt("rate"));
 				purchase.setAmount(rs.getInt("amount"));
 				purchase.setAvgWeight(rs.getDouble("avgWeight"));
-				purchase.setFinalAmount(rs.getInt("finalAmount"));
+				purchase.setFinalAmount(rs.getDouble("finalAmount"));
 				
 				purchaseViewList.add(purchase);
 

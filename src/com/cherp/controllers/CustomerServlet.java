@@ -113,8 +113,8 @@ public class CustomerServlet extends HttpServlet {
 				cust.setState(state);
 				cust.setCity(city);
 				cust.setArea(area);
-				cust.setMobile(Integer.parseInt(mobile));
-				cust.setPhone(Integer.parseInt(phone));
+				cust.setMobile(Long.parseLong(mobile));
+				cust.setPhone(Long.parseLong(phone));
 				cust.setOpBal(Integer.parseInt(opBal));
 
 				operationResp = custdm.addData(cust);
@@ -132,8 +132,8 @@ public class CustomerServlet extends HttpServlet {
 				cust.setState(updatedCellState);
 				cust.setCity(updatedCellCity);
 				cust.setArea(updatedCellArea);
-				cust.setMobile(Integer.parseInt(updatedCellMobile));
-				cust.setPhone(Integer.parseInt(updatedCellPhone));
+				cust.setMobile(Long.parseLong(updatedCellMobile));
+				cust.setPhone(Long.parseLong(updatedCellPhone));
 				cust.setOpBal(Integer.parseInt(updatedCellOpBal));
 
 				operationResp = custdm.updateData(cust);
