@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.cherp.dbconnection.DBHandler;
 import com.cherp.entities.Area;
+import com.cherp.utils.QueryHandler;
 
 public class AreaDataManager {
 	private DBHandler handler;
@@ -23,22 +24,30 @@ public class AreaDataManager {
 
 			// set status 1 for area
 			area.setStatus(1);
-			handler = DBHandler.getInstance();
-			con = handler.getConnection();
-
+			System.out.println("In add data");
+//			handler = DBHandler.getInstance();
+//			con = handler.getConnection();
+			
 			String query = "insert into area(code,state,city,name,type,status)values(?,?,?,?,?,?)";
+			Object[] parameters = {area.getCode(),area.getState(),area.getCity(),area.getName(),area.getType(),area.getStatus()}; 
+			
+			
+			PreparedStatement ps1 = QueryHandler.getPreparedStatement(query);
+			QueryHandler.setParameters(ps1, parameters);
+			
+			
+//			ps = con.prepareStatement(query);
+//			ps.setInt(1, area.getCode());
+//			ps.setString(2, area.getState());
+//			ps.setString(3, area.getCity());
+//			ps.setString(4, area.getName());
+//			ps.setString(5, area.getType());
+//			ps.setInt(6, area.getStatus());
 
-			ps = con.prepareStatement(query);
-			ps.setInt(1, area.getCode());
-			ps.setString(2, area.getState());
-			ps.setString(3, area.getCity());
-			ps.setString(4, area.getName());
-			ps.setString(5, area.getType());
-			ps.setInt(6, area.getStatus());
-
-			ps.executeUpdate();
+			ps1.executeUpdate();
 
 			response = "Data Added Successfully";
+			System.out.println("Statement Executed");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,23 +60,27 @@ public class AreaDataManager {
 	public String updateData(Area area) {
 		try {
 
-			handler = DBHandler.getInstance();
-			con = handler.getConnection();
+//			handler = DBHandler.getInstance();
+//			con = handler.getConnection();
 
 			String uquery = "update area set code=?,state=?,city=?,name=?,type=? where id=?";
+			Object[] parameters = {area.getCode(),area.getState(),area.getCity(),area.getName(),area.getType(),area.getId()};
 
-			// check if record already exists or not
+			
+			PreparedStatement ps1 = QueryHandler.getPreparedStatement(uquery);
+			QueryHandler.setParameters(ps1, parameters);
+			
+			
+//			ps = con.prepareStatement(uquery);
+//
+//			ps.setInt(1, area.getCode());
+//			ps.setString(2, area.getState());
+//			ps.setString(3, area.getCity());
+//			ps.setString(4, area.getName());
+//			ps.setString(5, area.getType());
+//			ps.setInt(6, area.getId());
 
-			ps = con.prepareStatement(uquery);
-
-			ps.setInt(1, area.getCode());
-			ps.setString(2, area.getState());
-			ps.setString(3, area.getCity());
-			ps.setString(4, area.getName());
-			ps.setString(5, area.getType());
-			ps.setInt(6, area.getId());
-
-			ps.executeUpdate();
+			ps1.executeUpdate();
 			response = "Data added successfully";
 
 		} catch (Exception e) {
