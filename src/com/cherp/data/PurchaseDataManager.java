@@ -124,7 +124,7 @@ public class PurchaseDataManager {
 			while (rs.next()) {
 				int purchaseMaxId = rs.getInt(1);
 
-//				System.out.println("purchaseMaxId:" + purchaseMaxId);
+				// System.out.println("purchaseMaxId:" + purchaseMaxId);
 				if (purchase.getCombinePurchaseToggle().equals("on")) {
 					if (purchaseMaxId == 0) {
 						purchaseMaxId = 1;
@@ -207,7 +207,7 @@ public class PurchaseDataManager {
 				purchase.setAmount(rs.getInt("amount"));
 				purchase.setAvgWeight(rs.getDouble("avgWeight"));
 				purchase.setFinalAmount(rs.getDouble("finalAmount"));
-				
+
 				purchaseViewList.add(purchase);
 
 			}
@@ -221,4 +221,41 @@ public class PurchaseDataManager {
 		}
 		return purchaseViewList;
 	}
+
+	// select all data
+	public List<Purchase> selectVanWiseSalesData(Purchase purchase) {
+		List<Purchase> vanWiseSalesList = new ArrayList<>();
+		System.out.println("In vanWiseSales");
+		try {
+			handler = DBHandler.getInstance();
+			con = handler.getConnection();
+
+			// select if status is 1
+			String squery = "select purchaseId,driver1,driver2,cleaner1,cleaner2 from purchase where date=? and vanName=?";
+			System.out.println("Purchase Date : " + purchase.getDate());
+			PreparedStatement ps = con.prepareStatement(squery);
+
+			ps.setString(1, purchase.getDate());
+			ps.setString(2, purchase.getVanName());
+
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				System.out.println(rs.getString("driver1"));
+				purchase.setPurchaseId(rs.getInt("purchaseId"));
+				purchase.setDriver1(rs.getString("driver1"));
+				purchase.setDriver2(rs.getString("driver2"));
+				purchase.setCleaner1(rs.getString("cleaner1"));
+				purchase.setCleaner2(rs.getString("cleaner2"));
+
+				vanWiseSalesList.add(purchase);
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return vanWiseSalesList;
+	}
+
 }
