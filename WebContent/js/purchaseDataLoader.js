@@ -15,12 +15,12 @@ $(function() {
 		}
 	});
 
-	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
+	$.getJSON('/server/jsonfiles/van.json', function(data) {
 
-		var jsonData = data['van'];
+		var jsonData = data['data'];
 		$.each(jsonData, function(key, val) {
 			$('#vanList').append(
-					'<option value="' + val.name + '">' + val.name
+					'<option value="' + val.vanNumber + '">' + val.vanNumber
 							+ '</option>');
 		});
 	});

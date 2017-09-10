@@ -1,395 +1,415 @@
 <html>
 
 <head>
-    <title>Vanwise Sales Report</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="validate.css">
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
+<title>Vanwise Sales Report</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="validate.css">
+<script src="https://www.w3schools.com/lib/w3.js"></script>
 </head>
 
 
 <body>
-    <div w3-include-html="main.html"></div>
-    <!--Main container-->
-    
-    <div class="container-fluid" id="mainContainer">
-        <div class="jumbotron">
+	<div w3-include-html="main.html"></div>
+	<!--Main container-->
 
-            <label><h2>Vanwise Sales Report</h2></label>
-            <div class="well">
-<!--            first row-->
-            <div class="row" >
-                <div class="col-md-3">
-                     <div class="form-group">
-                         <div class="col-sm-2">
-                            <label for="date">Date</label> 
-                         </div>
-                         <div class="col-sm-8">
-                             <input type="date" class="form-control" id="date" name="date">
-                         </div>    
-                    </div>
-                </div>
-                
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <div class="col-sm-3    ">
-                            <label for="vanNo">Van No.</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <select id="vanNo" name="vanNo" class="form-control">
-                                        <option value="">select Van</option>
-                                        
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                |
-                <div class="col-md-6 ">
-                    <div class="form-group">
-                        <div class="col-sm-3">
-                        <label for="driverName">Driver's Name:</label>
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="driverName1" name="driverName1">
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="driverName2" name="driverName2">
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="driverName3" name="driverName3">
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-            <br>
-<!--            second row-->
-            <div class="row" >
-                <div class="col-md-3">
-                     <div class="form-group">
-                         <div class="col-sm-5">
-                            <label for="purchaseNo">Purchase No.</label> 
-                         </div>
-                         <div class="col-sm-7">
-                             <input type="text" class="form-control" id="purchaseNo" name="purchaseNo">
-                         </div>    
-                    </div>
-                </div>
-                
-               <div class="col-md-8 col-md-offset-1">
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                        <label for="cleanerName">Cleaner's Name:</label>
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" id="cleanerName1" name="cleanerName1">
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" id="cleanerName2" name="cleanerName2">
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" id="cleanerName3" name="cleanerName3">
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" id="cleanerName4" name="cleanerName4">
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-                <br>
-            
-<!--                third row-->
-            <div class="row" >
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <div class="col-sm-5">
-                        <label for="opeBal">Purchase Amount</label>
-                        </div>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" id="opeBal" name="opeBal">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <div class="col-sm-3">
-                        <label for="opeBal">Rate</label>
-                        </div>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="opeBal" name="opeBal">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <div class="col-sm-5">
-                        <label for="opeBal">Total Pur Amount</label>
-                        </div>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" id="opeBal" name="opeBal">
-                        </div>
-                    </div>
-                </div>
-                
-                 <div class="col-md-1 ">
-                        <button id="Show" class="btn btn-primary" >Show</button>
-                </div>
-            </div>
-                
-        </div>
+	<div class="container-fluid" id="mainContainer">
+		<div class="jumbotron">
 
-            
-            
-            <label><h3>Purchase</h3></label><hr>
-            <!--Table Row-->
-          <div class="row " id="tableRow">
-               <div class="">
-                <table id="dataTable" class="table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Company</th>
-                            <th>Product</th>
-                            <th>Pieces</th>
-                            <th>Kgs</th>
-                            <th>Rate</th>
-                            <th>Amount</th>
-                            <th>Avg B/W</th>
-                            <th>Bal Pcs</th>
-                            <th>Bal kg</th>
-                            <th>Shrinkage</th>
-                        </tr>
-                    </thead>
-                </table>
-                </div>
-               
-            </div>
-            
-            <label><h3>Sales</h3></label><hr>
-                <div class="form-group">
-                      <textarea class="form-control" rows="7" id="sales"></textarea>
-                </div>
-            
-<!--            bottom well-->
-            <div class="well">
-            <div class="row" >
-                                <div class="col-md-2">
-                                     <div class="form-group">
-                                         <div class="col-sm-4">
-                                            <label for="pcs">Total Pcs.</label> 
-                                         </div>
-                                         <div class="col-sm-8">
-                                             <input type="text" class="form-control" id="pcs" name="pcs">
-                                         </div>    
-                                    </div>
-                                </div>
+			<label><h2>Vanwise Sales Report</h2></label>
+			<div class="well">
+				<!--            first row-->
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group">
+							<div class="col-sm-2">
+								<label for="date">Date</label>
+							</div>
+							<div class="col-sm-8">
+								<input type="date" class="form-control" id="date" name="date">
+							</div>
+						</div>
+					</div>
 
-                                <div class="col-md-2">
-                                     <div class="form-group">
-                                         <div class="col-sm-4">
-                                            <label for="kgs">Gross Kg</label> 
-                                         </div>
-                                         <div class="col-sm-8">
-                                             <input type="text" class="form-control" id="kgs" name="kgs">
-                                         </div>    
-                                    </div>
-                                </div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<div class="col-sm-3    ">
+								<label for="vanNo">Van No.</label>
+							</div>
+							<div class="col-sm-8">
+								<select id="vanList" name="vanList" class="form-control">
+									<option value="">select Van</option>
 
-                                <div class="col-md-3">
-                                     <div class="form-group">
-                                         <div class="col-sm-3">
-                                            <label for="payment">wt-Loss</label> 
-                                         </div>
-                                         <div class="col-sm-7">
-                                             <input type="text" class="form-control" id="payment" name="payment">
-                                         </div>    
-                                    </div>
-                                </div>
-                
-                            <div class="col-md-2">
-                                     <div class="form-group">
-                                         <div class="col-sm-4">
-                                            <label for="payment">Shrinkage</label> 
-                                         </div>
-                                         <div class="col-sm-7">
-                                             <input type="text" class="form-control" id="payment" name="payment">
-                                         </div>    
-                                    </div>
-                                </div>
-                
-                            <div class="col-md-2">
-                                     <div class="form-group">
-                                         <div class="col-sm-3">
-                                            <label for="payment">Total Amt</label> 
-                                         </div>
-                                         <div class="col-sm-7">
-                                             <input type="text" class="form-control" id="payment" name="payment">
-                                         </div>    
-                                    </div>
-                                </div>
-                </div>
-            <br><br>
-          
+								</select>
+							</div>
+						</div>
+					</div>
+					|
+					<div class="col-md-6 ">
+						<div class="form-group">
+							<div class="col-sm-3">
+								<label for="driverName">Driver's Name:</label>
+							</div>
+							<div class="col-sm-3">
+								<input type="text" class="form-control" id="driverName1"
+									name="driverName1">
+							</div>
+							<div class="col-sm-3">
+								<input type="text" class="form-control" id="driverName2"
+									name="driverName2">
+							</div>
+							<div class="col-sm-3">
+								<input type="text" class="form-control" id="driverName3"
+									name="driverName3">
+							</div>
+						</div>
+					</div>
 
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="form-group">
-                         <input type="text" class="form-control" id="" name="">   
-                    </div>
-                    <br>
-                    <div class="form-group">
-                         <input type="text" class="form-control" id="" name="">  
-                    </div>
-                    <br>
-                    <div class="form-group">
-                         <input type="text" class="form-control" id="" name="">  
-                    </div>
-                    <br>
-                    
-                </div>
-                
-                <div class="col-md-2">
-                    <div class="form-group">
-                         <input type="text" class="form-control" id="" name="">   
-                    </div>
-                    <br>
-                    <div class="form-group">
-                         <input type="text" class="form-control" id="" name="">   
-                    </div>
-                    <br>
-                    <div class="form-group">
-                         <input type="text" class="form-control" id="" name="">   
-                    </div>
-                </div>
-                
-                <div class="col-md-8">
-                        <div class="row " >
-                                <div class="col-md-4">
-                                     <div class="form-group">
-                                         <div class="col-sm-4">
-                                            <label for="pcs">Total Exp.</label> 
-                                         </div>
-                                         <div class="col-sm-8">
-                                             <input type="text" class="form-control" id="pcs" name="pcs">
-                                         </div>    
-                                    </div>
-                                </div>
+				</div>
+				<br>
+				<!--            second row-->
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group">
+							<div class="col-sm-5">
+								<label for="purchaseNo">PurchaseId</label>
+							</div>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" id="purchaseNo"
+									name="purchaseNo">
+							</div>
+						</div>
+					</div>
 
-                                <div class="col-md-4">
-                                     <div class="form-group">
-                                         <div class="col-sm-4">
-                                            <label for="kgs">Gross Profit</label> 
-                                         </div>
-                                         <div class="col-sm-8">
-                                             <input type="text" class="form-control" id="kgs" name="kgs">
-                                         </div>    
-                                    </div>
-                                </div>
+					<div class="col-md-8 col-md-offset-1">
+						<div class="form-group">
+							<div class="col-sm-2">
+								<label for="cleanerName">Cleaner's Name:</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="cleanerName1"
+									name="cleanerName1">
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="cleanerName2"
+									name="cleanerName2">
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="cleanerName3"
+									name="cleanerName3">
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="cleanerName4"
+									name="cleanerName4">
+							</div>
+						</div>
+					</div>
 
-                                <div class="col-md-4">
-                                     <div class="form-group">
-                                         <div class="col-sm-3">
-                                            <label for="payment">Net Profit</label> 
-                                         </div>
-                                         <div class="col-sm-7">
-                                             <input type="text" class="form-control" id="payment" name="payment">
-                                         </div>    
-                                    </div>
-                                </div>
-                            </div>
-                </div>
-            
-            </div>
-       </div>
-            <br>
-            <br>
-            <div class="row">
-                <div class="col-md-1 col-md-offset-4">
-                        <button id="settleVan" class="btn btn-primary" >Settle Van</button>
-                </div>
-                <div class="col-md-1 ">
-                        <button id="print" class="btn btn-primary" >Print</button>
-                </div>
-                <div class="col-md-1">
-                        <button id="close" class="btn btn-primary" >Close</button>
-                </div>
-            </div>
-            
-            
-        </div>
-    </div>
+				</div>
+				<br>
 
-    <!--JS source files-->
-    <script>
-        w3.includeHTML();
+				<!--                third row-->
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<div class="col-sm-5">
+								<label for="opeBal">Purchase Amount</label>
+							</div>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" id="opeBal"
+									name="opeBal">
+							</div>
+						</div>
+					</div>
 
-    </script>
-    <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
-    <script type="text/javascript" src="validation/validateArea.js"></script>
-    <script src="js/dataTables.cellEdit.js"></script>
-    <script src="js/dataTable.js" type="text/javascript"></script>
-    <script type="text/javascript" src="js/Reports/VanWiseSalesReport.js"></script>
-    <script type="text/javascript">
-        //variable for number of columns in table
-        var noOfCols = $("#dataTable tr:visible th").length;
-        var editableCols = new Array();
+					<div class="col-md-2">
+						<div class="form-group">
+							<div class="col-sm-3">
+								<label for="opeBal">Rent</label>
+							</div>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="opeBal"
+									name="opeBal">
+							</div>
+						</div>
+					</div>
 
-        //creates array for editable columns parameter
-        for (var i = 1; i < noOfCols; i++) {
-            editableCols.push(i);
+					<div class="col-md-4">
+						<div class="form-group">
+							<div class="col-sm-5">
+								<label for="opeBal">Total Purchase Amount</label>
+							</div>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" id="opeBal"
+									name="opeBal">
+							</div>
+						</div>
+					</div>
 
-        }
+					<div class="col-md-1 ">
+						<button id="Show" class="btn btn-primary">Show</button>
+					</div>
+				</div>
 
-        //add data to datatable(very important)
-        var CherpDataTable = $('#dataTable').DataTable({
-            "ajax": "/server/jsonfiles/area.json",
-            "columns": [{
-                "data": "date"
-            }, {
-                "data": "company"
-            }, {
-                "data": "product"
-            }, {
-                "data": "pieces"
-            }, {
-                "data": "kgs"
-            }, {
-                "data": "rate"
-            }, {
-                "data": "amount"
-            }, {
-                "data": "avgBW"
-            }, {
-                "data": "balPcs"
-            }, {
-                "data": "balKgs"
-            }, {
-                "data": "shrinkage"
-            }]
+			</div>
 
-        });
-        
-        var payDataTable = $('#payDataTable').DataTable({
-            "ajax": "/server/jsonfiles/area.json",
-            "columns": [{
-                "data": "date"
-            }, {
-                "data": "particulars"
-            }, {
-                "data": "amount"
-            }]
 
-        });
 
-    </script>
+			<label><h3>Purchase</h3></label>
+			<hr>
+			<!--Table Row-->
+			<div class="row " id="tableRow">
+				<div class="">
+					<table id="dataTable" class="table-bordered">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>Company</th>
+								<th>Product</th>
+								<th>Pieces</th>
+								<th>Kgs</th>
+								<th>Rate</th>
+								<th>Amount</th>
+								<th>Avg B/W</th>
+<!-- 								<th>Bal Pcs</th> -->
+<!-- 								<th>Bal kg</th> -->
+								<!--                             <th>Shrinkage</th> -->
+							</tr>
+						</thead>
+					</table>
+				</div>
+
+			</div>
+
+			<label><h3>Sales</h3></label>
+			<hr>
+			<div class="form-group">
+				<textarea class="form-control" rows="7" id="sales"></textarea>
+			</div>
+
+			<!--            bottom well-->
+			<div class="well">
+				<div class="row">
+					<div class="col-md-2">
+						<div class="form-group">
+							<div class="col-sm-4">
+								<label for="pcs">Total Pcs.</label>
+							</div>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="pcs" name="pcs">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-2">
+						<div class="form-group">
+							<div class="col-sm-4">
+								<label for="kgs">Gross Kg</label>
+							</div>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="kgs" name="kgs">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-3">
+						<div class="form-group">
+							<div class="col-sm-3">
+								<label for="payment">wt-Loss</label>
+							</div>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" id="payment"
+									name="payment">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-2">
+						<div class="form-group">
+							<div class="col-sm-4">
+								<label for="payment">Shrinkage</label>
+							</div>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" id="payment"
+									name="payment">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-2">
+						<div class="form-group">
+							<div class="col-sm-3">
+								<label for="payment">Total Amt</label>
+							</div>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" id="payment"
+									name="payment">
+							</div>
+						</div>
+					</div>
+				</div>
+				<br> <br>
+
+
+				<div class="row">
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control" id="" name="">
+						</div>
+						<br>
+						<div class="form-group">
+							<input type="text" class="form-control" id="" name="">
+						</div>
+						<br>
+						<div class="form-group">
+							<input type="text" class="form-control" id="" name="">
+						</div>
+						<br>
+
+					</div>
+
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control" id="" name="">
+						</div>
+						<br>
+						<div class="form-group">
+							<input type="text" class="form-control" id="" name="">
+						</div>
+						<br>
+						<div class="form-group">
+							<input type="text" class="form-control" id="" name="">
+						</div>
+					</div>
+
+					<div class="col-md-8">
+						<div class="row ">
+							<div class="col-md-4">
+								<div class="form-group">
+									<div class="col-sm-4">
+										<label for="pcs">Total Exp.</label>
+									</div>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="pcs" name="pcs">
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<div class="form-group">
+									<div class="col-sm-4">
+										<label for="kgs">Gross Profit</label>
+									</div>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="kgs" name="kgs">
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<div class="form-group">
+									<div class="col-sm-3">
+										<label for="payment">Net Profit</label>
+									</div>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" id="payment"
+											name="payment">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<br> <br>
+			<div class="row">
+				<div class="col-md-1 col-md-offset-4">
+					<button id="settleVan" class="btn btn-primary">Settle Van</button>
+				</div>
+				<div class="col-md-1 ">
+					<button id="print" class="btn btn-primary">Print</button>
+				</div>
+				<div class="col-md-1">
+					<button id="close" class="btn btn-primary">Close</button>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+	<!--JS source files-->
+	<script>
+		w3.includeHTML();
+	</script>
+	<script src="http://code.jquery.com/jquery-3.2.1.min.js"
+		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
+	<script type="text/javascript" src="validation/validateArea.js"></script>
+	<script src="js/dataTables.cellEdit.js"></script>
+	<script src="js/dataTable.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/Reports/VanWiseSalesReport.js"></script>
+	<script type="text/javascript">
+		//variable for number of columns in table
+		var noOfCols = $("#dataTable tr:visible th").length;
+		var editableCols = new Array();
+
+		//creates array for editable columns parameter
+		for (var i = 1; i < noOfCols; i++) {
+			editableCols.push(i);
+
+		}
+
+// 		//add data to datatable(very important)
+		var CherpDataTable = $('#dataTable').DataTable();
+// 			"ajax" : "/server/jsonfiles/purchaseView.json",
+// 			"columns" : [ {
+// 				"data" : "date"
+// 			}, {
+// 				"data" : "company"
+// 			}, {
+// 				"data" : "product"
+// 			}, {
+// 				"data" : "pieces"
+// 			}, {
+// 				"data" : "kg"
+// 			}, {
+// 				"data" : "rate"
+// 			}, {
+// 				"data" : "amount"
+// 			}, {
+// 				"data" : "avgWeight"
+// 			} ]
+
+// 		});
+
+		var payDataTable = $('#payDataTable').DataTable({
+			"ajax" : "/server/jsonfiles/area.json",
+			"columns" : [ {
+				"data" : "date"
+			}, {
+				"data" : "particulars"
+			}, {
+				"data" : "amount"
+			} ]
+
+		});
+	</script>
 </body>
 
 </html>

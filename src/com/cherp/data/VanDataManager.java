@@ -137,10 +137,10 @@ public class VanDataManager {
 				van.setId(rs.getInt("id"));
 				van.setVanNumber(rs.getString("vanNumber"));
 				van.setCompanyName(rs.getString("companyName"));
-				van.setVanModel(rs.getString("vanModel"));
+				van.setVanModel(rs.getString("vanmodel"));
 				van.setOwnerName(rs.getString("ownerName"));
 				van.setFitness(rs.getInt("fitness"));
-				van.setVanCapacity(rs.getInt("vanCapacity"));
+				van.setVanCapacity(rs.getInt("capacity"));
 				van.setInsuranceNo(rs.getInt("insuranceNo"));
 				van.setInsStartDate(rs.getString("insStartDate"));
 				van.setInsEndDate(rs.getString("insEndDate"));

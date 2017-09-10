@@ -13,13 +13,13 @@ public class Purchase {
 	private String company;
 	private String location;
 	private int outstanding;
-	private long challanNo;
+	private String challanNo;
 	private int rent;
 	private String product;
 	private int pieces;
 	private int kg;
 	private int rate;
-	private int amount;
+	private Double amount;
 	private Double avgWeight;
 	private Double finalAmount;
 	private int status;
@@ -113,11 +113,11 @@ public class Purchase {
 		this.outstanding = outstanding;
 	}
 
-	public long getChallanNo() {
+	public String getChallanNo() {
 		return challanNo;
 	}
 
-	public void setChallanNo(long challanNo) {
+	public void setChallanNo(String challanNo) {
 		this.challanNo = challanNo;
 	}
 
@@ -161,11 +161,11 @@ public class Purchase {
 		this.rate = rate;
 	}
 
-	public int getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 

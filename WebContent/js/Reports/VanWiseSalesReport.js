@@ -1,24 +1,24 @@
 $(function() {
-	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
+	$.getJSON('/server/jsonfiles/van.json', function(data) {
 
-		var jsonData = data['van'];
+		var jsonData = data['data'];
 		$.each(jsonData, function(key, val) {
-			$('#vanNo').append(
-					'<option value="' + val.name + '">' + val.name
+			$('#vanList').append(
+					'<option value="' + val.vanNumber + '">' + val.vanNumber
 							+ '</option>');
 		});
 	});
 
 	var date = $('#date');
-	var van = $('#vanNo');
+	var van = $('#vanList');
 
 	van.on('change', function() {
 		console.log(date.val() + van.val());
 		$.ajax({
-			url : 'PurchaseServlet',
+			url : 'VanWiseSales',
 			data : {
 				'date' : date.val(),
-				'vanName' : van.val()
+				'van' : van.val()
 			},
 			type : 'POST',
 			success : function() {

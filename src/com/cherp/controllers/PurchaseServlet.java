@@ -95,23 +95,25 @@ public class PurchaseServlet extends HttpServlet {
 		System.out.println("In Purchase Servlet\n\n");
 		getParaValues(request, response);
 
-		System.out.println("Date:" + date + ", vanName :"+vanName);
-		System.out.println("finalAmount:" + finalAmount+"\n");
+		System.out.println("Date:" + date + ", vanName :" + vanName);
+		System.out.println("Amount :" + amount);
+		System.out.println("finalAmount:" + finalAmount + "\n");
+
 		PurchaseDataManager pdm = new PurchaseDataManager();
 		// Purchase purchase = new Purchase();
 
 		Gson gson = new Gson();
 		Data jsonData = gson.fromJson(productJson, Data.class);
-		System.out.println(productJson);
+
 		// check which operation is performed(insert,update or delete)
 		if (operation != null) {
 			// For insert set ALL Parameters except ID
 			if (operation.equals("insert")) {
-				System.out.println("In insert"+"\n");
-				int count=0;
+				System.out.println("In insert" + "\n");
+				int count = 0;
 				for (Purchase purchase : jsonData.getData()) {
-					System.out.println("Counter:"+count++);
-
+					System.out.println("Counter:" + count++);
+					purchase.setAmount(Double.parseDouble(amount));
 					purchase.setFinalAmount(Double.parseDouble(finalAmount));
 					purchase.setCombinePurchaseToggle(combinePurchaseToggle);
 
@@ -138,13 +140,6 @@ public class PurchaseServlet extends HttpServlet {
 		purchaseViewList = pdm.selectData();
 		jsonFileWriter(purchaseViewList);
 
-		List<Purchase> vanWiseSalesList = new ArrayList<>();
-		Purchase purchase = new Purchase();
-		purchase.setDate(date);
-		purchase.setVanName(vanName);
-		
-		vanWiseSalesList = pdm.selectVanWiseSalesData(purchase);
-		jsonFileWriterList(vanWiseSalesList);
 	}
 
 	// method for creating json file for loading data into inputs of
@@ -217,36 +212,5 @@ public class PurchaseServlet extends HttpServlet {
 		} catch (Exception e) {
 		}
 	}
-	
-	// method for creating json file for purchaseView.json
-		public void jsonFileWriterList(List<Purchase> vanWiseSalesList) {
-			try {
-				System.out.println("In vanWiseSales json writer");
-				Writer writer = new FileWriter(jsonFilePath + "vanWiseSales.json");
-				JsonWriter jw = new JsonWriter(writer);
-				jw.beginObject();
-				jw.name("data");
-				jw.beginArray();
-				for (Purchase p : vanWiseSalesList) {
-					jw.beginObject();
-					jw.name("purchaseId").value(p.getPurchaseId());
-					
-					
-					jw.name("driver1").value(p.getDriver1());
-					jw.name("driver2").value(p.getDriver2());
-					jw.name("cleaner1").value(p.getCleaner1());
-					jw.name("cleaner2").value(p.getCleaner2());
-					jw.name("rate").value(p.getRate());
-					jw.name("amount").value(p.getAmount());
-					jw.name("avgWeight").value(p.getAvgWeight());
-					jw.name("finalAmount").value(p.getFinalAmount());
-					jw.endObject();
-				}
-				jw.endArray();
-				jw.endObject();
-				jw.close();
-			} catch (Exception e) {
-			}
-		}
 
 }
