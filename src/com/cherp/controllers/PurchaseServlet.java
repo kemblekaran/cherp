@@ -111,23 +111,7 @@ public class PurchaseServlet extends HttpServlet {
 				int count=0;
 				for (Purchase purchase : jsonData.getData()) {
 					System.out.println("Counter:"+count++);
-					purchase.setDate(date);
-					purchase.setVanName(vanName);
-					purchase.setDriver1(driver1);
-					purchase.setDriver2(driver2);
-					purchase.setCleaner1(cleaner1);
-					purchase.setCleaner2(cleaner2);
-					purchase.setCompany(company);
-					purchase.setLocation(location);
-					purchase.setOutstanding(Integer.parseInt(outstanding));
-					purchase.setChallanNo(Long.parseLong(challanNo));
-					purchase.setRent(Integer.parseInt(rent));
-					// purchase.setProduct(product);
-					// purchase.setPieces(Integer.parseInt(pieces));
-					// purchase.setKg(Integer.parseInt(kg));
-					// purchase.setAvgWeight(Double.parseDouble(avgWeight));
-					// purchase.setAmount(Integer.parseInt(amount));
-					// purchase.setRate(Integer.parseInt(rate));
+
 					purchase.setFinalAmount(Double.parseDouble(finalAmount));
 					purchase.setCombinePurchaseToggle(combinePurchaseToggle);
 

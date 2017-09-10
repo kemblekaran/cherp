@@ -20,8 +20,9 @@ $(function() {
 		var newAmt = parseInt(rate.val()) * parseInt(kg.val());
 		var newAvgWeight = parseInt(kg.val()) / parseInt(pieces.val());
 		if (newAmt !== null || newAvgWeight !== null) {
-			
-			//toFixed() method places the decimal point after digits specified as a parameter
+
+			// toFixed() method places the decimal point after digits specified
+			// as a parameter
 			amt.val(newAmt.toFixed(2));
 			avgWeight.val(newAvgWeight.toFixed(2));
 		}
@@ -67,6 +68,18 @@ $(function() {
 				var outstanding = $('#outstanding').val();
 
 				var productRow = {
+					"purchaseId" : $('#purchaseId').val(),
+					"date" : $('#date').val(),
+					"vanName" : $('#vanList').val(),
+					"driver1" : $('#driverList1').val(),
+					"driver2" : $('#driverList2').val(),
+					"cleaner1" : $('#cleanerList1').val(),
+					"cleaner2" : $('#cleanerList2').val(),
+					"company" : $('#companyList').val(),
+					"location" : $('#locationList').val(),
+					"outstanding" : $('#outstanding').val(),
+					"challanNo" : $('#challanNo').val(),
+					"rent" : $('#rent').val(),
 					"product" : product.val(),
 					"pieces" : pieces.val(),
 					"kg" : kg.val(),
@@ -88,18 +101,18 @@ $(function() {
 					console.log(productRowData);
 
 				}
-				
-//				console.log(outstanding);
-				var fa;
+
+				// console.log(outstanding);
+				var fa = 0;
 				// for setting final amount
 				for (var i = 0; i < productRowData.length; i++) {
-					fa = productRowData[i].amt;
+					fa = fa + parseInt(productRowData[i].amt);
 
 				}
-				//for setting final amount
-				fa = parseInt(fa) + parseInt(outstanding); 	
+				// for setting final amount
+				fa = parseInt(fa) + parseInt(outstanding);
 
-				 finalAmount.attr('value', fa.toFixed(2));
+				finalAmount.attr('value', fa.toFixed(2));
 
 			});
 
