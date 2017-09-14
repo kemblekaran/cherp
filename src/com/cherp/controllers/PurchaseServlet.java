@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cherp.dao.dataentry.PurchaseDao;
 import com.cherp.data.PurchaseDataManager;
 import com.cherp.entities.Data;
 import com.cherp.entities.Purchase;
@@ -116,6 +117,8 @@ public class PurchaseServlet extends HttpServlet {
 					purchase.setCombinePurchaseToggle(combinePurchaseToggle);
 
 					operationResp = pdm.insertData(purchase);
+					
+					
 				}
 				pw.println(operationResp);
 
@@ -136,6 +139,8 @@ public class PurchaseServlet extends HttpServlet {
 		// Contains All Data in table
 		List<Purchase> purchaseViewList = new ArrayList<>();
 		purchaseViewList = pdm.selectData();
+		int purchaseId = new PurchaseDao().getPurchaseId();
+		System.out.println("Purhcase Id in servlet:"+purchaseId);
 		jsonFileWriter(purchaseViewList);
 
 		List<Purchase> vanWiseSalesList = new ArrayList<>();

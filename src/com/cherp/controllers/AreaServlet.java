@@ -1,9 +1,7 @@
 package com.cherp.controllers;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cherp.dao.masters.AreaDao;
 import com.cherp.data.AreaDataManager;
-import com.cherp.data.UserDataManager;
 import com.cherp.entities.Area;
-import com.cherp.entities.User;
 import com.cherp.utils.JsonCreator;
-import com.google.gson.stream.JsonWriter;
 
 public class AreaServlet extends HttpServlet {
 
@@ -78,6 +74,7 @@ public class AreaServlet extends HttpServlet {
 		getParaValues(request, response);
 
 		AreaDataManager adm = new AreaDataManager();
+		AreaDao adao = new AreaDao();
 		Area area = new Area();
 
 		if (operation != null) {
@@ -92,7 +89,7 @@ public class AreaServlet extends HttpServlet {
 				area.setCode(Integer.parseInt(code));
 				area.setType(type);
 
-				operationResp = adm.addData(area);
+				operationResp = adao.insert(area);
 				pw.println(operationResp);
 
 			} else if (operation.equals("update")) {
@@ -105,14 +102,14 @@ public class AreaServlet extends HttpServlet {
 				area.setType(updatedCellType);
 				area.setCode(Integer.parseInt(updatedCellCode));
 
-				operationResp = adm.updateData(area);
+				operationResp = adao.update(area);
 				pw.println(operationResp);
 
 			} else if (operation.equals("delete")) {
 				// For delete set only ID Parameter
 				System.out.println("Delete Function");
 				area.setId(Integer.parseInt(rowId));
-				operationResp = adm.deleteData(area);
+				operationResp = adao.delete(area);
 				pw.println(operationResp);
 
 			}
@@ -120,7 +117,7 @@ public class AreaServlet extends HttpServlet {
 
 		// Contains All Data in table
 		List<Area> areaList = new ArrayList<>();
-		areaList = adm.selectData();
+		areaList = adao.selectAll();
 		new JsonCreator().createJson(areaList,jsonFilePath+"area.json");
 	}
 
