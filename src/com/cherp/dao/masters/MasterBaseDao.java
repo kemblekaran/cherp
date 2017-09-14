@@ -2,7 +2,6 @@ package com.cherp.dao.masters;
 
 import java.util.List;
 
-import org.hibernate.SessionFactory;
 
 public abstract class MasterBaseDao {
 	

@@ -1,9 +1,7 @@
 package com.cherp.controllers;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cherp.data.LocationDataManager;
-import com.cherp.entities.Expenses;
+import com.cherp.dao.masters.LocationDao;
 import com.cherp.entities.Location;
 import com.cherp.utils.JsonCreator;
-import com.google.gson.stream.JsonWriter;
 
 public class LocationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -60,7 +56,8 @@ public class LocationServlet extends HttpServlet {
 		// get all form data into variables
 		getParaValues(request, response);
 
-		LocationDataManager ldm = new LocationDataManager();
+		// LocationDataManager ldm = new LocationDataManager();
+		LocationDao ldao = new LocationDao();
 		Location loc = new Location();
 
 		if (operation != null) {
@@ -71,7 +68,7 @@ public class LocationServlet extends HttpServlet {
 
 				loc.setLocation(location);
 
-				operationResp = ldm.addData(loc);
+				operationResp = ldao.insert(loc);
 				pw.println(operationResp);
 
 			} else if (operation.equals("update")) {
@@ -81,14 +78,14 @@ public class LocationServlet extends HttpServlet {
 				loc.setId(Integer.parseInt(rowId));
 				loc.setLocation(updatedCellLocation);
 
-				operationResp = ldm.updateData(loc);
+				operationResp = ldao.update(loc);
 				pw.println(operationResp);
 
 			} else if (operation.equals("delete")) {
 				// For delete set only ID Parameter
 				System.out.println("Delete Function");
 				loc.setId(Integer.parseInt(rowId));
-				operationResp = ldm.deleteData(loc);
+				operationResp = ldao.delete(loc);
 				pw.println(operationResp);
 
 			}
@@ -96,10 +93,8 @@ public class LocationServlet extends HttpServlet {
 
 		// Contains All Data in table
 		List<Location> locList = new ArrayList<>();
-		locList = ldm.selectData();
-		new JsonCreator().createJson(locList,jsonFilePath+"location.json");
+		locList = ldao.selectAll();
+		new JsonCreator().createJson(locList, jsonFilePath + "location.json");
 	}
-
-
 
 }

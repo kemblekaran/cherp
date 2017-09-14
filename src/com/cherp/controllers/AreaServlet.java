@@ -1,7 +1,9 @@
 package com.cherp.controllers;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.cherp.dao.masters.AreaDao;
 import com.cherp.data.AreaDataManager;
+import com.cherp.data.UserDataManager;
 import com.cherp.entities.Area;
+import com.cherp.entities.User;
 import com.cherp.utils.JsonCreator;
+import com.google.gson.stream.JsonWriter;
 
 public class AreaServlet extends HttpServlet {
 

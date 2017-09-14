@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cherp.dao.masters.ProductDao;
 import com.cherp.data.ProductDataManager;
 import com.cherp.entities.Product;
 import com.cherp.utils.JsonCreator;
@@ -66,7 +67,8 @@ public class ProductServlet extends HttpServlet {
 		// get all form data into variables
 		getParaValues(request, response);
 
-		ProductDataManager pdm = new ProductDataManager();
+		// ProductDataManager pdm = new ProductDataManager();
+		ProductDao pdao = new ProductDao();
 		Product prod = new Product();
 
 		if (operation != null) {
@@ -77,7 +79,7 @@ public class ProductServlet extends HttpServlet {
 				prod.setProdName(prodName);
 				prod.setProdType(prodType);
 
-				operationResp = pdm.addData(prod);
+				operationResp = pdao.insert(prod);
 				pw.println(operationResp);
 
 			} else if (operation.equals("update")) {
@@ -86,7 +88,7 @@ public class ProductServlet extends HttpServlet {
 				prod.setId(Integer.parseInt(rowId));
 				prod.setProdName(updatedCellProdName);
 				prod.setProdType(updatedCellProdType);
-				operationResp = pdm.updateData(prod);
+				operationResp = pdao.update(prod);
 				pw.println(operationResp);
 
 			} else if (operation.equals("delete")) {
@@ -94,7 +96,7 @@ public class ProductServlet extends HttpServlet {
 				System.out.println("Delete Function");
 				prod.setId(Integer.parseInt(rowId));
 
-				operationResp = pdm.deleteData(prod);
+				operationResp = pdao.delete(prod);
 				pw.println(operationResp);
 
 			}
@@ -102,31 +104,8 @@ public class ProductServlet extends HttpServlet {
 
 		// Contains All Data in table
 		List<Product> prodList = new ArrayList<>();
-		prodList = pdm.selectData();
-		new JsonCreator().createJson(prodList,jsonFilePath+"product.json");
+		prodList = pdao.selectAll();
+		new JsonCreator().createJson(prodList, jsonFilePath + "product.json");
 	}
 
-//	// method for creating json file
-//	public void jsonFileWriter(List<Product> prodList) {
-//
-//		try {
-//
-//			Writer writer = new FileWriter(jsonFilePath + "product.json");
-//			JsonWriter jw = new JsonWriter(writer);
-//			jw.beginObject();
-//			jw.name("data");
-//			jw.beginArray();
-//			for (Product p : prodList) {
-//				jw.beginObject();
-//				jw.name("id").value(p.getId());
-//				jw.name("prodName").value(p.getProdName());
-//				jw.name("prodType").value(p.getProdType());
-//				jw.endObject();
-//			}
-//			jw.endArray();
-//			jw.endObject();
-//			jw.close();
-//		} catch (Exception e) {
-//		}
-//	}
 }

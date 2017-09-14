@@ -1,11 +1,8 @@
 package com.cherp.controllers;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,10 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cherp.data.UserDataManager;
+import com.cherp.dao.masters.UserDao;
 import com.cherp.entities.User;
 import com.cherp.utils.JsonCreator;
-import com.google.gson.stream.JsonWriter;
 
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -67,7 +63,8 @@ public class UserServlet extends HttpServlet {
 		// get all form data into variables
 		getParaValues(request, response);
 
-		UserDataManager udm = new UserDataManager();
+//		UserDataManager udm = new UserDataManager();
+		UserDao udao = new UserDao();
 		User user = new User();
 		
 		System.out.println("Data = "+operation);
@@ -81,7 +78,7 @@ public class UserServlet extends HttpServlet {
 				user.setUsername(username);
 				user.setPassword(password);
 				
-				operationResp = udm.addData(user);
+				operationResp = udao.insert(user);
 				pw.println(operationResp);
 				
 			} else if (operation.equals("update")) {
@@ -89,14 +86,14 @@ public class UserServlet extends HttpServlet {
 				System.out.println("Update Function");
 				user.setId(Integer.parseInt(rowId));
 				user.setUsername(updatedCellUsername);
-				operationResp = udm.updateData(user);
+				operationResp = udao.update(user);
 				pw.println(operationResp);
 				
 			} else if (operation.equals("delete")) {
 				//For delete set only ID Parameter 
 				System.out.println("Delete Function");
 				user.setId(Integer.parseInt(rowId));
-				operationResp = udm.deleteData(user);
+				operationResp = udao.delete(user);
 				pw.println(operationResp);
 				
 			}
@@ -104,7 +101,7 @@ public class UserServlet extends HttpServlet {
 		
 		//Contains All Data in table
 		List<User> userList = new ArrayList<>();
-		userList = udm.selectData();
+		userList = udao.selectAll();
 		new JsonCreator().createJson(userList,jsonFilePath+"user.json");
 
 	}
