@@ -91,16 +91,16 @@ public class PurchaseDao {
 
 		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 
-		CriteriaQuery<Number> criteriaQuery = criteriaBuilder.createQuery(Number.class);
+		CriteriaQuery<Integer> criteriaQuery = criteriaBuilder.createQuery(Integer.class);
 
 		Root<Purchase> rootPurchase = criteriaQuery.from(Purchase.class);
 
-		criteriaQuery.select(criteriaBuilder.max(rootPurchase.get("purhcaseId")));
+		criteriaQuery.select(criteriaBuilder.max(rootPurchase.get("purchaseId")));
 
-		int purchaseId = session.createQuery(criteriaQuery).getFirstResult();
-		
-		System.out.println("PuchaseId:"+purchaseId);
-		
+		int purchaseId = session.createQuery(criteriaQuery).getSingleResult();
+
+		System.out.println("PuchaseId:" + purchaseId);
+
 		return purchaseId;
 	}
 }

@@ -21,89 +21,87 @@
 			<input type="hidden" id="actionURL" value="PurchaseServlet">
 			<div class="row well">
 
-<div class="col-md-2 col-width ">
-				<label>Purchase Id</label>
-					<input type="text" class="form-control" id="purchaseid"
-						placeholder="Purchase ID" disabled>
-				</div>
-				
 				<div class="col-md-2 col-width ">
-				<label>Date</label>
-					<input type="date" name="date" id="date" class="form-control" id="date">
+					<label>Purchase Id</label> <input type="text" class="form-control"
+						id="purchaseid" readonly="readonly" value="">
 				</div>
 
 				<div class="col-md-2 col-width ">
-<label>Van</label>
-					<select id="vanList" class="form-control" name="vanName">
+					<label>Date</label> <input type="date" name="date" id="date"
+						class="form-control" id="date">
+				</div>
+
+				<div class="col-md-2 col-width ">
+					<label>Van</label> <select id="vanList" class="form-control"
+						name="vanName">
 						<option>Select Van</option>
 					</select>
 				</div>
 
 				<div class="col-md-2 col-width ">
-				<label>Driver 1</label>
-					<select id="driverList1" class="form-control" name="driver1">
+					<label>Driver 1</label> <select id="driverList1"
+						class="form-control" name="driver1">
 						<option value="">Driver</option>
 					</select>
 				</div>
 
 				<div class="col-md-2 col-width ">
-				<label>Driver 2</label>
-					<select id="driverList2" class="form-control" name="driver2" >
+					<label>Driver 2</label> <select id="driverList2"
+						class="form-control" name="driver2">
 						<option>Driver</option>
 					</select>
 				</div>
 
 				<div class="col-md-2 col-width ">
-				<label>Cleaner 1</label>
-					<select id="cleanerList1" class="form-control" name="cleaner1" >
+					<label>Cleaner 1</label> <select id="cleanerList1"
+						class="form-control" name="cleaner1">
 						<option>Cleaner</option>
 					</select>
 				</div>
 
-				
+
 
 
 			</div>
 			<div class="row well">
-			<div class="col-md-2 col-width ">
-				<label>Cleaner 2</label>
-					<select id="cleanerList2" class="form-control" name="cleaner2">
+				<div class="col-md-2 col-width ">
+					<label>Cleaner 2</label> <select id="cleanerList2"
+						class="form-control" name="cleaner2">
 						<option>Cleaner</option>
 					</select>
 				</div>
 
 				<div class="col-md-2 col-width ">
-				<label>Company</label>
-					<select id="companyList" class="form-control" name="company">
+					<label>Company</label> <select id="companyList"
+						class="form-control" name="company">
 						<option>Company</option>
 					</select>
 				</div>
 
 				<div class="col-md-2 col-width ">
-				<label>Location</label>
-					<select id="locationList" class="form-control" name="location">
+					<label>Location</label> <select id="locationList"
+						class="form-control" name="location">
 						<option>Location</option>
 					</select>
 				</div>
 
 				<div class="col-md-2 col-width ">
-				<label>Outstanding</label>
-					<input type="text" class="form-control" id="outstanding"
-						placeholder="OutStanding" value="0" name="outstanding">
+					<label>Outstanding</label> <input type="text" class="form-control"
+						id="outstanding" placeholder="OutStanding" value="0"
+						name="outstanding">
 				</div>
 
 				<div class="col-md-2 col-width ">
-				<label>Challan No</label>
-					<input type="text" class="form-control" id="challanNo"
-						placeholder="Challan No." name="challanNo" value="0">
+					<label>Challan No</label> <input type="text" class="form-control"
+						id="challanNo" placeholder="Challan No." name="challanNo"
+						value="0">
 				</div>
 
-				
+
 
 				<div class="col-md-2 col-width ">
-				<label>Rent</label>
-					<input type="text" class="form-control" id="rent"
-						placeholder="Rent" name="rent" value="0">
+					<label>Rent</label> <input type="text" class="form-control"
+						id="rent" placeholder="Rent" name="rent" value="0">
 				</div>
 
 
@@ -140,20 +138,18 @@
 					</tbody>
 
 				</table>
-				<input type="checkbox" name="combinePurchaseToggle"
-					id="combinePurchaseToggle">Add Multiple Purchase
-
+				
 			</div>
 			<div>
 				<label for="finalAmount">Final Amount</label> <input type="text"
 					name="finalAmount" id="finalAmount">
 			</div>
 			<input type="hidden" name="operation" value="insert">
-			
-			
+
+
 			<!-- input type for sending product json as form value -->
 			<input type="hidden" name="productJson" id="productJson">
-			
+
 			<button id="insertBtn" class="btn btn-success">save</button>
 		</form>
 
@@ -231,7 +227,7 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 	<script src="validation/validatePurchase.js"></script>
 	<script src="js/dataTables.cellEdit.js"></script>
-<!--<script src="js/dataTable.js" type="text/javascript"></script> -->
+	<!--<script src="js/dataTable.js" type="text/javascript"></script> -->
 	<script src="js/purchaseDataLoader.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/dataentry/purchase.js"></script>
 	<script type="text/javascript">

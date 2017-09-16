@@ -15,12 +15,18 @@ $(function() {
 		}
 	});
 
+	// set purchase id value
 	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
+		var jsonData = data['purchaseId'];	
+		$('#purchaseid').val(jsonData + 1);
+	});
 
-		var jsonData = data['van'];
+	$.getJSON('/server/jsonfiles/van.json', function(data) {
+
+		var jsonData = data['data'];
 		$.each(jsonData, function(key, val) {
 			$('#vanList').append(
-					'<option value="' + val.name + '">' + val.name
+					'<option value="' + val.vanNumber + '">' + val.vanNumber
 							+ '</option>');
 		});
 	});
@@ -48,7 +54,7 @@ $(function() {
 							+ '</option>');
 		});
 	});
-	
+
 	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
 		var jsonDataProduct = data['product'];
 		$.each(jsonDataProduct, function(key, val) {
@@ -57,7 +63,7 @@ $(function() {
 							+ '</option>');
 		});
 	});
-	
+
 	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
 		var jsonDataProduct = data['location'];
 		$.each(jsonDataProduct, function(key, val) {

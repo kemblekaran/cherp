@@ -30,7 +30,7 @@ public class VanDataManager {
 			con = handler.getConnection();
 
 			Statement stmt = con.createStatement();
-			String query = "insert into van(vanNumber,companyName,vanModel,ownerName,fitness,vanCapacity,insuranceNo,insStartDate,insEndDate,permitNo,permitStartDate,permitEndDate,status)values( ?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String query = "insert into van(vanNumber,companyName,vanModel,ownerName,fitness,capacity,insuranceNo,insStartDate,insEndDate,permitNo,permitStartDate,permitEndDate,status)values( ?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setString(1, van.getVanNumber());

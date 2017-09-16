@@ -7,6 +7,7 @@ import org.hibernate.cfg.Configuration;
 
 import com.cherp.entities.Area;
 import com.cherp.entities.Purchase;
+import com.cherp.entities.Van;
 
 public class HibernateUtil {
 	private static HibernateUtil instance = null;
@@ -19,6 +20,7 @@ public class HibernateUtil {
 		config.configure("hibernate.cfg.xml");
 		config.addAnnotatedClass(Area.class);
 		config.addAnnotatedClass(Purchase.class);
+		config.addAnnotatedClass(Van.class);
 		serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
 		sessionFactory = config.buildSessionFactory(serviceRegistry);
 	}
