@@ -18,6 +18,7 @@ import com.cherp.dao.dataentry.PurchaseDao;
 import com.cherp.data.PurchaseDataManager;
 import com.cherp.entities.Data;
 import com.cherp.entities.Purchase;
+import com.cherp.utils.JsonCreator;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonWriter;
 
@@ -100,6 +101,7 @@ public class PurchaseServlet extends HttpServlet {
 		Gson gson = new Gson();
 		Data jsonData = gson.fromJson(productJson, Data.class);
 		System.out.println(productJson);
+		
 		// check which operation is performed(insert,update or delete)
 		if (operation != null) {
 			// For insert set ALL Parameters except ID
@@ -124,7 +126,7 @@ public class PurchaseServlet extends HttpServlet {
 		if (dataLoader != null) {
 			if (dataLoader.equals("true")) {
 				System.out.println("In Form Data Generator");
-				resultSetList = new PurchaseDataManager().formDataGenerator();
+				resultSetList = new PurchaseDao().formDataGenerator();
 				int purchaseId = new PurchaseDao().getPurchaseId();
 				System.out.println("purchaseId :" + purchaseId);
 				jsonFileWriter(resultSetList, purchaseId);
@@ -134,8 +136,9 @@ public class PurchaseServlet extends HttpServlet {
 
 		// Contains All Data in table
 		List<Purchase> purchaseViewList = new ArrayList<>();
-		purchaseViewList = pdm.selectData();
-		jsonFileWriter(purchaseViewList);
+		purchaseViewList = new PurchaseDao().selectAll();
+		new JsonCreator().createJson(purchaseViewList, jsonFilePath + "purchaseView.json");
+		//jsonFileWriter(purchaseViewList);
 
 		List<Purchase> vanWiseSalesList = new ArrayList<>();
 		Purchase purchase = new Purchase();
@@ -177,45 +180,7 @@ public class PurchaseServlet extends HttpServlet {
 		}
 	}
 
-	// method for creating json file for purchaseView.json
-	public void jsonFileWriter(List<Purchase> purchaseViewList) {
-		try {
-			System.out.println("In purchase view json writer");
-			Writer writer = new FileWriter(jsonFilePath + "purchaseView.json");
-			JsonWriter jw = new JsonWriter(writer);
-			jw.beginObject();
-			jw.name("data");
-			jw.beginArray();
-			for (Purchase p : purchaseViewList) {
-				jw.beginObject();
-				jw.name("id").value(p.getId());
-				jw.name("purchaseId").value(p.getPurchaseId());
-				jw.name("date").value(p.getDate());
-				jw.name("vanName").value(p.getVanName());
-				jw.name("driver1").value(p.getDriver1());
-				jw.name("driver2").value(p.getDriver2());
-				jw.name("cleaner1").value(p.getCleaner1());
-				jw.name("cleaner2").value(p.getCleaner2());
-				jw.name("company").value(p.getCompany());
-				jw.name("location").value(p.getLocation());
-				jw.name("outstanding").value(p.getOutstanding());
-				jw.name("challanNo").value(p.getChallanNo());
-				jw.name("rent").value(p.getRent());
-				jw.name("product").value(p.getProduct());
-				jw.name("pieces").value(p.getPieces());
-				jw.name("kg").value(p.getKg());
-				jw.name("rate").value(p.getRate());
-				jw.name("amount").value(p.getAmount());
-				jw.name("avgWeight").value(p.getAvgWeight());
-				jw.name("finalAmount").value(p.getFinalAmount());
-				jw.endObject();
-			}
-			jw.endArray();
-			jw.endObject();
-			jw.close();
-		} catch (Exception e) {
-		}
-	}
+	
 
 	// method for creating json file for purchaseView.json
 	public void jsonFileWriterList(List<Purchase> vanWiseSalesList) {
