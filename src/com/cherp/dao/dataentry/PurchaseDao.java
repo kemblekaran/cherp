@@ -132,37 +132,37 @@ public class PurchaseDao {
 		Table table = null;
 		
 		//add van list to hashmap
-		List<String> vanList = session.createQuery(vanQuery).getResultList();
+		List<String> vanList = session.createNativeQuery(vanQuery).getResultList();
 		table = Van.class.getAnnotation(Table.class);
 		tableName = table.name();
 		formGeneratorMap.put(tableName, (ArrayList<String>) vanList);
 		
 		//add drivers list to hashmap
-		List<String> driverList = session.createQuery(driverQuery).getResultList();
+		List<String> driverList = session.createNativeQuery(driverQuery).getResultList();
 		table = Drivers.class.getAnnotation(Table.class);
 		tableName = table.name();
 		formGeneratorMap.put(tableName, (ArrayList<String>) driverList);
 		
 		//add cleaners list to hashmap
-		List<String> cleanerList = session.createQuery(cleanerQuery).getResultList();
+		List<String> cleanerList = session.createNativeQuery(cleanerQuery).getResultList();
 		table = Cleaners.class.getAnnotation(Table.class);
 		tableName = table.name();
 		formGeneratorMap.put(tableName, (ArrayList<String>) cleanerList);
 		
 		//add company list to hashmap
-		List<String> companyList = session.createQuery(companyQuery).getResultList();
+		List<String> companyList = session.createNativeQuery(companyQuery).getResultList();
 		table = Company.class.getAnnotation(Table.class);
 		tableName = table.name();
 		formGeneratorMap.put(tableName, (ArrayList<String>) companyList);
 		
 		//add location list to hashmap
-		List<String> locationList = session.createQuery(locationQuery).getResultList();
+		List<String> locationList = session.createNativeQuery(locationQuery).getResultList();
 		table = Location.class.getAnnotation(Table.class);
 		tableName = table.name();
 		formGeneratorMap.put(tableName, (ArrayList<String>) locationList);
 		
 		//add product list to hashmap
-		List<String> productList = session.createQuery(productQuery).getResultList();
+		List<String> productList = session.createNativeQuery(productQuery).getResultList();
 		table = Product.class.getAnnotation(Table.class);
 		tableName = table.name();
 		formGeneratorMap.put(tableName, (ArrayList<String>) productList);

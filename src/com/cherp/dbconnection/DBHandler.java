@@ -10,7 +10,7 @@ public class DBHandler {
 	private DBHandler() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/forms", "root", "");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/forms", "root", "1234");
 		} catch (Exception e) {
 			System.out.println(e);
 		}

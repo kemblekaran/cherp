@@ -41,7 +41,7 @@ public class HibernateUtil {
 		config.addAnnotatedClass(Location.class);
 		config.addAnnotatedClass(Product.class);
 		config.addAnnotatedClass(Purchase.class);
-		config.addAnnotatedClass(Sales.class);
+//		config.addAnnotatedClass(Sales.class);
 		config.addAnnotatedClass(State.class);
 		config.addAnnotatedClass(User.class);
 		config.addAnnotatedClass(Van.class);

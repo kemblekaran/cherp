@@ -8,36 +8,37 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="van")
+@Table(name = "van")
 public class Van {
-	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name="vanNumber")
+	@Column(name = "vanNumber")
 	private String vanNumber;
-	@Column(name="companyName")
+	@Column(name = "companyName")
 	private String companyName;
-	@Column(name="vanModel")
+	@Column(name = "vanModel")
 	private String vanModel;
-	@Column(name="ownerName")
+	@Column(name = "ownerName")
 	private String ownerName;
-	@Column(name="fitness")
+	@Column(name = "fitness")
 	private int fitness;
-	@Column(name="capacity")
+	@Column(name = "capacity")
 	private int vanCapacity;
-	@Column(name="insuranceNo")
+	@Column(name = "insuranceNo")
 	private int insuranceNo;
-	@Column(name="insStartDate")
+	@Column(name = "insStartDate")
 	private String insStartDate;
-	@Column(name="insEndDate")
+	@Column(name = "insEndDate")
 	private String insEndDate;
-	@Column(name="permitNo")
+	@Column(name = "permitNo")
 	private int permitNo;
-	@Column(name="permitStartDate")
+	@Column(name = "permitStartDate")
 	private String permitStartDate;
-	@Column(name="permitEndDate")
+	@Column(name = "permitEndDate")
 	private String permitEndDate;
-	@Column(name="status")
+	@Column(name = "status")
 	private int status;
 
 	public int getId() {
