@@ -17,16 +17,13 @@
 <body>
 	<form id="SalesForm">
 		<input type="hidden" id="actionURL" value="SalesServlet"> <b>Date</b>
-		<input type="date" name="date" id="date"> <b>Van</b> <select
-			name="van" id="vanList">
-			<option>Select Van</option>
-
-		</select> <b>Purchase Id</b> <input type="text" id="purchaseId"
-			name="purchaseId" readonly>
+		<input type="text" name="date" id="date"> <b>Van</b> <input
+			type="text" name="van" id="vanList"> <b>Purchase Id</b> <input
+			type="text" id="purchaseId" name="purchaseId" readonly>
 
 		<div class="" id="tableRow">
 			<h4>Ready For Sales</h4>
-			<table id="salesReady" class="table-bordered responsive">
+			<table id="salesTable" class="table-bordered responsive">
 				<thead>
 					<tr>
 						<th>Purchase Id</th>
@@ -50,7 +47,16 @@
 					</tr>
 				</thead>
 			</table>
-
+			<p>
+				Eggs : <input type="text" id="eggs">
+				Chicken : <input type="text" id="chicken">
+				Broiler : <input type="text" id="broiler">
+			</p>
+			<h2>
+				Total Pieces : <input type="text" name="totalPieces"
+					id="totalPieces">
+				<button id="getTotalPieces">Get Total Pieces</button>
+			</h2>
 		</div>
 
 		<div class="row">
@@ -114,7 +120,6 @@
 
 		</table>
 		<input type="hidden" name="operation" value="insert">
-
 		<!-- input type for sending product json as form value -->
 		<input type="hidden" name="productJson" id="productJson">
 
@@ -132,16 +137,18 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 	<script src="validation/validateSales.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/plug-ins/1.10.16/api/fnFindCellRowIndexes.js"></script>
 	<script
 		src="https://cdn.datatables.net/select/1.2.2/js/dataTables.select.min.js"></script>
-	<script type="text/javascript" src="js/dataentry/salesReady.js"></script>
+	<script type="text/javascript" src="js/dataentry/sales.js"></script>
 	<script type="text/javascript">
 		//datatable for salesReady
 		var salesReadyTable = $('#salesReadyTable').DataTable();
 
 		//add data to datatable(very important)
-		var salesReady = $('#salesReady').DataTable({
-			"ajax" : "/server/jsonfiles/salesDataSelector.json",
+		var salesReady = $('#salesTable').DataTable({
+			"ajax" : "/server/jsonfiles/salesTable.json",
 			"scrollX" : true,
 			select : true,
 			"columns" : [ {

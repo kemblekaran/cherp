@@ -11,7 +11,7 @@
   </welcome-file-list>
   <context-param>
     <param-name>JsonFilePath</param-name>
-    <param-value>E:\\My Work\\BS\\Work\\projects\\cherp\\jsonfiles\\</param-value>
+    <param-value>F:\\server\\jsonfiles\\</param-value>
   </context-param>
   <servlet>
     <description></description>

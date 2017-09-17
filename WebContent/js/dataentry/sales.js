@@ -14,68 +14,130 @@ $(function() {
 
 		}
 	});
-	 $.ajax({
-	 url : 'SalesServlet',
-	 data : {
-	 dataLoader : true
-	 },
-	 type : 'POST',
-	 success : function() {
-	 console.log('Data Loaded Successfully!')
-	 },
-	 error : function() {
-	 console.log('Error Loading Data from Database');
-	
-	 }
-	 });
+	$.ajax({
+		url : 'SalesServlet',
+		data : {
+			dataLoader : true
+		},
+		type : 'POST',
+		success : function() {
+			console.log('Data Loaded Successfully!')
+		},
+		error : function() {
+			console.log('Error Loading Data from Database');
 
-	// Loads van data
-	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
-
-		var jsonData = data['van'];
-		$.each(jsonData, function(key, val) {
-			$('#vanList').append(
-					'<option value="' + val.name + '">' + val.name
-							+ '</option>');
-		});
+		}
 	});
 
-	$('#vanList').on('change', function() {
-		var date = $('#date').val();
-		var van = $('#vanList').val();
+	// Loads van data
+	$.getJSON('/server/jsonfiles/salesTable.json', function(data) {
+		var jsonData = data['data'];
+		var purchaseId;
+		var purchaseIdArray = [];
+		$.each(jsonData, function(key, val) {
+			var van = val.vanName;
+			var date = val.date;
+			purchaseId = val.purchaseId;
 
-		var DataSelector = {
-			"date" : date,
-			"van" : van
-		}
+			$('#vanList').val(van);
+			$('#date').val(date);
 
-		$.ajax({
-			url : 'SalesDataDecider',
-			async : false,
-			data : {
-				date : DataSelector.date,
-				van : DataSelector.van
-			},
-			type : 'post',
-			success : function(data) {
-				console.log('success');
-			},
-			error : function() {
-				console.log('error');
+			purchaseIdArray.push(purchaseId);
+		});
+
+		$('#purchaseId').val(purchaseIdArray);
+	});
+
+	// Calculates the total of All pieces in the salesReady Table
+	$('#getTotalPieces').on('click', function(e) {
+		console.log('Inside Button click');
+		e.preventDefault();
+		
+//		$.getJSON('/server/jsonfiles/salesTable.json',function(data){
+//			var jsonData = data['data'];
+//			var piecA = [];
+//			for(var i=0;i<jsonData.length;i++){
+//				var piec = jsonData[i].pieces;
+//				var prod = jsonData[i].product;
+//				piecA.push(prod);
+//			}
+//			
+//			console.log('piec'+ piecA);
+//			$.each(piecA,function(key,val){
+//				
+//			});
+//			var prodFound = $.inArray('Broiler',piecA);
+//			console.log(prodFound);
+//		});
+		
+		var table = $('#salesTable').DataTable();
+		var salesTable = $('#salesTable').dataTable();
+
+		var eggsRowId = salesTable.fnFindCellRowIndexes('eggs', 12);
+		var eggsPieces = table.row(eggsRowId).data().pieces;
+		$('#eggs').val(eggsPieces);
+		console.log('chickensPieces :' + eggsPieces);
+
+		var chickensRowId = salesTable.fnFindCellRowIndexes('chickens', 12);
+		var chickensPieces = table.row(chickensRowId).data().pieces;
+		$('#chicken').val(chickensPieces);
+		console.log('chickensPieces :' + chickensPieces);
+
+		var broilerRowId = salesTable.fnFindCellRowIndexes('Broiler', 12);
+		var broilerPieces = table.row(broilerRowId).data().pieces;
+		$('#broiler').val(broilerPieces);
+		console.log('chickensPieces :' + broilerPieces);
+		
+		var prod = table.row(broilerRowId).data().product;
+		console.log('Product is :'+prod);
+		var tableData = salesTable.fnGetData();
+		var piecesArray = [];
+		var total = 0;
+		var product;
+		var productArray = [];
+
+		for (var i = 0; i < tableData.length; i++) {
+			pieces = tableData[i].pieces;
+			piecesArray.push(pieces);
+
+			product = tableData[i].product;
+			productArray.push(product);
+
+			if (productArray[i] == 'eggs') {
+				console.log('eggs');
 			}
-		});
+			if (productArray[i] == 'jhgdj') {
+				console.log('ekjfbfkjsggs');
+			}
+		}
+		console.log('Pieces :' + piecesArray);
+		console.log('Products :' + productArray);
 
-		// gets product value from saleView.json
-		$.getJSON('/server/jsonfiles/salesDataSelector.json', function(data) {
-			var jsonData = data['data'];
-			$.each(jsonData, function(key, val) {
-				$('#purchaseId').attr('value', val.purchaseId);
-			});
-		});
+		for (var i = 0; i < piecesArray.length; i++) {
+			total = total + piecesArray[i];
+		}
+		$('#totalPieces').val(total);
+		e.preventDefault();
 
-		salesReady.ajax.reload();
-
-		// console.log('DataSelector'+DataSelector.date);
+		// $.getJSON('/server/jsonfiles/salesTable.json',function(data){
+		// var jsonData = data['data'];
+		// var pieces;
+		// var piecesArray = [];
+		// $.each(jsonData,function(key,val){
+		// var pieces = val.pieces;
+		// piecesArray.push(pieces);
+		//				
+		// });
+		// var total = 0;
+		// for(var i=0;i<piecesArray.length;i++){
+		// total = total + piecesArray[i];
+		// }
+		//			
+		// $('#totalPieces').val(total);
+		//			
+		// console.log('totalPieces' +total);
+		// console.log('pieces :' + piecesArray);
+		// });
 	});
 
 	// Initialize salesReadyTable
@@ -91,8 +153,8 @@ $(function() {
 	var salesProduct;
 	var salesRate;
 
-	// gets product value from saleView.json
-	$.getJSON('/server/jsonfiles/saleView.json', function(data) {
+	// gets product value from salesTable.json
+	$.getJSON('/server/jsonfiles/salesTable.json', function(data) {
 		var jsonData = data['product'];
 		$.each(jsonData, function(key, val) {
 			$('#salesProductSelect').append(
@@ -111,7 +173,7 @@ $(function() {
 	});
 
 	// Invokes the onclick listener on salesReady Table
-	$('#salesReady tbody')
+	$('#salesTable tbody')
 			.on(
 					'click',
 					'tr',
@@ -138,69 +200,39 @@ $(function() {
 						// Fetches the product value from the above purchase
 						// table in
 						// html
-						$('#salesProductSelect').append(
-								'<option value="' + salesProduct + '">'
-										+ salesProduct + '</option>');
+						$('#salesProductSelect').append('<option value="' + salesProduct + '">'+ salesProduct + '</option>');
 
 						$('#salesRate').val(salesRate);
 
 						// on entering the value checks for the certain
 						// operations
-						$('#salesReadyTable tbody tr td')
-								.keydown(
-										function(e) {
+						$('#salesReadyTable tbody tr td').keydown(function(e) {
 
-											var salesPiecesNew = $(
-													'#salesPieces').val();
+											var salesPiecesNew = $('#salesPieces').val();
 											var salesKgNew;
 
 											// Determines the balance KG
 											// Quantity amount and sales KG
 											// Quantity
-											$('#salesKg')
-													.on(
-															'input',
-															function() {
+											$('#salesKg').on('input',function() {
 
-																salesKgNew = $(
-																		'#salesKg')
-																		.val();
+																salesKgNew = $('#salesKg').val();
 																var BalanceKg = (parseInt(salesKg) - parseInt(salesKgNew));
-																$(
-																		'#balanceQtyKg')
-																		.attr(
-																				'value',
-																				BalanceKg);
-																$('#salesQtyKg')
-																		.attr(
-																				'value',
-																				salesKgNew);
+																$('#balanceQtyKg').attr('value',BalanceKg);
+																$('#salesQtyKg').attr('value',salesKgNew);
 
 															});
 
 											// Determines the balance KG
 											// Quantity amount and
 											// sales KG Quantity
-											$('#salesPieces')
-													.on(
-															'input',
-															function() {
+											$('#salesPieces').on('input',function() {
 
-																var salesPiecesNew = $(
-																		'#salesPieces')
-																		.val();
+																var salesPiecesNew = $('#salesPieces').val();
 
 																var BalancePieces = (parseInt(salesPieces) - parseInt(salesPiecesNew));
-																$(
-																		'#balanceQtyPieces')
-																		.attr(
-																				'value',
-																				BalancePieces);
-																$(
-																		'#salesQtyPieces')
-																		.attr(
-																				'value',
-																				salesPiecesNew);
+																$('#balanceQtyPieces').attr('value',BalancePieces);
+																$('#salesQtyPieces').attr('value',salesPiecesNew);
 
 															});
 											if (e.keyCode === 13) {
@@ -260,7 +292,8 @@ $(function() {
 				var salesRate = $('#salesRate');
 				var salesAmount = $('#salesAmount');
 				var salesAvgWeight = $('#salesAvgWeight');
-
+				var purchaseId = $('#salesTable').DataTable().row(this).data().purchaseId;
+				console.log('pid :' + purchaseId);
 				var productRow = {
 					"InvoiceNo" : invoiceNo.val(),
 					"customer" : customer.val(),
@@ -269,7 +302,8 @@ $(function() {
 					"salesKg" : salesKg.val(),
 					"salesRate" : salesRate.val(),
 					"salesAmount" : salesAmount.val(),
-					"salesAvgWeight" : salesAvgWeight.val()
+					"salesAvgWeight" : salesAvgWeight.val(),
+					"purchaseId" : purchaseId
 				}
 
 				if (e.keyCode === 13) {

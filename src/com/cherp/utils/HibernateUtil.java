@@ -6,7 +6,13 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 import com.cherp.entities.Area;
+import com.cherp.entities.Cleaners;
+import com.cherp.entities.Company;
+import com.cherp.entities.Drivers;
+import com.cherp.entities.Location;
+import com.cherp.entities.Product;
 import com.cherp.entities.Purchase;
+import com.cherp.entities.Sales;
 import com.cherp.entities.Van;
 
 public class HibernateUtil {
@@ -21,6 +27,12 @@ public class HibernateUtil {
 		config.addAnnotatedClass(Area.class);
 		config.addAnnotatedClass(Purchase.class);
 		config.addAnnotatedClass(Van.class);
+		config.addAnnotatedClass(Drivers.class);
+		config.addAnnotatedClass(Cleaners.class);
+		config.addAnnotatedClass(Location.class);
+		config.addAnnotatedClass(Product.class);
+		config.addAnnotatedClass(Company.class);
+		config.addAnnotatedClass(Sales.class);
 		serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
 		sessionFactory = config.buildSessionFactory(serviceRegistry);
 	}

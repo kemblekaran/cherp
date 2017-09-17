@@ -48,17 +48,22 @@ $(function() {
 
 	// on double click in purchaseView send data to SalesServlet
 	$('#purchaseViewTable tbody').on('dblclick', 'tr', function() {
+		
 		// By adding this to the row() it will select the current row
 		var purchaseId = dataTable.row(this).data().purchaseId;
-		console.log(purchaseId);
+		var date = dataTable.row(this).data().date;
+		var van = dataTable.row(this).data().vanName;
+		
 		$.ajax({
 			url : 'SalesServlet',
 			async : false,
 			data : {
 				purchaseId : purchaseId,
+				date : date,
+				van : van,
 				purchaseView : 'true'
 			},
-			type : 'post',
+			type : 'POST',
 			success : function(data) {
 				console.log('Purchase successfully retrieved in sales!');
 			},

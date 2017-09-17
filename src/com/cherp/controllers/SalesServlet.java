@@ -9,17 +9,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import com.cherp.dao.dataentry.SalesDAO;
 import com.cherp.data.PurchaseDataManager;
 import com.cherp.data.SalesDataManager;
 import com.cherp.entities.Data;
 import com.cherp.entities.Purchase;
 import com.cherp.entities.Sales;
 import com.cherp.entities.User;
+import com.cherp.utils.HibernateUtil;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonWriter;
 
@@ -30,7 +36,7 @@ public class SalesServlet extends HttpServlet {
 	private String operation = "";
 	private String operationResp = "";
 
-	 private String dataLoader = "";
+	private String dataLoader = "";
 
 	private String date = "";
 	private String van = "";
@@ -61,7 +67,7 @@ public class SalesServlet extends HttpServlet {
 		// Insert Form Parameters
 		date = request.getParameter("date");
 		van = request.getParameter("van");
-		 dataLoader = request.getParameter("dataLoader");
+		dataLoader = request.getParameter("dataLoader");
 		purchase = request.getParameter("purchase");
 		purchaseId = request.getParameter("purchaseId");
 		purchaseView = request.getParameter("purchaseView");
@@ -97,7 +103,7 @@ public class SalesServlet extends HttpServlet {
 				for (Sales sales : jsonData.getSalesData()) {
 					sales.setDate(date);
 					sales.setVan(van);
-					sales.setPurchaseId(Integer.parseInt(purchaseId));
+					// sales.setPurchaseId(Integer.parseInt(purchaseId));
 					sales.setInvoiceNo(Integer.parseInt(invoiceNo));
 					sales.setCustomer(customer);
 					sales.setProduct(product);
@@ -107,7 +113,9 @@ public class SalesServlet extends HttpServlet {
 					sales.setAmount(Double.parseDouble(amount));
 					sales.setAvgWeight(Double.parseDouble(avgWeight));
 
-					operationResp = sdm.addData(sales);
+					// operationResp = sdm.addData(sales);
+					System.out.println("Sales Insert");
+					operationResp = new SalesDAO().insert(sales);
 				}
 
 				pw.write(operationResp);
@@ -118,11 +126,12 @@ public class SalesServlet extends HttpServlet {
 		// Select purchase data according to purchaseid
 		if (purchaseView != null) {
 			if (purchaseView.equals("true")) {
-				List<Purchase> saleViewList = new ArrayList<>();
-				purchase.setPurchaseId(Integer.parseInt(purchaseId));
-
-				saleViewList = sdm.selectSales(purchase);
-				jsonFileWriterSale(saleViewList);
+				System.out.println("purchaseView");
+				List<Purchase> salesTableList = new ArrayList<>();
+				// purchase.setPurchaseId(Integer.parseInt(purchaseId));
+				salesTableList = new SalesDAO().selectSales(date, van);
+				// saleViewList = sdm.selectSales(purchase);
+				jsonFileWriterSale(salesTableList);
 			}
 		}
 
@@ -138,19 +147,19 @@ public class SalesServlet extends HttpServlet {
 	}
 
 	// method for creating json file for saleView.json
-	public void jsonFileWriterSale(List<Purchase> saleViewList) {
+	public void jsonFileWriterSale(List<Purchase> salesTableList) {
 		try {
 
 			// MOST IMPORTANT
 			// The second parameter in constructor of FileWriter opens file in append mode
-			Writer writer = new FileWriter(jsonFilePath + "saleView.json");
+			Writer writer = new FileWriter(jsonFilePath + "salesTable.json");
 			JsonWriter jw = new JsonWriter(writer);
 			System.out.println("Inside jsonFileWriterSale");
 
 			jw.beginObject();
 			jw.name("data");
 			jw.beginArray();
-			for (Purchase p : saleViewList) {
+			for (Purchase p : salesTableList) {
 
 				System.out.println("Id:" + p.getId() + ",Pid:" + p.getPurchaseId());
 				jw.beginObject();

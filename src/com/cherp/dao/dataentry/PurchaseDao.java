@@ -121,12 +121,12 @@ public class PurchaseDao {
 		Map<String, ArrayList<String>> formGeneratorMap = new HashMap<>();
 		createSession();
 
-		String vanQuery = "select companyName from van where status=1";
-		String driverQuery = "select fname from driver where status=1";
-		String cleanerQuery = "select fname from cleaner where status=1";
-		String companyQuery = "select name from company where status=1";
-		String locationQuery = "select location from location where status=1";
-		String productQuery = "select prodName from product where status=1";
+		String vanQuery = "select companyName from Van where status=1";
+		String driverQuery = "select fname from Drivers where status=1";
+		String cleanerQuery = "select fname from Cleaners where status=1";
+		String companyQuery = "select name from Company where status=1";
+		String locationQuery = "select location from Location where status=1";
+		String productQuery = "select prodName from Product where status=1";
 		
 		String tableName = "";
 		Table table = null;
