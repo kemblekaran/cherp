@@ -1,15 +1,33 @@
 package com.cherp.entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "area")
 public class Bank {
 
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "bankName")
 	private String bankName;
+	@Column(name = "brachName")
 	private String brachName;
+	@Column(name = "accType")
 	private String accType;
+	@Column(name = "accNo")
 	private long accNo;
+	@Column(name = "address")
 	private String address;
+	@Column(name = "ifscCode")
 	private String ifscCode;
+	@Column(name = "opBal")
 	private int opBal;
+	@Column(name = "status")
 	private int status;
 
 	public int getId() {

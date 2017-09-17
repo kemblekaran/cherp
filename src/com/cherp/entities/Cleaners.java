@@ -1,20 +1,43 @@
 package com.cherp.entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "area")
 public class Cleaners {
 	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "fname")
 	private String fname;
+	@Column(name = "lname")
 	private String lname;
+	@Column(name = "curAdd")
 	private String curAdd;
+	@Column(name = "perAdd")
 	private String perAdd;
+	@Column(name = "state")
 	private String state;
+	@Column(name = "city")
 	private String city;
+	@Column(name = "mobile")
 	private long mobile;
+	@Column(name = "phone")
 	private long phone;
+	@Column(name = "drLicense")
 	private String drLicense;
+	@Column(name = "panNo")
 	private String panNo;
+	@Column(name = "adhaarNo")
 	private String adhaarNo;
+	@Column(name = "photo")
 	private String photo;
+	@Column(name = "status")
 	private int status;
 	
 	public int getId() {
