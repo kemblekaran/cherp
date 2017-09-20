@@ -53,13 +53,13 @@ $(function() {
 		var purchaseId = dataTable.row(this).data().purchaseId;
 		var date = dataTable.row(this).data().date;
 		var van = dataTable.row(this).data().vanName;
-		
+	
 		$.ajax({
 			url : 'SalesServlet',
 			async : false,
 			data : {
 				purchaseId : purchaseId,
-				date : date,
+				purchaseDate : date,
 				van : van,
 				purchaseView : 'true'
 			},

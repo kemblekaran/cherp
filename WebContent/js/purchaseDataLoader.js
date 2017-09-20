@@ -32,7 +32,7 @@ $(function() {
 	});
 
 	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
-		var jsonData = data['driver'];
+		var jsonData = data['Driver'];
 		$.each(jsonData, function(key, val) {
 			$('#driverList1').append(
 					'<option value="' + val.name + '">' + val.name
@@ -44,7 +44,7 @@ $(function() {
 	});
 
 	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
-		var jsonData = data['cleaner'];
+		var jsonData = data['Cleaner'];
 		$.each(jsonData, function(key, val) {
 			$('#cleanerList1').append(
 					'<option value="' + val.name + '">' + val.name
@@ -56,7 +56,7 @@ $(function() {
 	});
 
 	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
-		var jsonDataProduct = data['product'];
+		var jsonDataProduct = data['Product'];
 		$.each(jsonDataProduct, function(key, val) {
 			$('#productSelect').append(
 					'<option value="' + val.name + '">' + val.name
@@ -65,7 +65,7 @@ $(function() {
 	});
 
 	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
-		var jsonDataProduct = data['location'];
+		var jsonDataProduct = data['Location'];
 		$.each(jsonDataProduct, function(key, val) {
 			$('#locationList').append(
 					'<option value="' + val.name + '">' + val.name
@@ -74,7 +74,7 @@ $(function() {
 	});
 
 	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
-		var jsonDataProduct = data['company'];
+		var jsonDataProduct = data['Company'];
 		$.each(jsonDataProduct, function(key, val) {
 			$('#companyList').append(
 					'<option value="' + val.name + '">' + val.name

@@ -17,12 +17,12 @@
 <body>
 	<form id="SalesForm">
 		<input type="hidden" id="actionURL" value="SalesServlet"> <b>Date</b>
-		<input type="text" name="date" id="date"> <b>Van</b> <input
+		<input type="text" name="purchaseDate" id="purchaseDate"> <b>Van</b> <input
 			type="text" name="van" id="vanList"> <b>Purchase Id</b> <input
 			type="text" id="purchaseId" name="purchaseId" readonly>
 
 		<div class="" id="tableRow">
-			<h4>Ready For Sales</h4>
+			<h4>Purchase</h4>
 			<table id="salesTable" class="table-bordered responsive">
 				<thead>
 					<tr>
@@ -47,16 +47,17 @@
 					</tr>
 				</thead>
 			</table>
+			<!-- For fetching total no of pieces from salesTable -->
 			<p>
 				Eggs : <input type="text" id="eggs">
 				Chicken : <input type="text" id="chicken">
 				Broiler : <input type="text" id="broiler">
 			</p>
-			<h2>
+			<h5>
 				Total Pieces : <input type="text" name="totalPieces"
 					id="totalPieces">
 				<button id="getTotalPieces">Get Total Pieces</button>
-			</h2>
+			</h5>
 		</div>
 
 		<div class="row">

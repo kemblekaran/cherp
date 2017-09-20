@@ -114,6 +114,7 @@ public class PurchaseServlet extends HttpServlet {
 					purchase.setFinalAmount(Double.parseDouble(finalAmount));
 
 					// operationResp = pdm.insertData(purchase);
+					purchase.setStatus(1);
 					operationResp = new PurchaseDao().insert(purchase);
 				}
 				pw.println(operationResp);

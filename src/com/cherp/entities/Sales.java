@@ -1,6 +1,7 @@
 package com.cherp.entities;
 
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,14 +17,14 @@ public class Sales {
 	@Id
 	private int id;
 	@Column(name = "purchaseId")
-	private int purchaseId;
+	private String purchaseId;
 	@Transient
 	@Column(name = "outstanding")
 	private int outstanding;
 	@Column(name = "salesAmount")
 	private int salesAmount;
-	@Column(name = "date")
-	private String date;
+	@Column(name = "purchaseDate")
+	private String purchaseDate;
 	@Column(name = "van")
 	private String van;
 	@Transient
@@ -31,6 +32,8 @@ public class Sales {
 	private String area;
 
 	// Sales Parameters
+	@Column(name="salesDate")
+	private Timestamp salesDate;
 	@Column(name = "invoiceNo")
 	private int invoiceNo;
 	@Column(name = "customer")
@@ -58,11 +61,11 @@ public class Sales {
 		this.id = id;
 	}
 
-	public int getPurchaseId() {
+	public String getPurchaseId() {
 		return purchaseId;
 	}
 
-	public void setPurchaseId(int purchaseId) {
+	public void setPurchaseId(String purchaseId) {
 		this.purchaseId = purchaseId;
 	}
 
@@ -82,12 +85,21 @@ public class Sales {
 		this.salesAmount = salesAmount;
 	}
 
-	public String getDate() {
-		return date;
+	
+	public String getPurchaseDate() {
+		return purchaseDate;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setPurchaseDate(String purchaseDate) {
+		this.purchaseDate = purchaseDate;
+	}
+
+	public Timestamp getSalesDate() {
+		return salesDate;
+	}
+
+	public void setSalesDate(Timestamp salesDate) {
+		this.salesDate = salesDate;
 	}
 
 	public String getVan() {

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -85,6 +86,25 @@ public class SalesDAO {
 
 		return purchaseList;
 	}
+	
+	public int getInvoiceNo() {
+
+		createSession();
+
+		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+
+		CriteriaQuery<Integer> criteriaQuery = criteriaBuilder.createQuery(Integer.class);
+
+		Root<Sales> rootPurchase = criteriaQuery.from(Sales.class);
+
+		criteriaQuery.select(criteriaBuilder.max(rootPurchase.get("invoiceNo")));
+
+		int invoiceNo = session.createQuery(criteriaQuery).getSingleResult();
+
+		System.out.println("invoiceNo:" + invoiceNo);
+
+		return invoiceNo;
+	}
 
 	public List<Purchase> selectSales(String date, String van) {
 
@@ -117,6 +137,7 @@ public class SalesDAO {
 			purchase.setRate(pur.getRate());
 			purchase.setAmount(pur.getAmount());
 			purchase.setAvgWeight(pur.getAvgWeight());
+			purchase.setInvoiceNo(new SalesDAO().getInvoiceNo());
 			salesTableList.add(purchase);
 		}
 

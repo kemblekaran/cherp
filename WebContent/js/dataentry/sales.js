@@ -1,35 +1,6 @@
 $(function() {
 
-	$.ajax({
-		url : 'SalesServlet',
-		data : {
-			dataLoader : true
-		},
-		type : 'POST',
-		success : function() {
-			console.log('Data Loaded Successfully!')
-		},
-		error : function() {
-			console.log('Error Loading Data from Database');
-
-		}
-	});
-	$.ajax({
-		url : 'SalesServlet',
-		data : {
-			dataLoader : true
-		},
-		type : 'POST',
-		success : function() {
-			console.log('Data Loaded Successfully!')
-		},
-		error : function() {
-			console.log('Error Loading Data from Database');
-
-		}
-	});
-
-	// Loads van data
+	// Sets van,date and purchaseId from salesTable.json
 	$.getJSON('/server/jsonfiles/salesTable.json', function(data) {
 		var jsonData = data['data'];
 		var purchaseId;
@@ -40,7 +11,7 @@ $(function() {
 			purchaseId = val.purchaseId;
 
 			$('#vanList').val(van);
-			$('#date').val(date);
+			$('#purchaseDate').val(date);
 
 			purchaseIdArray.push(purchaseId);
 		});
@@ -48,96 +19,133 @@ $(function() {
 		$('#purchaseId').val(purchaseIdArray);
 	});
 
-	// Calculates the total of All pieces in the salesReady Table
+	// Calculates the total of All pieces in the salesTable
 	$('#getTotalPieces').on('click', function(e) {
-		console.log('Inside Button click');
 		e.preventDefault();
 		
-//		$.getJSON('/server/jsonfiles/salesTable.json',function(data){
-//			var jsonData = data['data'];
-//			var piecA = [];
-//			for(var i=0;i<jsonData.length;i++){
-//				var piec = jsonData[i].pieces;
-//				var prod = jsonData[i].product;
-//				piecA.push(prod);
-//			}
-//			
-//			console.log('piec'+ piecA);
-//			$.each(piecA,function(key,val){
+		$.getJSON('/server/jsonfiles/salesTable.json',function(data){
+			var table = $('#salesTable').DataTable();
+			var salesTable = $('#salesTable').dataTable();
+			var jsonData = data['data'];
+			var product;
+			var pieces;
+			var productArray = [];
+			var piecesArray = [];
+
+			//Fetch pieces and products from JSON File
+			for(var i=0;i<jsonData.length;i++){
+				 pieces = jsonData[i].pieces;
+				 product = jsonData[i].product;
+				 piecesArray.push(pieces);
+				 productArray.push(product);
+			}
+			
+			//Calculates the total number of pieces in whole table
+			 var total = 0;
+			 for(var i=0;i<piecesArray.length;i++){
+				 total = total + piecesArray[i];
+			 }
+						
+			 $('#totalPieces').val(total);
+			console.log('Product Array :'+ productArray[1]);
+			console.log('Pieces Array :'+ piecesArray);
+			
+			for(var i=0;i<productArray.length;i++){
+				
+				var productList = {
+						'eggs' : productArray[i] === 'eggs',
+						'chickens' : productArray[i] === 'chickens',
+						'broiler' : productArray[i] === 'Broiler'
+				}
+				if(productArray[i] === 'chickens'){
+					console.log('I am CHICKEN');
+					var chickensPieces = table.row().data().pieces;
+					console.log(chickensPieces);
+				}
+				if(productArray[i] === 'eggs'){
+					console.log('I am EGG');
+					var eggsPieces = table.row().data().pieces;
+					console.log(eggsPieces);
+				}
+				
+//				var productLength = {
+//						'eggs' :  $.inArray('eggs',productArray),
+//						'chickens' :  $.inArray('chickens',productArray),
+//						'broiler' :  $.inArray('Broiler',productArray)
+//				}
+//				var count = table.rows().column(12).data().filter( function (value, index) {
+//	                  return value='chickens' ? true : false;
+//	            });
 //				
-//			});
-//			var prodFound = $.inArray('Broiler',piecA);
-//			console.log(prodFound);
-//		});
-		
-		var table = $('#salesTable').DataTable();
-		var salesTable = $('#salesTable').dataTable();
-
-		var eggsRowId = salesTable.fnFindCellRowIndexes('eggs', 12);
-		var eggsPieces = table.row(eggsRowId).data().pieces;
-		$('#eggs').val(eggsPieces);
-		console.log('chickensPieces :' + eggsPieces);
-
-		var chickensRowId = salesTable.fnFindCellRowIndexes('chickens', 12);
-		var chickensPieces = table.row(chickensRowId).data().pieces;
-		$('#chicken').val(chickensPieces);
-		console.log('chickensPieces :' + chickensPieces);
-
-		var broilerRowId = salesTable.fnFindCellRowIndexes('Broiler', 12);
-		var broilerPieces = table.row(broilerRowId).data().pieces;
-		$('#broiler').val(broilerPieces);
-		console.log('chickensPieces :' + broilerPieces);
-		
-		var prod = table.row(broilerRowId).data().product;
-		console.log('Product is :'+prod);
-		var tableData = salesTable.fnGetData();
-		var piecesArray = [];
-		var total = 0;
-		var product;
-		var productArray = [];
-
-		for (var i = 0; i < tableData.length; i++) {
-			pieces = tableData[i].pieces;
-			piecesArray.push(pieces);
-
-			product = tableData[i].product;
-			productArray.push(product);
-
-			if (productArray[i] == 'eggs') {
-				console.log('eggs');
+//				console.log('count : '+count);
+//				console.log('c length :' +count.length);
+				var rowCount = table.rows()[0].length;
+//				for (var row=0;row<rowCount;row++) {
+//				    if (table.cells(row, 12).data().indexOf('Broiler')) {
+//				   console.log(table.cells(row, 12).data().indexOf('Broiler'));
+//				    }
+//				}
+//				console.log('countValue :' +countValue);
+				
+				if(productList.eggs){
+					console.log('Yes,There are Eggs');
+					var eggsRowId = salesTable.fnFindCellRowIndexes('eggs', 12);
+					var eggsPieces = table.row().data().pieces;
+					var total = 0;	
+					for(var i=0;i<productArray.length;i++){
+						total = total + eggsPieces;
+						console.log('total :' +total);
+						$('#eggs').val(total);
+						console.log('eggsPieces :' + eggsPieces);
+					}
+					console.log('eggsPieces :' + eggsPieces);
+				}
+				if(productList.chickens){
+					console.log('Yes,There are chickens');
+					var chickensRowId = salesTable.fnFindCellRowIndexes('chickens', 12);
+					var chickensPieces = table.row(chickensRowId).data().pieces;			
+					var total = 0;
+					for(var i=0;i<productArray.length;i++){
+						total = total + chickensPieces;
+						console.log('total :' +total);
+						$('#chicken').val(total);
+						console.log('chickensPieces :' + chickensPieces);
+					}
+					
+				}
+				if(productList.broiler){
+					console.log('Yes,There are Broiler');
+					var broilerRowId = salesTable.fnFindCellRowIndexes('Broiler', 12);
+					var broilerPieces = table.row(broilerRowId).data().pieces;
+					$('#broiler').val(broilerPieces);
+					console.log('broilerPieces :' + broilerPieces);
+				}
 			}
-			if (productArray[i] == 'jhgdj') {
-				console.log('ekjfbfkjsggs');
-			}
-		}
-		console.log('Pieces :' + piecesArray);
-		console.log('Products :' + productArray);
+		});
+		
+//		if(eggsRowId){
 
-		for (var i = 0; i < piecesArray.length; i++) {
-			total = total + piecesArray[i];
-		}
-		$('#totalPieces').val(total);
-		e.preventDefault();
+//		}
+//		var prod = table.row(broilerRowId).data().product;
+//		console.log('Product is :'+prod);
+//		var tableData = salesTable.fnGetData();
+//		var piecesArray = [];
+//		var total = 0;
+//		var product;
+//		var productArray = [];
 
-		// $.getJSON('/server/jsonfiles/salesTable.json',function(data){
-		// var jsonData = data['data'];
-		// var pieces;
-		// var piecesArray = [];
-		// $.each(jsonData,function(key,val){
-		// var pieces = val.pieces;
-		// piecesArray.push(pieces);
-		//				
-		// });
-		// var total = 0;
-		// for(var i=0;i<piecesArray.length;i++){
-		// total = total + piecesArray[i];
-		// }
-		//			
-		// $('#totalPieces').val(total);
-		//			
-		// console.log('totalPieces' +total);
-		// console.log('pieces :' + piecesArray);
-		// });
+		 $.getJSON('/server/jsonfiles/salesTable.json',function(data){
+		 var jsonData = data['data'];
+		 var pieces;
+		 var piecesArray = [];
+		 
+		 //Gets each pieces from salesTable.json
+		 $.each(jsonData,function(key,val){
+		 var pieces = val.pieces;
+		 piecesArray.push(pieces);
+						
+		 });
+		 });
 	});
 
 	// Initialize salesReadyTable
@@ -155,10 +163,10 @@ $(function() {
 
 	// gets product value from salesTable.json
 	$.getJSON('/server/jsonfiles/salesTable.json', function(data) {
-		var jsonData = data['product'];
+		var jsonData = data['data'];
 		$.each(jsonData, function(key, val) {
 			$('#salesProductSelect').append(
-					'<option value="' + val.name + '">' + val.name
+					'<option value="' + val.product + '">' + val.product
 							+ '</option>');
 		});
 	});
@@ -173,22 +181,21 @@ $(function() {
 	});
 
 	// Invokes the onclick listener on salesReady Table
-	$('#salesTable tbody')
-			.on(
-					'click',
-					'tr',
-					function() {
+	$('#salesTable tbody').on('click','tr',function() {
 
-						// selects all the data of purchase table into salesData
-						// variable
-						var salesData = salesReady.row().data();
+						// selects all the data of purchase table into salesData variable
+						var salesData = salesReady.row(this).data();
 
-						// TODO
-						// This invoice Number needs to be change as per the
-						// existing
-						// sales done
-						var invoiceNumber = 14;
-						invoiceNo.val(invoiceNumber);
+						//sets invoiceNo from database
+						$.getJSON('/server/jsonfiles/salesTable.json',function(data){
+							var jsonData = data['data'];
+							var invoice;
+							$.each(jsonData,function(key,val){
+								invoice = val.invoiceNo;
+							});
+							console.log(invoice);
+							invoiceNo.val(invoice + 1);
+						});
 
 						// sets the value to the variable from salesData
 						pid = salesData.purchaseId;
@@ -196,12 +203,7 @@ $(function() {
 						salesPieces = salesData.pieces;
 						salesKg = salesData.kg;
 						salesRate = salesData.rate;
-
-						// Fetches the product value from the above purchase
-						// table in
-						// html
-						$('#salesProductSelect').append('<option value="' + salesProduct + '">'+ salesProduct + '</option>');
-
+						
 						$('#salesRate').val(salesRate);
 
 						// on entering the value checks for the certain

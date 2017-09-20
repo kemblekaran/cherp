@@ -166,10 +166,6 @@ public class PurchaseDao {
 		table = Product.class.getAnnotation(Table.class);
 		tableName = table.name();
 		formGeneratorMap.put(tableName, (ArrayList<String>) productList);
-		
-		
-		
-		
 
 		return  formGeneratorMap;
 	}
