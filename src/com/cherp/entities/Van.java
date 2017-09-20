@@ -1,19 +1,43 @@
 package com.cherp.entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="van")
 public class Van {
+	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name="vanNumber")
 	private String vanNumber;
+	@Column(name="companyName")
 	private String companyName;
+	@Column(name="vanModel")
 	private String vanModel;
+	@Column(name="ownerName")
 	private String ownerName;
+	@Column(name="fitness")
 	private int fitness;
+	@Column(name="capacity")
 	private int vanCapacity;
+	@Column(name="insuranceNo")
 	private int insuranceNo;
+	@Column(name="insStartDate")
 	private String insStartDate;
+	@Column(name="insEndDate")
 	private String insEndDate;
+	@Column(name="permitNo")
 	private int permitNo;
+	@Column(name="permitStartDate")
 	private String permitStartDate;
+	@Column(name="permitEndDate")
 	private String permitEndDate;
+	@Column(name="status")
 	private int status;
 
 	public int getId() {

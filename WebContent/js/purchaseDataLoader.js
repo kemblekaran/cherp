@@ -15,18 +15,24 @@ $(function() {
 		}
 	});
 
+	// set purchase id value
 	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
+		var jsonData = data['purchaseId'];	
+		$('#purchaseid').val(jsonData + 1);
+	});
 
-		var jsonData = data['van'];
+	$.getJSON('/server/jsonfiles/van.json', function(data) {
+
+		var jsonData = data['data'];
 		$.each(jsonData, function(key, val) {
 			$('#vanList').append(
-					'<option value="' + val.name + '">' + val.name
+					'<option value="' + val.vanNumber + '">' + val.vanNumber
 							+ '</option>');
 		});
 	});
 
 	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
-		var jsonData = data['driver'];
+		var jsonData = data['Driver'];
 		$.each(jsonData, function(key, val) {
 			$('#driverList1').append(
 					'<option value="' + val.name + '">' + val.name
@@ -38,7 +44,7 @@ $(function() {
 	});
 
 	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
-		var jsonData = data['cleaner'];
+		var jsonData = data['Cleaner'];
 		$.each(jsonData, function(key, val) {
 			$('#cleanerList1').append(
 					'<option value="' + val.name + '">' + val.name
@@ -48,18 +54,18 @@ $(function() {
 							+ '</option>');
 		});
 	});
-	
+
 	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
-		var jsonDataProduct = data['product'];
+		var jsonDataProduct = data['Product'];
 		$.each(jsonDataProduct, function(key, val) {
 			$('#productSelect').append(
 					'<option value="' + val.name + '">' + val.name
 							+ '</option>');
 		});
 	});
-	
+
 	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
-		var jsonDataProduct = data['location'];
+		var jsonDataProduct = data['Location'];
 		$.each(jsonDataProduct, function(key, val) {
 			$('#locationList').append(
 					'<option value="' + val.name + '">' + val.name
@@ -68,7 +74,7 @@ $(function() {
 	});
 
 	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
-		var jsonDataProduct = data['company'];
+		var jsonDataProduct = data['Company'];
 		$.each(jsonDataProduct, function(key, val) {
 			$('#companyList').append(
 					'<option value="' + val.name + '">' + val.name

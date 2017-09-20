@@ -14,41 +14,56 @@ $(function() {
 	var productRowData = [];
 	var json;
 
+	// get target element when clicked on product table
+	// assign product table id to avoid assigning null object to on-input event
+	var productTableTargetEle = $('#productTable');
+
+	$('#productTable').on('click', function(e) {
+		if (e.target.id.match(/(kg|pieces|rate)/)) {
+
+			productTableTargetEle = e.target;
+			console.log("Target element:" + productTableTargetEle.id);
+
+		}
+	});
+
 	// calculate amount and avg weight
-	rate.on('input', function() {
+	productTableTargetEle.on('input', function() {
 
 		var newAmt = parseInt(rate.val()) * parseInt(kg.val());
 		var newAvgWeight = parseInt(kg.val()) / parseInt(pieces.val());
+		
+		
 		if (newAmt !== null || newAvgWeight !== null) {
 
 			// toFixed() method places the decimal point after digits specified
 			// as a parameter
+			
+			
 			amt.val(newAmt.toFixed(2));
 			avgWeight.val(newAvgWeight.toFixed(2));
-		}
-	});
-
-	// set purchase id value
-	$.getJSON('/server/jsonfiles/purchaseView.json', function(result) {
-		var length = result.data.length;
-		var purchaseId = result.data[length - 1].purchaseId;
-
-		$('#purchaseid').val(purchaseId + 1);
+		} 
+		
 	});
 
 	// on double click in purchaseView send data to SalesServlet
 	$('#purchaseViewTable tbody').on('dblclick', 'tr', function() {
+		
 		// By adding this to the row() it will select the current row
 		var purchaseId = dataTable.row(this).data().purchaseId;
-		console.log(purchaseId);
+		var date = dataTable.row(this).data().date;
+		var van = dataTable.row(this).data().vanName;
+	
 		$.ajax({
 			url : 'SalesServlet',
 			async : false,
 			data : {
 				purchaseId : purchaseId,
+				purchaseDate : date,
+				van : van,
 				purchaseView : 'true'
 			},
-			type : 'post',
+			type : 'POST',
 			success : function(data) {
 				console.log('Purchase successfully retrieved in sales!');
 			},
@@ -58,17 +73,19 @@ $(function() {
 		});
 	});
 
+	// redirect to sales html on double click on purchase view rows
 	$('#purchaseViewTable tbody').on('dblclick', function() {
 		window.location = 'Sales.html';
 	});
 
+	// add product to data table when presses enter
 	$('#productTable tbody tr td').keydown(
 			function(e) {
 
 				var outstanding = $('#outstanding').val();
 
 				var productRow = {
-					"purchaseId" : $('#purchaseId').val(),
+					"purchaseId" : $('#purchaseid').val(),
 					"date" : $('#date').val(),
 					"vanName" : $('#vanList').val(),
 					"driver1" : $('#driverList1').val(),

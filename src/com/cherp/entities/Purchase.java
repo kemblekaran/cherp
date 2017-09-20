@@ -1,29 +1,61 @@
 package com.cherp.entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name = "purchase")
 public class Purchase {
 
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name= "purchaseId")
 	private int purchaseId;
+	@Column(name="date")
 	private String date;
+	@Column(name="vanName")
 	private String vanName;
+	@Column(name="driver1")
 	private String driver1;
+	@Column(name="driver2")
 	private String driver2;
+	@Column(name="cleaner1")
 	private String cleaner1;
+	@Column(name="cleaner2")
 	private String cleaner2;
+	@Column(name="company")
 	private String company;
+	@Column(name="location")
 	private String location;
+	@Column(name="outstanding")
 	private int outstanding;
+	@Column(name="challanNo")
 	private long challanNo;
+	@Column(name="rent")
 	private int rent;
+	@Column(name="product")
 	private String product;
+	@Column(name="pieces")
 	private int pieces;
+	@Column(name="kg")
 	private int kg;
+	@Column(name="rate")
 	private int rate;
+	@Column(name="amount")
 	private int amount;
+	@Column(name="avgWeight")
 	private Double avgWeight;
+	@Column(name="finalAmount")
 	private Double finalAmount;
+	@Column(name="status")
 	private int status;
-	private String combinePurchaseToggle;
+	@Transient
+	private int invoiceNo;
 
 	public int getId() {
 		return id;
@@ -185,6 +217,14 @@ public class Purchase {
 		this.finalAmount = finalAmount;
 	}
 
+	public int getInvoiceNo() {
+		return invoiceNo;
+	}
+
+	public void setInvoiceNo(int invoiceNo) {
+		this.invoiceNo = invoiceNo;
+	}
+
 	public int getStatus() {
 		return status;
 	}
@@ -193,12 +233,5 @@ public class Purchase {
 		this.status = status;
 	}
 
-	public String getCombinePurchaseToggle() {
-		return combinePurchaseToggle;
-	}
-
-	public void setCombinePurchaseToggle(String combinePurchaseToggle) {
-		this.combinePurchaseToggle = combinePurchaseToggle;
-	}
 
 }

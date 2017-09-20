@@ -1,9 +1,7 @@
 package com.cherp.controllers;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cherp.dao.masters.StateDao;
 import com.cherp.data.StateDataManager;
-import com.cherp.entities.Area;
 import com.cherp.entities.State;
 import com.cherp.utils.JsonCreator;
-import com.google.gson.stream.JsonWriter;
 
 public class StateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -54,7 +51,8 @@ public class StateServlet extends HttpServlet {
 
 		getParaValues(request, response);
 
-		StateDataManager std = new StateDataManager();
+//		StateDataManager std = new StateDataManager();
+		StateDao sdao = new StateDao();
 		State state = new State();
 
 		if (operation != null) {
@@ -65,7 +63,7 @@ public class StateServlet extends HttpServlet {
 
 				state.setStateName(stateName);
 
-				operationResp = std.addData(state);
+				operationResp = sdao.insert(state);
 				pw.println(operationResp);
 
 			} else if (operation.equals("update")) {
@@ -74,14 +72,14 @@ public class StateServlet extends HttpServlet {
 				state.setId(Integer.parseInt(rowId));
 				state.setStateName(updatedCellStateName);
 
-				operationResp = std.updateData(state);
+				operationResp = sdao.update(state);
 				pw.println(operationResp);
 
 			} else if (operation.equals("delete")) {
 				// For delete set only ID Parameter
 				System.out.println("Delete Function");
 				state.setId(Integer.parseInt(rowId));
-				operationResp = std.deleteData(state);
+				operationResp = sdao.delete(state);
 				pw.println(operationResp);
 
 			}
@@ -89,7 +87,7 @@ public class StateServlet extends HttpServlet {
 
 		// Contains All Data in table
 		List<State> stateList = new ArrayList<>();
-		stateList = std.selectData();
+		stateList = sdao.selectAll();
 		new JsonCreator().createJson(stateList,jsonFilePath+"state.json");
 	}
 

@@ -1,9 +1,7 @@
 package com.cherp.controllers;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cherp.data.AreaDataManager;
-import com.cherp.data.CompanyDataManager;
-import com.cherp.data.VanDataManager;
-import com.cherp.entities.Area;
-import com.cherp.entities.Company;
+import com.cherp.dao.masters.VanDao;
 import com.cherp.entities.Van;
 import com.cherp.utils.JsonCreator;
-import com.google.gson.stream.JsonWriter;
 
 public class VanServlet extends HttpServlet {
 
@@ -113,7 +106,8 @@ public class VanServlet extends HttpServlet {
 		// get all form data into variables
 		getParaValues(request, response);
 
-		VanDataManager vdm = new VanDataManager();
+		// VanDataManager vdm = new VanDataManager();
+		VanDao vdao = new VanDao();
 		Van van = new Van();
 
 		if (operation != null) {
@@ -134,7 +128,7 @@ public class VanServlet extends HttpServlet {
 				van.setPermitStartDate(permitStartDate);
 				van.setPermitEndDate(permitEndDate);
 
-				operationResp = vdm.addData(van);
+				operationResp = vdao.insert(van);
 				pw.println(operationResp);
 
 			} else if (operation.equals("update")) {
@@ -154,7 +148,7 @@ public class VanServlet extends HttpServlet {
 				van.setPermitStartDate(updatedCellPermitStartDate);
 				van.setPermitEndDate(updatedCellPermitEndDate);
 
-				operationResp = vdm.updateData(van);
+				operationResp = vdao.update(van);
 
 				pw.println(operationResp);
 
@@ -162,7 +156,7 @@ public class VanServlet extends HttpServlet {
 				// For delete set only ID Parameter
 				System.out.println("Delete Function");
 				van.setId(Integer.parseInt(rowId));
-				operationResp = vdm.deleteData(van);
+				operationResp = vdao.delete(van);
 				pw.println(operationResp);
 
 			}
@@ -170,10 +164,8 @@ public class VanServlet extends HttpServlet {
 
 		// Contains All Data in table
 		List<Van> vanList = new ArrayList<>();
-		vanList = vdm.selectData();
-		new JsonCreator().createJson(vanList,jsonFilePath+"van.json");
+		vanList = vdao.selectAll();
+		new JsonCreator().createJson(vanList, jsonFilePath + "van.json");
 	}
-
-
 
 }

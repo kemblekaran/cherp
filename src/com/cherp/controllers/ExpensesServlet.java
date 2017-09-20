@@ -1,9 +1,7 @@
 package com.cherp.controllers;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cherp.data.AreaDataManager;
-import com.cherp.data.ExpensesDataManager;
-import com.cherp.entities.Area;
+import com.cherp.dao.masters.ExpensesDao;
 import com.cherp.entities.Expenses;
 import com.cherp.utils.JsonCreator;
-import com.google.gson.stream.JsonWriter;
 
 public class ExpensesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -65,7 +60,8 @@ public class ExpensesServlet extends HttpServlet {
 		// get all form data into variables
 		getParaValues(request, response);
 
-		ExpensesDataManager edm = new ExpensesDataManager();
+//		ExpensesDataManager edm = new ExpensesDataManager();
+		ExpensesDao edao = new ExpensesDao();
 		Expenses exp = new Expenses();
 
 		if (operation != null) {
@@ -76,7 +72,7 @@ public class ExpensesServlet extends HttpServlet {
 
 				exp.setDescription(description);
 
-				operationResp = edm.addData(exp);
+				operationResp = edao.insert(exp);
 				pw.println(operationResp);
 
 			} else if (operation.equals("update")) {
@@ -85,14 +81,14 @@ public class ExpensesServlet extends HttpServlet {
 				exp.setId(Integer.parseInt(rowId));
 				exp.setDescription(updatedCellDescription);
 
-				operationResp = edm.updateData(exp);
+				operationResp = edao.update(exp);
 				pw.println(operationResp);
 
 			} else if (operation.equals("delete")) {
 				// For delete set only ID Parameter
 				System.out.println("Delete Function");
 				exp.setId(Integer.parseInt(rowId));
-				operationResp = edm.deleteData(exp);
+				operationResp = edao.delete(exp);
 				pw.println(operationResp);
 
 			}
@@ -100,9 +96,8 @@ public class ExpensesServlet extends HttpServlet {
 
 		// Contains All Data in table
 		List<Expenses> expList = new ArrayList<>();
-		expList = edm.selectData();
-		new JsonCreator().createJson(expList,jsonFilePath+"expenses.json");
+		expList = edao.selectAll();
+		new JsonCreator().createJson(expList, jsonFilePath + "expenses.json");
 	}
-
 
 }
