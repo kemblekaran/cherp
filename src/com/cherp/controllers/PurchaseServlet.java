@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.cherp.dao.dataentry.PurchaseDao;
 import com.cherp.data.PurchaseDataManager;
 import com.cherp.entities.Data;
+import com.cherp.entities.PayLoad;
 import com.cherp.entities.Purchase;
 import com.cherp.utils.JsonCreator;
 import com.google.gson.Gson;
@@ -53,12 +54,14 @@ public class PurchaseServlet extends HttpServlet {
 	private String finalAmount = "";
 
 	private String productJson = "";
+	private String payloadJson = "";
 
 	public void getParaValues(HttpServletRequest request, HttpServletResponse response) {
 
 		operation = request.getParameter("operation");
 		dataLoader = request.getParameter("dataLoader");
 		productJson = request.getParameter("productJson");
+		payloadJson = request.getParameter("payloadJson");
 
 		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
 
@@ -82,8 +85,6 @@ public class PurchaseServlet extends HttpServlet {
 		avgWeight = request.getParameter("avgWeight");
 		finalAmount = request.getParameter("finalAmount");
 
-		
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -100,8 +101,11 @@ public class PurchaseServlet extends HttpServlet {
 
 		Gson gson = new Gson();
 		Data jsonData = gson.fromJson(productJson, Data.class);
-		System.out.println(productJson);
+		Data payData = gson.fromJson(payloadJson, Data.class);
 		
+		 
+		System.out.println("purchase DAta...."+jsonData);
+		System.out.println("payload Data...."+payData);
 		// check which operation is performed(insert,update or delete)
 		if (operation != null) {
 			// For insert set ALL Parameters except ID
@@ -112,14 +116,24 @@ public class PurchaseServlet extends HttpServlet {
 					System.out.println("Counter:" + count++);
 
 					purchase.setFinalAmount(Double.parseDouble(finalAmount));
-
-					// operationResp = pdm.insertData(purchase);
 					purchase.setStatus(1);
+					System.out.println("purchase final amount"+Double.parseDouble(finalAmount));
+					// operationResp = pdm.insertData(purchase);
 					operationResp = new PurchaseDao().insert(purchase);
 				}
-				pw.println(operationResp);
-
 			}
+			if (operation.equals("insert")) {
+				
+				for (PayLoad payload : payData.getPayLoadData()) {
+					payload.setFinalAmount(Double.parseDouble(finalAmount));
+					payload.setBalanceAmount(Double.parseDouble(finalAmount));
+					payload.setStatus(1);
+					System.out.println("payload final amount"+Double.parseDouble(finalAmount));
+					new PurchaseDao().insertPay(payload);
+				}
+				pw.println(operationResp);
+			}
+
 		}
 
 		// List for storing data that will be loaded into purchase form elements
@@ -139,7 +153,7 @@ public class PurchaseServlet extends HttpServlet {
 		List<Purchase> purchaseViewList = new ArrayList<>();
 		purchaseViewList = new PurchaseDao().selectAll();
 		new JsonCreator().createJson(purchaseViewList, jsonFilePath + "purchaseView.json");
-		//jsonFileWriter(purchaseViewList);
+		// jsonFileWriter(purchaseViewList);
 
 		List<Purchase> vanWiseSalesList = new ArrayList<>();
 		Purchase purchase = new Purchase();
@@ -180,8 +194,6 @@ public class PurchaseServlet extends HttpServlet {
 		} catch (Exception e) {
 		}
 	}
-
-	
 
 	// method for creating json file for purchaseView.json
 	public void jsonFileWriterList(List<Purchase> vanWiseSalesList) {

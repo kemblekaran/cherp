@@ -11,7 +11,7 @@
   </welcome-file-list>
   <context-param>
     <param-name>JsonFilePath</param-name>
-    <param-value>F:\\server\\jsonfiles\\</param-value>
+    <param-value>D:\\karan\\server\\jsonfiles\\</param-value>
   </context-param>
   <servlet>
     <description></description>
@@ -182,5 +182,25 @@
   <servlet-mapping>
     <servlet-name>SalesDataDecider</servlet-name>
     <url-pattern>/SalesDataDecider</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PaymentServlet</display-name>
+    <servlet-name>PaymentServlet</servlet-name>
+    <servlet-class>com.cherp.controllers.PaymentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PaymentServlet</servlet-name>
+    <url-pattern>/PaymentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CollectionServlet</display-name>
+    <servlet-name>CollectionServlet</servlet-name>
+    <servlet-class>com.cherp.controllers.CollectionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CollectionServlet</servlet-name>
+    <url-pattern>/CollectionServlet</url-pattern>
   </servlet-mapping>
 </web-app>

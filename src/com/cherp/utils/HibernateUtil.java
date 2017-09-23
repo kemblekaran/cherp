@@ -10,6 +10,7 @@ import com.cherp.entities.Cleaners;
 import com.cherp.entities.Company;
 import com.cherp.entities.Drivers;
 import com.cherp.entities.Location;
+import com.cherp.entities.PayLoad;
 import com.cherp.entities.Product;
 import com.cherp.entities.Purchase;
 import com.cherp.entities.Sales;
@@ -26,6 +27,7 @@ public class HibernateUtil {
 		config.configure("hibernate.cfg.xml");
 		config.addAnnotatedClass(Area.class);
 		config.addAnnotatedClass(Purchase.class);
+		config.addAnnotatedClass(PayLoad.class);
 		config.addAnnotatedClass(Van.class);
 		config.addAnnotatedClass(Drivers.class);
 		config.addAnnotatedClass(Cleaners.class);

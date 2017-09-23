@@ -1,0 +1,298 @@
+<html>
+
+<head>
+    <title>Compnay Invoice</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="validate.css">
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/blitzer/jquery-ui.css">
+  	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  	<script>
+  	
+  	</script>
+</head>
+
+
+<body>
+    <div w3-include-html="main.html"></div>
+    <!--Main container-->
+
+    <div class="container-fluid" id="mainContainer">
+        <div class="jumbotron">
+
+            <div class="well">
+            <!-- Button Row           -->
+            <div class="row" >
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <div class="col-sm-5">
+                            <label for="cmpName">Company Name</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <select id="cmpName" name="cmpName" class="form-control">
+                                        <option value="selectCmp">select Company</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <div class="row" >
+                <div class="col-md-3">
+                     <div class="form-group">
+                         <div class="col-sm-2">
+                            <label for="From">From</label> 
+                         </div>
+                         <div class="col-sm-10">
+                             <input type="text" class="form-control" id="fromDate" name="fromDate">
+                         </div>    
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                     <div class="form-group">
+                         <div class="col-sm-1">
+                            <label for="to">To</label> 
+                         </div>
+                         <div class="col-sm-10">
+                             <input type="text" class="form-control" id="toDate" name="toDate">
+                         </div>    
+                    </div>
+                </div>
+                
+                <div class="col-md-1">
+                    <button id="go" class="btn btn-primary" >Go</button>
+                </div>
+                
+                <div class="col-md-3 col-md-offset-2">
+                     <div class="form-group">
+                        <label for="to">Date of A/c Opening</label> 
+                        <input type="text" class="form-control" id="dateAccOp" name="dateAccOp" readonly>
+                    </div>
+                </div>
+                </div>
+            </div>
+            
+            <div class="row " >
+                <div class="col-md-8 col-md-offset-3">
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                        <label for="opeBal">Opening Balance</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="opeBal" name="opeBal">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Table Row-->
+            <div class="row " >
+                <div class="col-md-7">
+                    <label><h3>Purchase for the period</h3></label>
+                </div>
+                <div class="col-md-5">
+                    <label><h3>Payment</h3></label>
+                </div>
+            </div>
+            <hr>
+             
+            <div class="row " id="tableRow">
+               <div class="col-md-7">
+                <table id="dataTable" class="table-bordered">
+                    <thead>
+                        <tr>
+                            <th>date</th>
+                            <th>invoice</th>
+                            <th>product</th>
+                            <th>pieces</th>
+                            <th>kgs</th>
+                            <th>rate</th>
+                            <th>amount</th>
+                        </tr>
+                    </thead>
+                </table>
+                </div>
+                
+                <div class="col-md-5">
+                 <table id="payDataTable" class="table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Particulars</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                </table>
+                </div>
+            </div>
+            
+            <div class="well">
+            <div class="row " >
+                <div class="col-md-4">
+                     <div class="form-group">
+                         <div class="col-sm-4">
+                            <label for="pcs">Total Pcs</label> 
+                         </div>
+                         <div class="col-sm-8">
+                             <input type="text" class="form-control" id="pcs" name="pcs">
+                         </div>    
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                     <div class="form-group">
+                         <div class="col-sm-4">
+                            <label for="kgs">Total Kgs</label> 
+                         </div>
+                         <div class="col-sm-8">
+                             <input type="text" class="form-control" id="kgs" name="kgs">
+                         </div>    
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                     <div class="form-group">
+                         <div class="col-sm-5">
+                            <label for="payment">Total Payment</label> 
+                         </div>
+                         <div class="col-sm-7">
+                             <input type="text" class="form-control" id="payment" name="payment">
+                         </div>    
+                    </div>
+                </div>
+                
+            </div>
+                <br><br>
+
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="form-group">
+                         <div class="col-sm-5">
+                            <label for="weekPurchase">Purchase for the week</label> 
+                         </div>
+                         <div class="col-sm-5">
+                             <input type="text" class="form-control" id="weekPurchase" name="weekPurchase">
+                         </div>    
+                    </div>
+                    <br>
+                    <div class="form-group">
+                         <div class="col-sm-5">
+                            <label for="totalPayment">Total Payment</label> 
+                         </div>
+                         <div class="col-sm-5">
+                             <input type="text" class="form-control" id="totalPayment" name="totalPayment">
+                         </div>    
+                    </div>
+                    <br>
+                    <div class="form-group">
+                         <div class="col-sm-5">
+                            <label for="paymentGiven">Payment Given</label> 
+                         </div>
+                         <div class="col-sm-5">
+                             <input type="text" class="form-control" id="paymentGiven" name="paymentGiven">
+                         </div>    
+                    </div>
+                    <br>
+                    <div class="form-group">
+                         <div class="col-sm-5">
+                            <label for="addLess">Add/Less</label> 
+                         </div>
+                         <div class="col-sm-5">
+                             <input type="text" class="form-control" id="addLess" name="addLess">
+                         </div>    
+                    </div>
+                    <br>
+                    <div class="form-group">
+                         <div class="col-sm-5">
+                            <label for="closingBal">Closing Balance</label> 
+                         </div>
+                         <div class="col-sm-5">
+                             <input type="text" class="form-control" id="closingBal" name="closingBal">
+                         </div>    
+                    </div>
+                </div>
+            </div>
+            </div>
+       
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-1 col-md-offset-4">
+                        <button id="go" class="btn btn-primary" >Print</button>
+                </div>
+                <div class="col-md-1">
+                        <button id="go" class="btn btn-primary" >Close</button>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+
+    <!--JS source files-->
+    <script>
+        w3.includeHTML();
+
+    </script>
+<!--     <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
+    <script type="text/javascript" src="validation/validateArea.js"></script>
+    <script src="js/dataTables.cellEdit.js"></script>
+    
+    <script src="js/cmpLedgerLoader.js"></script>
+
+    <script type="text/javascript">
+        //variable for number of columns in table
+        var noOfCols = $("#dataTable tr:visible th").length;
+        var editableCols = new Array();
+
+        //creates array for editable columns parameter
+        for (var i = 1; i < noOfCols; i++) {
+            editableCols.push(i);
+
+        }
+
+        //add data to datatable(very important)
+        var CherpDataTable = $('#dataTable').DataTable({
+            "ajax": "",
+            "columns": [{
+                "data": "date"
+            }, {
+                "data": "invoice"
+            }, {
+                "data": "product"
+            }, {
+                "data": "pieces"
+            }, {
+                "data": "kgs"
+            }, {
+                "data": "rate"
+            }, {
+                "data": "amount"
+            }]
+
+        });
+        
+        var payDataTable = $('#payDataTable').DataTable({
+            "ajax": "",
+            "columns": [{
+                "data": "date"
+            }, {
+                "data": "particulars"
+            }, {
+                "data": "amount"
+            }]
+
+        });
+
+    </script>
+</body>
+
+</html>

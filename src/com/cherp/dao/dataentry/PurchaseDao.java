@@ -18,6 +18,7 @@ import com.cherp.entities.Cleaners;
 import com.cherp.entities.Company;
 import com.cherp.entities.Drivers;
 import com.cherp.entities.Location;
+import com.cherp.entities.PayLoad;
 import com.cherp.entities.Product;
 import com.cherp.entities.Purchase;
 import com.cherp.entities.Van;
@@ -47,6 +48,23 @@ public class PurchaseDao {
 		session.close();
 
 		return "Insert Successful";
+	}
+
+	// inserting into payload table
+	public String insertPay(PayLoad payload) {
+
+		createSession();
+
+		Transaction t = session.beginTransaction();
+
+		session.save(payload);
+
+		t.commit();
+
+		session.close();
+
+		return "Insert Successful";
+
 	}
 
 	public String update(Purchase purchase) {
@@ -117,7 +135,7 @@ public class PurchaseDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public  Map<String, ArrayList<String>> formDataGenerator() {
+	public Map<String, ArrayList<String>> formDataGenerator() {
 		Map<String, ArrayList<String>> formGeneratorMap = new HashMap<>();
 		createSession();
 
@@ -127,46 +145,46 @@ public class PurchaseDao {
 		String companyQuery = "select name from Company where status=1";
 		String locationQuery = "select location from Location where status=1";
 		String productQuery = "select prodName from Product where status=1";
-		
+
 		String tableName = "";
 		Table table = null;
-		
-		//add van list to hashmap
+
+		// add van list to hashmap
 		List<String> vanList = session.createQuery(vanQuery).getResultList();
 		table = Van.class.getAnnotation(Table.class);
 		tableName = table.name();
 		formGeneratorMap.put(tableName, (ArrayList<String>) vanList);
-		
-		//add drivers list to hashmap
+
+		// add drivers list to hashmap
 		List<String> driverList = session.createQuery(driverQuery).getResultList();
 		table = Drivers.class.getAnnotation(Table.class);
 		tableName = table.name();
 		formGeneratorMap.put(tableName, (ArrayList<String>) driverList);
-		
-		//add cleaners list to hashmap
+
+		// add cleaners list to hashmap
 		List<String> cleanerList = session.createQuery(cleanerQuery).getResultList();
 		table = Cleaners.class.getAnnotation(Table.class);
 		tableName = table.name();
 		formGeneratorMap.put(tableName, (ArrayList<String>) cleanerList);
-		
-		//add company list to hashmap
+
+		// add company list to hashmap
 		List<String> companyList = session.createQuery(companyQuery).getResultList();
 		table = Company.class.getAnnotation(Table.class);
 		tableName = table.name();
 		formGeneratorMap.put(tableName, (ArrayList<String>) companyList);
-		
-		//add location list to hashmap
+
+		// add location list to hashmap
 		List<String> locationList = session.createQuery(locationQuery).getResultList();
 		table = Location.class.getAnnotation(Table.class);
 		tableName = table.name();
 		formGeneratorMap.put(tableName, (ArrayList<String>) locationList);
-		
-		//add product list to hashmap
+
+		// add product list to hashmap
 		List<String> productList = session.createQuery(productQuery).getResultList();
 		table = Product.class.getAnnotation(Table.class);
 		tableName = table.name();
 		formGeneratorMap.put(tableName, (ArrayList<String>) productList);
 
-		return  formGeneratorMap;
+		return formGeneratorMap;
 	}
 }

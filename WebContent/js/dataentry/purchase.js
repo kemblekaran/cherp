@@ -12,6 +12,7 @@ $(function() {
 	var outstanding = $('#outstanding').val();
 
 	var productRowData = [];
+	var payloadRowData = [];
 	var json;
 
 	// get target element when clicked on product table
@@ -48,22 +49,17 @@ $(function() {
 
 	// on double click in purchaseView send data to SalesServlet
 	$('#purchaseViewTable tbody').on('dblclick', 'tr', function() {
-		
 		// By adding this to the row() it will select the current row
 		var purchaseId = dataTable.row(this).data().purchaseId;
-		var date = dataTable.row(this).data().date;
-		var van = dataTable.row(this).data().vanName;
-	
+		console.log(purchaseId);
 		$.ajax({
 			url : 'SalesServlet',
 			async : false,
 			data : {
 				purchaseId : purchaseId,
-				purchaseDate : date,
-				van : van,
 				purchaseView : 'true'
 			},
-			type : 'POST',
+			type : 'post',
 			success : function(data) {
 				console.log('Purchase successfully retrieved in sales!');
 			},
@@ -105,17 +101,25 @@ $(function() {
 					"avgWeight" : avgWeight.val()
 				}
 
+				var payloadRow = {
+						
+						"purchaseId" : $('#purchaseid').val(),
+						"date" : $('#date').val(),
+						"company" : $('#companyList').val(),
+				}
 				if (e.keyCode === 13) {
 					console.log(productRow.product);
 					productRowData.push(productRow);
-
+					payloadRowData.push(payloadRow);
+					
 					productTable.row.add(
 							[ product.val(), pieces.val(), kg.val(),
 									rate.val(), amt.val(), avgWeight.val() ])
 							.draw();
 
 					// console.log('Json' + productJsonArray);
-					console.log(productRowData);
+					console.log("productRowData "+productRowData);
+					console.log("payloadRowData "+payloadRowData);
 
 				}
 
@@ -137,8 +141,14 @@ $(function() {
 	$('#insertBtn').on('click', function() {
 
 		var productJson = '{data:' + JSON.stringify(productRowData) + '}';
+		var payloadJson = '{payLoadData:' + JSON.stringify(payloadRowData) + '}';
 		$('#productJson').val(productJson);
-		console.log(productJson);
+		console.log("produJson*****"+productJson);
+		
+		$('#payloadJson').val(payloadJson);
+		
+		console.log("payloadJson---" + payloadJson);
+		
 		$('#PurchaseForm').submit(function(e) {
 
 			$.ajax({
