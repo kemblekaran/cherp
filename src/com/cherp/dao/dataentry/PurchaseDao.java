@@ -63,7 +63,7 @@ public class PurchaseDao {
 
 		session.close();
 
-		return "Insert Successful";
+		return "Insert Successfully";
 
 	}
 

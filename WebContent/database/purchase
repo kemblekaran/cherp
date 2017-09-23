@@ -43,5 +43,8 @@ create table van(id int auto_increment,vanNumber varchar(255),companyName varcha
 insEndDate varchar(255),permitNo int,permitStartDate varchar(255),permitEndDate varchar(255),status
 int,primary key(id));
 
+create table payment(id int auto_increment,paymentDate varchar(255), company varchar(255), paymentMode varchar(255), name varchar(255), chDate varchar(255),
+chNo long, toBePaid long, payNow long, closingBal long, status int,primary key(id));
 
+create table payload(id int auto_increment,purchaseId int,date varchar(255),company varchar(255),finalAmount long ,balanceAmount long ,status int,primary key(id));
 
