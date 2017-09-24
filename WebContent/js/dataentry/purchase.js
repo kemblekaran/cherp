@@ -15,6 +15,9 @@ $(function() {
 	var payloadRowData = [];
 	var json;
 
+	
+	
+	
 	// get target element when clicked on product table
 	// assign product table id to avoid assigning null object to on-input event
 	var productTableTargetEle = $('#productTable');

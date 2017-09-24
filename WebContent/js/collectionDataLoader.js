@@ -35,90 +35,90 @@ $(function() {
 		}
 	});
 
-	// To display payment details of purchase for each company.
-	$("#customerList").on("change",function() {
-				var customerName = $(this).val();
+//	// To display payment details of purchase for each company.
+//	$("#customerList").on("change",function() {
+//				var customerName = $(this).val();
+//
+//				$.ajax({
+//					type : "POST",
+//					url : "/server/jsonfiles/salesload.json",
+//					dataType : "json",
+//					select : true,
+//					success : function(data) {
+//						var salesData = data['data'];
+//						var jsonPayment = data['data'];
+//
+//						// To display total amount to be paid
+//						$.each(salesData, function(key, val) {
+//							if (customerName == val.fname ) {
+//								amount = amount + val.balanceAmount;
+//							}
+//						});
+//						var balAmt = amount;
+//						amount = 0;
+//
+//						$.each(salesData, function(key, val) {
+//
+//							if (customerName == val.fname ) {
+//								collectionTable.row.add(
+//										[ val.id, val.date, val.invoiceNo,
+//												val.invoiceAmount,
+//												val.balanceAmount ]).draw();
+//
+//								toBeReceived = $("#toBeReceived").val(balAmt);
+//								$("#customerList").on("change", function() {
+//									collectionTable.clear().draw();
+//									toBeReceived.val(null);
+//									payNow.val(null);
+//									closingBal.val(null);
+//									selectedBal = null;
+//
+//								});
+//
+//							}
+//						});// forEach method close
+//
+//					}// success method close
+//				});// ajax method close
+//			});// onchange event close
+//
+//	// AmountDetails
+//	$("#payNow").on('input', function() {
+//		var total = parseInt(toBeReceived.val()) - parseInt(payNow.val());
+//
+//		// var balTotal = selectedBal - parseInt(payNow.val());
+//		if (total >= 0) {
+//
+//			var bal = parseInt(closingBal.val(total));
+//		} else {
+//			closingBal.val(null);
+//			payNow.val(null);
+//			// alert("Please enter right amount");
+//		}
+//	});
 
-				$.ajax({
-					type : "POST",
-					url : "/server/jsonfiles/salesload.json",
-					dataType : "json",
-					select : true,
-					success : function(data) {
-						var salesData = data['data'];
-						var jsonPayment = data['data'];
-
-						// To display total amount to be paid
-						$.each(salesData, function(key, val) {
-							if (customerName == val.fname + val.lname) {
-								amount = amount + val.balanceAmount;
-							}
-						});
-						var balAmt = amount;
-						amount = 0;
-
-						$.each(salesData, function(key, val) {
-
-							if (companyName == val.fname + val.lname) {
-								collectionTable.row.add(
-										[ val.id, val.date, val.invoiceNo,
-												val.invoiceAmount,
-												val.balanceAmount ]).draw();
-
-								toBeReceived = $("#toBeReceived").val(balAmt);
-								$("#customerList").on("change", function() {
-									collectionTable.clear().draw();
-									toBeReceived.val(null);
-									payNow.val(null);
-									closingBal.val(null);
-									selectedBal = null;
-
-								});
-
-							}
-						});// forEach method close
-
-					}// success method close
-				});// ajax method close
-			});// onchange event close
-
-	// AmountDetails
-	$("#payNow").on('input', function() {
-		var total = parseInt(toBeReceived.val()) - parseInt(payNow.val());
-
-		// var balTotal = selectedBal - parseInt(payNow.val());
-		if (total >= 0) {
-
-			var bal = parseInt(closingBal.val(total));
-		} else {
-			closingBal.val(null);
-			payNow.val(null);
-			// alert("Please enter right amount");
-		}
-	});
-
-	// insertButtonListener and insert data function
-	insertData.addEventListener('click', function() {
-
-		$('#InsertForm').submit(function(e) {
-			$.ajax({
-				url : actionURL,
-				type : "POST",
-				data : $('#InsertForm').serializeArray(),
-				async : false,
-				success : function(data) {
-					if (data != null) {
-						alert(data);
-					}
-				},
-				error : function(xhr, ajaxOptions, thrownError) {
-					alert("Insert Form Error");
-				}
-			});
-
-		});
-
-	});
+//	// insertButtonListener and insert data function
+//	insertData.addEventListener('click', function() {
+//
+//		$('#InsertForm').submit(function(e) {
+//			$.ajax({
+//				url : actionURL,
+//				type : "POST",
+//				data : $('#InsertForm').serializeArray(),
+//				async : false,
+//				success : function(data) {
+//					if (data != null) {
+//						alert(data);
+//					}
+//				},
+//				error : function(xhr, ajaxOptions, thrownError) {
+//					alert("Insert Form Error");
+//				}
+//			});
+//
+//		});
+//
+//	});
 
 	// cash bank enabled disabled
 	$(document).ready(function() {

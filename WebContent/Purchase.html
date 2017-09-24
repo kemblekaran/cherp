@@ -11,6 +11,25 @@
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="validate.css">
 <script src="https://www.w3schools.com/lib/w3.js"></script>
+
+<!-- scripts for view table screen -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" /> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+<script type="text/javascript" src="js/fullscreen.js"></script>
+<script>
+//set current date to purchase using datepicker
+$(function() {
+	$("#date").datepicker({
+		showAnim : 'drop',
+		showButtonPanel : true,
+	}).datepicker('setDate', 'today');
+});
+</script>
+<!-- datepicker scripts -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/blitzer/jquery-ui.css">
+  	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
 
@@ -27,8 +46,8 @@
 				</div>
 
 				<div class="col-md-2 col-width ">
-					<label>Date</label> <input type="date" name="date" id="date"
-						class="form-control" id="date">
+					<label>Date</label> 
+					<input type="text" name="date" class="form-control" id="date">
 				</div>
 
 				<div class="col-md-2 col-width ">
@@ -160,7 +179,7 @@
 			data-target="#viewModal">view</button>
 
 		<!-- Add Button Modal-->
-		<div id="viewModal" class="modal fade" role="dialog">
+		<div id="viewModal" class="modal fade modal-fullscreen" role="dialog">
 			<div class="modal-dialog modal-lg">
 
 				<!-- Modal content-->
@@ -217,15 +236,15 @@
 	<script>
 		w3.includeHTML();
 	</script>
-	<script src="http://code.jquery.com/jquery-3.2.1.min.js"
-		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-		crossorigin="anonymous"></script>
+<!-- 	<script src="http://code.jquery.com/jquery-3.2.1.min.js" -->
+<!-- 		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" -->
+<!-- 		crossorigin="anonymous"></script> -->
 	<script
 		src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-		crossorigin="anonymous"></script>
+<!-- 	<script -->
+<!-- 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" -->
+<!-- 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" -->
+<!-- 		crossorigin="anonymous"></script> -->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 	<script src="validation/validatePurchase.js"></script>
@@ -251,6 +270,7 @@
 		var dataTable = $('#purchaseViewTable').DataTable({
 			"ajax" : "/server/jsonfiles/purchaseView.json",
 			"scrollX" : true,
+			"order": [[ 0, "desc" ]],
 			"columns" : [ {
 				"data" : "purchaseId"
 			}, {
