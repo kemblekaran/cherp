@@ -32,10 +32,23 @@ public class Company {
 	private String ownerName;
 	@Column(name = "panNo")
 	private String panNo;
+	@Column (name = "dateAccOp")
+	private String dateAccOp;
 	@Column(name = "opBal")
 	private int opBal;
 	@Column(name = "status")
 	private int status;
+
+	
+	
+	
+	public String getDateAccOp() {
+		return dateAccOp;
+	}
+
+	public void setDateAccOp(String dateAccOp) {
+		this.dateAccOp = dateAccOp;
+	}
 
 	public String getPanNo() {
 		return panNo;

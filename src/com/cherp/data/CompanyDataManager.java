@@ -31,7 +31,7 @@ public class CompanyDataManager {
 			con = handler.getConnection();
 
 			Statement stmt = con.createStatement();
-			String query = "insert into company(name,preAdd,secAdd,mobile,phone,state,city,pinCode,ownerName,panNo,opBal,status)values( ?,?,?,?,?,?,?,?,?,?,?,?)";
+			String query = "insert into company(name,preAdd,secAdd,mobile,phone,state,city,pinCode,ownerName,panNo,dateAccOp,opBal,status)values( ?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			// String squery = "select * from product where prodName='" +
 			// prod.getProd_name() + "'";
@@ -47,8 +47,9 @@ public class CompanyDataManager {
 			ps.setInt(8, comp.getPinCode());
 			ps.setString(9, comp.getOwnerName());
 			ps.setString(10, comp.getPanNo());
-			ps.setInt(11, comp.getOpBal());
-			ps.setInt(12, comp.getStatus());
+			ps.setString(11, comp.getDateAccOp());
+			ps.setInt(12, comp.getOpBal());
+			ps.setInt(13, comp.getStatus());
 
 			// System.out.println(query);
 			// check if record already exists or not
@@ -75,7 +76,8 @@ public class CompanyDataManager {
 
 			Statement stmt = con.createStatement();
 
-			String uquery = "update company set name=?,preAdd=? ,secAdd=? ,mobile=?,phone=?,state=? ,city=? ,pinCode=? ,ownerName=? ,panNo=? ,opBal=? where id=?";
+			String uquery = "update company set name=?,preAdd=? ,secAdd=? ,mobile=?,phone=?,state=? ,city=? ,pinCode=? ,ownerName=? ,panNo=? ,dateAccOp=? "
+					+ ",opBal=? where id=?";
 
 			String squery = "select * from company where name='" + comp.getName() + "'";
 			// String squery = "select * from company where prodName='" +
@@ -99,8 +101,9 @@ public class CompanyDataManager {
 			ps.setInt(8, comp.getPinCode());
 			ps.setString(9, comp.getOwnerName());
 			ps.setString(10, comp.getPanNo());
-			ps.setInt(11, comp.getOpBal());
-			ps.setInt(12, comp.getId());
+			ps.setString(11, comp.getDateAccOp());
+			ps.setInt(12, comp.getOpBal());
+			ps.setInt(13, comp.getId());
 			ps.executeUpdate();
 
 			// stmt.executeUpdate(uquery);
@@ -172,6 +175,7 @@ public class CompanyDataManager {
 				comp.setPinCode(rs.getInt("pinCode"));
 				comp.setOwnerName(rs.getString("ownerName"));
 				comp.setPanNo(rs.getString("panNo"));
+				comp.setDateAccOp(rs.getString("dateAccOp"));
 				comp.setOpBal(rs.getInt("opBal"));
 
 				compList.add(comp);

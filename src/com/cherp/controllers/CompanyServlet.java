@@ -35,6 +35,7 @@ public class CompanyServlet extends HttpServlet {
 	private String pinCode = "";
 	private String ownerName = "";
 	private String panNo = "";
+	private String dateAccOp = "";
 	private String opBal = "";
 	private String operation = "";
 
@@ -51,6 +52,7 @@ public class CompanyServlet extends HttpServlet {
 	private String updatedCellPinCode = "";
 	private String updatedCellOwnerName = "";
 	private String updatedCellPanNo = "";
+	private String updatedCellDateAccOp = "";
 	private String updatedCellOpBal = "";
 
 	public CompanyServlet() {
@@ -76,7 +78,9 @@ public class CompanyServlet extends HttpServlet {
 		city = request.getParameter("city");
 		pinCode = request.getParameter("pinCode");
 		ownerName = request.getParameter("ownerName");
+		dateAccOp = request.getParameter("dateAccOp");
 		panNo = request.getParameter("panNo");
+		
 		opBal = request.getParameter("opBal");
 
 		// Update Or Delete Parameters
@@ -91,6 +95,7 @@ public class CompanyServlet extends HttpServlet {
 		updatedCellPinCode = request.getParameter("updatedRow[pinCode]");
 		updatedCellOwnerName = request.getParameter("updatedRow[ownerName]");
 		updatedCellPanNo = request.getParameter("updatedRow[panNo]");
+		updatedCellDateAccOp = request.getParameter("updatedRow[dateAccOp]");
 		updatedCellOpBal = request.getParameter("updatedRow[opBal]");
 
 	}
@@ -122,6 +127,7 @@ public class CompanyServlet extends HttpServlet {
 				comp.setPinCode(Integer.parseInt(pinCode));
 				comp.setOwnerName(ownerName);
 				comp.setPanNo(panNo);
+				comp.setDateAccOp(dateAccOp);
 				comp.setOpBal(Integer.parseInt(opBal));
 
 				operationResp = cdm.addData(comp);
@@ -141,6 +147,7 @@ public class CompanyServlet extends HttpServlet {
 				comp.setPinCode(Integer.parseInt(updatedCellPinCode));
 				comp.setOwnerName(updatedCellOwnerName);
 				comp.setPanNo(updatedCellPanNo);
+				comp.setDateAccOp(updatedCellDateAccOp);
 				comp.setOpBal(Integer.parseInt(updatedCellOpBal));
 
 				operationResp = cdm.updateData(comp);
