@@ -104,8 +104,7 @@ public class PurchaseServlet extends HttpServlet {
 		Data payData = gson.fromJson(payloadJson, Data.class);
 		
 		 
-		System.out.println("purchase DAta...."+jsonData);
-		System.out.println("payload Data...."+payData);
+		System.out.println("payloadjson----------------- " +payloadJson);
 		// check which operation is performed(insert,update or delete)
 		if (operation != null) {
 			// For insert set ALL Parameters except ID

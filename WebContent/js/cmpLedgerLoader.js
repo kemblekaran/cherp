@@ -1,12 +1,11 @@
 $(function() {
 
-	//variable declaration
-	var fromDate = $('#fromDate').val();
-	var toDate = $('#toDate').val();
-	
-	var fromTime = new Date($('#fromDate').val()).getTime();
-	var toTime = new Date($('#toDate').val()).getTime();
-	
+	var cmpLedgerArray = [];
+	var kgs = 0;
+	var pieces = 0;
+	var amount = 0;
+	var payment = 0;
+	var calc = 0;
 	// Load company into dropdown list
 	$.getJSON('/server/jsonfiles/company.json', function(data) {
 		var jsonDataProduct = data['data'];
@@ -60,7 +59,6 @@ $(function() {
 				$.each(jsonDataProduct, function(key, val) {
 
 					if (companyName == val.company) {
-						
 						$('#opeBal').val(val.closingBal);
 					} else if (companyName == "selectCmp") {
 						$('#opeBal').val(null);
@@ -79,8 +77,9 @@ $(function() {
 
 	var purchaseTable = $('#purchaseTable').DataTable();
 	
-	$('#go').on('click', function() {
+	$('#go').on('click', function(e) {
 //		alert('hey');
+		event.preventDefault();
 		var cmpName = $("#cmpName").val();
 //		alert('hey ' + cmpName);
 		$.ajax({
@@ -94,24 +93,39 @@ $(function() {
 				$.each(purchaseData, function(key, val) {
 
 					if (cmpName == val.company) {
+						//getting from and to date from input
+						var fromTime = new Date($('#fromDate').val()).getTime();
+						var toTime = new Date($('#toDate').val()).getTime();
 						
+						//getting date from json file
 						var date = new Date(val.date);
-						alert(date);
-						alert(date.getTime() >= fromTime && date.getTime() <= toTime);
+//						alert(date);
+						
+						//check whether date is true from selected date
 						if (date.getTime() >= fromTime && date.getTime() <= toTime) {
 						
 							purchaseTable.row.add([ val.date, val.purchaseId, val.product, val.pieces, val.kg, val.rate, val.amount ]).draw();
-							$("#cmpName").on("change", function() {
-								purchaseTable.clear().draw();
-							});
-							$('#go').on('click', function() {
-								purchaseTable.clear().draw();
-							});
+								$("#cmpName").on("change", function() {
+									purchaseTable.clear().draw();
+								});
+								$('#go').on('click', function() {
+									purchaseTable.clear().draw();
+								});
+								kgs = kgs + val.kg;
+								pieces = pieces + val.pieces;
+								amount = amount + val.amount;
 						}
 					}
-						
 				});
-
+				var totalKgs = kgs;
+				var totalPcs = pieces;
+				var totalAmt = amount;
+				kgs = 0;
+				pieces = 0;
+				amount = 0;
+				$('#kgs').val(totalKgs);
+				$('#pcs').val(totalPcs);
+				$('#weekPurchase').val(totalAmt);
 			}
 
 		});
@@ -119,12 +133,10 @@ $(function() {
 	
 var paymentTable = $('#paymentTable').DataTable();
 	
-	$('#go').on('click', function() {
+	$('#go').on('click', function(e) {
+		event.preventDefault();
 	var cmpName = $("#cmpName").val();
-//	alert(parseInt(fromDate) + toDate);
-	
-//	alert(fromTime);
-//	alert(toTime);
+
 	$.ajax({
 		type : "POST",
 		url : "/server/jsonfiles/payment.json",
@@ -136,31 +148,50 @@ var paymentTable = $('#paymentTable').DataTable();
 			$.each(paymentData, function(key, val) {
 
 				if (cmpName == val.company) {
+					//getting from and to date from input
+					var fromTime = new Date($('#fromDate').val()).getTime();
+					var toTime = new Date($('#toDate').val()).getTime();
 					
+					//getting date from json file
 					var date = new Date(val.paymentDate);
-//					alert(date.getTime() >= fromTime && date.getTime() <= toTime);
+					
+					//check whether date is true from selected date
 					if (date.getTime() >= fromTime && date.getTime() <= toTime) {
 						
-					
-						
-					paymentTable.row.add([ val.paymentDate, val.company,  val.payNow ]).draw();
-					$("#cmpName").on("change", function() {
-						paymentTable.clear().draw();
-					});
-					$('#go').on('click', function() {
-						paymentTable.clear().draw();
-					});
+						paymentTable.row.add([ val.paymentDate, val.company,  val.payNow ]).draw();
+							$("#cmpName").on("change", function() {
+								paymentTable.clear().draw();
+							});
+							$('#go').on('click', function() {
+								paymentTable.clear().draw();
+							});
+							payment = payment + val.payNow;
 					}
-				
 				}
 			});
-
+			var totalPayment = payment;
+			$('#payment').val(totalPayment);
+			$('#totalPayment').val(totalPayment);
+			$('#paymentGiven').val($('#weekPurchase').val() - $('#totalPayment').val());
+			$('#closingBal').val($('#weekPurchase').val() - $('#totalPayment').val());
+			payment = 0;
 		}
 
 	});
 });
 	
-	
+	$("#addLess").on('input', function() {
+		var total = parseInt($('#closingBal').val()) - parseInt($("#addLess").val());
+		
+		if (total >= 0) {
+
+			var bal = parseInt($('#closingBal').val(total));
+		} else {
+			$('#closingBal').val($('#weekPurchase').val() - $('#totalPayment').val());
+			$("#addLess").val(null);
+			// alert("Please enter right amount");
+		}
+	});
 	
 	
 	
@@ -207,5 +238,52 @@ var paymentTable = $('#paymentTable').DataTable();
 		});
 
 	});
+	
+	
+	
+	// ajaxCall to purchaseServlet
+	$('#print').on('click', function() {
+		
+		var LedgerData = {
+				"cmpName" : $('#cmpName').val(),
+				"dateAccOp" : $('#dateAccOp').val(),
+				"fromDate" : $('#fromDate').val(),
+				"toDate" : $('#toDate').val(),
+				"opBal" : $('#opeBal').val(),
+				"totalKgs" : $('#kgs').val(),
+				"totalPcs" : $('#pcs').val(),
+				"weekPayment" : $('#payment').val(),
+				"weekPurchase" : $('#weekPurchase').val(),
+				"totalPayment" : $('#totalPayment').val(),
+				"paymentGiven" : $('#paymentGiven').val(),
+				"addLess" : $('#addLess').val(),
+				"closingBal" : $('#closingBal').val()
+				
+		}
+		cmpLedgerArray.push(LedgerData);
+
+		var cmpLedgerJson = '{data:' + JSON.stringify(cmpLedgerArray) + '}';
+		
+		$('#cmpLedgerJson').val(cmpLedgerJson);
+		
+		console.log("cmpLedgerJson---" + cmpLedgerJson);
+		
+		$('#CmpLedgerForm').submit(function(e) {
+
+			$.ajax({
+				url : 'CmpLedgerServlet',
+				type : 'post',
+				data : $('#CmpLedgerForm').serialize(),
+
+				success : function(data) {
+					console.log('success');
+				},
+				error : function() {
+
+				}
+			})
+		});
+	});
+
 
 });// end of function
