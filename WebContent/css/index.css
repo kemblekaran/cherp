@@ -7,12 +7,12 @@
     width: 14.285714286%;
 }
 
-#balanceQtyKg{
+#colorKg, #balanceQtyKg, #balanceQtyPieces {
 	color : red;
 	font-family: 'Baloo Bhaijaan', cursive; 
 }
 
-#salesQtyKg{
+#salesQtyKg, #salesQtyPieces {
 	color : green;
 	font-family: 'Baloo Bhaijaan', cursive;
 }

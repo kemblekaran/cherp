@@ -5,7 +5,11 @@ $(function() {
 	var pieces = 0;
 	var amount = 0;
 	var payment = 0;
-	var calc = 0;
+	var weekPurchase = $("#weekPurchase");
+	var totalPayment = $("#totalPayment");
+	var paymentGiven = $("#paymentGiven") ;
+	var closingBal = $("#closingBal") ;
+	var paymentCalc = null ;
 	// Load company into dropdown list
 	$.getJSON('/server/jsonfiles/company.json', function(data) {
 		var jsonDataProduct = data['data'];
@@ -125,7 +129,7 @@ $(function() {
 				amount = 0;
 				$('#kgs').val(totalKgs);
 				$('#pcs').val(totalPcs);
-				$('#weekPurchase').val(totalAmt);
+				weekPurchase.val(totalAmt);
 			}
 
 		});
@@ -169,25 +173,39 @@ var paymentTable = $('#paymentTable').DataTable();
 					}
 				}
 			});
-			var totalPayment = payment;
-			$('#payment').val(totalPayment);
-			$('#totalPayment').val(totalPayment);
-			$('#paymentGiven').val($('#weekPurchase').val() - $('#totalPayment').val());
-			$('#closingBal').val($('#weekPurchase').val() - $('#totalPayment').val());
+			var weekPayment = payment;
+			$('#payment').val(weekPayment);
+			totalPayment.val(weekPayment);
+			alert(totalPayment.val());
+			paymentCalc = weekPurchase.val() - totalPayment.val();
+			paymentGiven.val(paymentCalc);
+			$('#closingBal').val(paymentCalc);
 			payment = 0;
 		}
 
 	});
 });
+	$("#optionsRadios1, #optionsRadios2").change(function() {
+		$("#addLess").val(null);
+		$('#closingBal').val(paymentCalc);
+	});
 	
 	$("#addLess").on('input', function() {
-		var total = parseInt($('#closingBal').val()) - parseInt($("#addLess").val());
+		var radio = $("input[name='addLess']:checked").val();
+		
+		var total = 0;
+		if(radio == "add"){
+			total = paymentCalc + parseInt($("#addLess").val());
+		}else if(radio == "less"){
+			total = paymentCalc - parseInt($("#addLess").val());
+		}
+			
 		
 		if (total >= 0) {
 
 			var bal = parseInt($('#closingBal').val(total));
 		} else {
-			$('#closingBal').val($('#weekPurchase').val() - $('#totalPayment').val());
+			$('#closingBal').val(paymentCalc);
 			$("#addLess").val(null);
 			// alert("Please enter right amount");
 		}

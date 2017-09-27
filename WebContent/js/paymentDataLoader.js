@@ -19,7 +19,9 @@ $(function() {
 	});
 
 	// //Get the table
-	var oTable = $('#dataTable').DataTable();
+	var oTable = $('#dataTable').DataTable({
+		responsive: true
+	});
 
 	// Hide first id column
 	oTable.column(0).visible(false);

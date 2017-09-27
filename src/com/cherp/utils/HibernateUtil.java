@@ -14,6 +14,7 @@ import com.cherp.entities.PayLoad;
 import com.cherp.entities.Product;
 import com.cherp.entities.Purchase;
 import com.cherp.entities.Sales;
+import com.cherp.entities.State;
 import com.cherp.entities.Van;
 
 public class HibernateUtil {
@@ -35,6 +36,7 @@ public class HibernateUtil {
 		config.addAnnotatedClass(Product.class);
 		config.addAnnotatedClass(Company.class);
 		config.addAnnotatedClass(Sales.class);
+		config.addAnnotatedClass(State.class);
 		serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
 		sessionFactory = config.buildSessionFactory(serviceRegistry);
 	}
