@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import com.cherp.dao.dataentry.SalesDAO;
 import com.cherp.entities.Data;
 import com.cherp.entities.Purchase;
@@ -51,9 +50,12 @@ public class SalesServlet extends HttpServlet {
 		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
 
 		// Insert Form Parameters
-		purchaseDate = request.getParameter("purchaseDate");
-		van = request.getParameter("van");
+		purchaseDate = request.getParameter("date");
+		System.out.println("purchase date received in sales servlet " + purchaseDate);
+		van = request.getParameter("vanName");
+		System.out.println("van name received in sales servlet " + van);
 		purchaseId = request.getParameter("purchaseId");
+		System.out.println("purchase id received in sales servlet " + purchaseId);
 		purchaseView = request.getParameter("purchaseView");
 
 		// Insert Form Parameters for sales records
@@ -77,18 +79,18 @@ public class SalesServlet extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 
 		Gson gson = new Gson();
-		
-		//Contains JSON Data of product Table on Sales.html
+
+		// Contains JSON Data of product Table on Sales.html
 		Data jsonData = gson.fromJson(productJson, Data.class);
 
-		//Inserts Record into Sales Table(DB)
+		// Inserts Record into Sales Table(DB)
 		if (operation != null) {
 			if (operation.equals("insert")) {
-				
+
 				for (Sales sales : jsonData.getSalesData()) {
 					sales.setPurchaseDate(purchaseDate);
 					sales.setVan(van);
-					 sales.setPurchaseId(purchaseId);
+					sales.setPurchaseId(purchaseId);
 					sales.setInvoiceNo(Integer.parseInt(invoiceNo));
 					sales.setCustomer(customer);
 					sales.setProduct(product);
@@ -111,11 +113,11 @@ public class SalesServlet extends HttpServlet {
 		if (purchaseView != null) {
 			if (purchaseView.equals("true")) {
 				System.out.println("purchaseView");
-				List<Purchase> salesTableList = new ArrayList<>();
-				salesTableList = new SalesDAO().selectSales(purchaseDate, van);
-		
-				//Writes into JSON File
-				new JsonCreator().createJson(salesTableList, jsonFilePath+"salesTable.json");
+				List<Purchase> purchaseTableList = new ArrayList<>();
+				purchaseTableList = new SalesDAO().selectSales(purchaseDate, van);
+
+				// Writes into JSON File
+				new JsonCreator().createJson(purchaseTableList, jsonFilePath + "salesTable.json");
 			}
 		}
 

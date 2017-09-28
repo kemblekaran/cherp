@@ -106,6 +106,7 @@ public class SalesDAO {
 		return invoiceNo;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Purchase> selectSales(String date, String van) {
 
 		createSession();

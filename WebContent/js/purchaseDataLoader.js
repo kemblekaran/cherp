@@ -26,7 +26,7 @@ $(function() {
 		var jsonData = data['data'];
 		$.each(jsonData, function(key, val) {
 			$('#vanList').append(
-					'<option value="' + val.vanNumber + '">' + val.vanNumber
+					'<option value="' + val.companyName + '">' + val.companyName
 							+ '</option>');
 		});
 	});
