@@ -50,9 +50,9 @@ public class SalesServlet extends HttpServlet {
 		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
 
 		// Insert Form Parameters
-		purchaseDate = request.getParameter("date");
+		purchaseDate = request.getParameter("purchaseDate");
 		System.out.println("purchase date received in sales servlet " + purchaseDate);
-		van = request.getParameter("vanName");
+		van = request.getParameter("van");
 		System.out.println("van name received in sales servlet " + van);
 		purchaseId = request.getParameter("purchaseId");
 		System.out.println("purchase id received in sales servlet " + purchaseId);
@@ -82,11 +82,11 @@ public class SalesServlet extends HttpServlet {
 
 		// Contains JSON Data of product Table on Sales.html
 		Data jsonData = gson.fromJson(productJson, Data.class);
-
+		System.out.println("productJson ----"+productJson);
 		// Inserts Record into Sales Table(DB)
 		if (operation != null) {
 			if (operation.equals("insert")) {
-
+				System.out.println(" in insert");
 				for (Sales sales : jsonData.getSalesData()) {
 					sales.setPurchaseDate(purchaseDate);
 					sales.setVan(van);

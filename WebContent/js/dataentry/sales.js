@@ -4,14 +4,16 @@ $(function() {
 	$.getJSON('/server/jsonfiles/salesTable.json', function(data) {
 		var jsonData = data['data'];
 		var purchaseId;
+		var van;
+		var purchaseDate;
 		var purchaseIdArray = [];
 		$.each(jsonData, function(key, val) {
-			var van = val.vanName;
-			var date = val.date;
+			van = val.vanName;
+			purchaseDate = val.date;
 			purchaseId = val.purchaseId;
 
 			$('#vanList').val(van);
-			$('#purchaseDate').val(date);
+			$('#purchaseDate').val(purchaseDate);
 
 			purchaseIdArray.push(purchaseId);
 		});
@@ -72,9 +74,10 @@ $(function() {
 	//balance and sales quantity
 	 var selectItemTable = $('#salesTable').DataTable();
 	 
-	 $('#salesTable tbody').on('click', function(){
-		 var selectItemData = salesReady.row(this).data().purchaseId;
-		 console.log(selectItemData);
+	 $('#salesTable tbody').on('click','tr', function(){
+		 var selectItemData = selectItemTable.row(this).data();
+//		 console.log('selected id '+selectItemData);
+//		 console.log('selected id '+JSON.stringify(selectItemData));
 	 });
 	
 	// Calculates the total of All pieces in the salesTable
@@ -274,6 +277,7 @@ $(function() {
 											// Determines the balance KG
 											// Quantity amount and sales KG
 											// Quantity
+											console.log('above saleskg');
 											$('#salesKg').on('input',function() {
 
 																salesKgNew = $('#salesKg').val();
@@ -353,6 +357,10 @@ $(function() {
 				var salesAmount = $('#salesAmount');
 				var salesAvgWeight = $('#salesAvgWeight');
 				var purchaseId = $('#salesTable').DataTable().row(this).data().purchaseId;
+//				alert( $('#salesTable').DataTable().row(this).data().purchaseId);
+				var purchaseDate = $('#salesTable').DataTable().row(this).data().date;
+				var purchaseId = $('#salesTable').DataTable().row(this).data().purchaseId;
+				var van = $('#salesTable').DataTable().row(this).data().vanName;
 				console.log('pid :' + purchaseId);
 				var productRow = {
 					"InvoiceNo" : invoiceNo.val(),
@@ -363,7 +371,10 @@ $(function() {
 					"salesRate" : salesRate.val(),
 					"salesAmount" : salesAmount.val(),
 					"salesAvgWeight" : salesAvgWeight.val(),
-					"purchaseId" : purchaseId
+					"purchaseId" : purchaseId,
+					"purchaseDate" : purchaseDate,
+					"van" : van
+					
 				}
 
 				if (e.keyCode === 13) {

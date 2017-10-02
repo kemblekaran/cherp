@@ -54,18 +54,18 @@ $(function() {
 	$('#purchaseViewTable tbody').on('dblclick', 'tr', function() {
 		// By adding this to the row() it will select the current row
 		var purchaseId = dataTable.row(this).data().purchaseId;
-		var date = dataTable.row(this).data().date;
-		var vanName = dataTable.row(this).data().vanName;
+		var purchaseDate = dataTable.row(this).data().date;
+		var van = dataTable.row(this).data().vanName;
 		console.log(purchaseId);
-		console.log(date);
-		console.log(vanName);
+		console.log(purchaseDate);
+		console.log(van);
 		$.ajax({
 			url : 'SalesServlet',
 			async : false,
 			data : {
 				purchaseId : purchaseId,
-				date : date,
-				vanName : vanName,
+				purchaseDate : purchaseDate,
+				van : van,
 				purchaseView : 'true'
 			},
 			type : 'post',
