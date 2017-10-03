@@ -200,29 +200,29 @@
 						<tr>
 							<td><input type="text" name="invoiceNo" id="invoiceNo"
 								class="form-control"></td>
-								
+
 							<td><select id="customerSelect" name="customer"
 								class="form-control">
 									<option>Select Customer</option>
 							</select></td>
-							
+
 							<td><select id="salesProductSelect" name="product"
 								class="form-control">
 									<option>Select Product</option>
 							</select></td>
-							
+
 							<td><input type="text" name="pieces" id="salesPieces"
 								class="form-control"></td>
-								
+
 							<td><input type="text" name="kg" id="salesKg"
 								class="form-control"></td>
-								
+
 							<td><input type="text" name="rate" id="salesRate"
 								class="form-control"></td>
-								
+
 							<td><input type="text" name="amount" id="salesAmount"
 								readonly="readonly" class="form-control"></td>
-								
+
 							<td><input type="text" name="avgWeight" id="salesAvgWeight"
 								readonly="readonly" class="form-control"></td>
 						</tr>
@@ -231,8 +231,12 @@
 
 				</table>
 				<input type="hidden" name="operation" value="insert">
+
 				<!-- input type for sending product json as form value -->
 				<input type="hidden" name="productJson" id="productJson">
+
+				<!-- input type for sending salesLoad json as form value -->
+				<input type="hidden" name="salesLoadJson" id="salesLoadJson">
 
 
 

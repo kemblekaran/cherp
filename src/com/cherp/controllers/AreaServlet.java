@@ -93,6 +93,7 @@ public class AreaServlet extends HttpServlet {
 				area.setName(name);
 				area.setCode(Integer.parseInt(code));
 				area.setType(type);
+				area.setStatus(1);
 
 				operationResp = adao.insert(area);
 				pw.println(operationResp);

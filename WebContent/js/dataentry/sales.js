@@ -344,7 +344,8 @@ $(function() {
 
 	// array to store all product to be sell
 	var productRowData = [];
-
+	var salesLoadData = [];
+	
 	$('#salesReadyTable tbody tr td').keydown(
 			function(e) {
 
@@ -377,10 +378,17 @@ $(function() {
 					
 				}
 
+				var salesLoadRow = {
+						"InvoiceNo" : invoiceNo.val(),
+						"customer" : customer.val(),
+						
+						
+				}
+				
 				if (e.keyCode === 13) {
 
 					productRowData.push(productRow);
-
+					salesLoadData.push(salesLoadRow);
 					salesReadyTable.row.add(
 							[ invoiceNo.val(), customer.val(), product.val(),
 									salesPieces.val(), salesKg.val(),
@@ -391,7 +399,10 @@ $(function() {
 							+ JSON.stringify(productRowData) + '}';
 					$('#productJson').val(productJson);
 
+					var salesLoadJson = '{salesLoadData:'+JSON.stringify(salesLoadData) + '}';
+					$('#salesLoadJson').val(salesLoadJson);
 					console.log('productJson' + productJson);
+					console.log('salesLoadJson' + salesLoadJson);
 				}
 			});
 

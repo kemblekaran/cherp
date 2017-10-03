@@ -40,11 +40,13 @@ public class SalesServlet extends HttpServlet {
 	private String avgWeight = "";
 
 	private String productJson = "";
+	private String salesLoadJson = "";
 
 	// method for getting parameters
 	public void getParaValues(HttpServletRequest request, HttpServletResponse response) {
 
 		productJson = request.getParameter("productJson");
+		salesLoadJson = request.getParameter("salesLoadJson");
 
 		// context para for json files location
 		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
@@ -83,6 +85,7 @@ public class SalesServlet extends HttpServlet {
 		// Contains JSON Data of product Table on Sales.html
 		Data jsonData = gson.fromJson(productJson, Data.class);
 		System.out.println("productJson ----"+productJson);
+		System.out.println("salesLoad---"+salesLoadJson);
 		// Inserts Record into Sales Table(DB)
 		if (operation != null) {
 			if (operation.equals("insert")) {

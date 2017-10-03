@@ -4,12 +4,14 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import com.cherp.entities.Area;
+import com.cherp.entities.Purchase;
 import com.cherp.utils.HibernateUtil;
 
 public class AreaDao extends MasterBaseDao {
@@ -90,13 +92,14 @@ public class AreaDao extends MasterBaseDao {
 		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 		
 		//create criteria query
-		CriteriaQuery<Area> criteria = criteriaBuilder.createQuery(Area.class);
+		CriteriaQuery<Area> criteriaQuery = criteriaBuilder.createQuery(Area.class);
 		
 		//specify criteria root
-		criteria.from(Area.class);
-		
+		Root<Area> rootPurchase = criteriaQuery.from(Area.class);
+//		criteria.from(Area.class);
+		criteriaQuery.where(criteriaBuilder.equal(rootPurchase.get("status"), 1));
 		//Execute query
-		List<Area> areaList = session.createQuery(criteria).getResultList();
+		List<Area> areaList = session.createQuery(criteriaQuery).getResultList();
 		
 		//close session
 		session.close();
