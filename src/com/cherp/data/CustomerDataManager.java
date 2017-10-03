@@ -184,18 +184,4 @@ public class CustomerDataManager {
 		}
 		return custList;
 	}
-
-	// It return if data exists or not
-	private boolean hasData(Statement stmt, String squery) throws SQLException {
-		ResultSet rs = stmt.executeQuery(squery);
-
-		if (!rs.next()) {
-			response = "Data added successfully!";
-			return true;
-		} else {
-			response = "Data already exists!";
-			return false;
-		}
-
-	}
 }

@@ -1,5 +1,7 @@
 package com.cherp.entities;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +19,7 @@ public class SalesLoad {
 	@Column(name = "invoiceNo")
 	private int invoiceNo;
 	@Column(name = "date")
-	private String date;
+	private Timestamp date;
 	@Column(name = "customer")
 	private String customer;
 	@Column(name = "invoiceAmount")
@@ -43,11 +45,13 @@ public class SalesLoad {
 		this.invoiceNo = invoiceNo;
 	}
 
-	public String getDate() {
+	
+
+	public Timestamp getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 

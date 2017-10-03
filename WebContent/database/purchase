@@ -48,8 +48,8 @@ chNo long, toBePaid long, payNow long, closingBal long, status int,primary key(i
 
 create table payload(id int auto_increment,purchaseId int,date varchar(255),company varchar(255),finalAmount long ,balanceAmount long ,status int,primary key(id));
 
-create table collection(id int auto_increment,collectionDate varchar(255), customer varchar(255), collectionMode varchar(255),
- name varchar(255), depositIn long, branch varchar(255), chDate varchar(255),
+create table collection(id int auto_increment,collectionDate varchar(255), customer varchar(255), area varchar(255), collectionMode varchar(255),
+ name varchar(255), depositIn varchar(255), branch varchar(255), chDate varchar(255),
 chNo long, toBeReceived long, payNow long, closingBal long, status int,primary key(id));
 
 create table salesload(id int auto_increment,invoiceNo int,date varchar(255),customer varchar(255),invoiceAmount long ,balanceAmount long ,status int,primary key(id));

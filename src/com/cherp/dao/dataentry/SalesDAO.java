@@ -14,6 +14,7 @@ import org.hibernate.Transaction;
 
 import com.cherp.entities.Purchase;
 import com.cherp.entities.Sales;
+import com.cherp.entities.SalesLoad;
 import com.cherp.utils.HibernateUtil;
 
 public class SalesDAO {
@@ -33,6 +34,20 @@ public class SalesDAO {
 		Transaction t = session.beginTransaction();
 
 		session.save(sales);
+
+		t.commit();
+
+		session.close();
+
+		return "Insert Successful";
+	}
+	
+	public String insertSales(SalesLoad salesload) {
+		createSession();
+
+		Transaction t = session.beginTransaction();
+
+		session.save(salesload);
 
 		t.commit();
 

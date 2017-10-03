@@ -10,11 +10,25 @@
 	href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="validate.css">
 <script src="https://www.w3schools.com/lib/w3.js"></script>
+
+<!-- datepicker scripts -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/blitzer/jquery-ui.css">
+  	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+	//set current date to date of account opening using datepicker
+	$(function() {
+		$("#dateAccOp").datepicker({
+			showAnim : 'drop',
+			showButtonPanel : true,
+		}).datepicker('setDate', 'today');
+	});
+</script>
 </head>
 
 
 <body>
-<div w3-include-html="main.html"></div>
+	<div w3-include-html="main.html"></div>
 	<!--Main container-->
 	<div class="container-fluid" id="mainContainer">
 		<div class="jumbotron">
@@ -51,6 +65,7 @@
 							<th>Area</th>
 							<th>Mobile</th>
 							<th>Phone</th>
+							<th>Date of Account Opening</th>
 							<th>Opening Balance</th>
 
 						</tr>
@@ -108,7 +123,7 @@
 									<label for="state">State</label> <select id="state"
 										name="state" class="form-control">
 										<option value="">select state</option>
-										
+
 									</select>
 								</div>
 
@@ -116,7 +131,7 @@
 									<label for="city">City</label> <select id="city" name="city"
 										class="form-control">
 										<option value="">select city</option>
-										
+
 									</select>
 								</div>
 
@@ -132,6 +147,10 @@
 								<div class="form-group">
 									<label for="text">Phone</label> <input type="text"
 										class="form-control" id="phone" name="phone">
+								</div>
+								<div class="form-group">
+									<label for="to">Date of A/c Opening</label> <input type="text"
+										class="form-control" id="dateAccOp" name="dateAccOp">
 								</div>
 								<div class="form-group">
 									<label for="op_bal">Opening Balance</label> <input type="text"
@@ -158,9 +177,9 @@
 	<script>
 		w3.includeHTML();
 	</script>
-	<script src="http://code.jquery.com/jquery-3.2.1.min.js"
-		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-		crossorigin="anonymous"></script>
+<!-- 	<script src="http://code.jquery.com/jquery-3.2.1.min.js" -->
+<!-- 		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" -->
+<!-- 		crossorigin="anonymous"></script> -->
 	<script
 		src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 	<script
@@ -170,82 +189,83 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="validation/validateCustomer.js"></script>
-	   <script src="js/dataTables.cellEdit.js"></script>
-	   <script src="js/dataTable.js" type="text/javascript"></script>
+	<script src="js/dataTables.cellEdit.js"></script>
+	<script src="js/dataTable.js" type="text/javascript"></script>
 	<script type="text/javascript">
-	
-	//variable for number of columns in table
-	var noOfCols = $("#dataTable tr:visible th").length;
-	var editableCols = new Array();
+		//variable for number of columns in table
+		var noOfCols = $("#dataTable tr:visible th").length;
+		var editableCols = new Array();
 
-	//creates array for editable columns parameter
-	for (var i = 1; i < noOfCols; i++) {
-		editableCols.push(i);
-		
-	}
-	
-	//add data to datatable(very important)
-	var CherpDataTable = $('#dataTable').DataTable({
-		dom: 'Bfrtip',
-        select: true,
-        scrollX : true,
-        buttons: [
-            {
-                text: 'Get selected data',
-                action: function () {
-                    var count = table.rows( { selected: true } ).count();
- 
-                    events.prepend( '<div>'+count+' row(s) selected</div>' );
-                }
-            }
-        ],
-		"ajax" : "/server/jsonfiles/customer.json",
-		"columns" : [ {
-			"data" : "id"
-		}, {
-			"data" : "fname"
-		}, {
-			"data" : "lname"
-		}, {
-			"data" : "shopName"
-		}, {
-			"data" : "curAdd"
-		}, {
-			"data" : "perAdd"
-		}, {
-			"data" : "state"
-		}, {
-			"data" : "city"
-		}, {
-			"data" : "area"
-		}, {
-			"data" : "mobile"
-		}, {
-			"data" : "phone"
-		}, {
-			"data" : "opBal"
-		} ]
-	});
-	
-	//loads city data into dropdown
-	$.getJSON('/server/jsonfiles/city.json', function(data) {
-		var jsonData = data['data'];
-		$.each(jsonData, function(key, val) {
-			$('#city').append(
-					'<option value="' + val.cityName + '">' + val.cityName
-							+ '</option>');
+		//creates array for editable columns parameter
+		for (var i = 1; i < noOfCols; i++) {
+			editableCols.push(i);
+
+		}
+
+		//add data to datatable(very important)
+		var CherpDataTable = $('#dataTable').DataTable({
+			dom : 'Bfrtip',
+			select : true,
+			scrollX : true,
+			buttons : [ {
+				text : 'Get selected data',
+				action : function() {
+					var count = table.rows({
+						selected : true
+					}).count();
+
+					events.prepend('<div>' + count + ' row(s) selected</div>');
+				}
+			} ],
+			"ajax" : "/server/jsonfiles/customer.json",
+			"columns" : [ {
+				"data" : "id"
+			}, {
+				"data" : "fname"
+			}, {
+				"data" : "lname"
+			}, {
+				"data" : "shopName"
+			}, {
+				"data" : "curAdd"
+			}, {
+				"data" : "perAdd"
+			}, {
+				"data" : "state"
+			}, {
+				"data" : "city"
+			}, {
+				"data" : "area"
+			}, {
+				"data" : "mobile"
+			}, {
+				"data" : "phone"
+			}, {
+				"data" : "dateAccOp"
+			}, {
+				"data" : "opBal"
+			} ]
 		});
-	});	
-	
-	//loads state data into dropdown
-	$.getJSON('/server/jsonfiles/state.json', function(data) {
-		var jsonData = data['data'];
-		$.each(jsonData, function(key, val) {
-			$('#state').append(
-					'<option value="' + val.stateName + '">' + val.stateName
-							+ '</option>');
+
+		//loads city data into dropdown
+		$.getJSON('/server/jsonfiles/city.json', function(data) {
+			var jsonData = data['data'];
+			$.each(jsonData, function(key, val) {
+				$('#city').append(
+						'<option value="' + val.cityName + '">' + val.cityName
+								+ '</option>');
+			});
 		});
-	});
+
+		//loads state data into dropdown
+		$.getJSON('/server/jsonfiles/state.json', function(data) {
+			var jsonData = data['data'];
+			$.each(jsonData, function(key, val) {
+				$('#state').append(
+						'<option value="' + val.stateName + '">'
+								+ val.stateName + '</option>');
+			});
+		});
 	</script>
 </body>
 

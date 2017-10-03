@@ -155,6 +155,7 @@ public class PaymentDataManager {
 			while (rs.next()) {
 //				System.out.println("payment resultset "+rs.toString());
 				Payment payment = new Payment();
+				payment.setId(rs.getInt("id"));
 				payment.setPaymentDate(rs.getString("paymentDate"));
 				payment.setCompany(rs.getString("company"));
 				payment.setPaymentMode(rs.getString("paymentMode"));

@@ -8,10 +8,18 @@ public class Data {
 	private List<Sales> salesData = new ArrayList<>();
 	private List<Purchase> dataSelector = new ArrayList<>();
 	private List<PayLoad> payLoadData = new ArrayList<>();
-	
+	private List<SalesLoad> salesLoadData = new ArrayList<>();
 	
 
 	
+	public List<SalesLoad> getSalesLoadData() {
+		return salesLoadData;
+	}
+
+	public void setSalesLoadData(List<SalesLoad> salesLoadData) {
+		this.salesLoadData = salesLoadData;
+	}
+
 	public List<PayLoad> getPayLoadData() {
 		return payLoadData;
 	}

@@ -79,7 +79,8 @@ public class CollectionServlet extends HttpServlet {
 		Collection collection = new Collection();
 		SalesLoad SalesLoad = new SalesLoad();
 
-		System.out.println(collectionDate + " " + customer + " " + collectionMode + " " + name + " " + chDate + " " + chNo + ""
+		System.out.println(collectionDate + " " + customer + " " + collectionMode + " " + name + " " + branch + " " +
+		depositIn  + " " +chDate + " " + chNo + ""
 				+ toBeReceived + " " + payNow + " " + closingBal);
 
 		if (operation != null) {
@@ -93,7 +94,7 @@ public class CollectionServlet extends HttpServlet {
 				collection.setCollectionMode(collectionMode);
 				if (collectionMode.equals("bank")) {
 					collection.setName(name);
-					collection.setDepositIn(Double.parseDouble(depositIn));
+					collection.setDepositIn(depositIn);
 					collection.setBranch(branch);
 					collection.setChDate(chDate);
 					collection.setChNo(Long.parseLong(chNo));

@@ -15,6 +15,7 @@ import com.cherp.dao.dataentry.SalesDAO;
 import com.cherp.entities.Data;
 import com.cherp.entities.Purchase;
 import com.cherp.entities.Sales;
+import com.cherp.entities.SalesLoad;
 import com.cherp.utils.JsonCreator;
 import com.google.gson.Gson;
 
@@ -84,6 +85,7 @@ public class SalesServlet extends HttpServlet {
 
 		// Contains JSON Data of product Table on Sales.html
 		Data jsonData = gson.fromJson(productJson, Data.class);
+		Data salesData = gson.fromJson(salesLoadJson, Data.class);
 		System.out.println("productJson ----"+productJson);
 		System.out.println("salesLoad---"+salesLoadJson);
 		// Inserts Record into Sales Table(DB)
@@ -105,6 +107,16 @@ public class SalesServlet extends HttpServlet {
 					sales.setSalesDate(new Timestamp(System.currentTimeMillis()));
 					sales.setStatus(1);
 					operationResp = new SalesDAO().insert(sales);
+				}
+				
+				for(SalesLoad salesload : salesData.getSalesLoadData()) {
+					salesload.setInvoiceNo(Integer.parseInt(invoiceNo));
+					salesload.setCustomer(customer);
+					salesload.setDate(new Timestamp(System.currentTimeMillis()));
+					salesload.setInvoiceAmount(Double.parseDouble(amount));
+					salesload.setBalanceAmount(Double.parseDouble(amount));
+					salesload.setStatus(1);
+					operationResp = new SalesDAO().insertSales(salesload);
 				}
 
 				pw.write(operationResp);

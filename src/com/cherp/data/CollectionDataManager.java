@@ -34,7 +34,7 @@ public class CollectionDataManager {
 			ps.setString(3, collection.getArea());
 			ps.setString(4, collection.getCollectionMode());
 			ps.setString(5, collection.getName());
-			ps.setDouble(6, collection.getDepositIn());
+			ps.setString(6, collection.getDepositIn());
 			ps.setString(7, collection.getBranch());
 			ps.setString(8, collection.getChDate());
 			ps.setLong(9, collection.getChNo());
@@ -163,7 +163,7 @@ public class CollectionDataManager {
 				collection.setArea(rs.getString("area"));
 				collection.setCollectionMode(rs.getString("collectionMode"));
 				collection.setName(rs.getString("name"));
-				collection.setDepositIn(rs.getDouble("depositIn"));
+				collection.setDepositIn(rs.getString("depositIn"));
 				collection.setBranch(rs.getString("branch"));
 				collection.setChDate(rs.getString("chDate"));
 				collection.setChNo(rs.getLong("chNo"));
@@ -205,11 +205,11 @@ public class CollectionDataManager {
 				
 				salesload.setId(rs.getInt("id"));
 				salesload.setInvoiceNo(rs.getInt("invoiceNo"));
-				salesload.setDate(rs.getString("date"));
+				salesload.setDate(rs.getTimestamp("date"));
 				salesload.setCustomer(rs.getString("customer"));
 				salesload.setInvoiceAmount(rs.getInt("invoiceAmount"));
 				salesload.setBalanceAmount(rs.getInt("balanceAmount"));
-
+				salesload.setStatus(rs.getInt("status"));
 				salesLoadList.add(salesload);
 
 			}

@@ -236,7 +236,7 @@ $(function() {
 		var jsonData = data['data'];
 		$.each(jsonData, function(key, val) {
 			$('#customerSelect').append(
-					'<option value="' + val.fname + '">' + val.fname
+					'<option value="' + val.fname + " "+val.lname+ '">' + val.fname + " " + val.lname 
 							+ '</option>');
 		});
 	});

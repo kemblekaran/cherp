@@ -33,7 +33,7 @@ public class Collection {
 	// @Column(name = "name")
 	private String name;
 	// @Column(name = "depositIn")
-	private Double depositIn;
+	private String depositIn;
 	// @Column(name = "branch")
 	private String branch;
 	// @Column(name = "chDate")
@@ -111,10 +111,11 @@ public class Collection {
 		this.name = name;
 	}
 	
-	public Double getDepositIn() {
+	
+	public String getDepositIn() {
 		return depositIn;
 	}
-	public void setDepositIn(Double depositIn) {
+	public void setDepositIn(String depositIn) {
 		this.depositIn = depositIn;
 	}
 	public String getBranch() {
