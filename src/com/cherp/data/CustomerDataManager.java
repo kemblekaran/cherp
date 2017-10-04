@@ -31,8 +31,8 @@ public class CustomerDataManager {
 			con = handler.getConnection();
 
 			Statement stmt = con.createStatement();
-			String query = "insert into customer(fname,lname,shopName,curAdd,perAdd,state,city,area,mobile,phone,opBal,status) "
-					+ "values( ?,?,?,?,?,?,?,?,?,?,?,?)";
+			String query = "insert into customer(fname,lname,shopName,curAdd,perAdd,state,city,area,mobile,phone,dateAccOp,opBal,status) "
+					+ "values( ?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			// String squery = "select * from customer where fname='" + cust.getFname() +
 			// "'";
 
@@ -48,8 +48,9 @@ public class CustomerDataManager {
 			ps.setString(8, cust.getArea());
 			ps.setLong(9, cust.getMobile());
 			ps.setLong(10, cust.getPhone());
-			ps.setInt(11, cust.getOpBal());
-			ps.setInt(12, cust.getStatus());
+			ps.setString(11, cust.getDateAccOp());
+			ps.setInt(12, cust.getOpBal());
+			ps.setInt(13, cust.getStatus());
 			
 			ps.executeUpdate();
 			
@@ -79,7 +80,7 @@ public class CustomerDataManager {
 			String squery = "select * from customer where fname=?";
 
 			String uquery = "update customer set fname=? ,lname=? ,shopName=? ,curAdd=? ,perAdd=? ,state=? ,"
-					+ "city=? ,area=?  ,mobile=? ,phone=? ,opBal=? where id=?";
+					+ "city=? ,area=?  ,mobile=? ,phone=?, dateAccOp=? ,opBal=? where id=?";
 			
 			ps = con.prepareStatement(uquery);
 			
@@ -93,8 +94,9 @@ public class CustomerDataManager {
 			ps.setString(8, cust.getArea());
 			ps.setLong(9, cust.getMobile());
 			ps.setLong(10, cust.getPhone());
-			ps.setInt(11, cust.getOpBal());
-			ps.setInt(12, cust.getId());
+			ps.setString(11, cust.getDateAccOp());
+			ps.setInt(12, cust.getOpBal());
+			ps.setInt(13, cust.getId());
 			
 			ps.executeUpdate();
 			
@@ -172,6 +174,7 @@ public class CustomerDataManager {
 				cust.setArea(rs.getString("area"));
 				cust.setMobile(rs.getLong("mobile"));
 				cust.setPhone(rs.getLong("phone"));
+				cust.setDateAccOp(rs.getString("dateAccOp"));
 				cust.setOpBal(rs.getInt("opBal"));
 
 				custList.add(cust);

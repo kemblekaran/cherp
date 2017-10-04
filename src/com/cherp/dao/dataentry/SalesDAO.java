@@ -12,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.cherp.entities.Area;
 import com.cherp.entities.Purchase;
 import com.cherp.entities.Sales;
 import com.cherp.entities.SalesLoad;
@@ -87,7 +88,7 @@ public class SalesDAO {
 		return "Delete Successful";
 	}
 
-	public List<Purchase> selectAll() {
+	public List<Purchase> selectAll(String date, String van) {
 
 		createSession();
 
@@ -95,8 +96,11 @@ public class SalesDAO {
 
 		CriteriaQuery<Purchase> criteriaQuery = criteriaBuilder.createQuery(Purchase.class);
 
-		criteriaQuery.from(Purchase.class);
-
+		//specify criteria root
+		Root<Purchase> rootSales = criteriaQuery.from(Purchase.class);
+		System.out.println("date in sales selectall "+date);
+		criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(rootSales.get("date"), date),criteriaBuilder.equal(rootSales.get("vanName"), van)));
+		
 		List<Purchase> purchaseList = session.createQuery(criteriaQuery).getResultList();
 
 		return purchaseList;
@@ -121,44 +125,62 @@ public class SalesDAO {
 		return invoiceNo;
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Purchase> selectSales(String date, String van) {
-
-		createSession();
-		String dbQuery = "from Purchase where date='" + date + "' AND vanName='" + van + "'";
-		Query query = session.createQuery(dbQuery);
-
-		List<Purchase> salesData = new ArrayList<>();
-		List<Purchase> salesTableList = new ArrayList<>();
-
-		salesData = query.getResultList();
+	public List<Sales> selectSales() {
 		
-		for (Purchase pur : salesData) {
-			Purchase purchase = new Purchase();
-			purchase.setPurchaseId((pur.getPurchaseId()));
-			purchase.setDate(date);
-			purchase.setVanName(van);
-			purchase.setDriver1(pur.getDriver1());
-			purchase.setDriver2(pur.getDriver2());
-			purchase.setCleaner1(pur.getCleaner1());
-			purchase.setCleaner2(pur.getCleaner2());
-			purchase.setCompany(pur.getCompany());
-			purchase.setLocation(pur.getLocation());
-			purchase.setOutstanding(pur.getOutstanding());
-			purchase.setChallanNo(pur.getChallanNo());
-			purchase.setRent(pur.getRent());
-			purchase.setProduct(pur.getProduct());
-			purchase.setPieces(pur.getPieces());
-			purchase.setKg(pur.getKg());
-			purchase.setRate(pur.getRate());
-			purchase.setAmount(pur.getAmount());
-			purchase.setAvgWeight(pur.getAvgWeight());
-			purchase.setInvoiceNo(new SalesDAO().getInvoiceNo());
-			salesTableList.add(purchase);
-		}
+		createSession();
 
-		return salesTableList;
+		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 
+		CriteriaQuery<Sales> criteriaQuery = criteriaBuilder.createQuery(Sales.class);
+
+		Root<Sales> rootSales = criteriaQuery.from(Sales.class);
+
+		criteriaQuery.where(criteriaBuilder.equal(rootSales.get("status"), 1));
+
+		List<Sales> salesViewList = session.createQuery(criteriaQuery).getResultList();
+
+		return salesViewList;
+		
 	}
+
+//	@SuppressWarnings("unchecked")
+//	public List<Purchase> selectSales(String date, String van) {
+//
+//		createSession();
+//		String dbQuery = "from Purchase where date='" + date + "' AND vanName='" + van + "'";
+//		Query query = session.createQuery(dbQuery);
+//
+//		List<Purchase> salesData = new ArrayList<>();
+//		List<Purchase> salesTableList = new ArrayList<>();
+//
+//		salesData = query.getResultList();
+//		
+//		for (Purchase pur : salesData) {
+//			Purchase purchase = new Purchase();
+//			purchase.setPurchaseId((pur.getPurchaseId()));
+//			purchase.setDate(date);
+//			purchase.setVanName(van);
+//			purchase.setDriver1(pur.getDriver1());
+//			purchase.setDriver2(pur.getDriver2());
+//			purchase.setCleaner1(pur.getCleaner1());
+//			purchase.setCleaner2(pur.getCleaner2());
+//			purchase.setCompany(pur.getCompany());
+//			purchase.setLocation(pur.getLocation());
+//			purchase.setOutstanding(pur.getOutstanding());
+//			purchase.setChallanNo(pur.getChallanNo());
+//			purchase.setRent(pur.getRent());
+//			purchase.setProduct(pur.getProduct());
+//			purchase.setPieces(pur.getPieces());
+//			purchase.setKg(pur.getKg());
+//			purchase.setRate(pur.getRate());
+//			purchase.setAmount(pur.getAmount());
+//			purchase.setAvgWeight(pur.getAvgWeight());
+//			purchase.setInvoiceNo(new SalesDAO().getInvoiceNo());
+//			salesTableList.add(purchase);
+//		}
+//
+//		return salesTableList;
+//
+//	}
 
 }

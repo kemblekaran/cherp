@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cherp.dao.dataentry.PurchaseDao;
 import com.cherp.dao.dataentry.SalesDAO;
 import com.cherp.entities.Data;
 import com.cherp.entities.Purchase;
@@ -129,12 +130,16 @@ public class SalesServlet extends HttpServlet {
 			if (purchaseView.equals("true")) {
 				System.out.println("purchaseView");
 				List<Purchase> purchaseTableList = new ArrayList<>();
-				purchaseTableList = new SalesDAO().selectSales(purchaseDate, van);
+				purchaseTableList = new SalesDAO().selectAll(purchaseDate, van);
 
 				// Writes into JSON File
 				new JsonCreator().createJson(purchaseTableList, jsonFilePath + "salesTable.json");
 			}
 		}
+		
+		List<Sales> salesViewList = new ArrayList<>();
+		salesViewList = new SalesDAO().selectSales();
+		new JsonCreator().createJson(salesViewList, jsonFilePath + "salesView.json");
 
 	}
 }

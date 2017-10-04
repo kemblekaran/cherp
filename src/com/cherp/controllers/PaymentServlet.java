@@ -1,28 +1,18 @@
 package com.cherp.controllers;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cherp.dao.dataentry.PaymentDao;
 import com.cherp.data.PaymentDataManager;
-import com.cherp.data.PurchaseDataManager;
-import com.cherp.entities.Area;
 import com.cherp.entities.PayLoad;
 import com.cherp.entities.Payment;
-import com.cherp.entities.Purchase;
 import com.cherp.utils.JsonCreator;
-import com.google.gson.stream.JsonWriter;
 
 public class PaymentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

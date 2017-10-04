@@ -78,6 +78,7 @@ public class ProductServlet extends HttpServlet {
 				System.out.println("Insert Function");
 				prod.setProdName(prodName);
 				prod.setProdType(prodType);
+				prod.setStatus(1);
 
 				operationResp = pdao.insert(prod);
 				pw.println(operationResp);

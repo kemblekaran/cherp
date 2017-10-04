@@ -12,8 +12,20 @@ public class Customer {
 	private String area;
 	private long mobile;
 	private long phone;
+	private String dateAccOp;
 	private int opBal;
 	private int status;
+
+	
+	
+	
+	public String getDateAccOp() {
+		return dateAccOp;
+	}
+
+	public void setDateAccOp(String dateAccOp) {
+		this.dateAccOp = dateAccOp;
+	}
 
 	/**
 	 * @return the id

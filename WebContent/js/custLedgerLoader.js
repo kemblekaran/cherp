@@ -21,11 +21,11 @@ $(function() {
 	});
 
 	//getting dateOfOpening from company
-	$("#cmpName").on("change", function() {
-		var companyName = $(this).val();
+	$("#custName").on("change", function() {
+		var customerName = $(this).val();
 		$.ajax({
 			type : "POST",
-			url : "/server/jsonfiles/company.json",
+			url : "/server/jsonfiles/customer.json",
 			dataType : "json",
 			select : true,
 			success : function(data) {
@@ -34,10 +34,10 @@ $(function() {
 
 				$.each(jsonDataProduct, function(key, val) {
 
-					if (companyName == val.name) {
+					if (customerName ==val.fname + " " +val.lname ) {
 						$('#dateAccOp').val(val.dateAccOp);
 						
-					} else if (companyName == "selectCmp") {
+					} else if (customerName == "selectCust") {
 						$('#dateAccOp').val(null);
 					}
 				});
@@ -48,12 +48,12 @@ $(function() {
 	});
 
 	//closing bal as opening bal from payment
-	$("#cmpName").on("change", function() {
-		var companyName = $(this).val();
+	$("#custName").on("change", function() {
+		var customerName = $(this).val();
 
 		$.ajax({
 			type : "POST",
-			url : "/server/jsonfiles/payment.json",
+			url : "/server/jsonfiles/collection.json",
 			dataType : "json",
 			select : true,
 			success : function(data) {
@@ -62,13 +62,13 @@ $(function() {
 
 				$.each(jsonDataProduct, function(key, val) {
 
-					if (companyName == val.company) {
+					if (customerName ==val.fname + " " +val.lname) {
 						$('#opeBal').val(val.closingBal);
-					} else if (companyName == "selectCmp") {
+					} else if (customerName == "selectCust") {
 						$('#opeBal').val(null);
 					}
 					else{
-						$("#cmpName").on("change", function() {
+						$("#custName").on("change", function() {
 							$('#opeBal').val(0);
 						});
 					}
@@ -79,16 +79,16 @@ $(function() {
 		});
 	});
 
-	var purchaseTable = $('#purchaseTable').DataTable();
+	var salesTable = $('#salesTable').DataTable();
 	
 	$('#go').on('click', function(e) {
 //		alert('hey');
 		event.preventDefault();
-		var cmpName = $("#cmpName").val();
+		var custName = $("#custName").val();
 //		alert('hey ' + cmpName);
 		$.ajax({
 			type : "POST",
-			url : "/server/jsonfiles/purchaseView.json",
+			url : "/server/jsonfiles/salesView.json",
 			dataType : "json",
 			select : true,
 			success : function(data) {
@@ -96,7 +96,7 @@ $(function() {
 
 				$.each(purchaseData, function(key, val) {
 
-					if (cmpName == val.company) {
+					if (custName == val.company) {
 						//getting from and to date from input
 						var fromTime = new Date($('#fromDate').val()).getTime();
 						var toTime = new Date($('#toDate').val()).getTime();
@@ -108,7 +108,7 @@ $(function() {
 						//check whether date is true from selected date
 						if (date.getTime() >= fromTime && date.getTime() <= toTime) {
 						
-							purchaseTable.row.add([ val.date, val.purchaseId, val.product, val.pieces, val.kg, val.rate, val.amount ]).draw();
+							salesTable.row.add([ val.date, val.purchaseId, val.product, val.pieces, val.kg, val.rate, val.amount ]).draw();
 								$("#cmpName").on("change", function() {
 									purchaseTable.clear().draw();
 								});
@@ -139,11 +139,11 @@ var paymentTable = $('#paymentTable').DataTable();
 	
 	$('#go').on('click', function(e) {
 		event.preventDefault();
-	var cmpName = $("#cmpName").val();
+	var custName = $("#custName").val();
 
 	$.ajax({
 		type : "POST",
-		url : "/server/jsonfiles/payment.json",
+		url : "/server/jsonfiles/collection.json",
 		dataType : "json",
 		select : true,
 		success : function(data) {
@@ -151,7 +151,7 @@ var paymentTable = $('#paymentTable').DataTable();
 
 			$.each(paymentData, function(key, val) {
 
-				if (cmpName == val.company) {
+				if (custName == val.company) {
 					//getting from and to date from input
 					var fromTime = new Date($('#fromDate').val()).getTime();
 					var toTime = new Date($('#toDate').val()).getTime();
@@ -163,7 +163,7 @@ var paymentTable = $('#paymentTable').DataTable();
 					if (date.getTime() >= fromTime && date.getTime() <= toTime) {
 						
 						paymentTable.row.add([ val.paymentDate, val.company,  val.payNow ]).draw();
-							$("#cmpName").on("change", function() {
+							$("#custName").on("change", function() {
 								paymentTable.clear().draw();
 							});
 							$('#go').on('click', function() {
@@ -263,7 +263,7 @@ var paymentTable = $('#paymentTable').DataTable();
 	$('#print').on('click', function() {
 		
 		var LedgerData = {
-				"cmpName" : $('#cmpName').val(),
+				"custName" : $('#custName').val(),
 				"dateAccOp" : $('#dateAccOp').val(),
 				"fromDate" : $('#fromDate').val(),
 				"toDate" : $('#toDate').val(),

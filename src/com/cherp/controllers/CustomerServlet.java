@@ -1,9 +1,7 @@
 package com.cherp.controllers;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,14 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cherp.data.CustomerDataManager;
-import com.cherp.data.UserDataManager;
 import com.cherp.entities.Customer;
-import com.cherp.entities.User;
 import com.cherp.utils.JsonCreator;
-import com.google.gson.stream.JsonWriter;
 
 public class CustomerServlet extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
+	
 	private String jsonFilePath = "";
 	private String fname = "";
 	private String lname = "";
@@ -32,6 +29,7 @@ public class CustomerServlet extends HttpServlet {
 	private String area = "";
 	private String mobile;
 	private String phone;
+	private String dateAccOp = "";
 	private String opBal;
 	private String operation = "";
 
@@ -48,6 +46,7 @@ public class CustomerServlet extends HttpServlet {
 	private String updatedCellArea = "";
 	private String updatedCellMobile = "";
 	private String updatedCellPhone = "";
+	private String updatedCellDateAccOp = "";
 	private String updatedCellOpBal = "";
 
 	// method for getting parameters
@@ -69,6 +68,7 @@ public class CustomerServlet extends HttpServlet {
 		area = request.getParameter("area");
 		mobile = request.getParameter("mobile");
 		phone = request.getParameter("phone");
+		dateAccOp = request.getParameter("dateAccOp");
 		opBal = request.getParameter("opBal");
 
 		// Update Or Delete Parameters
@@ -83,6 +83,7 @@ public class CustomerServlet extends HttpServlet {
 		updatedCellArea = request.getParameter("updatedRow[area]");
 		updatedCellMobile = request.getParameter("updatedRow[mobile]");
 		updatedCellPhone = request.getParameter("updatedRow[phone]");
+		updatedCellDateAccOp = request.getParameter("updatedRow[dateAccOp]");
 		updatedCellOpBal = request.getParameter("updatedRow[opBal]");
 
 	}
@@ -115,6 +116,7 @@ public class CustomerServlet extends HttpServlet {
 				cust.setArea(area);
 				cust.setMobile(Long.parseLong(mobile));
 				cust.setPhone(Long.parseLong(phone));
+				cust.setDateAccOp(dateAccOp);
 				cust.setOpBal(Integer.parseInt(opBal));
 
 				operationResp = custdm.addData(cust);
@@ -134,6 +136,7 @@ public class CustomerServlet extends HttpServlet {
 				cust.setArea(updatedCellArea);
 				cust.setMobile(Long.parseLong(updatedCellMobile));
 				cust.setPhone(Long.parseLong(updatedCellPhone));
+				cust.setDateAccOp(updatedCellDateAccOp);
 				cust.setOpBal(Integer.parseInt(updatedCellOpBal));
 
 				operationResp = custdm.updateData(cust);

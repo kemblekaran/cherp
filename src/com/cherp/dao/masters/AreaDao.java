@@ -95,9 +95,11 @@ public class AreaDao extends MasterBaseDao {
 		CriteriaQuery<Area> criteriaQuery = criteriaBuilder.createQuery(Area.class);
 		
 		//specify criteria root
-		Root<Area> rootPurchase = criteriaQuery.from(Area.class);
+		Root<Area> rootArea = criteriaQuery.from(Area.class);
 //		criteria.from(Area.class);
-		criteriaQuery.where(criteriaBuilder.equal(rootPurchase.get("status"), 1));
+//		criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(rootArea.get("status"), 1),criteriaBuilder.equal(rootArea.get("code"), 45)));
+		criteriaQuery.where(criteriaBuilder.equal(rootArea.get("status"),1));
+		
 		//Execute query
 		List<Area> areaList = session.createQuery(criteriaQuery).getResultList();
 		

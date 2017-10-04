@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.cherp.entities.Area;
 import com.cherp.entities.Product;
 import com.cherp.utils.HibernateUtil;
 
@@ -89,13 +91,14 @@ public class ProductDao extends MasterBaseDao{
 		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 		
 		//create criteria query
-		CriteriaQuery<Product> criteria = criteriaBuilder.createQuery(Product.class);
+		CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
 		
 		//specify criteria root
-		criteria.from(Product.class);
+		Root<Product> rootProduct = criteriaQuery.from(Product.class);
 		
+		criteriaQuery.where(criteriaBuilder.equal(rootProduct.get("status"), 1));
 		//Execute query
-		List<Product> productList = session.createQuery(criteria).getResultList();
+		List<Product> productList = session.createQuery(criteriaQuery).getResultList();
 		
 		//close session
 		session.close();
