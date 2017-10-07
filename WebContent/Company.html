@@ -16,15 +16,7 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/blitzer/jquery-ui.css">
   	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-	//set current date to date of account opening using datepicker
-	$(function() {
-		$("#dateAccOp").datepicker({
-			showAnim : 'drop',
-			showButtonPanel : true,
-		}).datepicker('setDate', 'today');
-	});
-</script>
+
 </head>
 
 
@@ -55,14 +47,14 @@
 				<table id="dataTable" class="table-bordered">
 					<thead>
 						<tr>
-							<th>id</th>
+							<th>Id</th>
 							<th>Name</th>
 							<th>Primary Address</th>
 							<th>Secondary Address</th>
 							<th>Mobile</th>
 							<th>Phone</th>
-							<th>state</th>
-							<th>city</th>
+							<th>State</th>
+							<th>City</th>
 							<th>Pin code</th>
 							<th>Owner Name</th>
 							<th>PAN No.</th>
@@ -99,17 +91,17 @@
 								</div>
 								<div class="form-group">
 									<label for="name">Name</label> <input type="text"
-										class="form-control" id="name" name="name">
+										class="form-control" id="name" name="name" onkeyup="javascript:capitalize(this.id, this.value);">
 								</div>
 
 								<div class="form-group">
 									<label for="preAdd">Primary Address</label> <input type="text"
-										class="form-control" id="preAdd" name="preAdd">
+										class="form-control" id="preAdd" name="preAdd" onkeyup="javascript:capitalize(this.id, this.value);">
 								</div>
 
 								<div class="form-group">
 									<label for="secAdd">Secondary Address</label> <input
-										type="text" class="form-control" id="secAdd" name="secAdd">
+										type="text" class="form-control" id="secAdd" name="secAdd" onkeyup="javascript:capitalize(this.id, this.value);">
 								</div>
 
 								<div class="form-group">
@@ -123,12 +115,9 @@
 								</div>
 
 								<div class="form-group">
-									<label for="state">State</label> <select id="state"
+									<label for="state">State</label> <select id="stateName"
 										name="state" class="form-control">
 										<option value="">select state</option>
-										<option>Maharashtra</option>
-										<option>Karnatak</option>
-										<option>Gujrat</option>
 									</select>
 								</div>
 
@@ -136,9 +125,6 @@
 									<label for="city">City</label> <select id="city" name="city"
 										class="form-control">
 										<option value="">select city</option>
-										<option>Mumbai</option>
-										<option>Delhi</option>
-										<option>Banglore</option>
 									</select>
 								</div>
 
@@ -150,7 +136,7 @@
 								</div>
 								<div class="form-group">
 									<label for="ownName">Owner Name</label> <input type="text"
-										class="form-control" id="ownerName" name="ownerName">
+										class="form-control" id="ownerName" name="ownerName" onkeyup="javascript:capitalize(this.id, this.value);">
 								</div>
 								<div class="form-group">
 									<label for="panNo">PAN No.</label> <input type="text"
@@ -201,6 +187,7 @@
 	<!-- 	<script type="text/javascript" src="validation/validateCompany.js"></script> -->
 	<script src="js/dataTables.cellEdit.js"></script>
 	<script src="js/dataTable.js" type="text/javascript"></script>
+	<script src="js/company.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		//variable for number of columns in table
 		var noOfCols = $("#dataTable tr:visible th").length;

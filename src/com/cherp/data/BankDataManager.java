@@ -33,7 +33,7 @@ public class BankDataManager {
 			ps = con.prepareStatement(query);
 
 			ps.setString(1, bank.getBankName());
-			ps.setString(2, bank.getBrachName());
+			ps.setString(2, bank.getBranchName());
 			ps.setString(3, bank.getAccType());
 			ps.setLong(4, bank.getAccNo());
 			ps.setString(5, bank.getIfscCode());
@@ -70,7 +70,7 @@ public class BankDataManager {
 			PreparedStatement ps = con.prepareStatement(uquery);
 
 			ps.setString(1, bank.getBankName());
-			ps.setString(2, bank.getBrachName());
+			ps.setString(2, bank.getBranchName());
 			ps.setString(3, bank.getAccType());
 			ps.setLong(4, bank.getAccNo());
 			ps.setString(5, bank.getIfscCode());
@@ -135,7 +135,7 @@ public class BankDataManager {
 				Bank bank = new Bank();
 				bank.setId(rs.getInt("id"));
 				bank.setBankName(rs.getString("bankName"));
-				bank.setBrachName(rs.getString("branchName"));
+				bank.setBranchName(rs.getString("branchName"));
 				bank.setAccType(rs.getString("accType"));
 				bank.setAccNo(rs.getLong("accNo"));
 				bank.setIfscCode(rs.getString("ifscCode"));

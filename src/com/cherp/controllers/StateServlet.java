@@ -62,7 +62,7 @@ public class StateServlet extends HttpServlet {
 				System.out.println("Insert Function");
 
 				state.setStateName(stateName);
-
+				state.setStatus(1);
 				operationResp = sdao.insert(state);
 				pw.println(operationResp);
 

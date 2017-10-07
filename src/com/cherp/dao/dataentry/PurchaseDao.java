@@ -114,6 +114,24 @@ public class PurchaseDao {
 
 		return purchaseList;
 	}
+	
+	public List<Purchase> selectVanWise(String date, String van) {
+
+		createSession();
+
+		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+
+		CriteriaQuery<Purchase> criteriaQuery = criteriaBuilder.createQuery(Purchase.class);
+
+		//specify criteria root
+		Root<Purchase> rootSales = criteriaQuery.from(Purchase.class);
+		System.out.println("date in vanwisesales van "+date + " "+ van);
+		criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(rootSales.get("date"), date),criteriaBuilder.equal(rootSales.get("vanName"), van)));
+		
+		List<Purchase> purchaseList = session.createQuery(criteriaQuery).getResultList();
+
+		return purchaseList;
+	}
 
 	public int getPurchaseId() {
 

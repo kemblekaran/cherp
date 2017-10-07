@@ -4,7 +4,7 @@ public class Bank {
 
 	private int id;
 	private String bankName;
-	private String brachName;
+	private String branchName;
 	private String accType;
 	private long accNo;
 	private String address;
@@ -28,12 +28,12 @@ public class Bank {
 		this.bankName = bankName;
 	}
 
-	public String getBrachName() {
-		return brachName;
+	public String getBranchName() {
+		return branchName;
 	}
 
-	public void setBrachName(String brachName) {
-		this.brachName = brachName;
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
 	}
 
 	public String getAccType() {

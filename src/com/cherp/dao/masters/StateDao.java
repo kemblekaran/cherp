@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.cherp.entities.Purchase;
 import com.cherp.entities.State;
 import com.cherp.utils.HibernateUtil;
 
@@ -89,13 +91,15 @@ public class StateDao extends MasterBaseDao{
 		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 		
 		//create criteria query
-		CriteriaQuery<State> criteria = criteriaBuilder.createQuery(State.class);
+		CriteriaQuery<State> criteriaQuery = criteriaBuilder.createQuery(State.class);
 		
 		//specify criteria root
-		criteria.from(State.class);
+		Root<State> rootState = criteriaQuery.from(State.class);
+
+		criteriaQuery.where(criteriaBuilder.equal(rootState.get("status"), 1));
 		
 		//Execute query
-		List<State> stateList = session.createQuery(criteria).getResultList();
+		List<State> stateList = session.createQuery(criteriaQuery).getResultList();
 		
 		//close session
 		session.close();

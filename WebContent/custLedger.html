@@ -24,7 +24,7 @@
 
 	<div class="container-fluid" id="mainContainer">
 		<div class="jumbotron">
-
+<form id="CustLedgerForm">
 			<div class="well">
 				<!-- Button Row           -->
 				<div class="row ">
@@ -97,17 +97,18 @@
 
 			<!--Table Row-->
 			<div class="row ">
-				<div class="col-md-7">
-					<label><h3>Purchase for the period</h3></label>
-				</div>
-				<div class="col-md-5">
-					<label><h3>Payment</h3></label>
-				</div>
+					<div class="col-md-8">
+						<label><h3 class="text-primary">Purchase for the
+								period</h3></label>
+					</div>
+					<div class="col-md-4">
+						<label><h3 class="text-primary">Payment</h3></label>
+					</div>
 			</div>
 			<hr>
 
 			<div class="row " id="tableRow">
-				<div class="col-md-7">
+				<div class="col-md-8 well">
 					<table id="salesTable" class="table-bordered">
 						<thead>
 							<tr>
@@ -123,8 +124,8 @@
 					</table>
 				</div>
 
-				<div class="col-md-5">
-					<table id="paymentTable" class="table-bordered">
+				<div class="col-md-4 well">
+					<table id="collectionTable" class="table-bordered">
 						<thead>
 							<tr>
 								<th>Date</th>
@@ -144,7 +145,7 @@
 								<label for="pcs">Total Pcs</label>
 							</div>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="pcs" name="pcs">
+								<input type="text" class="form-control" id="pcs" name="pcs" readonly>
 							</div>
 						</div>
 					</div>
@@ -155,7 +156,7 @@
 								<label for="kgs">Total Kgs</label>
 							</div>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="kgs" name="kgs">
+								<input type="text" class="form-control" id="kgs" name="kgs" readonly>
 							</div>
 						</div>
 					</div>
@@ -163,11 +164,11 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<div class="col-sm-5">
-								<label for="payment">Total Collection</label>
+								<label for="collection">Total Collection</label>
 							</div>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" id="payment"
-									name="payment">
+								<input type="text" class="form-control" id="collection"
+									name="collection" readonly>
 							</div>
 						</div>
 					</div>
@@ -179,43 +180,52 @@
 					<div class="col-md-6 col-md-offset-3">
 						<div class="form-group">
 							<div class="col-sm-5">
-								<label for="weekPurchase">Purchase for the week</label>
+								<label for="weekSales">Purchase for the week</label>
 							</div>
 							<div class="col-sm-5">
-								<input type="text" class="form-control" id="weekPurchase"
-									name="weekPurchase">
+								<input type="text" class="form-control" id="weekSales"
+									name="weekSales" readonly>
 							</div>
 						</div>
 						<br>
 						<div class="form-group">
 							<div class="col-sm-5">
-								<label for="totalPayment">Total Payment</label>
+								<label for="totalCollection">Total Payment</label>
 							</div>
 							<div class="col-sm-5">
-								<input type="text" class="form-control" id="totalPayment"
-									name="totalPayment">
+								<input type="text" class="form-control" id="totalCollection"
+									name="totalCollection" readonly>
 							</div>
 						</div>
 						<br>
 						<div class="form-group">
 							<div class="col-sm-5">
-								<label for="collectionGiven">Collection Received</label>
+								<label for="collectionReceived">Collection Received</label>
 							</div>
 							<div class="col-sm-5">
-								<input type="text" class="form-control" id="collectionGiven"
-									name="collectionGiven">
+								<input type="text" class="form-control" id="collectionReceived"
+									name="collectionReceived" readonly>
 							</div>
 						</div>
 						<br>
 						<div class="form-group">
-							<div class="col-sm-5">
-								<label for="addLess">Add/Less</label>
+								<div class="col-sm-5">
+									<div class="radio-inline">
+										<label> <input type="radio" name="addLess"
+											id="optionsRadios1" value="add" checked>Add
+										</label>
+									</div>
+									<div class="radio-inline">
+										<label> <input type="radio" name="addLess"
+											id="optionsRadios2" value="less">Less
+										</label>
+									</div>
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control" id="addLess"
+										name="addLess">
+								</div>
 							</div>
-							<div class="col-sm-5">
-								<input type="text" class="form-control" id="addLess"
-									name="addLess">
-							</div>
-						</div>
 						<br>
 						<div class="form-group">
 							<div class="col-sm-5">
@@ -223,7 +233,7 @@
 							</div>
 							<div class="col-sm-5">
 								<input type="text" class="form-control" id="closingBal"
-									name="closingBal">
+									name="closingBal" readonly>
 							</div>
 						</div>
 					</div>
@@ -232,15 +242,18 @@
 
 			<br> <br>
 			<div class="row">
+			<input type="hidden" name="operation" value="insert">
+					<!-- input type for sending product json as form value -->
+					<input type="hidden" name="custLedgerJson" id="custLedgerJson">
 				<div class="col-md-1 col-md-offset-4">
-					<button id="go" class="btn btn-primary">Print</button>
+					<button id="print" class="btn btn-primary">Print</button>
 				</div>
 				<div class="col-md-1">
 					<button id="go" class="btn btn-primary">Close</button>
 				</div>
 			</div>
 
-
+</form>
 		</div>
 	</div>
 

@@ -12,7 +12,8 @@
 <link rel="stylesheet" href="validate.css">
 <script src="https://www.w3schools.com/lib/w3.js"></script>
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/blitzer/jquery-ui.css">
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.9.1/themes/blitzer/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -94,21 +95,24 @@
 						</div>
 					</div>
 				</div>
-
+				<br>
 				<!--Table Row-->
-				<div class="row ">
-					<div class="col-md-8">
-						<label><h3 class="text-primary">Purchase for the
-								period</h3></label>
-					</div>
-					<div class="col-md-4">
-						<label><h3 class="text-primary">Payment</h3></label>
-					</div>
-				</div>
-				<hr>
+				<!-- 				<div class="row "> -->
+				<!-- 					<div class="col-md-8"> -->
+				<!-- 						<label><h3 class="text-primary">Purchase for the -->
+				<!-- 								period</h3></label> -->
+				<!-- 					</div> -->
+				<!-- 					<div class="col-md-4"> -->
+				<!-- 						<label><h3 class="text-primary">Payment</h3></label> -->
+				<!-- 					</div> -->
+				<!-- 				</div> -->
+				<!-- 				<hr> -->
 
 				<div class="row " id="tableRow">
 					<div class="col-md-8 well">
+						<label><h3 class="text-primary">Purchase for the
+								period</h3></label>
+						<hr>
 						<table id="purchaseTable" class="table-bordered">
 							<thead>
 								<tr>
@@ -125,6 +129,8 @@
 					</div>
 
 					<div class="col-md-4 well">
+						<label><h3 class="text-primary">Payment</h3></label>
+						<hr>
 						<table id="paymentTable" class="table-bordered">
 							<thead>
 								<tr>
@@ -248,7 +254,8 @@
 					<!-- input type for sending product json as form value -->
 					<input type="hidden" name="cmpLedgerJson" id="cmpLedgerJson">
 					<div class="col-md-1 col-md-offset-4">
-						<button id="print" name="print" class="btn btn-primary">Print</button>
+						<button id="print" name="print" class="btn btn-primary"
+							onClick="window.print()">Print</button>
 					</div>
 					<div class="col-md-1">
 						<button id="go" class="btn btn-primary">Close</button>
@@ -274,7 +281,7 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
-	
+
 	<script src="js/cmpLedgerLoader.js"></script>
 
 

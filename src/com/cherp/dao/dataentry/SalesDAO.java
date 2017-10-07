@@ -1,9 +1,7 @@
 package com.cherp.dao.dataentry;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -12,7 +10,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import com.cherp.entities.Area;
 import com.cherp.entities.Purchase;
 import com.cherp.entities.Sales;
 import com.cherp.entities.SalesLoad;

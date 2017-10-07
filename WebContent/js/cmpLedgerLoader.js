@@ -176,7 +176,6 @@ var paymentTable = $('#paymentTable').DataTable();
 			var weekPayment = payment;
 			$('#payment').val(weekPayment);
 			totalPayment.val(weekPayment);
-			alert(totalPayment.val());
 			paymentCalc = weekPurchase.val() - totalPayment.val();
 			paymentGiven.val(paymentCalc);
 			$('#closingBal').val(paymentCalc);
@@ -229,7 +228,7 @@ var paymentTable = $('#paymentTable').DataTable();
 	// for setting from and to date
 	$(document).ready(function() {
 		$("#fromDate").datepicker({
-//			dateFormat : "dd-M-yy",
+			dateFormat: 'dd/mm/yy',
 			// minDate : 0,
 			showAnim : 'drop',
 			onSelect : function(date) {
@@ -241,7 +240,7 @@ var paymentTable = $('#paymentTable').DataTable();
 			}
 		});
 		$('#toDate').datepicker({
-//			dateFormat : "dd-M-yy",
+			dateFormat: 'dd/mm/yy',
 			showAnim : 'drop',
 			onClose : function() {
 				var dt1 = $('#fromDate').datepicker('getDate');

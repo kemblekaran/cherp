@@ -10,6 +10,7 @@
 	href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="validate.css">
 <script src="https://www.w3schools.com/lib/w3.js"></script>
+
 </head>
 
 
@@ -41,8 +42,8 @@
 					<thead>
 						<tr>
 							<th>Id</th>
-							<th>City</th>
 							<th>State</th>
+							<th>City</th>
 
 						</tr>
 					</thead>
@@ -88,7 +89,7 @@
 								
 								<div class="form-group">
 									<label for="cityName">City Name</label> <input type="text"
-										class="form-control" id="cityName" name="cityName">
+										class="form-control" id="cityName" name="cityName" onkeyup="javascript:capitalize(this.id, this.value);">
 								</div>
 
 								<input type="hidden" name="operation" value="insert">
@@ -156,9 +157,9 @@
 			"columns" : [ {
 				"data" : "id"
 			}, {
-				"data" : "cityName"
-			}, {
 				"data" : "stateName"
+			}, {
+				"data" : "cityName"
 			} ]
 		});
 

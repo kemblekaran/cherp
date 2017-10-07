@@ -1,15 +1,15 @@
 $(function() {
 
-	var cmpLedgerArray = [];
+	var custLedgerArray = [];
 	var kgs = 0;
 	var pieces = 0;
 	var amount = 0;
-	var payment = 0;
-	var weekPurchase = $("#weekPurchase");
-	var totalPayment = $("#totalPayment");
-	var paymentGiven = $("#paymentGiven") ;
+	var collection = 0;
+	var weekSales = $("#weekSales");
+	var totalCollection = $("#totalCollection");
+	var collectionReceived = $("#collectionReceived") ;
 	var closingBal = $("#closingBal") ;
-	var paymentCalc = null ;
+	var collectionCalc = null ;
 	// Load company into dropdown list
 	$.getJSON('/server/jsonfiles/customer.json', function(data) {
 		var jsonDataProduct = data['data'];
@@ -62,7 +62,7 @@ $(function() {
 
 				$.each(jsonDataProduct, function(key, val) {
 
-					if (customerName ==val.fname + " " +val.lname) {
+					if (customerName ==val.customer) {
 						$('#opeBal').val(val.closingBal);
 					} else if (customerName == "selectCust") {
 						$('#opeBal').val(null);
@@ -92,28 +92,28 @@ $(function() {
 			dataType : "json",
 			select : true,
 			success : function(data) {
-				var purchaseData = data['data'];
+				var salesData = data['data'];
 
-				$.each(purchaseData, function(key, val) {
+				$.each(salesData, function(key, val) {
 
-					if (custName == val.company) {
+					if (custName == val.customer) {
 						//getting from and to date from input
 						var fromTime = new Date($('#fromDate').val()).getTime();
 						var toTime = new Date($('#toDate').val()).getTime();
 						
 						//getting date from json file
-						var date = new Date(val.date);
+						var date = new Date(val.salesDate);
 //						alert(date);
 						
 						//check whether date is true from selected date
 						if (date.getTime() >= fromTime && date.getTime() <= toTime) {
 						
-							salesTable.row.add([ val.date, val.purchaseId, val.product, val.pieces, val.kg, val.rate, val.amount ]).draw();
-								$("#cmpName").on("change", function() {
-									purchaseTable.clear().draw();
+							salesTable.row.add([ val.salesDate, val.purchaseId, val.product, val.pieces, val.kg, val.rate, val.amount ]).draw();
+								$("#custName").on("change", function() {
+									salesTable.clear().draw();
 								});
 								$('#go').on('click', function() {
-									purchaseTable.clear().draw();
+									salesTable.clear().draw();
 								});
 								kgs = kgs + val.kg;
 								pieces = pieces + val.pieces;
@@ -129,13 +129,13 @@ $(function() {
 				amount = 0;
 				$('#kgs').val(totalKgs);
 				$('#pcs').val(totalPcs);
-				weekPurchase.val(totalAmt);
+				weekSales.val(totalAmt);
 			}
 
 		});
 	});
 	
-var paymentTable = $('#paymentTable').DataTable();
+var collectionTable = $('#collectionTable').DataTable();
 	
 	$('#go').on('click', function(e) {
 		event.preventDefault();
@@ -147,47 +147,48 @@ var paymentTable = $('#paymentTable').DataTable();
 		dataType : "json",
 		select : true,
 		success : function(data) {
-			var paymentData = data['data'];
+			var collectionData = data['data'];
 
-			$.each(paymentData, function(key, val) {
+			$.each(collectionData, function(key, val) {
 
-				if (custName == val.company) {
+				if (custName == val.customer) {
 					//getting from and to date from input
 					var fromTime = new Date($('#fromDate').val()).getTime();
 					var toTime = new Date($('#toDate').val()).getTime();
 					
 					//getting date from json file
-					var date = new Date(val.paymentDate);
+					var date = new Date(val.collectionDate);
 					
 					//check whether date is true from selected date
 					if (date.getTime() >= fromTime && date.getTime() <= toTime) {
 						
-						paymentTable.row.add([ val.paymentDate, val.company,  val.payNow ]).draw();
+						collectionTable.row.add([ val.collectionDate, val.customer,  val.payNow ]).draw();
 							$("#custName").on("change", function() {
-								paymentTable.clear().draw();
+								collectionTable.clear().draw();
 							});
 							$('#go').on('click', function() {
-								paymentTable.clear().draw();
+								collectionTable.clear().draw();
 							});
-							payment = payment + val.payNow;
+							collection = collection + val.payNow;
 					}
 				}
 			});
-			var weekPayment = payment;
-			$('#payment').val(weekPayment);
-			totalPayment.val(weekPayment);
-			alert(totalPayment.val());
-			paymentCalc = weekPurchase.val() - totalPayment.val();
-			paymentGiven.val(paymentCalc);
-			$('#closingBal').val(paymentCalc);
-			payment = 0;
+			var weekCollection = collection;
+			$('#collection').val(weekCollection);
+			totalCollection.val(weekCollection);
+			collectionCalc = weekSales.val() - totalCollection.val();
+			collectionReceived.val(collectionCalc);
+			$('#closingBal').val(collectionCalc);
+			collection = 0;
 		}
 
 	});
 });
+	
+	
 	$("#optionsRadios1, #optionsRadios2").change(function() {
 		$("#addLess").val(null);
-		$('#closingBal').val(paymentCalc);
+		$('#closingBal').val(collectionCalc);
 	});
 	
 	$("#addLess").on('input', function() {
@@ -195,9 +196,9 @@ var paymentTable = $('#paymentTable').DataTable();
 		
 		var total = 0;
 		if(radio == "add"){
-			total = paymentCalc + parseInt($("#addLess").val());
+			total = collectionCalc + parseInt($("#addLess").val());
 		}else if(radio == "less"){
-			total = paymentCalc - parseInt($("#addLess").val());
+			total = collectionCalc - parseInt($("#addLess").val());
 		}
 			
 		
@@ -205,7 +206,7 @@ var paymentTable = $('#paymentTable').DataTable();
 
 			var bal = parseInt($('#closingBal').val(total));
 		} else {
-			$('#closingBal').val(paymentCalc);
+			$('#closingBal').val(collectionCalc);
 			$("#addLess").val(null);
 			// alert("Please enter right amount");
 		}
@@ -229,7 +230,7 @@ var paymentTable = $('#paymentTable').DataTable();
 	// for setting from and to date
 	$(document).ready(function() {
 		$("#fromDate").datepicker({
-//			dateFormat : "dd-M-yy",
+			dateFormat: 'dd/mm/yy',
 			// minDate : 0,
 			showAnim : 'drop',
 			onSelect : function(date) {
@@ -241,7 +242,7 @@ var paymentTable = $('#paymentTable').DataTable();
 			}
 		});
 		$('#toDate').datepicker({
-//			dateFormat : "dd-M-yy",
+			dateFormat: 'dd/mm/yy',
 			showAnim : 'drop',
 			onClose : function() {
 				var dt1 = $('#fromDate').datepicker('getDate');
@@ -270,28 +271,28 @@ var paymentTable = $('#paymentTable').DataTable();
 				"opBal" : $('#opeBal').val(),
 				"totalKgs" : $('#kgs').val(),
 				"totalPcs" : $('#pcs').val(),
-				"weekPayment" : $('#payment').val(),
-				"weekPurchase" : $('#weekPurchase').val(),
-				"totalPayment" : $('#totalPayment').val(),
-				"paymentGiven" : $('#paymentGiven').val(),
+				"weekCollection" : $('#collection').val(),
+				"weekSales" : $('#weekSales').val(),
+				"totalCollection" : $('#totalCollection').val(),
+				"collectionReceived" : $('#collectionReceived').val(),
 				"addLess" : $('#addLess').val(),
 				"closingBal" : $('#closingBal').val()
 				
 		}
-		cmpLedgerArray.push(LedgerData);
+		custLedgerArray.push(LedgerData);
 
-		var cmpLedgerJson = '{data:' + JSON.stringify(cmpLedgerArray) + '}';
+		var custLedgerJson = '{data:' + JSON.stringify(custLedgerArray) + '}';
 		
-		$('#cmpLedgerJson').val(cmpLedgerJson);
+		$('#custLedgerJson').val(custLedgerJson);
 		
-		console.log("cmpLedgerJson---" + cmpLedgerJson);
+		console.log("custLedgerJson---" + custLedgerJson);
 		
-		$('#CmpLedgerForm').submit(function(e) {
+		$('#CustLedgerForm').submit(function(e) {
 
 			$.ajax({
-				url : 'CmpLedgerServlet',
+				url : 'CustLedgerServlet',
 				type : 'post',
-				data : $('#CmpLedgerForm').serialize(),
+				data : $('#CustLedgerForm').serialize(),
 
 				success : function(data) {
 					console.log('success');

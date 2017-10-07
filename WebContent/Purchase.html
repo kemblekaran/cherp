@@ -21,6 +21,7 @@
 //set current date to purchase using datepicker
 $(function() {
 	$("#date").datepicker({
+		dateFormat: 'dd/mm/yy',
 		showAnim : 'drop',
 		showButtonPanel : true,
 	}).datepicker('setDate', 'today');
@@ -60,7 +61,7 @@ $(function() {
 				<div class="col-md-2 col-width ">
 					<label>Driver 1</label> <select id="driverList1"
 						class="form-control" name="driver1">
-						<option value="">Driver</option>
+						<option value="null">Driver</option>
 					</select>
 				</div>
 

@@ -106,7 +106,7 @@ $(function() {
 					"pieces" : pieces.val(),
 					"kg" : kg.val(),
 					"rate" : rate.val(),
-					"amt" : amt.val(),
+					"amount" : amt.val(),
 					"avgWeight" : avgWeight.val()
 				}
 
@@ -127,8 +127,8 @@ $(function() {
 							.draw();
 
 					// console.log('Json' + productJsonArray);
-					console.log("productRowData "+productRowData);
-					console.log("payloadRowData "+payloadRowData);
+					console.log("productRowData "+JSON.stringify(productRowData));
+					console.log("payloadRowData "+JSON.stringify(payloadRowData));
 
 				}
 
@@ -136,7 +136,7 @@ $(function() {
 				var fa = 0;
 				// for setting final amount
 				for (var i = 0; i < productRowData.length; i++) {
-					fa = fa + parseInt(productRowData[i].amt);
+					fa = fa + parseInt(productRowData[i].amount);
 
 				}
 				// for setting final amount

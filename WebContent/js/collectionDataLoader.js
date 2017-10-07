@@ -139,7 +139,7 @@ $(function() {
 		$(function() {
 			
 			$("#collectionDate, #chDate").datepicker({
-				
+				dateFormat: 'dd/mm/yy',
 				showAnim : 'drop',
 				showButtonPanel : true,
 			}).datepicker('setDate', 'today');

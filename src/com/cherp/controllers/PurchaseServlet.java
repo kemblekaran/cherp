@@ -56,12 +56,15 @@ public class PurchaseServlet extends HttpServlet {
 	private String productJson = "";
 	private String payloadJson = "";
 
+	private String vanWiseSales = "";
+
 	public void getParaValues(HttpServletRequest request, HttpServletResponse response) {
 
 		operation = request.getParameter("operation");
 		dataLoader = request.getParameter("dataLoader");
 		productJson = request.getParameter("productJson");
 		payloadJson = request.getParameter("payloadJson");
+		vanWiseSales = request.getParameter("vanWiseSales");
 
 		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
 
@@ -102,9 +105,8 @@ public class PurchaseServlet extends HttpServlet {
 		Gson gson = new Gson();
 		Data jsonData = gson.fromJson(productJson, Data.class);
 		Data payData = gson.fromJson(payloadJson, Data.class);
-		
-		 
-		System.out.println("payloadjson----------------- " +payloadJson);
+
+		System.out.println("payloadjson----------------- " + payloadJson);
 		// check which operation is performed(insert,update or delete)
 		if (operation != null) {
 			// For insert set ALL Parameters except ID
@@ -116,18 +118,18 @@ public class PurchaseServlet extends HttpServlet {
 
 					purchase.setFinalAmount(Double.parseDouble(finalAmount));
 					purchase.setStatus(1);
-					System.out.println("purchase final amount"+Double.parseDouble(finalAmount));
+					System.out.println("purchase final amount" + Double.parseDouble(finalAmount));
 					// operationResp = pdm.insertData(purchase);
 					operationResp = new PurchaseDao().insert(purchase);
 				}
 			}
 			if (operation.equals("insert")) {
-				
+
 				for (PayLoad payload : payData.getPayLoadData()) {
 					payload.setFinalAmount(Double.parseDouble(finalAmount));
 					payload.setBalanceAmount(Double.parseDouble(finalAmount));
 					payload.setStatus(1);
-					System.out.println("payload final amount"+Double.parseDouble(finalAmount));
+					System.out.println("payload final amount" + Double.parseDouble(finalAmount));
 					new PurchaseDao().insertPay(payload);
 				}
 				pw.println(operationResp);
@@ -154,13 +156,13 @@ public class PurchaseServlet extends HttpServlet {
 		new JsonCreator().createJson(purchaseViewList, jsonFilePath + "purchaseView.json");
 		// jsonFileWriter(purchaseViewList);
 
-		List<Purchase> vanWiseSalesList = new ArrayList<>();
-		Purchase purchase = new Purchase();
-		purchase.setDate(date);
-		purchase.setVanName(vanName);
-
-		vanWiseSalesList = pdm.selectVanWiseSalesData(purchase);
-		jsonFileWriterList(vanWiseSalesList);
+		if (vanWiseSales != null) {
+			if (vanWiseSales.equals("true")) {
+				List<Purchase> vanWiseSalesList = new ArrayList<>();
+				vanWiseSalesList = new PurchaseDao().selectVanWise(date, vanName);
+				new JsonCreator().createJson(vanWiseSalesList, jsonFilePath + "vanWiseSales.json");
+			}
+		}
 	}
 
 	// method for creating json file for loading data into inputs of

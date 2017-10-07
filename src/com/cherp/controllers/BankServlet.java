@@ -93,7 +93,7 @@ public class BankServlet extends HttpServlet {
 
 				System.out.println("Insert Function");
 				bank.setBankName(bankName);
-				bank.setBrachName(branchName);
+				bank.setBranchName(branchName);
 				bank.setAccType(accType);
 				bank.setAddress(address);
 				bank.setAccNo(Long.parseLong(accNo));
@@ -108,7 +108,7 @@ public class BankServlet extends HttpServlet {
 				System.out.println("Update Function");
 				bank.setId(Integer.parseInt(rowId));
 				bank.setBankName(updatedCellBankName);
-				bank.setBrachName(updatedCellBranchName);
+				bank.setBranchName(updatedCellBranchName);
 				bank.setAccType(updatedCellAccType);
 				bank.setAddress(updatedCellAddress);
 				bank.setAccNo(Long.parseLong(updatedCellAccNo));
