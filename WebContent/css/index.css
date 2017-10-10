@@ -1,3 +1,6 @@
+body{
+	padding-top: 50px;
+}
 .btn-padding{
     
     padding: 0px 15px;
@@ -15,4 +18,12 @@
 #salesQtyKg, #salesQtyPieces {
 	color : green;
 	font-family: 'Baloo Bhaijaan', cursive;
+}
+.navbar {
+	background-color: #ddd;
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    /* the rest of your styling */
 }

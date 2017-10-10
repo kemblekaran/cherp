@@ -197,33 +197,33 @@ public class PurchaseServlet extends HttpServlet {
 	}
 
 	// method for creating json file for purchaseView.json
-	public void jsonFileWriterList(List<Purchase> vanWiseSalesList) {
-		try {
-			System.out.println("In vanWiseSales json writer");
-			Writer writer = new FileWriter(jsonFilePath + "vanWiseSales.json");
-			JsonWriter jw = new JsonWriter(writer);
-			jw.beginObject();
-			jw.name("data");
-			jw.beginArray();
-			for (Purchase p : vanWiseSalesList) {
-				jw.beginObject();
-				jw.name("purchaseId").value(p.getPurchaseId());
-
-				jw.name("driver1").value(p.getDriver1());
-				jw.name("driver2").value(p.getDriver2());
-				jw.name("cleaner1").value(p.getCleaner1());
-				jw.name("cleaner2").value(p.getCleaner2());
-				jw.name("rate").value(p.getRate());
-				jw.name("amount").value(p.getAmount());
-				jw.name("avgWeight").value(p.getAvgWeight());
-				jw.name("finalAmount").value(p.getFinalAmount());
-				jw.endObject();
-			}
-			jw.endArray();
-			jw.endObject();
-			jw.close();
-		} catch (Exception e) {
-		}
-	}
+//	public void jsonFileWriterList(List<Purchase> vanWiseSalesList) {
+//		try {
+//			System.out.println("In vanWiseSales json writer");
+//			Writer writer = new FileWriter(jsonFilePath + "vanWiseSales.json");
+//			JsonWriter jw = new JsonWriter(writer);
+//			jw.beginObject();
+//			jw.name("data");
+//			jw.beginArray();
+//			for (Purchase p : vanWiseSalesList) {
+//				jw.beginObject();
+//				jw.name("purchaseId").value(p.getPurchaseId());
+//
+//				jw.name("driver1").value(p.getDriver1());
+//				jw.name("driver2").value(p.getDriver2());
+//				jw.name("cleaner1").value(p.getCleaner1());
+//				jw.name("cleaner2").value(p.getCleaner2());
+//				jw.name("rate").value(p.getRate());
+//				jw.name("amount").value(p.getAmount());
+//				jw.name("avgWeight").value(p.getAvgWeight());
+//				jw.name("finalAmount").value(p.getFinalAmount());
+//				jw.endObject();
+//			}
+//			jw.endArray();
+//			jw.endObject();
+//			jw.close();
+//		} catch (Exception e) {
+//		}
+//	}
 
 }

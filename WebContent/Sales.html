@@ -13,8 +13,12 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="validate.css">
+<script src="https://www.w3schools.com/lib/w3.js"></script>
 </head>
 <body>
+<div w3-include-html="main.html"></div>
+
+<!-- main container -->
 	<div class="container-fluid" id="mainContainer">
 		<div class="jumbotron">
 			<form id="SalesForm">
@@ -244,6 +248,11 @@
 			</form>
 		</div>
 	</div>
+	
+<!-- 	scripts -->
+	<script>
+		w3.includeHTML();
+	</script>
 	<script src="http://code.jquery.com/jquery-3.2.1.min.js"
 		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 		crossorigin="anonymous"></script>

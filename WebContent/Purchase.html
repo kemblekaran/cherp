@@ -14,29 +14,33 @@
 
 <!-- scripts for view table screen -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" /> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 <script type="text/javascript" src="js/fullscreen.js"></script>
 <script>
-//set current date to purchase using datepicker
-$(function() {
-	$("#date").datepicker({
-		dateFormat: 'dd/mm/yy',
-		showAnim : 'drop',
-		showButtonPanel : true,
-	}).datepicker('setDate', 'today');
-});
+	//set current date to purchase using datepicker
+	$(function() {
+		$("#date").datepicker({
+			dateFormat : 'dd/mm/yy',
+			showAnim : 'drop',
+			showButtonPanel : true,
+		}).datepicker('setDate', 'today');
+	});
 </script>
 <!-- datepicker scripts -->
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/blitzer/jquery-ui.css">
-  	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.9.1/themes/blitzer/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </head>
 
 
 <body>
 	<div w3-include-html="main.html"></div>
-	<div class="container-fluid body-top" style="margin-top: 5%">
+	<div class="container-fluid ">
 		<form id="PurchaseForm">
 			<input type="hidden" id="actionURL" value="PurchaseServlet">
 			<div class="row well">
@@ -47,8 +51,8 @@ $(function() {
 				</div>
 
 				<div class="col-md-2 col-width ">
-					<label>Date</label> 
-					<input type="text" name="date" class="form-control" id="date">
+					<label>Date</label> <input type="text" name="date"
+						class="form-control" id="date">
 				</div>
 
 				<div class="col-md-2 col-width ">
@@ -129,7 +133,7 @@ $(function() {
 
 			<div class="jumbotron">
 				<!-- Table for Product  -->
-				<table id="productTable">
+				<table id="productTable" class="table-bordered responsive">
 					<thead>
 						<tr>
 							<th>Product</th>
@@ -143,12 +147,16 @@ $(function() {
 					<tbody>
 
 						<tr>
-							<td><select id="productSelect" name="product" class="form-control">
+							<td><select id="productSelect" name="product"
+								class="form-control">
 									<option>Select Product</option>
 							</select></td>
-							<td><input type="text" name="pieces" id="pieces" class="form-control"></td>
-							<td><input type="text" name="kg" id="kg" class="form-control"></td>
-							<td><input type="text" name="rate" id="rate" class="form-control"></td>
+							<td><input type="text" name="pieces" id="pieces"
+								class="form-control"></td>
+							<td><input type="text" name="kg" id="kg"
+								class="form-control"></td>
+							<td><input type="text" name="rate" id="rate"
+								class="form-control"></td>
 							<td><input type="text" name="amount" id="amount"
 								readonly="readonly" class="form-control"></td>
 							<td><input type="text" name="avgWeight" id="avgWeight"
@@ -158,18 +166,20 @@ $(function() {
 					</tbody>
 
 				</table>
-				
+
 			</div>
-			<div>
+			<div class="container-fluid row">
+			<div class="well col-md-2">
 				<label for="finalAmount">Final Amount</label> <input type="text"
-					name="finalAmount" id="finalAmount">
+					name="finalAmount" id="finalAmount" class="form-control">
+			</div>
 			</div>
 			<input type="hidden" name="operation" value="insert">
 
 
 			<!-- input type for sending product json as form value -->
 			<input type="hidden" name="productJson" id="productJson">
-			
+
 			<!-- input type for sending payload json as form value -->
 			<input type="hidden" name="payloadJson" id="payloadJson">
 
@@ -237,15 +247,15 @@ $(function() {
 	<script>
 		w3.includeHTML();
 	</script>
-<!-- 	<script src="http://code.jquery.com/jquery-3.2.1.min.js" -->
-<!-- 		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" -->
-<!-- 		crossorigin="anonymous"></script> -->
+	<!-- 	<script src="http://code.jquery.com/jquery-3.2.1.min.js" -->
+	<!-- 		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" -->
+	<!-- 		crossorigin="anonymous"></script> -->
 	<script
 		src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-<!-- 	<script -->
-<!-- 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" -->
-<!-- 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" -->
-<!-- 		crossorigin="anonymous"></script> -->
+	<!-- 	<script -->
+	<!-- 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" -->
+	<!-- 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" -->
+	<!-- 		crossorigin="anonymous"></script> -->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 	<script src="validation/validatePurchase.js"></script>
@@ -270,8 +280,10 @@ $(function() {
 		//add data to datatable(very important)
 		var dataTable = $('#purchaseViewTable').DataTable({
 			"ajax" : "/server/jsonfiles/purchaseView.json",
+			"pageLength": 5 ,
+			
 			"scrollX" : true,
-			"order": [[ 0, "desc" ]],
+			"order" : [ [ 0, "desc" ] ],
 			"columns" : [ {
 				"data" : "purchaseId"
 			}, {
@@ -312,7 +324,6 @@ $(function() {
 				"data" : "finalAmount"
 			} ]
 		});
-
 	</script>
 
 </body>

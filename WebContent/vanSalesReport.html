@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/blitzer/jquery-ui.css">
   	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  	<link rel="stylesheet" href="css/index.css">
 </head>
 
 
@@ -354,42 +355,11 @@
 
         //add data to datatable(very important)
         var CherpDataTable = $('#dataTable').DataTable({
-            "ajax": "/server/jsonfiles/area.json",
-            "columns": [{
-                "data": "date"
-            }, {
-                "data": "company"
-            }, {
-                "data": "product"
-            }, {
-                "data": "pieces"
-            }, {
-                "data": "kgs"
-            }, {
-                "data": "rate"
-            }, {
-                "data": "amount"
-            }, {
-                "data": "avgBW"
-            }, {
-                "data": "balPcs"
-            }, {
-                "data": "balKgs"
-            }, {
-                "data": "shrinkage"
-            }]
 
         });
         
         var payDataTable = $('#payDataTable').DataTable({
-            "ajax": "/server/jsonfiles/area.json",
-            "columns": [{
-                "data": "date"
-            }, {
-                "data": "particulars"
-            }, {
-                "data": "amount"
-            }]
+           
 
         });
 

@@ -30,6 +30,7 @@ $(function() {
 				'vanName' : van.val(),
 				vanWiseSales : true
 			},
+			async : false,
 			type : 'POST',
 			success : function() {
 				console.log('successfully sent data to the server');
