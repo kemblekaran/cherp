@@ -85,31 +85,28 @@
 								</div>
 								<div class="form-group">
 									<label for="fname">First Name</label> <input type="text"
-										class="form-control" id="fname" name="fname">
+										class="form-control" id="fname" name="fname" onkeyup="javascript:capitalize(this.id, this.value);">
 								</div>
 
 								<div class="form-group">
 									<label for="lname">Last Name</label> <input type="text"
-										class="form-control" id="lname" name="lname">
+										class="form-control" id="lname" name="lname" onkeyup="javascript:capitalize(this.id, this.value);">
 								</div>
 
 								<div class="form-group">
 									<label for="preadd">Current Address</label> <input type="text"
-										class="form-control" id="curAdd" name="curAdd">
+										class="form-control" id="curAdd" name="curAdd" onkeyup="javascript:capitalize(this.id, this.value);">
 								</div>
 
 								<div class="form-group">
 									<label for="peradd">Permanent Address</label> <input
-										type="text" class="form-control" id="perAdd" name="perAdd">
+										type="text" class="form-control" id="perAdd" name="perAdd" onkeyup="javascript:capitalize(this.id, this.value);">
 								</div>
 
 								<div class="form-group">
-									<label for="state">State</label> <select id="state"
+									<label for="state">State</label> <select id="stateName"
 										name="state" class="form-control">
 										<option value="">select state</option>
-										<option>Maharashtra</option>
-										<option>Karnatak</option>
-										<option>Gujrat</option>
 									</select>
 								</div>
 
@@ -117,12 +114,9 @@
 									<label for="city">City</label> <select id="city" name="city"
 										class="form-control">
 										<option value="">select city</option>
-										<option>Mumbai</option>
-										<option>Delhi</option>
-										<option>Banglore</option>
+
 									</select>
 								</div>
-
 
 								<div class="form-group">
 									<label for="mobile">Mobile</label> <input type="text"
@@ -146,9 +140,8 @@
 										class="form-control" id="adhaarNo" name="adhaarNo">
 								</div>
 								<div class="form-group">
-									<label for="photo">Select your Photo</label> <input
-										type="password" class="form-control" id="photo" name="photo"
-										pattern=".{6,}">
+									<label for="photo">Select your Photo</label> <input type="text"
+										class="form-control" id="photo" name="photo">
 								</div>
 
 								<input type="hidden" name="operation" value="insert">
@@ -187,30 +180,9 @@
 	<script type="text/javascript" src="validation/validateCleaner.js"></script>
 	<script src="js/dataTables.cellEdit.js"></script>
 	<script src="js/dataTable.js" type="text/javascript"></script>
+	<script src="js/cleaner.js" type="text/javascript"></script>
 	<script>
-		$("#adhaarNo").mask('9999-9999-9999');
-		// 	$('#fname').mask("00/00/0000", {placeholder: "__/__/____"});
-		$('#drLicense').mask('ZZ-99-9999-9999999', {
-			translation : {
-				'Z' : {
-					pattern : /[A-Z]/,
-					optional : true
-				}
-			}
-		});
-		$('#panNo').mask('ZZZZZ9999Z', {
-			translation : {
-				'Z' : {
-					pattern : /[A-Z]/,
-					optional : true
-				}
-			}
-		});
-		$("#mobile").mask('9999999999');
-		$("#phone").mask('999-999');
-		$('input[type=text]').val(function() {
-			return this.value.toUpperCase();
-		})
+		
 	</script>
 
 	<script type="text/javascript">
