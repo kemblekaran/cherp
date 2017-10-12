@@ -54,8 +54,7 @@ public class Purchase {
 	private Double finalAmount;
 	@Column(name="status")
 	private int status;
-	@Transient
-	private int invoiceNo;
+	
 
 	public int getId() {
 		return id;
@@ -215,14 +214,6 @@ public class Purchase {
 
 	public void setFinalAmount(Double finalAmount) {
 		this.finalAmount = finalAmount;
-	}
-
-	public int getInvoiceNo() {
-		return invoiceNo;
-	}
-
-	public void setInvoiceNo(int invoiceNo) {
-		this.invoiceNo = invoiceNo;
 	}
 
 	public int getStatus() {

@@ -1,4 +1,33 @@
 $(function() {
+	
+	$( document ).ready(function() {
+	    console.log( "ready!" );
+	    $.ajax({
+			url : 'SalesServlet',
+//			async : false,
+			data : {
+				invoiceNoLoader : true
+			},
+			type : 'POST',
+			success : function() {
+				console.log('Invoice Number Loaded Successfully');
+			},
+			error : function() {
+				console.log('Error Loading Invoice Number');
+
+			}
+		});
+	    
+	    $.getJSON('/server/jsonfiles/invoiceNo.json',function(data){
+			var jsonData = data['data'];
+			var invoice;
+			$.each(jsonData,function(key,val){
+				invoice = val.invoiceNo;
+			});
+			console.log(invoice);
+			invoiceNo.val(invoice + 1);
+		});
+	});
 
 	// Sets van,date and purchaseId from salesTable.json
 	$.getJSON('/server/jsonfiles/salesTable.json', function(data) {
@@ -41,7 +70,7 @@ $(function() {
 			
 			//calculate total eggs
 			$.each(jsonData, function(key, val) {
-				if(val.product == "eggs")
+				if(val.product == "Eggs")
 					totalPcs = totalPcs + val.pieces;
 			});
 			var showPcs = totalPcs;
@@ -51,7 +80,7 @@ $(function() {
 			
 			//calculate total chickens
 			$.each(jsonData, function(key, val) {
-				if(val.product == "chickens")
+				if(val.product == "Chicken")
 					totalPcs = totalPcs + val.pieces;
 			});
 			var showPcs = totalPcs;
@@ -248,15 +277,7 @@ $(function() {
 						var salesData = salesReady.row(this).data();
 
 						//sets invoiceNo from database
-						$.getJSON('/server/jsonfiles/salesTable.json',function(data){
-							var jsonData = data['data'];
-							var invoice;
-							$.each(jsonData,function(key,val){
-								invoice = val.invoiceNo;
-							});
-							console.log(invoice);
-							invoiceNo.val(invoice + 1);
-						});
+						
 
 						// sets the value to the variable from salesData
 						pid = salesData.purchaseId;

@@ -1,10 +1,13 @@
 package com.cherp.controllers;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +22,7 @@ import com.cherp.entities.Sales;
 import com.cherp.entities.SalesLoad;
 import com.cherp.utils.JsonCreator;
 import com.google.gson.Gson;
+import com.google.gson.stream.JsonWriter;
 
 public class SalesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -43,6 +47,8 @@ public class SalesServlet extends HttpServlet {
 
 	private String productJson = "";
 	private String salesLoadJson = "";
+	
+	private String invoiceNoLoader = "";
 
 	// method for getting parameters
 	public void getParaValues(HttpServletRequest request, HttpServletResponse response) {
@@ -53,6 +59,9 @@ public class SalesServlet extends HttpServlet {
 		// context para for json files location
 		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
 
+		invoiceNoLoader = request.getParameter("invoiceNoLoader");
+		System.out.println("invoiceNoLoader-------"+invoiceNoLoader);
+		
 		// Insert Form Parameters
 		purchaseDate = request.getParameter("purchaseDate");
 		System.out.println("purchase date received in sales servlet " + purchaseDate);
@@ -131,9 +140,19 @@ public class SalesServlet extends HttpServlet {
 				System.out.println("purchaseView");
 				List<Purchase> purchaseTableList = new ArrayList<>();
 				purchaseTableList = new SalesDAO().selectAll(purchaseDate, van);
-
+				
+				
 				// Writes into JSON File
+//				jsonFileWriter(purchaseTableList);
 				new JsonCreator().createJson(purchaseTableList, jsonFilePath + "salesTable.json");
+			}
+		}
+		
+		if(invoiceNoLoader != null) {
+			if(invoiceNoLoader.equals("true")) {
+				int invoiceNO = new SalesDAO().getInvoiceNo();
+				System.out.println("invoice no in sales servlet "+invoiceNO);
+				jsonInvoiceNoLoader(invoiceNO);
 			}
 		}
 		
@@ -142,4 +161,28 @@ public class SalesServlet extends HttpServlet {
 		new JsonCreator().createJson(salesViewList, jsonFilePath + "salesView.json");
 
 	}
+	
+	public void jsonInvoiceNoLoader(int invoiceNO) {
+		try {
+			Writer writer = new FileWriter(jsonFilePath + "invoiceNo.json");
+			JsonWriter jw = new JsonWriter(writer);
+			jw.beginObject();
+			jw.name("data");
+			jw.beginArray();
+			jw.beginObject();
+			jw.name("invoiceNo").value(invoiceNO);
+			jw.endObject();
+			jw.endArray();
+			jw.endObject();
+			jw.close();
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+
+
 }

@@ -6,9 +6,9 @@ $(function() {
 	}, "Invalid Pan Number");
 
 	// Pattern for driving lisense validation handler
-	$.validator.addMethod("lisence", function(value, element) {
-		return this.optional(element) || /^[A-Z]{2}-\d{14}$/.test(value);
-	}, "Invalid Lisence Number");
+	$.validator.addMethod("license", function(value, element) {
+		return this.optional(element) || /^[A-Z]{2}-\d{2}-\d{4}-\d{7}$/.test(value);
+	}, "Invalid license Number");
 
 	//Patter for Adhaar formatter
 	$.validator.addMethod("adhaar", function(value, element) {
@@ -16,10 +16,11 @@ $(function() {
 	}, "Invalid Adhaar Format");
 	
 	
+	
 	// validates the cleaner form
 	$('#InsertForm').validate({
 		errorClass : "red-error",
-		errorElement : "em",
+		errorElement : "b",
 		rules : {
 			fname : "required",
 			lname : "required",
@@ -29,19 +30,17 @@ $(function() {
 			city : "required",
 			mobile : {
 				required : true,
-				minlegth : 10,
-				maxlength : 10
+				minlength : 10,
+				
 			},
 			phone : {
 				required : true,
-				minlegth : 10,
-				maxlength : 10
+				minlength : 7,
+				
 			},
 			drLicense : {
 				required : true,
-				lisence : true,
-				minlength: 17,
-				maxlength: 17
+				license : true,
 			},
 			panNo : {
 				required : true,
@@ -50,27 +49,31 @@ $(function() {
 			adhaarNo : {
 				required : true,
 				adhaar: true,
-				minlength : 14,
-				maxlength : 14
 			},
 			photo : "required"
 		},
 		messages : {
+			mobile : {
+				minlength : 'Please enter atleast 10 digits.',
+			},
+			phone : {
+				minlength : 'Please enter atleast 6 digits.'
+			},
 			photo : {
 				required : 'Upload your Photo'
 			},
 			adhaarNo:{
 				required: 'Enter UID Number',
-				adhaar: 'Add a hyphen between Adhaar Number',
-				minlength: 'Adhaar is not Valid',
-				maxlength: 'Enter Valid Adhaar Number'
+				adhaar: 'Addhar number is invalid, Please enter 12 digits of your <big>Aadhar</big> number.',
 			},
 			drLicense:{
-				required: 'Enter Your Lisence Number',
-				lisence: 'Liscence is invalid or add a hyphen between letters and numbers',
-				minlength: 'Liscence must be 17 characters long',
-				maxlength: 'Liscence Number must not contains more than 17 characters'
+				required: 'Enter Your license Number',
+				license: 'Licence is invalid, make sure that the first two letters are alphabates in capital and others are numbers.',
+			},
+			panNo : {
+				pan : 'Pan number is invalid, Please enter first 5 alphabates character and after 4 digit number and then 1 alphabate character. '
 			}
-		}
+		},
+		
 	});
 });

@@ -26,8 +26,8 @@ public class Drivers {
 	private String state;
 	@Column(name = "city")
 	private String city;
-	@Column(name = "drlicense")
-	private String drlicense;
+	@Column(name = "drLicense")
+	private String drLicense;
 	@Column(name = "panNo")
 	private String panNo;
 	@Column(name = "adhaarNo")
@@ -97,12 +97,14 @@ public class Drivers {
 		this.city = city;
 	}
 
-	public String getDrlicense() {
-		return drlicense;
+	
+
+	public String getDrLicense() {
+		return drLicense;
 	}
 
-	public void setDrlicense(String drlicense) {
-		this.drlicense = drlicense;
+	public void setDrLicense(String drLicense) {
+		this.drLicense = drLicense;
 	}
 
 	public String getPanNo() {

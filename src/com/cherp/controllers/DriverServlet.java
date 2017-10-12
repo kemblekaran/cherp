@@ -33,7 +33,7 @@ public class DriverServlet extends HttpServlet {
 	private String phone;
 	private String panNo;
 	private String adhaarNo;
-	private String drLiscense;
+	private String drLicense;
 	private String photo = "";
 	private String operation = "";
 
@@ -42,7 +42,7 @@ public class DriverServlet extends HttpServlet {
 	private String rowId = "";
 	private String updatedCellFname = "";
 	private String updatedCellLname = "";
-	private String updatedCellDrLiscense = "";
+	private String updatedCellDrLicense = "";
 	private String updatedCellCurAdd = "";
 	private String updatedCellPerAdd = "";
 	private String updatedCellState = "";
@@ -73,7 +73,7 @@ public class DriverServlet extends HttpServlet {
 		mobile = request.getParameter("mobile");
 		phone = request.getParameter("phone");
 		adhaarNo = request.getParameter("adhaarNo");
-		drLiscense = request.getParameter("drLiscense");
+		drLicense = request.getParameter("drLicense");
 
 		// Update Or Delete Parameters
 		rowId = request.getParameter("updatedRow[id]");
@@ -88,7 +88,7 @@ public class DriverServlet extends HttpServlet {
 		updatedCellMobile = request.getParameter("updatedRow[mobile]");
 		updatedCellPhone = request.getParameter("updatedRow[phone]");
 		updatedCellAdhaarNo = request.getParameter("updatedRow[adhaarNo]");
-		updatedCellDrLiscense = request.getParameter("updatedRow[drLiscense]");
+		updatedCellDrLicense = request.getParameter("updatedRow[drLicense]");
 
 	}
 
@@ -121,7 +121,7 @@ public class DriverServlet extends HttpServlet {
 				driver.setPhoto(photo);
 				driver.setMobile(Long.parseLong(mobile));
 				driver.setPhone(Long.parseLong(phone));
-				driver.setDrlicense(drLiscense);
+				driver.setDrLicense(drLicense);
 
 				operationResp = ddm.addData(driver);
 				pw.println(operationResp);
@@ -140,7 +140,7 @@ public class DriverServlet extends HttpServlet {
 				driver.setAdhaarNo(updatedCellAdhaarNo);
 				driver.setMobile(Long.parseLong(updatedCellMobile));
 				driver.setPhone(Long.parseLong(updatedCellPhone));
-				driver.setDrlicense(updatedCellDrLiscense);
+				driver.setDrLicense(updatedCellDrLicense);
 				driver.setPhoto(updatedCellPhoto);
 
 				operationResp = ddm.updateData(driver);
