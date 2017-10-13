@@ -18,7 +18,7 @@
 <body>
 <div w3-include-html="main.html"></div>
 	<!--Main container-->
-	<div class="container" id="mainContainer">
+	<div class="container-fluid" id="mainContainer">
 		<div class="jumbotron">
 
 			<!-- Button Row           -->
@@ -42,8 +42,8 @@
 				<table id="dataTable" class="table-bordered">
 					<thead>
 						<tr>
-							<th>id</th>
-							<th>description</th>
+							<th>Id</th>
+							<th>Description</th>
 
 						</tr>
 					</thead>
@@ -76,7 +76,7 @@
 
 								<div class="form-group">
 									<label for="description">Description</label> <input type="text"
-										class="form-control" id="description" name="description">
+										class="form-control" id="description" name="description" onkeyup="javascript:capitalize(this.id, this.value);">
 								</div>
 
 								<input type="hidden" name="operation" value="insert">
@@ -110,10 +110,10 @@
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-	<script src="validate.js"></script>
 	<script src="js/dataTables.cellEdit.js"></script>
 	<script src="js/dataTable.js" type="text/javascript"></script>
 	<script  src="validation/validateExpense.js"type="text/javascript"></script>
+	<script src="js/expenses.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		//variable for number of columns in table
 		var noOfCols = $("#dataTable tr:visible th").length;
@@ -139,7 +139,7 @@
 					events.prepend('<div>' + count + ' row(s) selected</div>');
 				}
 			} ],
-			"ajax" : "/cherp/jsonfiles/expenses.json",
+			"ajax" : "/server/jsonfiles/expenses.json",
 			"columns" : [ {
 				"data" : "id"
 			}, {

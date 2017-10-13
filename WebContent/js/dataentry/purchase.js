@@ -110,16 +110,11 @@ $(function() {
 					"avgWeight" : avgWeight.val()
 				}
 
-				var payloadRow = {
-						
-						"purchaseId" : $('#purchaseid').val(),
-						"date" : $('#date').val(),
-						"company" : $('#companyList').val(),
-				}
+				
 				if (e.keyCode === 13) {
 					console.log(productRow.product);
 					productRowData.push(productRow);
-					payloadRowData.push(payloadRow);
+					
 					
 					productTable.row.add(
 							[ product.val(), pieces.val(), kg.val(),
@@ -128,10 +123,10 @@ $(function() {
 
 					// console.log('Json' + productJsonArray);
 					console.log("productRowData "+JSON.stringify(productRowData));
-					console.log("payloadRowData "+JSON.stringify(payloadRowData));
+					
 
 				}
-
+				
 				// console.log(outstanding);
 				var fa = 0;
 				// for setting final amount
@@ -146,6 +141,17 @@ $(function() {
 
 			});
 
+	$('#insertBtn').on('click', function(){
+		var payloadRow = {
+				
+				"purchaseId" : $('#purchaseid').val(),
+				"date" : $('#date').val(),
+				"company" : $('#companyList').val(),
+		}
+		payloadRowData.push(payloadRow);
+		console.log("payloadRowData "+JSON.stringify(payloadRowData));
+	});
+	
 	// ajaxCall to purchaseServlet
 	$('#insertBtn').on('click', function() {
 

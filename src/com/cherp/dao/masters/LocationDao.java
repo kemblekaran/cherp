@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.cherp.entities.Area;
 import com.cherp.entities.Location;
 import com.cherp.utils.HibernateUtil;
 
@@ -86,13 +88,15 @@ public class LocationDao extends MasterBaseDao {
 		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 
 		// create criteria query
-		CriteriaQuery<Location> criteria = criteriaBuilder.createQuery(Location.class);
+		CriteriaQuery<Location> criteriaQuery = criteriaBuilder.createQuery(Location.class);
 
 		// specify criteria root
-		criteria.from(Location.class);
-
+		Root<Location> rootLocation = criteriaQuery.from(Location.class);
+		
+		criteriaQuery.where(criteriaBuilder.equal(rootLocation.get("status"),1));
+		
 		// Execute query
-		List<Location> locationList = session.createQuery(criteria).getResultList();
+		List<Location> locationList = session.createQuery(criteriaQuery).getResultList();
 
 		// close session
 		session.close();

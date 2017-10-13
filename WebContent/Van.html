@@ -11,6 +11,13 @@
 <link rel="stylesheet" href="validate.css">
 <script src="https://www.w3schools.com/lib/w3.js"></script>
 <link rel="stylesheet" href="css/index.css">
+
+<!-- jquery date scripts -->
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.9.1/themes/blitzer/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </head>
 
 
@@ -41,7 +48,7 @@
 				<table id="dataTable" class="table-bordered">
 					<thead>
 						<tr>
-							<th>id</th>
+							<th>Id</th>
 							<th>Van Number</th>
 							<th>Company Name</th>
 							<th>Van Model</th>
@@ -90,16 +97,16 @@
 
 								<div class="form-group">
 									<label for="company">Comapany Name</label> <input type="text"
-										class="form-control" id="companyName" name="companyName">
+										class="form-control" id="companyName" name="companyName" onkeyup="javascript:capitalize(this.id, this.value);">
 								</div>
 
 								<div class="form-group">
 									<label for="model">Van Model</label> <input type="text"
-										class="form-control" id="vanModel" name="vanModel">
+										class="form-control" id="vanModel" name="vanModel" onkeyup="javascript:capitalize(this.id, this.value);">
 								</div>
 								<div class="form-group">
 									<label for="owner">Owner Name</label> <input type="text"
-										class="form-control" id="ownerName" name="ownerName">
+										class="form-control" id="ownerName" name="ownerName" onkeyup="javascript:capitalize(this.id, this.value);">
 								</div>
 
 								<div class="form-group">
@@ -118,11 +125,11 @@
 								</div>
 
 								<div class="form-group">
-									<label for="s_date">Start Date</label> <input type="date"
+									<label for="s_date">Start Date</label> <input type="text"
 										class="form-control" id="insStartDate" name="insStartDate">
 								</div>
 								<div class="form-group">
-									<label for="e_date">End Date</label> <input type="date"
+									<label for="e_date">End Date</label> <input type="text"
 										class="form-control" id="insEndDate" name="insEndDate">
 								</div>
 								<div class="form-group">
@@ -131,12 +138,12 @@
 								</div>
 
 								<div class="form-group">
-									<label for="s_date">Start Date</label> <input type="date"
+									<label for="s_date">Start Date</label> <input type="text"
 										class="form-control" id="permitStartDate"
 										name="permitStartDate">
 								</div>
 								<div class="form-group">
-									<label for="e_date">End Date</label> <input type="date"
+									<label for="e_date">End Date</label> <input type="text"
 										class="form-control" id="permitEndDate" name="permitEndDate">
 								</div>
 
@@ -160,9 +167,9 @@
 	<script>
 		w3.includeHTML();
 	</script>
-	<script src="http://code.jquery.com/jquery-3.2.1.min.js"
-		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-		crossorigin="anonymous"></script>
+<!-- 	<script src="http://code.jquery.com/jquery-3.2.1.min.js" -->
+<!-- 		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" -->
+<!-- 		crossorigin="anonymous"></script> -->
 	<script
 		src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 	<script
@@ -176,6 +183,7 @@
 	<script type="text/javascript" src="validation/validateVan.js"></script>
 	<script src="js/dataTables.cellEdit.js"></script>
 	<script src="js/dataTable.js" type="text/javascript"></script>
+	<script src="js/van.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		//variable for number of columns in table
 		var noOfCols = $("#dataTable tr:visible th").length;
@@ -191,6 +199,7 @@
 		//add data to datatable(very important)
 		var CherpDataTable = $('#dataTable').DataTable({
 			dom : 'Bfrtip',
+			scrollX : true,
 			select : true,
 			buttons : [ {
 				text : 'Get selected data',

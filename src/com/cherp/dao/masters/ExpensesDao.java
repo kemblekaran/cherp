@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.cherp.entities.Area;
 import com.cherp.entities.Expenses;
 import com.cherp.utils.HibernateUtil;
 
@@ -86,13 +88,14 @@ public class ExpensesDao extends MasterBaseDao {
 		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 
 		// create criteria query
-		CriteriaQuery<Expenses> criteria = criteriaBuilder.createQuery(Expenses.class);
+		CriteriaQuery<Expenses> criteriaQuery = criteriaBuilder.createQuery(Expenses.class);
 
 		// specify criteria root
-		criteria.from(Expenses.class);
+		Root<Expenses> rootExpenses = criteriaQuery.from(Expenses.class);
 
+		criteriaQuery.where(criteriaBuilder.equal(rootExpenses.get("status"),1));
 		// Execute query
-		List<Expenses> expenseList = session.createQuery(criteria).getResultList();
+		List<Expenses> expenseList = session.createQuery(criteriaQuery).getResultList();
 
 		// close session
 		session.close();

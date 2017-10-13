@@ -67,7 +67,7 @@ public class LocationServlet extends HttpServlet {
 				System.out.println("Insert Function");
 
 				loc.setLocation(location);
-
+				loc.setStatus(1);
 				operationResp = ldao.insert(loc);
 				pw.println(operationResp);
 

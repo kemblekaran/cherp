@@ -71,7 +71,7 @@ public class ExpensesServlet extends HttpServlet {
 				System.out.println("Insert Function");
 
 				exp.setDescription(description);
-
+				exp.setStatus(1);
 				operationResp = edao.insert(exp);
 				pw.println(operationResp);
 

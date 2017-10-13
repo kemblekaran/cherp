@@ -143,7 +143,8 @@ public class PurchaseDao {
 
 		Root<Purchase> rootPurchase = criteriaQuery.from(Purchase.class);
 
-		criteriaQuery.select(criteriaBuilder.max(rootPurchase.get("purchaseId")));
+//		criteriaQuery.select(criteriaBuilder.max(rootPurchase.get("purchaseId")));
+		criteriaQuery.select(criteriaBuilder.coalesce(criteriaBuilder.max(rootPurchase.get("purchaseId")), 0));
 
 		int purchaseId = session.createQuery(criteriaQuery).getSingleResult();
 

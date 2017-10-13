@@ -34,6 +34,7 @@ public class PurchaseServlet extends HttpServlet {
 	private String operation = "";
 	private String operationResp = "";
 
+	private String purchaseId = "";
 	private String date = "";
 	private String vanName = "";
 	private String driver1 = "";
@@ -68,6 +69,7 @@ public class PurchaseServlet extends HttpServlet {
 
 		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
 
+		purchaseId = request.getParameter("purchaseId");
 		date = request.getParameter("date");
 		vanName = request.getParameter("vanName");
 		driver1 = request.getParameter("driver1");
@@ -126,6 +128,10 @@ public class PurchaseServlet extends HttpServlet {
 			if (operation.equals("insert")) {
 
 				for (PayLoad payload : payData.getPayLoadData()) {
+//					PayLoad payload = new PayLoad();
+//					payload.setPurchaseId(Integer.parseInt(purchaseId));
+//					payload.setDate(date);
+//					payload.setCompany(company);
 					payload.setFinalAmount(Double.parseDouble(finalAmount));
 					payload.setBalanceAmount(Double.parseDouble(finalAmount));
 					payload.setStatus(1);

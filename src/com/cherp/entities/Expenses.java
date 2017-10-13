@@ -1,10 +1,26 @@
 package com.cherp.entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Expenses")
 public class Expenses {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "description")
 	private String description;
+	@Column(name = "status")
 	private int status;
+	
+	
+	
 	public int getId() {
 		return id;
 	}
