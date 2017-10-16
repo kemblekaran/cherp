@@ -230,7 +230,7 @@ var collectionTable = $('#collectionTable').DataTable();
 	// for setting from and to date
 	$(document).ready(function() {
 		$("#fromDate").datepicker({
-			dateFormat: 'dd/mm/yy',
+//			dateFormat: 'dd/mm/yy',
 			// minDate : 0,
 			showAnim : 'drop',
 			onSelect : function(date) {
@@ -242,7 +242,7 @@ var collectionTable = $('#collectionTable').DataTable();
 			}
 		});
 		$('#toDate').datepicker({
-			dateFormat: 'dd/mm/yy',
+//			dateFormat: 'dd/mm/yy',
 			showAnim : 'drop',
 			onClose : function() {
 				var dt1 = $('#fromDate').datepicker('getDate');

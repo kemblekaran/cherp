@@ -127,7 +127,7 @@ public class VanServlet extends HttpServlet {
 				van.setPermitNo(Integer.parseInt(permitNo));
 				van.setPermitStartDate(permitStartDate);
 				van.setPermitEndDate(permitEndDate);
-
+				van.setStatus(1);
 				operationResp = vdao.insert(van);
 				pw.println(operationResp);
 

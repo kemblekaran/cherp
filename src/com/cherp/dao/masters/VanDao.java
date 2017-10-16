@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.cherp.entities.Area;
 import com.cherp.entities.Van;
 import com.cherp.utils.HibernateUtil;
 
@@ -89,13 +91,14 @@ public class VanDao extends MasterBaseDao{
 		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 		
 		//create criteria query
-		CriteriaQuery<Van> criteria = criteriaBuilder.createQuery(Van.class);
+		CriteriaQuery<Van> criteriaQuery = criteriaBuilder.createQuery(Van.class);
 		
 		//specify criteria root
-		criteria.from(Van.class);
+		Root<Van> rootVan = criteriaQuery.from(Van.class);
+		criteriaQuery.where(criteriaBuilder.equal(rootVan.get("status"),1));
 		
 		//Execute query
-		List<Van> vanList = session.createQuery(criteria).getResultList();
+		List<Van> vanList = session.createQuery(criteriaQuery).getResultList();
 		
 		//close session
 		session.close();

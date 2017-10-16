@@ -17,7 +17,7 @@ $(document).ready(function() {
 	$(function() {
 		//insuranse start date
 		$("#insStartDate").datepicker({
-			dateFormat: 'dd/mm/yy',
+//			dateFormat: 'dd/mm/yy',
 			showAnim : 'drop',
 //			showButtonPanel : true,
 			onSelect : function(date) {
@@ -30,7 +30,7 @@ $(document).ready(function() {
 		});
 //		insuranse end date
 		$("#insEndDate").datepicker({
-			dateFormat: 'dd/mm/yy',
+//			dateFormat: 'dd/mm/yy',
 			showAnim : 'drop',
 //			showButtonPanel : true,
 			onClose : function() {
@@ -49,7 +49,7 @@ $(document).ready(function() {
 		
 //		insuranse start date
 		$("#permitStartDate").datepicker({
-			dateFormat: 'dd/mm/yy',
+//			dateFormat: 'dd/mm/yy',
 			showAnim : 'drop',
 //			showButtonPanel : true,
 			onSelect : function(date) {
@@ -62,7 +62,7 @@ $(document).ready(function() {
 		});
 //		insuranse start date
 		$("#permitEndDate").datepicker({
-			dateFormat: 'dd/mm/yy',
+//			dateFormat: 'dd/mm/yy',
 			showAnim : 'drop',
 //			showButtonPanel : true,
 			onClose : function() {

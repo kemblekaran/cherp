@@ -102,12 +102,13 @@ $(function() {
 						var toTime = new Date($('#toDate').val()).getTime();
 						
 						//getting date from json file
+//						var date = new Date('13/10/2017');
 						var date = new Date(val.date);
-//						alert(date);
+						
 						
 						//check whether date is true from selected date
 						if (date.getTime() >= fromTime && date.getTime() <= toTime) {
-						
+							alert(val.date + "  date");
 							purchaseTable.row.add([ val.date, val.purchaseId, val.product, val.pieces, val.kg, val.rate, val.amount ]).draw();
 								$("#cmpName").on("change", function() {
 									purchaseTable.clear().draw();
@@ -228,7 +229,7 @@ var paymentTable = $('#paymentTable').DataTable();
 	// for setting from and to date
 	$(document).ready(function() {
 		$("#fromDate").datepicker({
-			dateFormat: 'dd/mm/yy',
+//			dateFormat: 'dd/mm/yy',
 			// minDate : 0,
 			showAnim : 'drop',
 			onSelect : function(date) {
@@ -240,7 +241,7 @@ var paymentTable = $('#paymentTable').DataTable();
 			}
 		});
 		$('#toDate').datepicker({
-			dateFormat: 'dd/mm/yy',
+//			dateFormat: 'dd/mm/yy',
 			showAnim : 'drop',
 			onClose : function() {
 				var dt1 = $('#fromDate').datepicker('getDate');

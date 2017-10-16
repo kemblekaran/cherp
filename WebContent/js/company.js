@@ -1,7 +1,7 @@
 //set current date to date of account opening using datepicker
 	$(function() {
 		$("#dateAccOp").datepicker({
-			dateFormat: 'dd/mm/yy',
+//			dateFormat: 'dd/mm/yy',
 			showAnim : 'drop',
 			showButtonPanel : true,
 		}).datepicker('setDate', 'today');

@@ -130,7 +130,7 @@ $(function() {
 		// set current date to payment using datepicker
 		$(function() {
 			$("#paymentDate, #chDate").datepicker({
-				dateFormat: 'dd/mm/yy',
+//				dateFormat: 'dd/mm/yy',
 				showAnim : 'drop',
 				showButtonPanel : true,
 			}).datepicker('setDate', 'today');
