@@ -31,6 +31,7 @@ public class SalesServlet extends HttpServlet {
 	private String operation = "";
 	private String operationResp = "";
 
+	private String salesDate = "";
 	private String purchaseDate = "";
 	private String van = "";
 	private String purchaseId = "";
@@ -59,6 +60,8 @@ public class SalesServlet extends HttpServlet {
 		// context para for json files location
 		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
 
+		salesDate = request.getParameter("salesDate");
+		System.out.println("sales date "+ salesDate);
 		invoiceNoLoader = request.getParameter("invoiceNoLoader");
 		System.out.println("invoiceNoLoader-------"+invoiceNoLoader);
 		

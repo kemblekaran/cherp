@@ -14,6 +14,24 @@
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="validate.css">
 <script src="https://www.w3schools.com/lib/w3.js"></script>
+
+<!-- datepicker scripts -->
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.9.1/themes/blitzer/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+	//set current date to purchase using datepicker
+		$(function() {
+		$("#salesDate").datepicker({
+// 			dateFormat : 'dd/mm/yy',
+			showAnim : 'drop',
+			showButtonPanel : true,
+		}).datepicker('setDate', 'today');
+	});
+</script>
+
 </head>
 <body>
 <div w3-include-html="main.html"></div>
@@ -182,7 +200,13 @@
 					</div>
 				</div>
 
+<!-- 				sales date -->
 
+				<div class="invisible" hidden="true">
+					<label>Date</label> <input type="text" name="salesDate"
+						class="form-control" id="salesDate">
+				</div>
+			
 
 				<!-- Table for Product  -->
 				<h4>Sales</h4>
@@ -253,15 +277,15 @@
 	<script>
 		w3.includeHTML();
 	</script>
-	<script src="http://code.jquery.com/jquery-3.2.1.min.js"
-		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-		crossorigin="anonymous"></script>
+<!-- 	<script src="http://code.jquery.com/jquery-3.2.1.min.js" -->
+<!-- 		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" -->
+<!-- 		crossorigin="anonymous"></script> -->
 	<script
 		src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-		crossorigin="anonymous"></script>
+<!-- 	<script -->
+<!-- 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" -->
+<!-- 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" -->
+<!-- 		crossorigin="anonymous"></script> -->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 	<script src="validation/validateSales.js"></script>

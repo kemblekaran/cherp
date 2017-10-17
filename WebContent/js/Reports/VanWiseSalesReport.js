@@ -1,9 +1,20 @@
 $(function() {
 	
+	var driverName1 = $("#driverName1");
+	var driverName2 =$("#driverName2");
+	var purchaseNo = $("#purchaseNo");
+	var cleanerName1 = $("#cleanerName1");
+	var cleanerName2 = $("#cleanerName2");
+	var purchaseAmt = $("#purchaseAmt");
+	var rent = $("#rent");
+	var totalPur = $("#totalPurchase");
+	
 	var purchaseAmt = $("#purchaseAmt");
 	var rent = $("#rent");
 	var totalPurchase = 0;
 	
+	var selectedDate;
+	var selectedVan;
 	
 	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
 
@@ -27,73 +38,122 @@ $(function() {
 		}).datepicker('setDate', 'today');
 	});
 
-	$("#Show").on('click', function() {
-		console.log(date.val() + van.val());
-		$.ajax({
-			url : 'PurchaseServlet',
-			data : {
-				'date' : date.val(),
-				'vanName' : van.val(),
-				vanWiseSales : true
-			},
-			async : false,
-			type : 'POST',
-			success : function() {
-				console.log('successfully sent data to the server');
-			},
-			error : function() {
-				console.log('error occurred');
-			}
-		});
+	
+	$("#vanNo, #date").on('change', function() {
 		
-		$.ajax({
-			type : "POST",
-			url : "/server/jsonfiles/vanWiseSales.json",
-			dataType : "json",
-			select : true,
-			success : function(data) {
+		selectedDate = $("#date").val();
+		selectedVan = $("#vanNo").val();
+		
+		purchaseVanTable.clear().draw();
+		driverName1.val(null);
+		driverName2.val(null);
+		purchaseNo.val(null);
+		cleanerName1.val(null);
+		cleanerName2.val(null);
+		purchaseAmt.val(null);
+		rent.val(null);
+		totalPur.val(null);
+	});
+	
+	
+//	$("#Show").on('mouseenter', function() {
+//		console.log(date.val() + van.val());
+//		$.ajax({
+////			async : false,
+//			url : 'PurchaseServlet',
+//			type : 'POST',
+//			data : {
+//				'date' : date.val(),
+//				'vanName' : van.val(),
+//				vanWiseSales : true
+//			},
+//			
+//			
+//			success : function() {
+//				console.log('successfully sent data to the server');
+//			
+//				
+//			},
+//			error : function() {
+//				console.log('error occurred');
+//			}
+//		});	
+//	});
+	
+		$("#Show").on('click', function() {
+			purchaseVanTable.clear().draw();
+			salesVanTable.clear().draw();
+//			purchase van table
+			$.getJSON('/server/jsonfiles/purchaseView.json', function(data) {
 				var vanWiseData = data['data'];
-
-				$.each(vanWiseData, function(key, val) {
-					alert(val.driver1);
-					$("#driverName1").val(val.driver1);
-					$("#driverName2").val(val.driver2);
-					$("#purchaseNo").val(val.purchaseId);
-					$("#cleanerName1").val(val.cleaner1);
-					$("#cleanerName2").val(val.cleaner2);
-					$("#purchaseAmt").val(val.finalAmount);
-					
-					$("#vanNo, #date").on('change', function() {
-						$("#driverName1").val(null);
-						$("#driverName2").val(null);
-						$("#purchaseNo").val(null);
-						$("#cleanerName1").val(null);
-						$("#cleanerName2").val(null);
-						$("#purchaseAmt").val(null);
-						$("#rent").val(null);
-						$("#totalPurchase").val(null);
-					});
-				});
+				var purchaseNoArray = [];
 				
-				$("#rent").on('input', function() {
-					console.log(typeof parseInt(purchaseAmt.val())+ " purchase amt");	
-					console.log(rent.val());
+				$.each(vanWiseData, function(key, val) {
+					if(selectedDate == val.date && selectedVan == val.vanName){
+						
+							driverName1.val(val.driver1);
+							driverName2.val(val.driver2);
+							purchaseNoArray.push(val.purchaseId);
+							cleanerName1.val(val.cleaner1);
+							cleanerName2.val(val.cleaner2);
+							purchaseAmt.val(val.finalAmount);
+							rent.val(val.rent);
+							purchaseVanTable.row.add(
+									[ val.date, val.company, val.product, val.pieces, val.kg, val.rate, val.amount, val.avgWeight,val.avgWeight,val.avgWeight, val.avgWeight  ]).draw();
+							
+							$("#Show").on('click', function() {
+								purchaseVanTable.clear().draw();
+								driverName1.val(null);
+								driverName2.val(null);
+								purchaseNo.val(null);
+								cleanerName1.val(null);
+								cleanerName2.val(null);
+								purchaseAmt.val(null);
+								rent.val(null);
+								totalPur.val(null);
+							});
+					}
+					
+				});
+				//purchase no array
+				$("#purchaseNo").val(purchaseNoArray);
+				
+	//			$("#rent").on('input', function() {
 					totalPurchase = parseInt(purchaseAmt.val()) + parseInt($("#rent").val());
 					if (totalPurchase >= 0) {
-
+	
 						parseInt($("#totalPurchase").val(totalPurchase));
 					} else {
 						$("#totalPurchase").val(purchaseAmt.val());
 						$("#rent").val(null);
 						
 					}
-					 
+	//			});
+				
+			});
+			alert("salesview");
+			//sales van table
+			$.getJSON('/server/jsonfiles/salesView.json', function(data) {
+				var vanWiseData = data['data'];
+				var purchaseNoArray = [];
+				
+				$.each(vanWiseData, function(key, val) {
+					if(selectedDate == val.salesDate && selectedVan == val.van){
+						
+							salesVanTable.row.add(
+									[ val.salesDate, val.invoiceNo, val.customer, val.product, val.pieces, val.kg, val.rate, val.avgWeight,
+										val.amount ]).draw();
+							
+							$("#Show").on('click', function() {
+								salesVanTable.clear().draw();
+								
+							});
+					}
+					
 				});
-
-			}
-
+				
+			});
 		});
-	});
 
 	
 
