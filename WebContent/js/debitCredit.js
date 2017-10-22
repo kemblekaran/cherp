@@ -37,7 +37,7 @@ $(document).ready(function() {
 			if (radio == "credit") {
 				
 				$('#customerChecked').attr('checked',true);
-//				$('#companyChecked').attr('checked',false);
+//	//			$('#companyChecked').attr('checked',false);
 				
 				$('#customerChecked').attr('disabled',false);
 				$('#companyChecked').attr('disabled',true);
