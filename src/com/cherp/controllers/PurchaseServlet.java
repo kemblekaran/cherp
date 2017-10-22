@@ -60,6 +60,9 @@ public class PurchaseServlet extends HttpServlet {
 	private String vanWiseSales = "";
 	
 	private String updatePurchase = "";
+	private String pid = "";
+	private String companyName = "";
+	private String productName = "";
 	private String balancePieces = "";
 	private String balanceKG = "";
 
@@ -94,9 +97,12 @@ public class PurchaseServlet extends HttpServlet {
 		avgWeight = request.getParameter("avgWeight");
 		finalAmount = request.getParameter("finalAmount");
 		
-		updatePurchase = request.getParameter("updatePurchase");
-		balancePieces = request.getParameter("balancePieces");
-		balanceKG = request.getParameter("balanceKG");
+		updatePurchase = request.getParameter("update");
+		pid = request.getParameter("purchaseId");
+		productName = request.getParameter("product");
+		companyName = request.getParameter("company");
+		balancePieces = request.getParameter("balanceQtyPieces");
+		balanceKG = request.getParameter("balanceQtyKG");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -111,6 +117,19 @@ public class PurchaseServlet extends HttpServlet {
 		PurchaseDataManager pdm = new PurchaseDataManager();
 		// Purchase purchase = new Purchase();
 
+		if(updatePurchase.equals("true")){
+			System.out.println("Purchase Id" + pid);
+			System.out.println("Company" + companyName);
+			System.out.println("Product" + productName);
+
+			Purchase purchase = new Purchase();
+			purchase.setPurchaseId(Integer.parseInt(pid));
+			purchase.setCompany(companyName);
+			purchase.setProduct(productName);
+			purchase.setBalanceKG(Integer.parseInt(balanceKG));
+			purchase.setBalancePieces(Integer.parseInt(balancePieces));
+			new PurchaseDao().updatePiecesKG(purchase);
+		}
 		Gson gson = new Gson();
 		Data jsonData = gson.fromJson(productJson, Data.class);
 		Data payData = gson.fromJson(payloadJson, Data.class);

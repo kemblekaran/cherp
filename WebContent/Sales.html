@@ -184,9 +184,9 @@
 								<tr class="active">
 									<th class="text-danger">Balance Qty</th>
 									<td><input type="text" id="balanceQtyKg"
-										 class="form-control"></td>
+										class="form-control"></td>
 									<td><input type="text" id="balanceQtyPieces"
-										 class="form-control"></td>
+										class="form-control"></td>
 								</tr>
 								<tr class="active">
 									<th class="text-success">Sales Qty</th>
@@ -234,9 +234,8 @@
 									<option>Select Customer</option>
 							</select></td>
 
-							<td>
-							<input type="text" id="salesProduct" name="product" class="form-control">
-							</td>
+							<td><input type="text" id="salesProduct" name="product"
+								class="form-control"></td>
 
 							<td><input type="text" name="pieces" id="salesPieces"
 								class="form-control"></td>
@@ -265,8 +264,9 @@
 				<!-- input type for sending salesLoad json as form value -->
 				<input type="hidden" name="salesLoadJson" id="salesLoadJson">
 
-
-
+				<!-- input type for sending companyName for purchase table update as form value -->
+				<input type="hidden" name="companyName" id="companyName">
+				
 				<button id="insertBtn" class="btn btn-primary">Save</button>
 			</form>
 		</div>

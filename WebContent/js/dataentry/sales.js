@@ -1,7 +1,6 @@
 $(function() {
 	
-	$( document ).ready(function() {
-	    console.log( "ready!" );
+	console.log( "ready!" );
 	    $.ajax({
 			url : 'SalesServlet',
 //			async : false,
@@ -27,7 +26,7 @@ $(function() {
 			console.log(invoice);
 			invoiceNo.val(invoice + 1);
 		});
-	});
+	
 
 	// Sets van,date and purchaseId from salesTable.json
 	$.getJSON('/server/jsonfiles/salesTable.json', function(data) {
@@ -251,6 +250,7 @@ $(function() {
 	var pid;
 	var salesProduct;
 	var salesRate;
+	var company;
 
 	// gets product value from salesTable.json
 	$.getJSON('/server/jsonfiles/salesTable.json', function(data) {
@@ -286,9 +286,10 @@ $(function() {
 						salesPieces = salesData.pieces;
 						salesKg = salesData.kg;
 						salesRate = salesData.rate;
+						company = salesData.company;
 						
 						$('#salesRate').val(salesRate);
-
+						$('#companyName').val(company);
 						$('#salesProduct').val(salesProduct);
 						// on entering the value checks for the certain
 						// operations
@@ -320,7 +321,7 @@ $(function() {
 																var BalancePieces = (parseInt(salesPieces) - parseInt(salesPiecesNew));
 																$('#balanceQtyPieces').attr('value',BalancePieces);
 																$('#salesQtyPieces').attr('value',salesPiecesNew);
-
+																
 															});
 											if (e.keyCode === 13) {
 
@@ -426,12 +427,32 @@ $(function() {
 					$('#salesLoadJson').val(salesLoadJson);
 					console.log('productJson' + productJson);
 					console.log('salesLoadJson' + salesLoadJson);
+				
 				}
 			});
 
 	// ajaxCall to purchaseServlet
 	$('#insertBtn').on('click', function() {
-
+	
+		$.ajax({
+			url : 'PurchaseServlet',
+			type : 'POST',
+			data : {
+				update : 'true',
+				purchaseId : $('#purchaseId').val(),
+				company : $('#companyName').val(),
+				product : $('#salesProduct').val(),
+				balanceQtyKG : $('#balanceQtyKg').val(),
+				balanceQtyPieces : $('#balanceQtyPieces').val()
+			},
+			success : function(){
+				console.log('suceess to purchaseServlet');
+			},
+			error : function(){
+				console.log('error to purchaseServlet');
+			}
+		});
+		
 		$('#SalesForm').submit(function(e) {
 
 			$.ajax({

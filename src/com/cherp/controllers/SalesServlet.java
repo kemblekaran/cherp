@@ -50,6 +50,8 @@ public class SalesServlet extends HttpServlet {
 	private String salesLoadJson = "";
 	
 	private String invoiceNoLoader = "";
+	
+	private String company = "";
 
 	// method for getting parameters
 	public void getParaValues(HttpServletRequest request, HttpServletResponse response) {
@@ -84,6 +86,8 @@ public class SalesServlet extends HttpServlet {
 		amount = request.getParameter("amount");
 		avgWeight = request.getParameter("avgWeight");
 		operation = request.getParameter("operation");
+		
+		company = request.getParameter("companyName");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -134,7 +138,6 @@ public class SalesServlet extends HttpServlet {
 
 				pw.write(operationResp);
 
-				new PurchaseDao().updatePiecesKG(Integer.parseInt(pieces),Integer.parseInt(kg));
 			}
 		}
 
