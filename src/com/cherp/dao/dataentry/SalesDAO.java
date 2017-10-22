@@ -39,7 +39,7 @@ public class SalesDAO {
 
 		return "Insert Successful";
 	}
-	
+
 	public String insertSales(SalesLoad salesload) {
 		createSession();
 
@@ -93,16 +93,17 @@ public class SalesDAO {
 
 		CriteriaQuery<Purchase> criteriaQuery = criteriaBuilder.createQuery(Purchase.class);
 
-		//specify criteria root
+		// specify criteria root
 		Root<Purchase> rootSales = criteriaQuery.from(Purchase.class);
-		System.out.println("date in sales selectall "+date);
-		criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(rootSales.get("date"), date),criteriaBuilder.equal(rootSales.get("vanName"), van)));
-		
+		System.out.println("date in sales selectall " + date);
+		criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(rootSales.get("date"), date),
+				criteriaBuilder.equal(rootSales.get("vanName"), van)));
+
 		List<Purchase> purchaseList = session.createQuery(criteriaQuery).getResultList();
 
 		return purchaseList;
 	}
-	
+
 	public int getInvoiceNo() {
 
 		createSession();
@@ -113,7 +114,7 @@ public class SalesDAO {
 
 		Root<Sales> rootPurchase = criteriaQuery.from(Sales.class);
 
-//		criteriaQuery.select(criteriaBuilder.max(rootPurchase.get("invoiceNo")));
+		// criteriaQuery.select(criteriaBuilder.max(rootPurchase.get("invoiceNo")));
 		criteriaQuery.select(criteriaBuilder.coalesce(criteriaBuilder.max(rootPurchase.get("invoiceNo")), 0));
 
 		int invoiceNo = session.createQuery(criteriaQuery).getSingleResult();
@@ -124,7 +125,7 @@ public class SalesDAO {
 	}
 
 	public List<Sales> selectSales() {
-		
+
 		createSession();
 
 		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
@@ -138,47 +139,7 @@ public class SalesDAO {
 		List<Sales> salesViewList = session.createQuery(criteriaQuery).getResultList();
 
 		return salesViewList;
-		
-	}
 
-//	@SuppressWarnings("unchecked")
-//	public List<Purchase> selectSales(String date, String van) {
-//
-//		createSession();
-//		String dbQuery = "from Purchase where date='" + date + "' AND vanName='" + van + "'";
-//		Query query = session.createQuery(dbQuery);
-//
-//		List<Purchase> salesData = new ArrayList<>();
-//		List<Purchase> salesTableList = new ArrayList<>();
-//
-//		salesData = query.getResultList();
-//		
-//		for (Purchase pur : salesData) {
-//			Purchase purchase = new Purchase();
-//			purchase.setPurchaseId((pur.getPurchaseId()));
-//			purchase.setDate(date);
-//			purchase.setVanName(van);
-//			purchase.setDriver1(pur.getDriver1());
-//			purchase.setDriver2(pur.getDriver2());
-//			purchase.setCleaner1(pur.getCleaner1());
-//			purchase.setCleaner2(pur.getCleaner2());
-//			purchase.setCompany(pur.getCompany());
-//			purchase.setLocation(pur.getLocation());
-//			purchase.setOutstanding(pur.getOutstanding());
-//			purchase.setChallanNo(pur.getChallanNo());
-//			purchase.setRent(pur.getRent());
-//			purchase.setProduct(pur.getProduct());
-//			purchase.setPieces(pur.getPieces());
-//			purchase.setKg(pur.getKg());
-//			purchase.setRate(pur.getRate());
-//			purchase.setAmount(pur.getAmount());
-//			purchase.setAvgWeight(pur.getAvgWeight());
-//			purchase.setInvoiceNo(new SalesDAO().getInvoiceNo());
-//			salesTableList.add(purchase);
-//		}
-//
-//		return salesTableList;
-//
-//	}
+	}
 
 }

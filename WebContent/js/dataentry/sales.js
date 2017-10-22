@@ -44,10 +44,11 @@ $(function() {
 			$('#vanList').val(van);
 			$('#purchaseDate').val(purchaseDate);
 
-			purchaseIdArray.push(purchaseId);
+//			purchaseIdArray.push(purchaseId);
 		});
 
-		$('#purchaseId').val(purchaseIdArray);
+//		$('#purchaseId').val(purchaseIdArray);
+		$('#purchaseId').val(purchaseId);
 	});
 
 	
@@ -288,6 +289,7 @@ $(function() {
 						
 						$('#salesRate').val(salesRate);
 
+						$('#salesProduct').val(salesProduct);
 						// on entering the value checks for the certain
 						// operations
 						$('#salesReadyTable tbody tr td').keydown(function(e) {

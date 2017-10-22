@@ -12,49 +12,53 @@ import javax.persistence.Transient;
 @Table(name = "purchase")
 public class Purchase {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name= "purchaseId")
+	@Column(name = "purchaseId")
 	private int purchaseId;
-	@Column(name="date")
+	@Column(name = "date")
 	private String date;
-	@Column(name="vanName")
+	@Column(name = "vanName")
 	private String vanName;
-	@Column(name="driver1")
+	@Column(name = "driver1")
 	private String driver1;
-	@Column(name="driver2")
+	@Column(name = "driver2")
 	private String driver2;
-	@Column(name="cleaner1")
+	@Column(name = "cleaner1")
 	private String cleaner1;
-	@Column(name="cleaner2")
+	@Column(name = "cleaner2")
 	private String cleaner2;
-	@Column(name="company")
+	@Column(name = "company")
 	private String company;
-	@Column(name="location")
+	@Column(name = "location")
 	private String location;
-	@Column(name="outstanding")
+	@Column(name = "outstanding")
 	private int outstanding;
-	@Column(name="challanNo")
+	@Column(name = "challanNo")
 	private long challanNo;
-	@Column(name="rent")
+	@Column(name = "rent")
 	private int rent;
-	@Column(name="product")
+	@Column(name = "product")
 	private String product;
-	@Column(name="pieces")
+	@Column(name = "pieces")
 	private int pieces;
-	@Column(name="kg")
+	@Column(name = "kg")
 	private int kg;
-	@Column(name="rate")
+	@Column(name = "rate")
 	private int rate;
-	@Column(name="amount")
+	@Column(name = "amount")
 	private int amount;
-	@Column(name="avgWeight")
+	@Column(name = "avgWeight")
 	private Double avgWeight;
-	@Column(name="finalAmount")
+	@Column(name = "finalAmount")
 	private Double finalAmount;
-	@Column(name="status")
+	@Column(name = "status")
 	private int status;
-	
+	@Column(name = "balancePieces")
+	private int balancePieces;
+	@Column(name = "balanceKG")
+	private int balanceKG;
 
 	public int getId() {
 		return id;
@@ -224,5 +228,20 @@ public class Purchase {
 		this.status = status;
 	}
 
+	public int getBalancePieces() {
+		return balancePieces;
+	}
+
+	public void setBalancePieces(int balancePieces) {
+		this.balancePieces = balancePieces;
+	}
+
+	public int getBalanceKG() {
+		return balanceKG;
+	}
+
+	public void setBalanceKG(int balanceKG) {
+		this.balanceKG = balanceKG;
+	}
 
 }

@@ -117,7 +117,7 @@ public class SalesServlet extends HttpServlet {
 					sales.setRate(Integer.parseInt(rate));
 					sales.setAmount(Double.parseDouble(amount));
 					sales.setAvgWeight(Double.parseDouble(avgWeight));
-					sales.setSalesDate(new Timestamp(System.currentTimeMillis()));
+					sales.setSalesDate(salesDate);
 					sales.setStatus(1);
 					operationResp = new SalesDAO().insert(sales);
 				}
@@ -134,6 +134,7 @@ public class SalesServlet extends HttpServlet {
 
 				pw.write(operationResp);
 
+				new PurchaseDao().updatePiecesKG(Integer.parseInt(pieces),Integer.parseInt(kg));
 			}
 		}
 

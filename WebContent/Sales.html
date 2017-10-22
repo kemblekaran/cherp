@@ -23,9 +23,9 @@
 
 <script>
 	//set current date to purchase using datepicker
-		$(function() {
+	$(function() {
 		$("#salesDate").datepicker({
-// 			dateFormat : 'dd/mm/yy',
+			// 			dateFormat : 'dd/mm/yy',
 			showAnim : 'drop',
 			showButtonPanel : true,
 		}).datepicker('setDate', 'today');
@@ -34,9 +34,9 @@
 
 </head>
 <body>
-<div w3-include-html="main.html"></div>
+	<div w3-include-html="main.html"></div>
 
-<!-- main container -->
+	<!-- main container -->
 	<div class="container-fluid" id="mainContainer">
 		<div class="jumbotron">
 			<form id="SalesForm">
@@ -184,9 +184,9 @@
 								<tr class="active">
 									<th class="text-danger">Balance Qty</th>
 									<td><input type="text" id="balanceQtyKg"
-										name="balanceQtyKg" class="form-control"></td>
+										 class="form-control"></td>
 									<td><input type="text" id="balanceQtyPieces"
-										name="balanceQtyPieces" class="form-control"></td>
+										 class="form-control"></td>
 								</tr>
 								<tr class="active">
 									<th class="text-success">Sales Qty</th>
@@ -200,13 +200,13 @@
 					</div>
 				</div>
 
-<!-- 				sales date -->
+				<!-- 				sales date -->
 
 				<div class="invisible" hidden="true">
 					<label>Date</label> <input type="text" name="salesDate"
 						class="form-control" id="salesDate">
 				</div>
-			
+
 
 				<!-- Table for Product  -->
 				<h4>Sales</h4>
@@ -234,10 +234,9 @@
 									<option>Select Customer</option>
 							</select></td>
 
-							<td><select id="salesProductSelect" name="product"
-								class="form-control">
-									<option>Select Product</option>
-							</select></td>
+							<td>
+							<input type="text" id="salesProduct" name="product" class="form-control">
+							</td>
 
 							<td><input type="text" name="pieces" id="salesPieces"
 								class="form-control"></td>
@@ -272,20 +271,20 @@
 			</form>
 		</div>
 	</div>
-	
-<!-- 	scripts -->
+
+	<!-- 	scripts -->
 	<script>
 		w3.includeHTML();
 	</script>
-<!-- 	<script src="http://code.jquery.com/jquery-3.2.1.min.js" -->
-<!-- 		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" -->
-<!-- 		crossorigin="anonymous"></script> -->
+	<!-- 	<script src="http://code.jquery.com/jquery-3.2.1.min.js" -->
+	<!-- 		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" -->
+	<!-- 		crossorigin="anonymous"></script> -->
 	<script
 		src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-<!-- 	<script -->
-<!-- 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" -->
-<!-- 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" -->
-<!-- 		crossorigin="anonymous"></script> -->
+	<!-- 	<script -->
+	<!-- 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" -->
+	<!-- 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" -->
+	<!-- 		crossorigin="anonymous"></script> -->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 	<script src="validation/validateSales.js"></script>
@@ -342,5 +341,6 @@
 			} ]
 		});
 	</script>
+
 </body>
 </html>
