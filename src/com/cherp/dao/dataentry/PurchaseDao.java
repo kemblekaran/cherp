@@ -206,4 +206,23 @@ public class PurchaseDao {
 
 		return formGeneratorMap;
 	}
+	
+	public String updatePiecesKG(int balancePieces,int balanceKG) {
+		
+		createSession();
+
+		Transaction t = session.beginTransaction();
+		
+		Purchase purchase = new Purchase();
+		purchase.setBalancePieces(balancePieces);
+		purchase.setBalanceKG(balanceKG);
+
+		session.update(purchase);
+
+		t.commit();
+
+		session.close();
+
+		return "Update Successful";
+	}
 }

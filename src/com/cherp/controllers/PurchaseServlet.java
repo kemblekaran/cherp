@@ -58,6 +58,10 @@ public class PurchaseServlet extends HttpServlet {
 	private String payloadJson = "";
 
 	private String vanWiseSales = "";
+	
+	private String updatePurchase = "";
+	private String balancePieces = "";
+	private String balanceKG = "";
 
 	public void getParaValues(HttpServletRequest request, HttpServletResponse response) {
 
@@ -89,7 +93,10 @@ public class PurchaseServlet extends HttpServlet {
 		amount = request.getParameter("amount");
 		avgWeight = request.getParameter("avgWeight");
 		finalAmount = request.getParameter("finalAmount");
-
+		
+		updatePurchase = request.getParameter("updatePurchase");
+		balancePieces = request.getParameter("balancePieces");
+		balanceKG = request.getParameter("balanceKG");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -117,7 +124,8 @@ public class PurchaseServlet extends HttpServlet {
 				int count = 0;
 				for (Purchase purchase : jsonData.getData()) {
 					System.out.println("Counter:" + count++);
-
+					purchase.setBalancePieces(0);
+					purchase.setBalanceKG(0);
 					purchase.setFinalAmount(Double.parseDouble(finalAmount));
 					purchase.setStatus(1);
 					System.out.println("purchase final amount" + Double.parseDouble(finalAmount));
