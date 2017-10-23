@@ -233,10 +233,10 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<div class="col-sm-4">
-								<label for="pcs">Total Pcs.</label>
+								<label for="totalPcs">Total Pcs.</label>
 							</div>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="pcs" name="pcs">
+								<input type="text" class="form-control" id="totalPcs" name="totalPcs">
 							</div>
 						</div>
 					</div>
@@ -244,10 +244,10 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<div class="col-sm-4">
-								<label for="kgs">Gross Kg</label>
+								<label for="totalKgs">Total Kg</label>
 							</div>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="kgs" name="kgs">
+								<input type="text" class="form-control" id="totalKgs" name="totalKgs">
 							</div>
 						</div>
 					</div>
@@ -255,11 +255,11 @@
 					<div class="col-md-3">
 						<div class="form-group">
 							<div class="col-sm-3">
-								<label for="payment">wt-Loss</label>
+								<label for="wtLoss">wt-Loss</label>
 							</div>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" id="payment"
-									name="payment">
+								<input type="text" class="form-control" id=""wtLoss""
+									name=""wtLoss"">
 							</div>
 						</div>
 					</div>
@@ -267,11 +267,11 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<div class="col-sm-4">
-								<label for="payment">Shrinkage</label>
+								<label for="shrinkage">Shrinkage</label>
 							</div>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" id="payment"
-									name="payment">
+								<input type="text" class="form-control" id="shrinkage"
+									name="shrinkage">
 							</div>
 						</div>
 					</div>
@@ -279,11 +279,11 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<div class="col-sm-3">
-								<label for="payment">Total Amt</label>
+								<label for="totalAmt">Total Amt</label>
 							</div>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" id="payment"
-									name="payment">
+								<input type="text" class="form-control" id="totalAmt"
+									name="totalAmt">
 							</div>
 						</div>
 					</div>
@@ -395,19 +395,9 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
 
-	<script src="js/dataTables.cellEdit.js"></script>
-	<!--     <script src="js/dataTable.js" type="text/javascript"></script> -->
 	<script type="text/javascript" src="js/Reports/VanWiseSalesReport.js"></script>
 	<script type="text/javascript">
-		//variable for number of columns in table
-		var noOfCols = $("#dataTable tr:visible th").length;
-		var editableCols = new Array();
-
-		//creates array for editable columns parameter
-		for (var i = 1; i < noOfCols; i++) {
-			editableCols.push(i);
-
-		}
+		
 
 		//add data to datatable(very important)
 		var purchaseVanTable = $('#purchaseVanTable').DataTable({
@@ -416,7 +406,52 @@
 		});
 
 		var salesVanTable = $('#salesVanTable').DataTable({
-
+			"footerCallback": function ( row, data, start, end, display ) {
+	            var api = this.api(), data;
+	 
+	            // Remove the formatting to get integer data for summation
+	            var intVal = function ( i ) {
+	                return typeof i === 'string' ?
+	                    i.replace(/[\$,]/g, '')*1 :
+	                    typeof i === 'number' ?
+	                        i : 0;
+	            };
+	 
+	            // Total over all pages
+	            totalPieces = api
+	                .column( 4 )
+	                .data()
+	                .reduce( function (a, b) {
+	                    return intVal(a) + intVal(b);
+	                }, 0 );
+	            
+	            totalKG = api
+                .column( 5 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+	 
+	            totalAmount = api
+                .column( 8 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+	 
+	            // Update footer
+	            $( api.column( 4 ).footer() ).html(
+	              totalPieces +' Pieces'
+	            );
+	            
+	            $( api.column( 5 ).footer() ).html(
+	  	              totalKG +' Kgs'
+	  	        );
+	            
+	            $( api.column( 8 ).footer() ).html(
+		  	              totalAmount +' Rs'
+		  	        );
+	        }
 		});
 	</script>
 </body>

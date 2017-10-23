@@ -1,4 +1,4 @@
-package com.cherp.controllers;
+ package com.cherp.controllers;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -58,7 +58,7 @@ public class PurchaseServlet extends HttpServlet {
 	private String payloadJson = "";
 
 	private String vanWiseSales = "";
-	
+
 	private String updatePurchase = "";
 	private String pid = "";
 	private String companyName = "";
@@ -96,8 +96,10 @@ public class PurchaseServlet extends HttpServlet {
 		amount = request.getParameter("amount");
 		avgWeight = request.getParameter("avgWeight");
 		finalAmount = request.getParameter("finalAmount");
-		
+
 		updatePurchase = request.getParameter("update");
+		System.out.println(updatePurchase + " updatepurchase");
+		
 		pid = request.getParameter("purchaseId");
 		productName = request.getParameter("product");
 		companyName = request.getParameter("company");
@@ -117,19 +119,22 @@ public class PurchaseServlet extends HttpServlet {
 		PurchaseDataManager pdm = new PurchaseDataManager();
 		// Purchase purchase = new Purchase();
 
-		if(updatePurchase.equals("true")){
-			System.out.println("Purchase Id" + pid);
-			System.out.println("Company" + companyName);
-			System.out.println("Product" + productName);
+		if (updatePurchase != null) {
+			if (updatePurchase.equals("true")) {
+				System.out.println("Purchase Id" + pid);
+				System.out.println("Company" + companyName);
+				System.out.println("Product" + productName);
 
-			Purchase purchase = new Purchase();
-			purchase.setPurchaseId(Integer.parseInt(pid));
-			purchase.setCompany(companyName);
-			purchase.setProduct(productName);
-			purchase.setBalanceKG(Integer.parseInt(balanceKG));
-			purchase.setBalancePieces(Integer.parseInt(balancePieces));
-			new PurchaseDao().updatePiecesKG(purchase);
+				Purchase purchase = new Purchase();
+				purchase.setPurchaseId(Integer.parseInt(pid));
+				purchase.setCompany(companyName);
+				purchase.setProduct(productName);
+				purchase.setBalanceKG(Integer.parseInt(balanceKG));
+				purchase.setBalancePieces(Integer.parseInt(balancePieces));
+				new PurchaseDao().updatePiecesKG(purchase);
+			}
 		}
+
 		Gson gson = new Gson();
 		Data jsonData = gson.fromJson(productJson, Data.class);
 		Data payData = gson.fromJson(payloadJson, Data.class);
@@ -155,10 +160,10 @@ public class PurchaseServlet extends HttpServlet {
 			if (operation.equals("insert")) {
 
 				for (PayLoad payload : payData.getPayLoadData()) {
-//					PayLoad payload = new PayLoad();
-//					payload.setPurchaseId(Integer.parseInt(purchaseId));
-//					payload.setDate(date);
-//					payload.setCompany(company);
+					// PayLoad payload = new PayLoad();
+					// payload.setPurchaseId(Integer.parseInt(purchaseId));
+					// payload.setDate(date);
+					// payload.setCompany(company);
 					payload.setFinalAmount(Double.parseDouble(finalAmount));
 					payload.setBalanceAmount(Double.parseDouble(finalAmount));
 					payload.setStatus(1);
@@ -230,33 +235,33 @@ public class PurchaseServlet extends HttpServlet {
 	}
 
 	// method for creating json file for purchaseView.json
-//	public void jsonFileWriterList(List<Purchase> vanWiseSalesList) {
-//		try {
-//			System.out.println("In vanWiseSales json writer");
-//			Writer writer = new FileWriter(jsonFilePath + "vanWiseSales.json");
-//			JsonWriter jw = new JsonWriter(writer);
-//			jw.beginObject();
-//			jw.name("data");
-//			jw.beginArray();
-//			for (Purchase p : vanWiseSalesList) {
-//				jw.beginObject();
-//				jw.name("purchaseId").value(p.getPurchaseId());
-//
-//				jw.name("driver1").value(p.getDriver1());
-//				jw.name("driver2").value(p.getDriver2());
-//				jw.name("cleaner1").value(p.getCleaner1());
-//				jw.name("cleaner2").value(p.getCleaner2());
-//				jw.name("rate").value(p.getRate());
-//				jw.name("amount").value(p.getAmount());
-//				jw.name("avgWeight").value(p.getAvgWeight());
-//				jw.name("finalAmount").value(p.getFinalAmount());
-//				jw.endObject();
-//			}
-//			jw.endArray();
-//			jw.endObject();
-//			jw.close();
-//		} catch (Exception e) {
-//		}
-//	}
+	// public void jsonFileWriterList(List<Purchase> vanWiseSalesList) {
+	// try {
+	// System.out.println("In vanWiseSales json writer");
+	// Writer writer = new FileWriter(jsonFilePath + "vanWiseSales.json");
+	// JsonWriter jw = new JsonWriter(writer);
+	// jw.beginObject();
+	// jw.name("data");
+	// jw.beginArray();
+	// for (Purchase p : vanWiseSalesList) {
+	// jw.beginObject();
+	// jw.name("purchaseId").value(p.getPurchaseId());
+	//
+	// jw.name("driver1").value(p.getDriver1());
+	// jw.name("driver2").value(p.getDriver2());
+	// jw.name("cleaner1").value(p.getCleaner1());
+	// jw.name("cleaner2").value(p.getCleaner2());
+	// jw.name("rate").value(p.getRate());
+	// jw.name("amount").value(p.getAmount());
+	// jw.name("avgWeight").value(p.getAvgWeight());
+	// jw.name("finalAmount").value(p.getFinalAmount());
+	// jw.endObject();
+	// }
+	// jw.endArray();
+	// jw.endObject();
+	// jw.close();
+	// } catch (Exception e) {
+	// }
+	// }
 
 }

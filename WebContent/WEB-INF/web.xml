@@ -12,7 +12,7 @@
   </welcome-file-list>
   <context-param>
     <param-name>JsonFilePath</param-name>
-    <param-value>D:\\shanty\\server\\cherp\\jsonfiles\\</param-value>
+    <param-value>D:\\karan\\server\\jsonfiles\\</param-value>
   </context-param>
   <servlet>
     <description></description>
