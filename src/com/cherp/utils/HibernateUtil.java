@@ -8,6 +8,7 @@ import org.hibernate.cfg.Configuration;
 import com.cherp.entities.Area;
 import com.cherp.entities.Cleaners;
 import com.cherp.entities.Company;
+import com.cherp.entities.DebitCredit;
 import com.cherp.entities.Drivers;
 import com.cherp.entities.Expenses;
 import com.cherp.entities.Location;
@@ -43,6 +44,7 @@ public class HibernateUtil {
 		config.addAnnotatedClass(State.class);
 		config.addAnnotatedClass(Expenses.class);
 		config.addAnnotatedClass(User.class);
+		config.addAnnotatedClass(DebitCredit.class);
 		serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
 		sessionFactory = config.buildSessionFactory(serviceRegistry);
 	}

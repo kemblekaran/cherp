@@ -131,7 +131,9 @@ $(function() {
 	//			});
 				
 			});
-			alert("salesview");
+			var totalPieces = 0;
+			var totalKgs = 0;
+			var totalAmount = 0;
 			//sales van table
 			$.getJSON('/server/jsonfiles/salesView.json', function(data) {
 				var vanWiseData = data['data'];
@@ -148,10 +150,26 @@ $(function() {
 								salesVanTable.clear().draw();
 								
 							});
+							
+							totalPieces = totalPieces + val.pieces;
+							totalKgs = totalKgs + val.kg;
+							totalAmount = totalAmount + val.amount;
+							
 					}
 					
 				});
 				
+				var pieces = totalPieces;
+				var kgs = totalKgs;
+				var amount = totalAmount;
+				
+				totalPieces = 0 ;
+				totalKgs = 0;
+				totalAmount = 0;
+				
+				$('#totalPcs').val(pieces);
+				$('#totalKgs').val(kgs);
+				$('#totalAmt').val(amount);
 			});
 		});
 

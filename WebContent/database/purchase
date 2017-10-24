@@ -53,3 +53,6 @@ create table collection(id int auto_increment,collectionDate varchar(255), custo
 chNo long, toBeReceived long, payNow long, closingBal long, status int,primary key(id));
 
 create table salesload(id int auto_increment,invoiceNo int,date varchar(255),customer varchar(255),invoiceAmount long ,balanceAmount long ,status int,primary key(id));
+
+create table debitcredit(id int auto_increment,debitCredit varchar(255), debitCreditDate varchar(255), noteNo int,
+customerCompany varchar(255), selectCustCmp varchar(255), amount int, remarks varchar(255),status int,primary key(id));

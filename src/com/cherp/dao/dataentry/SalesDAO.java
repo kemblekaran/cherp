@@ -112,10 +112,10 @@ public class SalesDAO {
 
 		CriteriaQuery<Integer> criteriaQuery = criteriaBuilder.createQuery(Integer.class);
 
-		Root<Sales> rootPurchase = criteriaQuery.from(Sales.class);
+		Root<Sales> rootSales = criteriaQuery.from(Sales.class);
 
 		// criteriaQuery.select(criteriaBuilder.max(rootPurchase.get("invoiceNo")));
-		criteriaQuery.select(criteriaBuilder.coalesce(criteriaBuilder.max(rootPurchase.get("invoiceNo")), 0));
+		criteriaQuery.select(criteriaBuilder.coalesce(criteriaBuilder.max(rootSales.get("invoiceNo")), 0));
 
 		int invoiceNo = session.createQuery(criteriaQuery).getSingleResult();
 
