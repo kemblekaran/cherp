@@ -85,7 +85,7 @@ public class SalesDAO {
 		return "Delete Successful";
 	}
 
-	public List<Purchase> selectAll(String date, String van) {
+	public List<Purchase> selectAll( String van) {
 
 		createSession();
 
@@ -95,10 +95,12 @@ public class SalesDAO {
 
 		// specify criteria root
 		Root<Purchase> rootSales = criteriaQuery.from(Purchase.class);
-		System.out.println("date in sales selectall " + date);
-		criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(rootSales.get("date"), date),
-				criteriaBuilder.equal(rootSales.get("vanName"), van)));
+//		System.out.println("date in sales selectall " + date);
+//		criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(rootSales.get("date"), date),
+//				criteriaBuilder.equal(rootSales.get("vanName"), van)));
 
+		criteriaQuery.where(criteriaBuilder.equal(rootSales.get("vanName"), van));
+		
 		List<Purchase> purchaseList = session.createQuery(criteriaQuery).getResultList();
 
 		return purchaseList;

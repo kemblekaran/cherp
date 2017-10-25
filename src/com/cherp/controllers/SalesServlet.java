@@ -146,7 +146,7 @@ public class SalesServlet extends HttpServlet {
 			if (purchaseView.equals("true")) {
 				System.out.println("purchaseView");
 				List<Purchase> purchaseTableList = new ArrayList<>();
-				purchaseTableList = new SalesDAO().selectAll(purchaseDate, van);
+				purchaseTableList = new SalesDAO().selectAll(van);
 				
 				
 				// Writes into JSON File

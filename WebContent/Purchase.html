@@ -18,7 +18,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
-<script type="text/javascript" src="js/fullscreen.js"></script>
 <script>
 	//set current date to purchase using datepicker
 	$(function() {
@@ -190,8 +189,8 @@
 			data-target="#viewModal">view</button>
 
 		<!-- Add Button Modal-->
-		<div id="viewModal" class="modal fade modal-fullscreen" role="dialog">
-			<div class="modal-dialog modal-lg">
+		<div id="viewModal" class="modal fade " role="dialog">
+			<div class="modal-size">
 
 				<!-- Modal content-->
 				<div class="modal-content">
@@ -205,21 +204,14 @@
 					<div class="modal-body">
 						<!--Table Row-->
 						<div class="" id="tableRow">
-							<table id="purchaseViewTable" class="table-bordered responsive stripe ">
+							<table id="purchaseViewTable" class="table-bordered responsive stripe hover ">
 								<thead style="background-color: #4a4b4c; color:#fff">
 									<tr>
 										<th>Purchase Id</th>
 										<th>Purchase Date</th>
 										<th>Van Name</th>
-										<th>Driver1</th>
-										<th>Driver2</th>
-										<th>Cleaner1</th>
-										<th>Cleaner2</th>
 										<th>Company</th>
 										<th>Location</th>
-										<th>Outstanding</th>
-										<th>Challan No</th>
-										<th>Rent</th>
 										<th>Product</th>
 										<th>Pieces</th>
 										<th>KG</th>
@@ -281,9 +273,10 @@
 		//add data to datatable(very important)
 		var dataTable = $('#purchaseViewTable').DataTable({
 			"ajax" : "/server/jsonfiles/purchaseView.json",
-			"pageLength": 8 ,
-			
-			"scrollX" : true,
+			"pageLength": 20 ,
+			"columnDefs": [
+		        {"className": "dt-center", "targets": "_all"}
+		      ],
 			"order" : [ [ 0, "desc" ] ],
 			"columns" : [ {
 				"data" : "purchaseId"
@@ -291,25 +284,11 @@
 				"data" : "date"
 			}, {
 				"data" : "vanName"
-			}, {
-				"data" : "driver1"
-			}, {
-				"data" : "driver2"
-			}, {
-				"data" : "cleaner1"
-			}, {
-				"data" : "cleaner2"
-			}, {
+			},  {
 				"data" : "company"
 			}, {
 				"data" : "location"
-			}, {
-				"data" : "outstanding"
-			}, {
-				"data" : "challanNo"
-			}, {
-				"data" : "rent"
-			}, {
+			},  {
 				"data" : "product"
 			}, {
 				"data" : "pieces"
