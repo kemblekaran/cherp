@@ -148,8 +148,7 @@ public class PurchaseServlet extends HttpServlet {
 				int count = 0;
 				for (Purchase purchase : jsonData.getData()) {
 					System.out.println("Counter:" + count++);
-					purchase.setBalancePieces(0);
-					purchase.setBalanceKG(0);
+
 					purchase.setFinalAmount(Double.parseDouble(finalAmount));
 					purchase.setStatus(1);
 					System.out.println("purchase final amount" + Double.parseDouble(finalAmount));

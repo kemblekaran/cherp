@@ -61,7 +61,9 @@
 								<label for="van">Van</label>
 							</div>
 							<div class="col-sm-7">
-								<input type="text" name="van" id="vanList" class="form-control">
+								<select  class="form-control" id="van" name="van">
+									<option value="">Select Van</option>
+								</select>
 							</div>
 						</div>
 					</div>
@@ -166,6 +168,9 @@
 <!-- 							Total Pieces</button> -->
 <!-- 					</div> -->
 
+
+<input type="text" name="pieces" id="salesPieces"
+								class="form-control">
 					<div class="col-md-6">
 						<table class="table  table-bordered">
 							<thead>
@@ -219,7 +224,7 @@
 
 						<tr>
 							<td><input type="text" name="invoiceNo" id="invoiceNo"
-								class="form-control"></td>
+								class="form-control" readonly></td>
 
 							<td><select id="customerSelect" name="customer"
 								class="form-control">
@@ -227,7 +232,7 @@
 							</select></td>
 
 							<td><input type="text" id="salesProduct" name="product"
-								class="form-control"></td>
+								class="form-control" readonly></td>
 
 							<td><input type="text" name="pieces" id="salesPieces"
 								class="form-control"></td>
@@ -239,10 +244,10 @@
 								class="form-control"></td>
 
 							<td><input type="text" name="amount" id="salesAmount"
-								readonly="readonly" class="form-control"></td>
+								 class="form-control" readonly></td>
 
 							<td><input type="text" name="avgWeight" id="salesAvgWeight"
-								readonly="readonly" class="form-control"></td>
+								 class="form-control" readonly></td>
 						</tr>
 
 					</tbody>
@@ -291,38 +296,38 @@
 
 		//add data to datatable(very important)
 		var salesReady = $('#salesTable').DataTable({
-			"ajax" : "/server/jsonfiles/salesTable.json",
+// 			"ajax" : "/server/jsonfiles/salesTable.json",
 
 			"columnDefs": [
 		        {"className": "dt-center", "targets": "_all"}
 		      ],
 			
 			select : true,
-			"columns" : [ {
-				"data" : "purchaseId"
-			}, {
-				"data" : "date"
-			}, {
-				"data" : "company"
-			}, {
-				"data" : "location"
-			}, {
-				"data" : "product"
-			}, {
-				"data" : "pieces"
-			}, {
-				"data" : "kg"
-			}, {
-				"data" : "rate"
-			}, {
-				"data" : "amount"
-			}, {
-				"data" : "avgWeight"
-			}, {
-				"data" : "balancePieces"
-			}, {
-				"data" : "balanceKG"
-			} ]
+// 			"columns" : [ {
+// 				"data" : "purchaseId"
+// 			}, {
+// 				"data" : "date"
+// 			}, {
+// 				"data" : "company"
+// 			}, {
+// 				"data" : "location"
+// 			}, {
+// 				"data" : "product"
+// 			}, {
+// 				"data" : "pieces"
+// 			}, {
+// 				"data" : "kg"
+// 			}, {
+// 				"data" : "rate"
+// 			}, {
+// 				"data" : "amount"
+// 			}, {
+// 				"data" : "avgWeight"
+// 			}, {
+// 				"data" : "balancePieces"
+// 			}, {
+// 				"data" : "balanceKG"
+// 			} ]
 		});
 	</script>
 

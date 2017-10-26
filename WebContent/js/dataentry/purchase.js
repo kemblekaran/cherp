@@ -107,7 +107,9 @@ $(function() {
 					"kg" : kg.val(),
 					"rate" : rate.val(),
 					"amount" : amt.val(),
-					"avgWeight" : avgWeight.val()
+					"avgWeight" : avgWeight.val(),
+					"balancePieces" : pieces.val(),
+					"balanceKG" : kg.val(),
 				}
 
 				
