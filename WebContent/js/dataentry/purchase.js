@@ -34,8 +34,8 @@ $(function() {
 	// calculate amount and avg weight
 	productTableTargetEle.on('input', function() {
 
-		var newAmt = parseInt(rate.val()) * parseInt(kg.val());
-		var newAvgWeight = parseInt(kg.val()) / parseInt(pieces.val());
+		var newAmt = parseFloat(rate.val()) * parseFloat(kg.val());
+		var newAvgWeight = parseFloat(kg.val()) / parseFloat(pieces.val());
 		
 		
 		if (newAmt !== null || newAvgWeight !== null) {
@@ -112,11 +112,17 @@ $(function() {
 					"balanceKG" : kg.val(),
 				}
 
-				
+				var payloadRow = {
+						
+						"purchaseId" : $('#purchaseid').val(),
+						"date" : $('#date').val(),
+						"company" : $('#companyList').val(),
+						"amount" : amt.val()
+				}
 				if (e.keyCode === 13) {
 					console.log(productRow.product);
 					productRowData.push(productRow);
-					
+					payloadRowData.push(payloadRow);
 					
 					productTable.row.add(
 							[ product.val(), pieces.val(), kg.val(),
@@ -125,7 +131,7 @@ $(function() {
 
 					// console.log('Json' + productJsonArray);
 					console.log("productRowData "+JSON.stringify(productRowData));
-					
+					console.log("payloadRowData "+JSON.stringify(payloadRowData));
 
 				}
 				
@@ -143,16 +149,11 @@ $(function() {
 
 			});
 
-	$('#insertBtn').on('click', function(){
-		var payloadRow = {
-				
-				"purchaseId" : $('#purchaseid').val(),
-				"date" : $('#date').val(),
-				"company" : $('#companyList').val(),
-		}
-		payloadRowData.push(payloadRow);
-		console.log("payloadRowData "+JSON.stringify(payloadRowData));
-	});
+//	$('#insertBtn').on('click', function(){
+//		
+//		
+//		
+//	});
 	
 	// ajaxCall to purchaseServlet
 	$('#insertBtn').on('click', function() {

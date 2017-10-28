@@ -1,5 +1,23 @@
 $(function() {
 
+	
+	// store elements into variables
+	var invoiceNo = $('#invoiceNo');
+	var salesKg = $('#salesKg');
+	var rate = $('#salesRate');
+	var salesAmount = $('#salesAmount');
+	var salesAvgWeight = $('#salesAvgWeight');
+	var salesPieces = $("#salesPieces");
+	var salesKg = $("#salesKg");
+	var salesRate = $("#salesRate");
+	
+	var balanceQtyKg = $('#balanceQtyKg');
+	var pid;
+	var salesProduct;
+	var salesRate;
+	var company;
+
+	
 	console.log("ready!");
 	$.ajax({
 		url : 'SalesServlet',
@@ -36,17 +54,20 @@ $(function() {
 		});
 	});
 
-	
 	// Sets van,date and purchaseId from salesTable.json
-	$.getJSON('/server/jsonfiles/purchaseView.json', function(data) {
-	
+	$.getJSON('/server/jsonfiles/salesTable.json', function(data) {
+		var jsonDataProduct = data['data'];
+		$.each(jsonDataProduct, function(key, val) {
+			$('#van').val(val.vanName);
+		});
 	});
 
-	
 	// list data on van change
 	$("#van").on(
 			"change",
 			function() {
+				$('#target').html($(this).val());
+				
 				var companyName = $(this).val();
 				$.ajax({
 					type : "POST",
@@ -68,103 +89,130 @@ $(function() {
 												val.balanceKG ]).draw();
 
 								$('#purchaseId').val(val.purchaseId);
-								
+
 								$("#van").on("change", function() {
+									
 									salesReady.clear().draw();
 									$('#salesProduct').val(null);
 								});
 
 							}
 						});// forEach method close
-
+						
+						var totalPcs = 0, totalKgs = 0;
+						//calculate total pieces and kg in van table
+						$.each(jsonData, function(key, val) {
+							if (companyName == val.vanName) {
+								totalPcs = totalPcs + val.pieces;
+								totalKgs = totalKgs + val.kg;
+							}
+						});
+						var showPcs = totalPcs;
+						var showKgs = totalKgs
+						totalPcs = 0;
+						totalKgs = 0;
+						console.log(showPcs + " " +showKgs);
+						$('#totalPieces').val(showPcs);
+						$('#totalKgs').val(showKgs);
+						
 					}// success method close
 				});// ajax method close
 			});// onchange event close
 
-//	var totalPcs = 0;
-//	$('#getTotalPieces').on('click', function(e) {
-//		e.preventDefault();
-//		$.getJSON('/server/jsonfiles/salesTable.json', function(data) {
-//			var jsonData = data['data'];
-//			// calculate total pieces
-//			$.each(jsonData, function(key, val) {
-//
-//				totalPcs = totalPcs + val.pieces;
-//
-//			});
-//			var showPcs = totalPcs;
-//			totalPcs = 0;
-//			console.log(showPcs);
-//			$('#totalPieces').val(showPcs);
-//
-//			// calculate total eggs
-//			$.each(jsonData, function(key, val) {
-//				if (val.product == "Eggs")
-//					totalPcs = totalPcs + val.pieces;
-//			});
-//			var showPcs = totalPcs;
-//			totalPcs = 0;
-//			console.log(showPcs);
-//			$('#eggs').val(showPcs);
-//
-//			// calculate total chickens
-//			$.each(jsonData, function(key, val) {
-//				if (val.product == "Chicken")
-//					totalPcs = totalPcs + val.pieces;
-//			});
-//			var showPcs = totalPcs;
-//			totalPcs = 0;
-//			console.log(showPcs);
-//			$('#chicken').val(showPcs);
-//
-//			// calculate total broiler
-//			$.each(jsonData, function(key, val) {
-//				if (val.product == "Broiler")
-//					totalPcs = totalPcs + val.pieces;
-//			});
-//			var showPcs = totalPcs;
-//			totalPcs = 0;
-//			console.log(showPcs);
-//			$('#broiler').val(showPcs);
-//		});
-//	});
+	 
+	
 
 	// balance and sales quantity
 	var selectItemTable = $('#salesTable').DataTable();
-
+	var selectItemData;
 	$('#salesTable tbody').on('click', 'tr', function() {
-		var selectItemData = selectItemTable.row(this).data();
-		 console.log('selected data '+selectItemData);
-		 console.log('purchase Id '+ selectItemData[0])
-		 $('#salesProduct').val(selectItemData[4]);
+		$("#balanceQtyKg, #balanceQtyPieces, #salesQtyKg, #salesQtyPieces, #salesPieces, #salesKg, #salesRate").val(null);
+		selectItemData = selectItemTable.row(this).data();
+		console.log('selected data ' + selectItemData);
+		console.log('purchase Id ' + selectItemData[0])
+		$('#salesProduct').val(selectItemData[4]);
 		// console.log('selected id '+JSON.stringify(selectItemData));
+		$('#balanceQtyPieces').val(selectItemData[10]);
+		$('#balanceQtyKg').val(selectItemData[11]);
+		$('#salesQtyPieces').val(selectItemData[5] - $('#balanceQtyPieces').val());
+		$('#salesQtyKg').val(selectItemData[6] - $('#balanceQtyKg').val());
+		
+
 	});
-
 	
-	// Initialize salesReadyTable
-	$('#salesReadyTable').DataTable();
+	$("#salesPieces, #salesKg, #salesRate").on('input', function() {
+		if ($("#salesProduct").val() == "") {
+			alert('Please select a row first');
+			$("#balanceQtyKg, #balanceQtyPieces, #salesQtyKg, #salesQtyPieces, #salesPieces, #salesKg, #salesRate").val(null);
+		}
+	});
+	
+	$('#van').on('change', function() {
+			$("#balanceQtyKg, #balanceQtyPieces, #salesQtyKg, #salesQtyPieces, #salesPieces, #salesKg, #salesRate").val(null);
+	});
+		
 
-	// store elements into variables
-	var invoiceNo = $('#invoiceNo');
-	var salesKg = $('#salesKg');
-	var rate = $('#salesRate');
-	var salesAmount = $('#salesAmount');
-	var salesAvgWeight = $('#salesAvgWeight');
-	var pid;
-	var salesProduct;
-	var salesRate;
-	var company;
+		
+		$("#salesPieces").on('input', function() {
+			
+			var balPieces = selectItemData[10] - parseInt(salesPieces.val());
+				if(balPieces >= 0){
+					$('#balanceQtyPieces').val(balPieces);
+					$('#salesQtyPieces').val(selectItemData[5] - $('#balanceQtyPieces').val());
+				}else{
+//					$("#salesPieces,  #salesQtyPieces").val(null);
+//					$('#balanceQtyPieces').val(selectItemData[10]);
+					
+				}
+		});
+		
+		$(" #salesKg").on('input', function() {
+			
+			var balKg = parseFloat(balanceQtyKg.val()) - parseFloat(salesKg.val());
+				if (balKg >= 0  ) {
+					$('#balanceQtyKg').val(balKg);
+					$('#salesQtyKg').val(selectItemData[6] - $('#balanceQtyKg').val());
+					
+				}else{
+//					$(" #salesKg,  #salesQtyKg").val(null);
+//					$('#balanceQtyKg').val(selectItemData[11]);
+					
+				}
+		});
+
+		
+		//calculation for avg weight and amount
+//		$('#totalPieces').mask('##.##', {reverse: true});
+		$("#salesPieces, #salesKg, #salesRate").on('input', function() {
+
+			var newAmt = parseFloat(rate.val()) * parseFloat(salesKg.val());
+			var newAvgWeight = parseFloat(salesKg.val()) / parseFloat(salesPieces.val());
+			
+			
+			if (newAmt !== null || newAvgWeight !== null) {
+
+				// toFixed() method places the decimal point after digits specified
+				// as a parameter
+				
+				
+				salesAmount.val(newAmt.toFixed(2));
+				salesAvgWeight.val(newAvgWeight.toFixed(2));
+			} 
+			
+		});
+	
+
 
 	// gets product value from salesTable.json
-	$.getJSON('/server/jsonfiles/salesTable.json', function(data) {
-		var jsonData = data['data'];
-		$.each(jsonData, function(key, val) {
-			$('#salesProductSelect').append(
-					'<option value="' + val.product + '">' + val.product
-							+ '</option>');
-		});
-	});
-
+//	$.getJSON('/server/jsonfiles/salesTable.json', function(data) {
+//		var jsonData = data['data'];
+//		$.each(jsonData, function(key, val) {
+//			$('#salesProductSelect').append(
+//					'<option value="' + val.product + '">' + val.product
+//							+ '</option>');
+//		});
+//	});
+//
 	$.getJSON('/server/jsonfiles/customer.json', function(data) {
 		var jsonData = data['data'];
 		$.each(jsonData, function(key, val) {
@@ -173,143 +221,138 @@ $(function() {
 							+ val.fname + " " + val.lname + '</option>');
 		});
 	});
+
 	
-	
-	
-	$("#salesPieces, #salesKg, #salesRate").on('input', function() {
-		if($("#salesProduct").val() == ""){
-			alert('Please select a row first');
-			$("#salesPieces, #salesKg, #salesRate").val(null);
-		}
-	});
 
 	// Invokes the onclick listener on salesReady Table
-	$('#salesTable tbody')
-			.on(
-					'click',
-					'tr',
-					function() {
+	// $('#salesTable tbody')
+	// .on(
+	// 'click',
+	// 'tr',
+	// function() {
+	//
+	// // selects all the data of purchase table into salesData
+	// // variable
+	// var salesData = salesReady.row(this).data();
+	//
+	// // sets invoiceNo from database
+	//
+	// // sets the value to the variable from salesData
+	// pid = salesData.purchaseId;
+	// salesProduct = salesData.product;
+	// salesPieces = salesData.pieces;
+	// salesKg = salesData.kg;
+	// salesRate = salesData.rate;
+	// company = salesData.company;
+	//
+	// $('#salesRate').val(salesRate);
+	// $('#companyName').val(company);
+	//						
+	// // on entering the value checks for the certain
+	// // operations
+	// $('#salesReadyTable tbody tr td')
+	// .keydown(
+	// function(e) {
+	//
+	// var salesPiecesNew = $(
+	// '#salesPieces').val();
+	// var salesKgNew;
+	//
+	// // Determines the balance KG
+	// // Quantity amount and sales KG
+	// // Quantity
+	// console.log('above saleskg');
+	// $('#salesKg')
+	// .on(
+	// 'input',
+	// function() {
+	//
+	// salesKgNew = $(
+	// '#salesKg')
+	// .val();
+	// var BalanceKg = (parseInt(salesKg) - parseInt(salesKgNew));
+	// $(
+	// '#balanceQtyKg')
+	// .attr(
+	// 'value',
+	// BalanceKg);
+	// $('#salesQtyKg')
+	// .attr(
+	// 'value',
+	// salesKgNew);
+	//
+	// });
+	//
+	// // Determines the balance KG
+	// // Quantity amount and
+	// // sales KG Quantity
+	// $('#salesPieces')
+	// .on(
+	// 'input',
+	// function() {
+	//
+	// var salesPiecesNew = $(
+	// '#salesPieces')
+	// .val();
+	//
+	// var BalancePieces = (parseInt(salesPieces) - parseInt(salesPiecesNew));
+	// $(
+	// '#balanceQtyPieces')
+	// .attr(
+	// 'value',
+	// BalancePieces);
+	// $(
+	// '#salesQtyPieces')
+	// .attr(
+	// 'value',
+	// salesPiecesNew);
+	//
+	// });
+	// if (e.keyCode === 13) {
+	//
+	// // checks against existing
+	// // pieces and disables
+	// // next input
+	// if (salesPiecesNew > salesPieces) {
+	// alert('pieces quantity exceeds');
+	// $('#salesKg').attr(
+	// 'disabled',
+	// 'disabled');
+	// }
+	//
+	// // checks against existing kg
+	// // and disables next
+	// // input
+	// if (salesKgNew > salesKg) {
+	// alert('Kg quantity exceeds');
+	// $('#salesRate').attr(
+	// 'disabled',
+	// 'disabled');
+	// }
+	//
+	// }
+	//
+	// // sets the amount and average
+	// // weight value
+	// var newAmt = parseInt(salesRate)
+	// * parseInt(salesKg);
+	// var newAvgWeight = parseInt(salesKg)
+	// / parseInt(salesPiecesNew);
+	// // console.log(newAmt);
+	// if (newAmt !== null
+	// || newAvgWeight !== null) {
+	// salesAmount.val(newAmt);
+	// salesAvgWeight
+	// .val(newAvgWeight);
+	//
+	// }
+	//
+	// });
+	//
+	// });
 
-						// selects all the data of purchase table into salesData
-						// variable
-						var salesData = salesReady.row(this).data();
-
-						// sets invoiceNo from database
-
-						// sets the value to the variable from salesData
-						pid = salesData.purchaseId;
-						salesProduct = salesData.product;
-						salesPieces = salesData.pieces;
-						salesKg = salesData.kg;
-						salesRate = salesData.rate;
-						company = salesData.company;
-
-						$('#salesRate').val(salesRate);
-						$('#companyName').val(company);
-						
-						// on entering the value checks for the certain
-						// operations
-						$('#salesReadyTable tbody tr td')
-								.keydown(
-										function(e) {
-
-											var salesPiecesNew = $(
-													'#salesPieces').val();
-											var salesKgNew;
-
-											// Determines the balance KG
-											// Quantity amount and sales KG
-											// Quantity
-											console.log('above saleskg');
-											$('#salesKg')
-													.on(
-															'input',
-															function() {
-
-																salesKgNew = $(
-																		'#salesKg')
-																		.val();
-																var BalanceKg = (parseInt(salesKg) - parseInt(salesKgNew));
-																$(
-																		'#balanceQtyKg')
-																		.attr(
-																				'value',
-																				BalanceKg);
-																$('#salesQtyKg')
-																		.attr(
-																				'value',
-																				salesKgNew);
-
-															});
-
-											// Determines the balance KG
-											// Quantity amount and
-											// sales KG Quantity
-											$('#salesPieces')
-													.on(
-															'input',
-															function() {
-
-																var salesPiecesNew = $(
-																		'#salesPieces')
-																		.val();
-
-																var BalancePieces = (parseInt(salesPieces) - parseInt(salesPiecesNew));
-																$(
-																		'#balanceQtyPieces')
-																		.attr(
-																				'value',
-																				BalancePieces);
-																$(
-																		'#salesQtyPieces')
-																		.attr(
-																				'value',
-																				salesPiecesNew);
-
-															});
-											if (e.keyCode === 13) {
-
-												// checks against existing
-												// pieces and disables
-												// next input
-												if (salesPiecesNew > salesPieces) {
-													alert('pieces quantity exceeds');
-													$('#salesKg').attr(
-															'disabled',
-															'disabled');
-												}
-
-												// checks against existing kg
-												// and disables next
-												// input
-												if (salesKgNew > salesKg) {
-													alert('Kg quantity exceeds');
-													$('#salesRate').attr(
-															'disabled',
-															'disabled');
-												}
-
-											}
-
-											// sets the amount and average
-											// weight value
-											var newAmt = parseInt(salesRate)
-													* parseInt(salesKg);
-											var newAvgWeight = parseInt(salesKg)
-													/ parseInt(salesPiecesNew);
-											// console.log(newAmt);
-											if (newAmt !== null
-													|| newAvgWeight !== null) {
-												salesAmount.val(newAmt);
-												salesAvgWeight
-														.val(newAvgWeight);
-
-											}
-
-										});
-
-					});
-
+		// Initialize salesReadyTable
+		$('#salesReadyTable').DataTable();
 	// array to store all product to be sell
 	var productRowData = [];
 	var salesLoadData = [];
@@ -320,21 +363,18 @@ $(function() {
 
 						var invoiceNo = $('#invoiceNo');
 						var customer = $("#customerSelect");
-						var product = $('#salesProductSelect');
+						var product = $('#salesProduct');
 						var salesPieces = $('#salesPieces');
 						var salesKg = $('#salesKg');
 						var salesRate = $('#salesRate');
 						var salesAmount = $('#salesAmount');
 						var salesAvgWeight = $('#salesAvgWeight');
-						var purchaseId = $('#salesTable').DataTable().row(this)
-								.data().purchaseId;
+						var purchaseId = selectItemData[0];
 						// alert(
 						// $('#salesTable').DataTable().row(this).data().purchaseId);
-						var purchaseDate = $('#salesTable').DataTable().row(
-								this).data().date;
-						var purchaseId = $('#salesTable').DataTable().row(this)
-								.data().purchaseId;
-						var van = $('#salesTable').DataTable().row(this).data().vanName;
+						var purchaseDate = selectItemData[1];
+						
+						var van = $('#van').val();
 						console.log('pid :' + purchaseId);
 						var productRow = {
 							"InvoiceNo" : invoiceNo.val(),
@@ -383,7 +423,7 @@ $(function() {
 
 	// ajaxCall to purchaseServlet
 	$('#insertBtn').on('click', function() {
-
+		
 		$.ajax({
 			url : 'PurchaseServlet',
 			type : 'POST',
@@ -404,7 +444,7 @@ $(function() {
 		});
 
 		$('#SalesForm').submit(function(e) {
-
+//			e.preventDefault();
 			$.ajax({
 				url : 'SalesServlet',
 				type : 'POST',
