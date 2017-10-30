@@ -6,10 +6,11 @@ $(function() {
 	var amount = 0;
 	var collection = 0;
 	var weekSales = $("#weekSales");
-	var totalCollection = $("#totalCollection");
+	var totalAmount = $("#totalAmount");
 	var collectionReceived = $("#collectionReceived") ;
 	var closingBal = $("#closingBal") ;
 	var collectionCalc = null ;
+	var opeBal = $('#opeBal');
 	// Load company into dropdown list
 	$.getJSON('/server/jsonfiles/customer.json', function(data) {
 		var jsonDataProduct = data['data'];
@@ -53,7 +54,7 @@ $(function() {
 
 		$.ajax({
 			type : "POST",
-			url : "/server/jsonfiles/collection.json",
+			url : "/server/jsonfiles/purchase.json",
 			dataType : "json",
 			select : true,
 			success : function(data) {
@@ -63,7 +64,7 @@ $(function() {
 				$.each(jsonDataProduct, function(key, val) {
 
 					if (customerName ==val.customer) {
-						$('#opeBal').val(val.closingBal);
+						$('#opeBal').val(val.outstanding);
 					} else if (customerName == "selectCust") {
 						$('#opeBal').val(null);
 					}
@@ -130,6 +131,7 @@ $(function() {
 				$('#kgs').val(totalKgs);
 				$('#pcs').val(totalPcs);
 				weekSales.val(totalAmt);
+				totalAmount.val(totalAmt + parseInt(opeBal.val()));
 			}
 
 		});
@@ -175,9 +177,9 @@ var collectionTable = $('#collectionTable').DataTable();
 			});
 			var weekCollection = collection;
 			$('#collection').val(weekCollection);
-			totalCollection.val(weekCollection);
-			collectionCalc = weekSales.val() - totalCollection.val();
-			collectionReceived.val(collectionCalc);
+			collectionReceived.val(weekCollection);
+			collectionCalc =  totalAmount.val() - weekCollection;
+			
 			$('#closingBal').val(collectionCalc);
 			collection = 0;
 		}
@@ -273,7 +275,7 @@ var collectionTable = $('#collectionTable').DataTable();
 				"totalPcs" : $('#pcs').val(),
 				"weekCollection" : $('#collection').val(),
 				"weekSales" : $('#weekSales').val(),
-				"totalCollection" : $('#totalCollection').val(),
+				"totalAmount" : $('#totalAmount').val(),
 				"collectionReceived" : $('#collectionReceived').val(),
 				"addLess" : $('#addLess').val(),
 				"closingBal" : $('#closingBal').val()

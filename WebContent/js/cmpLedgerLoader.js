@@ -6,10 +6,11 @@ $(function() {
 	var amount = 0;
 	var payment = 0;
 	var weekPurchase = $("#weekPurchase");
-	var totalPayment = $("#totalPayment");
+	var totalAmount = $("#totalAmount");
 	var paymentGiven = $("#paymentGiven") ;
 	var closingBal = $("#closingBal") ;
 	var paymentCalc = null ;
+	var opeBal = $('#opeBal');
 	// Load company into dropdown list
 	$.getJSON('/server/jsonfiles/company.json', function(data) {
 		var jsonDataProduct = data['data'];
@@ -108,7 +109,7 @@ $(function() {
 						
 						//check whether date is true from selected date
 						if (date.getTime() >= fromTime && date.getTime() <= toTime) {
-							alert(val.date + "  date");
+							
 							purchaseTable.row.add([ val.date, val.purchaseId, val.product, val.pieces, val.kg, val.rate, val.amount ]).draw();
 								$("#cmpName").on("change", function() {
 									purchaseTable.clear().draw();
@@ -131,6 +132,7 @@ $(function() {
 				$('#kgs').val(totalKgs);
 				$('#pcs').val(totalPcs);
 				weekPurchase.val(totalAmt);
+				totalAmount.val(totalAmt + parseInt(opeBal.val()));
 			}
 
 		});
@@ -176,9 +178,8 @@ var paymentTable = $('#paymentTable').DataTable();
 			});
 			var weekPayment = payment;
 			$('#payment').val(weekPayment);
-			totalPayment.val(weekPayment);
-			paymentCalc = weekPurchase.val() - totalPayment.val();
-			paymentGiven.val(paymentCalc);
+			paymentGiven.val(weekPayment);
+			paymentCalc = totalAmount.val() - weekPayment;
 			$('#closingBal').val(paymentCalc);
 			payment = 0;
 		}
@@ -272,7 +273,7 @@ var paymentTable = $('#paymentTable').DataTable();
 				"totalPcs" : $('#pcs').val(),
 				"weekPayment" : $('#payment').val(),
 				"weekPurchase" : $('#weekPurchase').val(),
-				"totalPayment" : $('#totalPayment').val(),
+				"totalAmount" : $('#totalAmount').val(),
 				"paymentGiven" : $('#paymentGiven').val(),
 				"addLess" : $('#addLess').val(),
 				"closingBal" : $('#closingBal').val()

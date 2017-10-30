@@ -157,18 +157,18 @@ public class PurchaseServlet extends HttpServlet {
 				}
 			}
 			if (operation.equals("insert")) {
-
-				for (PayLoad payload : payData.getPayLoadData()) {
-					// PayLoad payload = new PayLoad();
-					// payload.setPurchaseId(Integer.parseInt(purchaseId));
-					// payload.setDate(date);
-					// payload.setCompany(company);
+				
+//				for (PayLoad payload : payData.getPayLoadData()) {
+				PayLoad payload = new PayLoad();
+				payload.setPurchaseId(Integer.parseInt(purchaseId));
+				payload.setDate(date);
+				payload.setCompany(company);
 					payload.setFinalAmount(Double.parseDouble(finalAmount));
 					payload.setBalanceAmount(Double.parseDouble(finalAmount));
 					payload.setStatus(1);
 					System.out.println("payload final amount" + Double.parseDouble(finalAmount));
 					new PurchaseDao().insertPay(payload);
-				}
+//				}
 				pw.println(operationResp);
 			}
 
