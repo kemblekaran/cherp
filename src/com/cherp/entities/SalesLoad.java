@@ -19,7 +19,7 @@ public class SalesLoad {
 	@Column(name = "invoiceNo")
 	private int invoiceNo;
 	@Column(name = "date")
-	private Timestamp date;
+	private String date;
 	@Column(name = "customer")
 	private String customer;
 	@Column(name = "invoiceAmount")
@@ -47,11 +47,12 @@ public class SalesLoad {
 
 	
 
-	public Timestamp getDate() {
+	
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Timestamp date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

@@ -165,7 +165,7 @@ var paymentTable = $('#paymentTable').DataTable();
 					//check whether date is true from selected date
 					if (date.getTime() >= fromTime && date.getTime() <= toTime) {
 						
-						paymentTable.row.add([ val.paymentDate, val.company,  val.payNow ]).draw();
+						paymentTable.row.add([ val.paymentDate, val.paymentMode,  val.payNow ]).draw();
 							$("#cmpName").on("change", function() {
 								paymentTable.clear().draw();
 							});

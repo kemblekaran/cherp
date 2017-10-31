@@ -221,50 +221,50 @@
 
 				<!-- Table for Product  -->
 				<h4>Sales</h4>
-				<table id="salesReadyTable">
-					<thead>
+				<table id="salesReadyTable" class="table-bordered responsive stripe hover">
+					<thead style="background-color: #4a4b4c; color: #fff">
 						<tr>
-							<th>Invoice No</th>
-							<th>Customer Name</th>
-							<th>Product</th>
-							<th>Pieces</th>
-							<th>KG</th>
-							<th>Rate</th>
-							<th>Amount</th>
-							<th>Average Weight</th>
+							<td>Invoice No</td>
+							<td>Customer Name</td>
+							<td>Product</td>
+							<td>Pieces </td>
+							<td>KG </td>
+							<td>Rate </td>
+							<td>Amount</td>
+							<td>Average Weight</td>
 						</tr>
 					</thead>
-					<tbody>
+					<thead>
 
 						<tr>
-							<td><input type="text" name="invoiceNo" id="invoiceNo"
-								class="form-control" readonly></td>
+							<th><input type="text" name="invoiceNo" id="invoiceNo"
+								class="form-control" readonly></th>
 
-							<td><select id="customerSelect" name="customer"
+							<th><select id="customerSelect" name="customer"
 								class="form-control" style="width:160px;">
 									<option selected="true" disabled="disabled">Select Customer</option>
-							</select></td>
+							</select></th>
 
-							<td><input type="text" id="salesProduct" name="product"
-								class="form-control" readonly></td>
+							<th><input type="text" id="salesProduct" name="product"
+								class="form-control" readonly></th>
 
-							<td><input type="text" name="pieces" id="salesPieces"
-								class="form-control"></td>
+							<th><input type="text" name="pieces" id="salesPieces"
+								class="form-control"></th>
 
-							<td><input type="text" name="kg" id="salesKg"
-								class="form-control"></td>
+							<th><input type="text" name="kg" id="salesKg"
+								class="form-control"></th>
 
-							<td><input type="text" name="rate" id="salesRate"
-								class="form-control"></td>
+							<th><input type="text" name="rate" id="salesRate"
+								class="form-control"></th>
 
-							<td><input type="text" name="amount" id="salesAmount"
-								class="form-control" readonly></td>
+							<th><input type="text" name="amount" id="salesAmount"
+								class="form-control" readonly></th>
 
-							<td><input type="text" name="avgWeight" id="salesAvgWeight"
-								class="form-control" readonly></td>
+							<th><input type="text" name="avgWeight" id="salesAvgWeight"
+								class="form-control" readonly></th>
 						</tr>
 
-					</tbody>
+					</thead>
 
 				</table>
 				<input type="hidden" name="operation" value="insert">
@@ -308,7 +308,12 @@
 	<script type="text/javascript" src="js/dataentry/sales.js"></script>
 	<script type="text/javascript">
 		//datatable for salesReady
-		var salesReadyTable = $('#salesReadyTable').DataTable();
+		var salesReadyTable = $('#salesReadyTable').DataTable({
+			"columnDefs" : [ {
+				"className" : "dt-center",
+				"targets" : "_all"
+			} ],
+		});
 
 		//add data to datatable(very important)
 		var salesReady = $('#salesTable').DataTable({

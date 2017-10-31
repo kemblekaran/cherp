@@ -205,7 +205,7 @@ public class CollectionDataManager {
 				
 				salesload.setId(rs.getInt("id"));
 				salesload.setInvoiceNo(rs.getInt("invoiceNo"));
-				salesload.setDate(rs.getTimestamp("date"));
+				salesload.setDate(rs.getString("date"));
 				salesload.setCustomer(rs.getString("customer"));
 				salesload.setInvoiceAmount(rs.getInt("invoiceAmount"));
 				salesload.setBalanceAmount(rs.getInt("balanceAmount"));

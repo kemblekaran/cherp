@@ -99,7 +99,7 @@ $(function() {
 							purchaseAmt.val(val.finalAmount);
 							rent.val(val.rent);
 							purchaseVanTable.row.add(
-									[ val.date, val.company, val.product, val.pieces, val.kg, val.rate, val.amount, val.avgWeight,val.avgWeight,val.avgWeight, val.avgWeight  ]).draw();
+									[ val.date, val.company, val.product, val.pieces, val.kg, val.rate, val.amount, val.avgWeight,val.balancePieces,val.balanceKG, val.avgWeight  ]).draw();
 							
 							$("#Show").on('click', function() {
 								purchaseVanTable.clear().draw();

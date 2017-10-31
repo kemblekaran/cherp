@@ -164,7 +164,7 @@ var collectionTable = $('#collectionTable').DataTable();
 					//check whether date is true from selected date
 					if (date.getTime() >= fromTime && date.getTime() <= toTime) {
 						
-						collectionTable.row.add([ val.collectionDate, val.customer,  val.payNow ]).draw();
+						collectionTable.row.add([ val.collectionDate, val.collectionMode,  val.payNow ]).draw();
 							$("#custName").on("change", function() {
 								collectionTable.clear().draw();
 							});

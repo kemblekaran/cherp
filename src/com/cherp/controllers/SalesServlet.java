@@ -129,7 +129,7 @@ public class SalesServlet extends HttpServlet {
 				for(SalesLoad salesload : salesData.getSalesLoadData()) {
 					salesload.setInvoiceNo(Integer.parseInt(invoiceNo));
 					salesload.setCustomer(customer);
-					salesload.setDate(new Timestamp(System.currentTimeMillis()));
+					salesload.setDate(salesDate);
 					salesload.setInvoiceAmount(Double.parseDouble(amount));
 					salesload.setBalanceAmount(Double.parseDouble(amount));
 					salesload.setStatus(1);

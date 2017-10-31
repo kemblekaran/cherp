@@ -1,6 +1,6 @@
 $(function() {
 
-	
+	var selectItemTable = $('#salesTable').DataTable();
 	// store elements into variables
 	var invoiceNo = $('#invoiceNo');
 	var salesKg = $('#salesKg');
@@ -10,7 +10,7 @@ $(function() {
 	var salesPieces = $("#salesPieces");
 	var salesKg = $("#salesKg");
 	var salesRate = $("#salesRate");
-	
+	var invoice = 0;
 	var balanceQtyKg = $('#balanceQtyKg');
 	var pid;
 	var salesProduct;
@@ -37,12 +37,21 @@ $(function() {
 
 	$.getJSON('/server/jsonfiles/invoiceNo.json', function(data) {
 		var jsonData = data['data'];
-		var invoice;
+		
 		$.each(jsonData, function(key, val) {
 			invoice = val.invoiceNo;
 		});
+		var newInvoice = invoice + 1;
 		console.log(invoice);
-		invoiceNo.val(invoice + 1);
+		invoiceNo.val(newInvoice);
+		$('#salesReadyTable thead tr th').keydown(function(e) {
+			
+			if (e.keyCode === 13) {
+				newInvoice++;
+				
+			}
+			invoiceNo.val(newInvoice);
+		});
 	});
 
 	$.getJSON('/server/jsonfiles/van.json', function(data) {
@@ -93,7 +102,11 @@ $(function() {
 								$("#van").on("change", function() {
 									
 									salesReady.clear().draw();
+									salesReadyTable.clear().draw();
+									$('#invoiceNo').val(invoice+1);
 									$('#salesProduct').val(null);
+									$('#salesAmount').val(null);
+									$('#salesAvgWeight').val(null);
 								});
 
 							}
@@ -119,13 +132,38 @@ $(function() {
 				});// ajax method close
 			});// onchange event close
 
-	 
+	var cellData = 0;
 	
+	$('#salesTable tbody').on( 'click', 'td', function () {
+//	    alert( selectItemTable.cell( this ).data() );
+//	    var cell = selectItemTable.cell( this );
+//	    cell.data( cell.data() + 1 ).draw();
+//	    alert(selectItemTable.row( this ).data() );
+//	    var row = selectItemTable.row( this ).data();
+////	    alert(row[11]);
+//	    alert(row[11](row[11] + 1).draw());
 
+//		alert(selectItemTable.cell(this, 11, { order: 'original' }).data());
+		cellData = selectItemTable.cell(this, 11, { order: 'original' });
+//		alert(cellData.data());
+	} );
+	var cellKg = 0;
+	$("#salesKg").on('keyup', function() {
+		cellKg = parseInt(salesKg.val())
+		
+		
+			cellData.data( cellData.data() - cellKg ).draw();
+		
+		
+	});
+	
+	
 	// balance and sales quantity
-	var selectItemTable = $('#salesTable').DataTable();
+	
 	var selectItemData;
 	$('#salesTable tbody').on('click', 'tr', function() {
+		
+		
 		$("#balanceQtyKg, #balanceQtyPieces, #salesQtyKg, #salesQtyPieces, #salesPieces, #salesKg, #salesRate").val(null);
 		selectItemData = selectItemTable.row(this).data();
 		console.log('selected data ' + selectItemData);
@@ -357,7 +395,7 @@ $(function() {
 	var productRowData = [];
 	var salesLoadData = [];
 
-	$('#salesReadyTable tbody tr td')
+	$('#salesReadyTable thead tr th')
 			.keydown(
 					function(e) {
 
@@ -399,6 +437,8 @@ $(function() {
 
 						if (e.keyCode === 13) {
 
+							
+							
 							productRowData.push(productRow);
 							salesLoadData.push(salesLoadRow);
 							salesReadyTable.row.add(

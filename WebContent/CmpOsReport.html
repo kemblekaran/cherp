@@ -1,7 +1,7 @@
 <html>
 
 <head>
-	<title>Current Outstanding Report</title>
+	<title>Company Outstanding Report</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 	<link rel="stylesheet" href="validate.css">
@@ -58,12 +58,12 @@
 				<table id="curOsTable" class="table-bordered">
 					<thead>
 						<tr>
-							<th>Customer Id</th>
-							<th>Customer Name</th>
+							<th>Company Id</th>
+							<th>Company Name</th>
 							<th>Area</th>
 							<th>Opening Balance</th>
-							<th>Sales</th>
-							<th>Collection</th>
+							<th>Purchase</th>
+							<th>Payment</th>
 							<th>Closing Balance</th>
 						</tr>
 					</thead>
@@ -82,25 +82,25 @@
 
 				<div class="col-md-2 col-md-offset-1 text-center">
 					<div class="form-group">
-						<label for="totalOs">Total Outstanding</label> <input type="text"  id="totalOs" name="totalOs" class="form-control">
+						<label for="totalOs">Total Outstanding</label> <input type="text" id="totalOs" name="totalOs" class="form-control">
 					</div>
 				</div>
-				
+
 				<div class="col-md-2  text-center">
 					<div class="form-group">
-						<label for="totalSale">Total Sale</label> <input type="text"  id="totalSale" name="totalSale" class="form-control">
+						<label for="totalSale">Total Purchase</label> <input type="text" id="totalSale" name="totalSale" class="form-control">
 					</div>
 				</div>
-				
+
 				<div class="col-md-2 text-center">
 					<div class="form-group">
-						<label for="totalColl">Total Collection</label> <input type="text"  id="totalColl" name="totalColl" class="form-control">
+						<label for="totalColl">Total Payment</label> <input type="text" id="totalColl" name="totalColl" class="form-control">
 					</div>
 				</div>
-				
+
 				<div class="col-md-2  text-center">
 					<div class="form-group">
-						<label for="totalClose">Total Closing</label> <input type="text"  id="totalClose" name="totalClose" class="form-control">
+						<label for="totalClose">Total Closing</label> <input type="text" id="totalClose" name="totalClose" class="form-control">
 					</div>
 				</div>
 
@@ -120,7 +120,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.min.js"></script>
-	<script src="js/curOsReport.js" type="text/javascript"></script>
+	<script src="js/CmpOsReport.js" type="text/javascript"></script>
 
 
 	<script type="text/javascript">

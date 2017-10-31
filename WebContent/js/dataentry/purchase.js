@@ -9,14 +9,56 @@ $(function() {
 	var avgWeight = $('#avgWeight');
 	var finalAmount = $('#finalAmount');
 	var purchaseId = $('#purchaseid');
-	var outstanding = $('#outstanding').val();
+	var outstanding = $('#outstanding');
 
 	var productRowData = [];
 	var payloadRowData = [];
 	var json;
 
+	var amount = 0;
+	//display outstanding of company
+	$("#companyList").on("change",function() {
+				var companyName = $(this).val();
+
+				$.ajax({
+					type : "POST",
+					url : "/server/jsonfiles/payload.json",
+					dataType : "json",
+					select : true,
+					success : function(data) {
+						var jsonDataProduct = data['data'];
+						var jsonPayment = data['data'];
+
+						// To display total amount to be paid
+						$.each(jsonPayment, function(key, val) {
+							if (companyName == val.company) {
+								amount = amount + val.balanceAmount;
+							}
+						});
+						var balAmt = amount;
+						amount = 0;
+
+						$.each(jsonDataProduct, function(key, val) {
+
+							if (companyName == val.company) {
+								outstanding= $("#outstanding").val(balAmt);
+								$("#companyList").on("change", function() {
+									productTable.clear().draw();
+									outstanding.val(null);
+
+								});
+
+							}
+						});// forEach method close
+
+					}// success method close
+				});// ajax method close
+			});// onchange event close
 	
-	
+	$("#vanList").on("change", function() {
+		productTable.clear().draw();
+
+	});
 	
 	// get target element when clicked on product table
 	// assign product table id to avoid assigning null object to on-input event
@@ -80,14 +122,14 @@ $(function() {
 
 	// redirect to sales html on double click on purchase view rows
 	$('#purchaseViewTable tbody').on('dblclick', function() {
-		window.location = 'Sales.html';
+		window.open('Sales.html','_blank');
 	});
 
 	// add product to data table when presses enter
-	$('#productTable tbody tr td').keydown(
+	$('#productTable thead tr th').keydown(
 			function(e) {
 
-				var outstanding = $('#outstanding').val();
+//				var outstanding = $('#outstanding').val();
 
 				var productRow = {
 					"purchaseId" : $('#purchaseid').val(),
@@ -124,6 +166,8 @@ $(function() {
 					productRowData.push(productRow);
 					payloadRowData.push(payloadRow);
 					
+					
+					
 					productTable.row.add(
 							[ product.val(), pieces.val(), kg.val(),
 									rate.val(), amt.val(), avgWeight.val() ])
@@ -132,6 +176,13 @@ $(function() {
 					// console.log('Json' + productJsonArray);
 					console.log("productRowData "+JSON.stringify(productRowData));
 					console.log("payloadRowData "+JSON.stringify(payloadRowData));
+					
+					product.val();
+					pieces.val(null);
+					kg.val(null);
+					rate.val(null);
+					amt.val(null);
+					avgWeight.val(null);
 
 				}
 				
@@ -143,7 +194,7 @@ $(function() {
 
 				}
 				// for setting final amount
-				fa = parseInt(fa) + parseInt(outstanding);
+				fa = parseInt(fa); //+ parseInt(outstanding);
 
 				finalAmount.attr('value', fa.toFixed(2));
 
