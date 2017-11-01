@@ -129,7 +129,7 @@ public class PurchaseServlet extends HttpServlet {
 				purchase.setPurchaseId(Integer.parseInt(pid));
 				purchase.setCompany(companyName);
 				purchase.setProduct(productName);
-				purchase.setBalanceKG(Integer.parseInt(balanceKG));
+				purchase.setBalanceKG(Double.parseDouble(balanceKG));
 				purchase.setBalancePieces(Integer.parseInt(balancePieces));
 				new PurchaseDao().updatePiecesKG(purchase);
 			}

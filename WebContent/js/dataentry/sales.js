@@ -69,6 +69,7 @@ $(function() {
 		$.each(jsonDataProduct, function(key, val) {
 			$('#van').val(val.vanName);
 		});
+		setTimeout($("#van option[value='"+val.vanName+"']").attr("selected","selected"),1000);
 	});
 
 	// list data on van change
@@ -178,7 +179,7 @@ $(function() {
 
 	});
 	
-	$("#salesPieces, #salesKg, #salesRate").on('input', function() {
+	$("#salesPieces, #salesKg, #salesRate").on('click', function() {
 		if ($("#salesProduct").val() == "") {
 			alert('Please select a row first');
 			$("#balanceQtyKg, #balanceQtyPieces, #salesQtyKg, #salesQtyPieces, #salesPieces, #salesKg, #salesRate").val(null);
@@ -415,14 +416,14 @@ $(function() {
 						var van = $('#van').val();
 						console.log('pid :' + purchaseId);
 						var productRow = {
-							"InvoiceNo" : invoiceNo.val(),
+							"invoiceNo" : invoiceNo.val(),
 							"customer" : customer.val(),
 							"product" : product.val(),
-							"salesPieces" : salesPieces.val(),
-							"salesKg" : salesKg.val(),
-							"salesRate" : salesRate.val(),
-							"salesAmount" : salesAmount.val(),
-							"salesAvgWeight" : salesAvgWeight.val(),
+							"pieces" : salesPieces.val(),
+							"kg" : salesKg.val(),
+							"rate" : salesRate.val(),
+							"amount" : salesAmount.val(),
+							"avgWeight" : salesAvgWeight.val(),
 							"purchaseId" : purchaseId,
 							"purchaseDate" : purchaseDate,
 							"van" : van
@@ -430,9 +431,10 @@ $(function() {
 						}
 
 						var salesLoadRow = {
-							"InvoiceNo" : invoiceNo.val(),
+							"invoiceNo" : invoiceNo.val(),
 							"customer" : customer.val(),
-
+							"invoiceAmount" : salesAmount.val(),
+							"balanceAmount" : salesAmount.val(),
 						}
 
 						if (e.keyCode === 13) {

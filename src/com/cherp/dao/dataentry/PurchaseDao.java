@@ -223,7 +223,7 @@ public class PurchaseDao {
 	try {
 		ps = con.prepareStatement(updateQuery);
 		ps.setInt(1, purchase.getBalancePieces());
-		ps.setInt(2, purchase.getBalanceKG());
+		ps.setDouble(2, purchase.getBalanceKG());
 		ps.setString(3, purchase.getCompany());
 		ps.setString(4, purchase.getProduct());
 		ps.setInt(5, purchase.getPurchaseId());

@@ -22,7 +22,7 @@
 	<div class="container-fluid" id="mainContainer">
 		<div class="jumbotron">
 
-			<h2>Ledger Report</h2>
+			<h2>Company Outstanding Report</h2>
 
 			<div class="row">
 				<div class="col-md-3 col-md-offset-2">
@@ -64,9 +64,23 @@
 							<th>Opening Balance</th>
 							<th>Purchase</th>
 							<th>Payment</th>
+							<th>Add/Less</th>
 							<th>Closing Balance</th>
 						</tr>
 					</thead>
+					<tfoot>
+							<tr>
+
+								<th>Total:</th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+						</tfoot>
 				</table>
 			</div>
 
@@ -76,33 +90,6 @@
 					<button id="print" class="btn btn-primary">Print</button>
 				</div>
 
-				<div class="col-md-1">
-					<button id="calcTotal" class="btn btn-info">Calculate Total</button>
-				</div>
-
-				<div class="col-md-2 col-md-offset-1 text-center">
-					<div class="form-group">
-						<label for="totalOs">Total Outstanding</label> <input type="text" id="totalOs" name="totalOs" class="form-control">
-					</div>
-				</div>
-
-				<div class="col-md-2  text-center">
-					<div class="form-group">
-						<label for="totalSale">Total Purchase</label> <input type="text" id="totalSale" name="totalSale" class="form-control">
-					</div>
-				</div>
-
-				<div class="col-md-2 text-center">
-					<div class="form-group">
-						<label for="totalColl">Total Payment</label> <input type="text" id="totalColl" name="totalColl" class="form-control">
-					</div>
-				</div>
-
-				<div class="col-md-2  text-center">
-					<div class="form-group">
-						<label for="totalClose">Total Closing</label> <input type="text" id="totalClose" name="totalClose" class="form-control">
-					</div>
-				</div>
 
 
 			</div>

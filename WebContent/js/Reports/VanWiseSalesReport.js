@@ -9,12 +9,33 @@ $(function() {
 	var rent = $("#rent");
 	var totalPur = $("#totalPurchase");
 	
+	
 	var purchaseAmt = $("#purchaseAmt");
 	var rent = $("#rent");
 	var totalPurchase = 0;
 	
+	//variable for calculate total Kg in purchase
+	var purchaseTotalKgs = 0;
+	var purchaseTotalAmount = 0;
+	
+	//variable for calculate total Kg in purchase
+	var salesTotalPieces = 0;
+	var salesTotalKgs = 0;
+	var salesTotalAmount = 0;
+	
+	var exp1 = $("#exp1");
+	var exp2 = $("#exp2");
+	var exp3 = $("#exp3");
+	var exp4 = $("#exp4");
+	var exp5 = $("#exp5");
+	var exp6 = $("#exp6");
+	var totalExp = $("#totalExp");
+	
 	var selectedDate;
 	var selectedVan;
+	
+	var totalPurchaseAmt = 0;
+	var totalSalesAmt = 0;
 	
 	$.getJSON('/server/jsonfiles/purchaseLoader.json', function(data) {
 
@@ -26,6 +47,16 @@ $(function() {
 		});
 	});
 
+	//expenses loaded from master expenses
+	$.getJSON('/server/jsonfiles/expenses.json', function(data) {
+
+		var jsonData = data['data'];
+		$.each(jsonData, function(key, val) {
+			$('#expenses1, #expenses2, #expenses3, #expenses4, #expenses5, #expenses6').append(
+					'<option value="' + val.description + '">' + val.description
+							+ '</option>');
+		});
+	});
 	var date = $('#date');
 	var van = $('#vanNo');
 
@@ -38,7 +69,7 @@ $(function() {
 		}).datepicker('setDate', 'today');
 	});
 
-	
+	//on change clear all values
 	$("#vanNo, #date").on('change', function() {
 		
 		selectedDate = $("#date").val();
@@ -83,11 +114,58 @@ $(function() {
 		$("#Show").on('click', function() {
 			purchaseVanTable.clear().draw();
 			salesVanTable.clear().draw();
+			
+			//sales van table
+			var totalPieces = 0;
+			var totalKgs = 0;
+			var totalAmount = 0;
+			$.getJSON('/server/jsonfiles/salesView.json', function(data) {
+				var vanWiseData = data['data'];
+				var purchaseNoArray = [];
+				
+				$.each(vanWiseData, function(key, val) {
+					if(selectedDate == val.purchaseDate && selectedVan == val.van){
+						
+							salesVanTable.row.add(
+									[ val.salesDate, val.invoiceNo, val.customer, val.product, val.pieces, val.kg, val.rate, val.avgWeight,
+										val.amount ]).draw();
+							
+							$("#Show").on('click', function() {
+								salesVanTable.clear().draw();
+								
+							});
+							
+							totalPieces = totalPieces + val.pieces;
+							totalKgs = totalKgs + val.kg;
+							totalAmount = totalAmount + val.amount;
+							
+					}
+					
+				});
+				
+				salesTotalPieces = totalPieces;
+				salesTotalKgs = totalKgs;
+				salesTotalAmount = totalAmount;
+				
+				
+				totalPieces = 0 ;
+				totalKgs = 0;
+				totalAmount = 0;
+				
+				$('#totalPcs').val(salesTotalPieces);
+				$('#totalKgs').val(salesTotalKgs);
+				$('#totalAmt').val(salesTotalAmount);
+				
+				
+				
+			});
+			
 //			purchase van table
 			$.getJSON('/server/jsonfiles/purchaseView.json', function(data) {
 				var vanWiseData = data['data'];
 				var purchaseNoArray = [];
-				
+				var purKgs = 0;
+				var purAmt = 0;
 				$.each(vanWiseData, function(key, val) {
 					if(selectedDate == val.date && selectedVan == val.vanName){
 						
@@ -112,17 +190,37 @@ $(function() {
 								rent.val(null);
 								totalPur.val(null);
 							});
+							
+							//calculate total purchase kg and amount for the day
+							purKgs = purKgs + val.kg;
+							purAmt = purAmt + val.amount;
 					}
 					
 				});
-				//purchase no array
+				
+				
+				purchaseTotalKgs = purKgs;
+				purchaseTotalAmount = purAmt;
+				purKgs = 0;
+				purAmt = 0;
+//				alert(purchaseTotalKgs + " purchase ");
+				
+				var weightLoss = purchaseTotalKgs - parseFloat($('#totalKgs').val());
+				alert(weightLoss + " weightLoss");
+				var netProfit = parseFloat($('#totalAmt').val()) - purchaseTotalAmount;
+				
+				$('#wtLoss').val(weightLoss);
+				$('#netProfit').val(netProfit);
+				
+				
+				//purchase no. array
 				$("#purchaseNo").val(purchaseNoArray);
 				
 	//			$("#rent").on('input', function() {
-					totalPurchase = parseInt(purchaseAmt.val()) + parseInt($("#rent").val());
+					totalPurchase = parseFloat(purchaseAmt.val()) + parseFloat($("#rent").val());
 					if (totalPurchase >= 0) {
 	
-						parseInt($("#totalPurchase").val(totalPurchase));
+						parseFloat($("#totalPurchase").val(totalPurchase));
 					} else {
 						$("#totalPurchase").val(purchaseAmt.val());
 						$("#rent").val(null);
@@ -131,48 +229,46 @@ $(function() {
 	//			});
 				
 			});
-			var totalPieces = 0;
-			var totalKgs = 0;
-			var totalAmount = 0;
-			//sales van table
-			$.getJSON('/server/jsonfiles/salesView.json', function(data) {
-				var vanWiseData = data['data'];
-				var purchaseNoArray = [];
-				
-				$.each(vanWiseData, function(key, val) {
-					if(selectedDate == val.salesDate && selectedVan == val.van){
-						
-							salesVanTable.row.add(
-									[ val.salesDate, val.invoiceNo, val.customer, val.product, val.pieces, val.kg, val.rate, val.avgWeight,
-										val.amount ]).draw();
-							
-							$("#Show").on('click', function() {
-								salesVanTable.clear().draw();
-								
-							});
-							
-							totalPieces = totalPieces + val.pieces;
-							totalKgs = totalKgs + val.kg;
-							totalAmount = totalAmount + val.amount;
-							
-					}
-					
-				});
-				
-				var pieces = totalPieces;
-				var kgs = totalKgs;
-				var amount = totalAmount;
-				
-				totalPieces = 0 ;
-				totalKgs = 0;
-				totalAmount = 0;
-				
-				$('#totalPcs').val(pieces);
-				$('#totalKgs').val(kgs);
-				$('#totalAmt').val(amount);
-			});
-		});
+			
+			
+			
+			
+			
+		});//end of show button
 
-	
+		
+		
+		//enabling textbox on dropdown menu select
+		$("#exp1, #exp2, #exp3, #exp4, #exp5, #exp6").attr("disabled",true);
+		$("#expenses1").on('change',function(){
+			$("#exp1").attr("disabled",false);
+		});
+		$("#expenses2").on('change',function(){
+			$("#exp2").attr("disabled",false);
+		});
+		$("#expenses3").on('change',function(){
+			$("#exp3").attr("disabled",false);
+		});
+		$("#expenses4").on('change',function(){
+			$("#exp4").attr("disabled",false);
+		});
+		$("#expenses5").on('change',function(){
+			$("#exp5").attr("disabled",false);
+		});
+		$("#expenses6").on('change',function(){
+			$("#exp6").attr("disabled",false);
+		});
+		
+		//calculate total expenses
+		$("#calcNetProfit").on("click", function(){
+			var total = 0;
+			total = (parseFloat(exp1.val()) + parseFloat(exp2.val()) + parseFloat(exp3.val()) +
+					parseFloat(exp4.val()) + parseFloat(exp5.val()) + parseFloat(exp6.val()));
+			totalExp.val(total);
+			
+			var totalGrossProfit = parseFloat($('#netProfit').val()) - total;
+			
+			$("#grossProfit").val(totalGrossProfit);
+		});
 
 });

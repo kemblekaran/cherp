@@ -110,28 +110,16 @@ public class SalesServlet extends HttpServlet {
 			if (operation.equals("insert")) {
 				System.out.println(" in insert");
 				for (Sales sales : jsonData.getSalesData()) {
-					sales.setPurchaseDate(purchaseDate);
-					sales.setVan(van);
-					sales.setPurchaseId(purchaseId);
-					sales.setInvoiceNo(Integer.parseInt(invoiceNo));
-					sales.setCustomer(customer);
-					sales.setProduct(product);
-					sales.setPieces(Integer.parseInt(pieces));
-					sales.setKg(Integer.parseInt(kg));
-					sales.setRate(Integer.parseInt(rate));
-					sales.setAmount(Double.parseDouble(amount));
-					sales.setAvgWeight(Double.parseDouble(avgWeight));
+					
 					sales.setSalesDate(salesDate);
 					sales.setStatus(1);
 					operationResp = new SalesDAO().insert(sales);
 				}
 				
 				for(SalesLoad salesload : salesData.getSalesLoadData()) {
-					salesload.setInvoiceNo(Integer.parseInt(invoiceNo));
-					salesload.setCustomer(customer);
+					
 					salesload.setDate(salesDate);
-					salesload.setInvoiceAmount(Double.parseDouble(amount));
-					salesload.setBalanceAmount(Double.parseDouble(amount));
+					
 					salesload.setStatus(1);
 					operationResp = new SalesDAO().insertSales(salesload);
 				}

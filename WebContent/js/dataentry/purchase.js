@@ -190,11 +190,11 @@ $(function() {
 				var fa = 0;
 				// for setting final amount
 				for (var i = 0; i < productRowData.length; i++) {
-					fa = fa + parseInt(productRowData[i].amount);
+					fa = fa + parseFloat(productRowData[i].amount);
 
 				}
 				// for setting final amount
-				fa = parseInt(fa); //+ parseInt(outstanding);
+				fa = parseFloat(fa); //+ parseInt(outstanding);
 
 				finalAmount.attr('value', fa.toFixed(2));
 

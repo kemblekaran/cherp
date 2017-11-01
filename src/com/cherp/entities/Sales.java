@@ -15,9 +15,9 @@ public class Sales {
 	private String purchaseId;
 	@Transient
 	@Column(name = "outstanding")
-	private int outstanding;
+	private double outstanding;
 	@Column(name = "salesAmount")
-	private int salesAmount;
+	private double salesAmount;
 	@Column(name = "purchaseDate")
 	private String purchaseDate;
 	@Column(name = "van")
@@ -38,9 +38,9 @@ public class Sales {
 	@Column(name = "pieces")
 	private int pieces;
 	@Column(name = "kg")
-	private int kg;
+	private double kg;
 	@Column(name = "rate")
-	private int rate;
+	private double rate;
 	@Column(name = "amount")
 	private double amount;
 	@Column(name = "avgWeight")
@@ -64,21 +64,7 @@ public class Sales {
 		this.purchaseId = purchaseId;
 	}
 
-	public int getOutstanding() {
-		return outstanding;
-	}
-
-	public void setOutstanding(int outstanding) {
-		this.outstanding = outstanding;
-	}
-
-	public int getSalesAmount() {
-		return salesAmount;
-	}
-
-	public void setSalesAmount(int salesAmount) {
-		this.salesAmount = salesAmount;
-	}
+	
 
 	
 	public String getPurchaseDate() {
@@ -146,19 +132,36 @@ public class Sales {
 		this.pieces = pieces;
 	}
 
-	public int getKg() {
+	
+	public double getOutstanding() {
+		return outstanding;
+	}
+
+	public void setOutstanding(double outstanding) {
+		this.outstanding = outstanding;
+	}
+
+	public double getSalesAmount() {
+		return salesAmount;
+	}
+
+	public void setSalesAmount(double salesAmount) {
+		this.salesAmount = salesAmount;
+	}
+
+	public double getKg() {
 		return kg;
 	}
 
-	public void setKg(int kg) {
+	public void setKg(double kg) {
 		this.kg = kg;
 	}
 
-	public int getRate() {
+	public double getRate() {
 		return rate;
 	}
 
-	public void setRate(int rate) {
+	public void setRate(double rate) {
 		this.rate = rate;
 	}
 

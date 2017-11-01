@@ -57,14 +57,14 @@ public class SalesDataSelectorManager {
 				purchase.setCleaner2(rs.getString("cleaner2"));
 				purchase.setCompany(rs.getString("company"));
 				purchase.setLocation(rs.getString("location"));
-				purchase.setOutstanding(rs.getInt("outstanding"));
+				purchase.setOutstanding(rs.getDouble("outstanding"));
 				purchase.setChallanNo(rs.getLong("challanNo"));
-				purchase.setRent(rs.getInt("rent"));
+				purchase.setRent(rs.getDouble("rent"));
 				purchase.setProduct(rs.getString("product"));
 				purchase.setPieces(rs.getInt("pieces"));
-				purchase.setKg(rs.getInt("kg"));
-				purchase.setRate(rs.getInt("rate"));
-				purchase.setAmount(rs.getInt("amount"));
+				purchase.setKg(rs.getDouble("kg"));
+				purchase.setRate(rs.getDouble("rate"));
+				purchase.setAmount(rs.getDouble("amount"));
 				purchase.setAvgWeight(rs.getDouble("avgWeight"));
 				purchase.setFinalAmount(rs.getDouble("finalAmount"));
 

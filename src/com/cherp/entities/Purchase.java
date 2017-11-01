@@ -34,31 +34,31 @@ public class Purchase {
 	@Column(name = "location")
 	private String location;
 	@Column(name = "outstanding")
-	private int outstanding;
+	private double outstanding;
 	@Column(name = "challanNo")
 	private long challanNo;
 	@Column(name = "rent")
-	private int rent;
+	private double rent;
 	@Column(name = "product")
 	private String product;
 	@Column(name = "pieces")
 	private int pieces;
 	@Column(name = "kg")
-	private int kg;
+	private double kg;
 	@Column(name = "rate")
-	private int rate;
+	private double rate;
 	@Column(name = "amount")
-	private int amount;
+	private double amount;
 	@Column(name = "avgWeight")
-	private Double avgWeight;
+	private double avgWeight;
 	@Column(name = "finalAmount")
-	private Double finalAmount;
+	private double finalAmount;
 	@Column(name = "status")
 	private int status;
 	@Column(name = "balancePieces")
 	private int balancePieces;
 	@Column(name = "balanceKG")
-	private int balanceKG;
+	private double balanceKG;
 
 	public int getId() {
 		return id;
@@ -140,13 +140,7 @@ public class Purchase {
 		this.location = location;
 	}
 
-	public int getOutstanding() {
-		return outstanding;
-	}
-
-	public void setOutstanding(int outstanding) {
-		this.outstanding = outstanding;
-	}
+	
 
 	public long getChallanNo() {
 		return challanNo;
@@ -156,11 +150,13 @@ public class Purchase {
 		this.challanNo = challanNo;
 	}
 
-	public int getRent() {
+	
+
+	public Double getRent() {
 		return rent;
 	}
 
-	public void setRent(int rent) {
+	public void setRent(Double rent) {
 		this.rent = rent;
 	}
 
@@ -180,28 +176,23 @@ public class Purchase {
 		this.pieces = pieces;
 	}
 
-	public int getKg() {
+	
+
+	
+	public Double getKg() {
 		return kg;
 	}
 
-	public void setKg(int kg) {
+	public void setKg(Double kg) {
 		this.kg = kg;
 	}
 
-	public int getRate() {
+	public Double getRate() {
 		return rate;
 	}
 
-	public void setRate(int rate) {
+	public void setRate(Double rate) {
 		this.rate = rate;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
 	}
 
 	public Double getAvgWeight() {
@@ -236,12 +227,30 @@ public class Purchase {
 		this.balancePieces = balancePieces;
 	}
 
-	public int getBalanceKG() {
+	public Double getOutstanding() {
+		return outstanding;
+	}
+
+	public void setOutstanding(Double outstanding) {
+		this.outstanding = outstanding;
+	}
+
+	public Double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+
+	public Double getBalanceKG() {
 		return balanceKG;
 	}
 
-	public void setBalanceKG(int balanceKG) {
+	public void setBalanceKG(Double balanceKG) {
 		this.balanceKG = balanceKG;
 	}
+
+	
 
 }
