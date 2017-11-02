@@ -158,6 +158,7 @@ public class CollectionDataManager {
 			while (rs.next()) {
 //				System.out.println("collection resultset "+rs.toString());
 				Collection collection = new Collection();
+				collection.setId(rs.getInt("id"));
 				collection.setCollectionDate(rs.getString("collectionDate"));
 				collection.setCustomer(rs.getString("customer"));
 				collection.setArea(rs.getString("area"));

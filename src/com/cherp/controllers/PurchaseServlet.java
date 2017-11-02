@@ -60,6 +60,8 @@ public class PurchaseServlet extends HttpServlet {
 	private String vanWiseSales = "";
 
 	private String updatePurchase = "";
+	private String purchaseUpdateData = "";
+	
 	private String pid = "";
 	private String companyName = "";
 	private String productName = "";
@@ -100,6 +102,9 @@ public class PurchaseServlet extends HttpServlet {
 		updatePurchase = request.getParameter("update");
 		System.out.println(updatePurchase + " updatepurchase");
 		
+		purchaseUpdateData = request.getParameter("purchaseUpdateData");
+		System.out.println("purchaseUpdateData "+ purchaseUpdateData);
+		
 		pid = request.getParameter("purchaseId");
 		productName = request.getParameter("product");
 		companyName = request.getParameter("company");
@@ -119,11 +124,17 @@ public class PurchaseServlet extends HttpServlet {
 		PurchaseDataManager pdm = new PurchaseDataManager();
 		// Purchase purchase = new Purchase();
 
+		
+
+		Gson gson = new Gson();
+		Data jsonData = gson.fromJson(productJson, Data.class);
+		Data payData = gson.fromJson(payloadJson, Data.class);
+
 		if (updatePurchase != null) {
 			if (updatePurchase.equals("true")) {
-				System.out.println("Purchase Id" + pid);
-				System.out.println("Company" + companyName);
-				System.out.println("Product" + productName);
+//				System.out.println("Purchase Id" + pid);
+//				System.out.println("Company" + companyName);
+//				System.out.println("Product" + productName);
 
 				Purchase purchase = new Purchase();
 				purchase.setPurchaseId(Integer.parseInt(pid));
@@ -134,11 +145,7 @@ public class PurchaseServlet extends HttpServlet {
 				new PurchaseDao().updatePiecesKG(purchase);
 			}
 		}
-
-		Gson gson = new Gson();
-		Data jsonData = gson.fromJson(productJson, Data.class);
-		Data payData = gson.fromJson(payloadJson, Data.class);
-
+		
 		System.out.println("payloadjson----------------- " + payloadJson);
 		// check which operation is performed(insert,update or delete)
 		if (operation != null) {

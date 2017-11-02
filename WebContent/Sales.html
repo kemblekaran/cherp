@@ -94,6 +94,7 @@
 						class="table-bordered responsive stripe hover">
 						<thead style="background-color: #4a4b4c; color: #fff">
 							<tr>
+								<th>Id</th>
 								<th>Purchase Id</th>
 								<th>Date</th>
 								<th>Company Name</th>
@@ -313,8 +314,10 @@
 				"className" : "dt-center",
 				"targets" : "_all"
 			} ],
+			
 		});
 
+		
 		//add data to datatable(very important)
 		var salesReady = $('#salesTable').DataTable({
 			// 			"ajax" : "/server/jsonfiles/salesTable.json",
@@ -351,6 +354,7 @@
 		// 				"data" : "balanceKG"
 		// 			} ]
 		});
+		salesReady.column(0).visible(false);
 	</script>
 
 </body>

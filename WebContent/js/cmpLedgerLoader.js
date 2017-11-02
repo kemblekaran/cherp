@@ -51,7 +51,7 @@ $(function() {
 	//closing bal as opening bal from payment
 	$("#cmpName").on("change", function() {
 		var companyName = $(this).val();
-
+		var toDate = $('#toDate').val();
 		$.ajax({
 			type : "POST",
 			url : "/server/jsonfiles/payment.json",
@@ -65,10 +65,7 @@ $(function() {
 
 					if (companyName == val.company) {
 						$('#opeBal').val(val.closingBal);
-					} else if (companyName == "selectCmp") {
-						$('#opeBal').val(null);
-					}
-					else{
+					} else{
 						$("#cmpName").on("change", function() {
 							$('#opeBal').val(0);
 						});
@@ -103,10 +100,13 @@ $(function() {
 						var toTime = new Date($('#toDate').val()).getTime();
 						
 						//getting date from json file
-//						var date = new Date('13/10/2017');
+//						var myDate = '15/07/2011';
+//						var chunks = myDate.split('/');
+//
+//						var formattedDate = chunks[1]+'/'+chunks[0]+'/'+chunks[2];
+//						var newdate = new Date(formattedDate);
+//						alert(newdate + "formated date");
 						var date = new Date(val.date);
-						
-						
 						//check whether date is true from selected date
 						if (date.getTime() >= fromTime && date.getTime() <= toTime) {
 							
@@ -180,6 +180,7 @@ var paymentTable = $('#paymentTable').DataTable();
 			$('#payment').val(weekPayment);
 			paymentGiven.val(weekPayment);
 			paymentCalc = totalAmount.val() - weekPayment;
+//			alert(paymentCalc);
 			$('#closingBal').val(paymentCalc);
 			payment = 0;
 		}

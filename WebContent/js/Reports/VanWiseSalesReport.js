@@ -206,13 +206,15 @@ $(function() {
 //				alert(purchaseTotalKgs + " purchase ");
 				
 				var weightLoss = purchaseTotalKgs - parseFloat($('#totalKgs').val());
-				alert(weightLoss + " weightLoss");
+//				alert(weightLoss + " weightLoss");
 				var netProfit = parseFloat($('#totalAmt').val()) - purchaseTotalAmount;
 				
-				$('#wtLoss').val(weightLoss);
-				$('#netProfit').val(netProfit);
+				$('#wtLoss').val(weightLoss.toFixed(2));
+				$('#netProfit').val(netProfit.toFixed(2));
 				
-				
+				var shrinkage = ( ( weightLoss / purchaseTotalKgs ) * 100 );
+				shrinkage = $.trim(shrinkage);
+				$("#shrinkage").val(shrinkage.toFixed(2));
 				//purchase no. array
 				$("#purchaseNo").val(purchaseNoArray);
 				

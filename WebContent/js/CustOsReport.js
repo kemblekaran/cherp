@@ -25,5 +25,58 @@ $(document).ready(function() {
 			}
 		}
 	});
+	
+	
+	$('#go').on('click', function(e) {
+//		alert('hey');
+		event.preventDefault();
+		
+		$.ajax({
+			type : "POST",
+			url : "/server/jsonfiles/customer.json",
+			dataType : "json",
+			select : true,
+			success : function(data) {
+				var customerData = data['data'];
+
+				$.each(customerData, function(key, val) {
+					curOsTable.row.add([ val.id, val.fname + val.lname, val.area, val.opBal, val.opBal, val.opBal, val.opBal, val.opBal ]).draw();
+					$('#go').on('click', function() {
+						curOsTable.clear().draw();
+					});
+//					if (cmpName == val.company) {
+//						//getting from and to date from input
+//						var fromTime = new Date($('#fromDate').val()).getTime();
+//						var toTime = new Date($('#toDate').val()).getTime();
+//						
+//						//getting date from json file
+////						var myDate = '15/07/2011';
+////						var chunks = myDate.split('/');
+////
+////						var formattedDate = chunks[1]+'/'+chunks[0]+'/'+chunks[2];
+////						var newdate = new Date(formattedDate);
+////						alert(newdate + "formated date");
+//						var date = new Date(val.date);
+//						//check whether date is true from selected date
+//						if (date.getTime() >= fromTime && date.getTime() <= toTime) {
+//							
+//							purchaseTable.row.add([ val.date, val.purchaseId, val.product, val.pieces, val.kg, val.rate, val.amount ]).draw();
+//								$("#cmpName").on("change", function() {
+//									purchaseTable.clear().draw();
+//								});
+//								$('#go').on('click', function() {
+//									purchaseTable.clear().draw();
+//								});
+//								kgs = kgs + val.kg;
+//								pieces = pieces + val.pieces;
+//								amount = amount + val.amount;
+//						}
+//					}
+				});
+				
+			}
+
+		});
+	});
 
 });

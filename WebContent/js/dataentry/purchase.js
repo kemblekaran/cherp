@@ -76,8 +76,8 @@ $(function() {
 	// calculate amount and avg weight
 	productTableTargetEle.on('input', function() {
 
-		var newAmt = parseFloat(rate.val()) * parseFloat(kg.val());
-		var newAvgWeight = parseFloat(kg.val()) / parseFloat(pieces.val());
+		var newAmt = (parseFloat(rate.val()) || 0) * (parseFloat(kg.val()) || 0);
+		var newAvgWeight = ((parseFloat(kg.val()) || 0) / (parseFloat(pieces.val()) || 0)) || 0;
 		
 		
 		if (newAmt !== null || newAvgWeight !== null) {
@@ -219,7 +219,7 @@ $(function() {
 		console.log("payloadJson---" + payloadJson);
 		
 		$('#PurchaseForm').submit(function(e) {
-
+			e.preventDefault();
 			$.ajax({
 				url : 'PurchaseServlet',
 				type : 'post',
@@ -233,6 +233,7 @@ $(function() {
 				}
 			})
 		});
+		productTable.clear().draw();
 	});
 
 	// to prevent form submission on enter key press

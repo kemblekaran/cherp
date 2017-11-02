@@ -90,43 +90,39 @@
 							<label for="opeBal">Opening Balance</label>
 						</div>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="opeBal" name="opeBal">
+							<input type="text" class="form-control" id="opeBal" name="opeBal" value = 0>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<!--Table Row-->
-			<div class="row ">
-					<div class="col-md-8">
-						<label><h3 class="text-primary">Purchase for the
-								period</h3></label>
-					</div>
-					<div class="col-md-4">
-						<label><h3 class="text-primary">Payment</h3></label>
-					</div>
-			</div>
-			<hr>
+			<br>
 
 			<div class="row " id="tableRow">
 				<div class="col-md-7">
+				<label><h3 class="text-primary">Purchase for the
+								period</h3></label>
+								<hr>
 					<table id="salesTable" class="table-bordered">
 						<thead style="background-color: #4a4b4c; color: #fff">
 							<tr>
-								<th>date</th>
-								<th>invoice</th>
-								<th>product</th>
-								<th>pieces</th>
-								<th>kgs</th>
-								<th>rate</th>
-								<th>amount</th>
+								<th>Date</th>
+								<th>Invoice</th>
+								<th>Product</th>
+								<th>Pieces</th>
+								<th>Kgs</th>
+								<th>Rate</th>
+								<th>Amount</th>
 							</tr>
 						</thead>
 					</table>
 				</div>
 
 				<div class="col-md-5">
+				<label><h3 class="text-primary">Payment</h3></label>
+					<hr>
 					<table id="collectionTable" class="table-bordered">
+					
 						<thead style="background-color: #4a4b4c; color: #fff">
 							<tr>
 								<th>Date</th>
@@ -146,7 +142,7 @@
 								<label for="pcs">Total Pcs</label>
 							</div>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="pcs" name="pcs" readonly>
+								<input type="text" class="form-control" id="pcs" name="pcs" value = 0 readonly>
 							</div>
 						</div>
 					</div>
@@ -157,7 +153,7 @@
 								<label for="kgs">Total Kgs</label>
 							</div>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="kgs" name="kgs" readonly>
+								<input type="text" class="form-control" id="kgs" name="kgs" value = 0 readonly>
 							</div>
 						</div>
 					</div>
@@ -169,7 +165,7 @@
 							</div>
 							<div class="col-sm-7">
 								<input type="text" class="form-control" id="collection"
-									name="collection" readonly>
+									name="collection" value = 0 readonly>
 							</div>
 						</div>
 					</div>
@@ -184,7 +180,7 @@
 							</div>
 							<div class="col-sm-5">
 								<input type="text" class="form-control" id="weekSales"
-									name="weekSales" readonly>
+									name="weekSales" value = 0 readonly>
 							</div>
 						</div>
 					
@@ -194,7 +190,7 @@
 							</div>
 							<div class="col-sm-5">
 								<input type="text" class="form-control" id="totalAmount"
-									name="totalAmount" readonly>
+									name="totalAmount" value = 0 readonly>
 							</div>
 						</div>
 						
@@ -204,7 +200,7 @@
 							</div>
 							<div class="col-sm-5">
 								<input type="text" class="form-control" id="collectionReceived"
-									name="collectionReceived" readonly>
+									name="collectionReceived" value = 0 readonly>
 							</div>
 						</div>
 						
@@ -223,7 +219,7 @@
 								</div>
 								<div class="col-sm-5">
 									<input type="text" class="form-control" id="addLess"
-										name="addLess">
+										name="addLess" value = 0>
 								</div>
 							</div>
 					
@@ -233,7 +229,7 @@
 							</div>
 							<div class="col-sm-5">
 								<input type="text" class="form-control" id="closingBal"
-									name="closingBal" readonly>
+									name="closingBal" value = 0 readonly>
 							</div>
 						</div>
 					</div>

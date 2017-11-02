@@ -45,6 +45,9 @@ public class SalesServlet extends HttpServlet {
 	private String rate = "";
 	private String amount = "";
 	private String avgWeight = "";
+	
+	private String updatePurchase = "";
+	private String purchaseUpdateData = "";
 
 	private String productJson = "";
 	private String salesLoadJson = "";
@@ -86,6 +89,13 @@ public class SalesServlet extends HttpServlet {
 		amount = request.getParameter("amount");
 		avgWeight = request.getParameter("avgWeight");
 		operation = request.getParameter("operation");
+		
+
+		updatePurchase = request.getParameter("update");
+		System.out.println(updatePurchase + " updatepurchase");
+		
+		purchaseUpdateData = request.getParameter("purchaseUpdateData");
+		System.out.println("purchaseUpdateData "+ purchaseUpdateData);
 		
 		company = request.getParameter("companyName");
 	}
