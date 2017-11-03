@@ -9,9 +9,19 @@ public class Data {
 	private List<Purchase> dataSelector = new ArrayList<>();
 	private List<PayLoad> payLoadData = new ArrayList<>();
 	private List<SalesLoad> salesLoadData = new ArrayList<>();
-	
+	private List<Purchase> purchaseUpdateData = new ArrayList<>();
 
 	
+	
+	
+	public List<Purchase> getPurchaseUpdateData() {
+		return purchaseUpdateData;
+	}
+
+	public void setPurchaseUpdateData(List<Purchase> purchaseUpdateData) {
+		this.purchaseUpdateData = purchaseUpdateData;
+	}
+
 	public List<SalesLoad> getSalesLoadData() {
 		return salesLoadData;
 	}

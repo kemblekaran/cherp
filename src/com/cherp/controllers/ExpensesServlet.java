@@ -80,7 +80,7 @@ public class ExpensesServlet extends HttpServlet {
 				System.out.println("Update Function");
 				exp.setId(Integer.parseInt(rowId));
 				exp.setDescription(updatedCellDescription);
-
+				exp.setStatus(1);
 				operationResp = edao.update(exp);
 				pw.println(operationResp);
 

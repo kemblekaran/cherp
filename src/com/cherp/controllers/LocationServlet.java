@@ -77,7 +77,7 @@ public class LocationServlet extends HttpServlet {
 
 				loc.setId(Integer.parseInt(rowId));
 				loc.setLocation(updatedCellLocation);
-
+				loc.setStatus(1);
 				operationResp = ldao.update(loc);
 				pw.println(operationResp);
 

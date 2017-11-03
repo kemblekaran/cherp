@@ -71,7 +71,7 @@ public class StateServlet extends HttpServlet {
 				System.out.println("Update Function");
 				state.setId(Integer.parseInt(rowId));
 				state.setStateName(updatedCellStateName);
-
+				state.setStatus(1);
 				operationResp = sdao.update(state);
 				pw.println(operationResp);
 

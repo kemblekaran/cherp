@@ -150,7 +150,7 @@ public class CleanersServlet extends HttpServlet {
 				cls.setPanNo(updatedCellPanNo);
 				cls.setAdhaarNo(updatedCellAdhaarNo);
 				cls.setPhoto(updatedCellPhoto);
-
+				cls.setStatus(1);
 				operationResp = cdm.updateData(cls);
 				pw.println(operationResp);
 

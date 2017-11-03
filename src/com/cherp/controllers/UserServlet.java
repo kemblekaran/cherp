@@ -86,6 +86,7 @@ public class UserServlet extends HttpServlet {
 				System.out.println("Update Function");
 				user.setId(Integer.parseInt(rowId));
 				user.setUsername(updatedCellUsername);
+				user.setStatus(1);
 				operationResp = udao.update(user);
 				pw.println(operationResp);
 				

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
@@ -54,21 +55,41 @@ public class SalesDAO {
 		return "Insert Successful";
 	}
 
+//	public String update(Purchase purchase) {
+//
+//		createSession();
+//
+//		Transaction t = session.beginTransaction();
+//
+//		session.update(purchase);
+//
+//		t.commit();
+//
+//		session.close();
+//
+//		return "Update Successful";
+//	}
+
 	public String update(Purchase purchase) {
 
 		createSession();
-
 		Transaction t = session.beginTransaction();
+		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 
-		session.update(purchase);
+		CriteriaUpdate<Purchase> criteria = criteriaBuilder.createCriteriaUpdate(Purchase.class);
+
+		Root<Purchase> root = criteria.from(Purchase.class);
+		criteria.set(root.get("balancePieces"), purchase.getBalancePieces());
+		criteria.set(root.get("balanceKG"), purchase.getBalanceKG());
+		criteria.where(criteriaBuilder.equal(root.get("id"), purchase.getId()));
+		session.createQuery(criteria).executeUpdate();
 
 		t.commit();
 
 		session.close();
-
 		return "Update Successful";
 	}
-
+	
 	public String delete(Purchase purchase) {
 		// TODO Auto-generated method stub
 

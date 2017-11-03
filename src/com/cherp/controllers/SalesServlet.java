@@ -47,7 +47,8 @@ public class SalesServlet extends HttpServlet {
 	private String avgWeight = "";
 	
 	private String updatePurchase = "";
-	private String purchaseUpdateData = "";
+	
+	private String purchaseUpdateJson = "";
 
 	private String productJson = "";
 	private String salesLoadJson = "";
@@ -61,7 +62,8 @@ public class SalesServlet extends HttpServlet {
 
 		productJson = request.getParameter("productJson");
 		salesLoadJson = request.getParameter("salesLoadJson");
-
+		purchaseUpdateJson = request.getParameter("purchaseUpdateJson");
+		
 		// context para for json files location
 		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
 
@@ -94,8 +96,8 @@ public class SalesServlet extends HttpServlet {
 		updatePurchase = request.getParameter("update");
 		System.out.println(updatePurchase + " updatepurchase");
 		
-		purchaseUpdateData = request.getParameter("purchaseUpdateData");
-		System.out.println("purchaseUpdateData "+ purchaseUpdateData);
+		
+		
 		
 		company = request.getParameter("companyName");
 	}
@@ -113,8 +115,10 @@ public class SalesServlet extends HttpServlet {
 		// Contains JSON Data of product Table on Sales.html
 		Data jsonData = gson.fromJson(productJson, Data.class);
 		Data salesData = gson.fromJson(salesLoadJson, Data.class);
+		Data purchaseUpdateData = gson.fromJson(purchaseUpdateJson, Data.class);
 		System.out.println("productJson ----"+productJson);
 		System.out.println("salesLoad---"+salesLoadJson);
+		System.out.println("purchaseUpdateJson %%%%%%%%%"+ purchaseUpdateJson);
 		// Inserts Record into Sales Table(DB)
 		if (operation != null) {
 			if (operation.equals("insert")) {
@@ -134,6 +138,11 @@ public class SalesServlet extends HttpServlet {
 					operationResp = new SalesDAO().insertSales(salesload);
 				}
 
+				for(Purchase purchase : purchaseUpdateData.getPurchaseUpdateData()) {
+					purchase.setStatus(1);
+					operationResp = new SalesDAO().update(purchase);
+				}
+				
 				pw.write(operationResp);
 
 			}

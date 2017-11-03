@@ -85,6 +85,7 @@ public class CityServlet extends HttpServlet {
 				city.setId(Integer.parseInt(rowId));
 				city.setCityName(updatedCellCity);
 				city.setStateName(updatedCellState);
+				city.setStatus(1);
 				operationResp = cdm.updateData(city);
 				pw.println(operationResp);
 

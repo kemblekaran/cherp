@@ -149,7 +149,7 @@ public class CompanyServlet extends HttpServlet {
 				comp.setPanNo(updatedCellPanNo);
 				comp.setDateAccOp(updatedCellDateAccOp);
 				comp.setOpBal(Integer.parseInt(updatedCellOpBal));
-
+				comp.setStatus(1);
 				operationResp = cdm.updateData(comp);
 				pw.println(operationResp);
 

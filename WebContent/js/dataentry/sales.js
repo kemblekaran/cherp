@@ -142,49 +142,90 @@ $(function() {
 				});// ajax method close
 			});// onchange event close
 
-	var cellData = 0;
-	var cell = 0;
+	var cellPieces = 0;
 	var cellKg = 0;
+	var cellK = 0;
+	var cellP = 0;
+	
 	$('#salesTable tbody').on('click', 'td', function(e) {
-		// alert( selectItemTable.cell( this ).data() );
-		// var cell = selectItemTable.cell( this );
-		// cell.data( cell.data() + 1 ).draw();
-		// alert(selectItemTable.row( this ).data() );
-		// var row = selectItemTable.row( this ).data();
-		cellData = selectItemTable.cell(this, 12, {
+		
+		cellPieces = selectItemTable.cell(this, 11, {
 			order : 'original'
 		});
+		cellKg = selectItemTable.cell(this, 12, {
+			order : 'original'
+		});
+		cellP = cellPieces.data();
+		cellK = cellKg.data();
 
-		cell = cellData.data();
+		$("#invoiceNo, #customerSelect, #salesProduct, #salesPieces, #salesKg,  #salesRate, #salesAmount, #salesAvgWeight").on('keyup', function(e) {
+			
+			$(salesPieces , salesKg).each(function() {
 
-		$("#salesKg").on('keyup', function(e) {
-			$(salesKg).each(function() {
-				alert(typeof cell + ' first cell');
 				var minus = 0;
-				// $(salesKg).each(function() {
+				var minus1 = 0;
+				
+				minus = cellP.toFixed(2) - (parseFloat($(salesPieces).val()) || 0);
+				minus1 = cellK.toFixed(2) - (parseFloat($(salesKg).val()) || 0);
 
-				minus = cell.toFixed(2) - (parseFloat($(salesKg).val()) || 0);
-				alert(minus + " minus");
-				// });
-				if (minus >= 0 && e.keyCode != 46 && e.keyCode != 8) {
-					var newCell = cellData.data(minus.toFixed(2)).draw();
-
+				if (minus >= 0 && minus1 >= 0 && e.keyCode != 46 && e.keyCode != 8) {
+					var newCellP = cellPieces.data(minus.toFixed(2)).draw();
+				}else {
+					e.preventDefault();
+					$(salesPieces).val(null);
+					cellPieces.data(cellP).draw();
+					
+				}
+				
+				if(minus1 >= 0  && e.keyCode != 46 && e.keyCode != 8){
+					var newCellK = cellKg.data(minus1.toFixed(2)).draw();
 				} else {
 					e.preventDefault();
+					
 					$(salesKg).val(null);
-					cellData.data(cell).draw();
+					cellKg.data(cellK).draw();
 				}
+				
+				
 				if (e.keyCode === 13) {
-					// alert(newCell.data());
-					// cellData.data(newCell.data());
-					cell = parseFloat(newCell.data());
-					alert(typeof cell + "new assign cell");
+					
+					cellP = parseFloat(newCellP.data());
+					cellK = parseFloat(newCellK.data());
+					$(salesPieces).val(null);
 					$(salesKg).val(null);
+					$(salesRate).val(null);
+					$(salesAmount).val(null);
+					$(salesAvgWeight).val(null);
 
 				}
-				// alert(cell);
-				return cell;
+				return cellP, cellK;
 			});
+			
+//			$(salesKg).each(function() {
+//
+//				var minus1 = 0;
+//				minus1 = cellK.toFixed(2) - (parseFloat($(salesKg).val()) || 0);
+//
+//				if (minus1 >= 0 && e.keyCode != 46 && e.keyCode != 8) {
+//					var newCell = cellKg.data(minus.toFixed(2)).draw();
+//
+//				} else {
+//					e.preventDefault();
+//					$(salesKg).val(null);
+//					cellKg.data(cellK).draw();
+//				}
+//				if (e.keyCode === 13) {
+//					
+//					cellK = parseFloat(newCell.data());
+//					$(salesPieces).val(null);
+//					$(salesKg).val(null);
+//					$(salesRate).val(null);
+//					$(salesAmount).val(null);
+//					$(salesAvgWeight).val(null);
+//
+//				}
+//				return cellK;
+//			});
 		});
 
 	});
@@ -297,138 +338,13 @@ $(function() {
 
 	
 
-	// Invokes the onclick listener on salesReady Table
-	// $('#salesTable tbody')
-	// .on(
-	// 'click',
-	// 'tr',
-	// function() {
-	//
-	// // selects all the data of purchase table into salesData
-	// // variable
-	// var salesData = salesReady.row(this).data();
-	//
-	// // sets invoiceNo from database
-	//
-	// // sets the value to the variable from salesData
-	// pid = salesData.purchaseId;
-	// salesProduct = salesData.product;
-	// salesPieces = salesData.pieces;
-	// salesKg = salesData.kg;
-	// salesRate = salesData.rate;
-	// company = salesData.company;
-	//
-	// $('#salesRate').val(salesRate);
-	// $('#companyName').val(company);
-	//						
-	// // on entering the value checks for the certain
-	// // operations
-	// $('#salesReadyTable tbody tr td')
-	// .keydown(
-	// function(e) {
-	//
-	// var salesPiecesNew = $(
-	// '#salesPieces').val();
-	// var salesKgNew;
-	//
-	// // Determines the balance KG
-	// // Quantity amount and sales KG
-	// // Quantity
-	// console.log('above saleskg');
-	// $('#salesKg')
-	// .on(
-	// 'input',
-	// function() {
-	//
-	// salesKgNew = $(
-	// '#salesKg')
-	// .val();
-	// var BalanceKg = (parseInt(salesKg) - parseInt(salesKgNew));
-	// $(
-	// '#balanceQtyKg')
-	// .attr(
-	// 'value',
-	// BalanceKg);
-	// $('#salesQtyKg')
-	// .attr(
-	// 'value',
-	// salesKgNew);
-	//
-	// });
-	//
-	// // Determines the balance KG
-	// // Quantity amount and
-	// // sales KG Quantity
-	// $('#salesPieces')
-	// .on(
-	// 'input',
-	// function() {
-	//
-	// var salesPiecesNew = $(
-	// '#salesPieces')
-	// .val();
-	//
-	// var BalancePieces = (parseInt(salesPieces) - parseInt(salesPiecesNew));
-	// $(
-	// '#balanceQtyPieces')
-	// .attr(
-	// 'value',
-	// BalancePieces);
-	// $(
-	// '#salesQtyPieces')
-	// .attr(
-	// 'value',
-	// salesPiecesNew);
-	//
-	// });
-	// if (e.keyCode === 13) {
-	//
-	// // checks against existing
-	// // pieces and disables
-	// // next input
-	// if (salesPiecesNew > salesPieces) {
-	// alert('pieces quantity exceeds');
-	// $('#salesKg').attr(
-	// 'disabled',
-	// 'disabled');
-	// }
-	//
-	// // checks against existing kg
-	// // and disables next
-	// // input
-	// if (salesKgNew > salesKg) {
-	// alert('Kg quantity exceeds');
-	// $('#salesRate').attr(
-	// 'disabled',
-	// 'disabled');
-	// }
-	//
-	// }
-	//
-	// // sets the amount and average
-	// // weight value
-	// var newAmt = parseInt(salesRate)
-	// * parseInt(salesKg);
-	// var newAvgWeight = parseInt(salesKg)
-	// / parseInt(salesPiecesNew);
-	// // console.log(newAmt);
-	// if (newAmt !== null
-	// || newAvgWeight !== null) {
-	// salesAmount.val(newAmt);
-	// salesAvgWeight
-	// .val(newAvgWeight);
-	//
-	// }
-	//
-	// });
-	//
-	// });
 
 		// Initialize salesReadyTable
 		$('#salesReadyTable').DataTable();
 	// array to store all product to be sell
 	var productRowData = [];
 	var salesLoadData = [];
+	var purchaseUpdateData = [];
 
 	$('#salesReadyTable thead tr th')
 			.keydown(
@@ -447,8 +363,8 @@ $(function() {
 						// alert(
 						// $('#salesTable').DataTable().row(this).data().purchaseId);
 						var purchaseDate = selectItemData[2];
-						var balancePieces =  selectItemData[10];
-						var balanceKgs =  selectItemData[11];
+						var balancePieces =  selectItemData[11];
+						var balanceKgs =  selectItemData[12];
 						
 						var van = $('#van').val();
 						console.log('pid :' + purchaseId);
@@ -461,12 +377,11 @@ $(function() {
 							"rate" : salesRate.val(),
 							"amount" : salesAmount.val(),
 							"avgWeight" : salesAvgWeight.val(),
-							"purchaseTableId" : id,
+							
 							"purchaseId" : purchaseId,
 							"purchaseDate" : purchaseDate,
 							"van" : van,
-							"balancePieces" : balancePieces,
-							"balanceKgs" : balanceKgs
+							
 						}
 
 						var salesLoadRow = {
@@ -475,6 +390,12 @@ $(function() {
 							"invoiceAmount" : salesAmount.val(),
 							"balanceAmount" : salesAmount.val(),
 						}
+						
+						var purchaseUpdateRow = {
+								"id" : id,
+								"balancePieces" : balancePieces,
+								"balanceKG" : balanceKgs
+						}
 
 						if (e.keyCode === 13) {
 
@@ -482,6 +403,8 @@ $(function() {
 							
 							productRowData.push(productRow);
 							salesLoadData.push(salesLoadRow);
+							purchaseUpdateData.push(purchaseUpdateRow);
+							
 							salesReadyTable.row.add(
 									[ invoiceNo.val(), customer.val(),
 											product.val(), salesPieces.val(),
@@ -496,8 +419,14 @@ $(function() {
 							var salesLoadJson = '{salesLoadData:'
 									+ JSON.stringify(salesLoadData) + '}';
 							$('#salesLoadJson').val(salesLoadJson);
+							
+							var purchaseUpdateJson = '{purchaseUpdateData:'
+								+ JSON.stringify(purchaseUpdateData) + '}';
+							$('#purchaseUpdateJson').val(purchaseUpdateJson);
+							
 							console.log('productJson ' + productJson);
 							console.log('salesLoadJson ' + salesLoadJson);
+							console.log('purchase update date ' + purchaseUpdateJson);
 
 						}
 					});
@@ -505,20 +434,20 @@ $(function() {
 	// ajaxCall to purchaseServlet
 	$('#insertBtn').on('click', function() {
 		
-		$.ajax({
-			url : 'SalesServlet',
-			type : 'POST',
-			data : {
-				update : 'true',
-				purchaseUpdateData : '{purchaseUpdateData:'+ JSON.stringify(productRowData) + '}',
-			},
-			success : function() {
-				console.log('suceess to purchaseServlet');
-			},
-			error : function() {
-				console.log('error to purchaseServlet');
-			}
-		});
+//		$.ajax({
+//			url : 'SalesServlet',
+//			type : 'POST',
+//			data : {
+//				update : 'true',
+//				purchaseUpdateData : '{purchaseUpdateData:'+ JSON.stringify(productRowData) + '}',
+//			},
+//			success : function() {
+//				console.log('suceess to purchaseServlet');
+//			},
+//			error : function() {
+//				console.log('error to purchaseServlet');
+//			}
+//		});
 
 		$('#SalesForm').submit(function(e) {
 //			e.preventDefault();

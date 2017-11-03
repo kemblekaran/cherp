@@ -107,7 +107,7 @@ public class AreaServlet extends HttpServlet {
 				area.setName(updatedCellName);
 				area.setType(updatedCellType);
 				area.setCode(Integer.parseInt(updatedCellCode));
-
+				area.setStatus(1);
 				operationResp = adao.update(area);
 				pw.println(operationResp);
 

@@ -89,6 +89,7 @@ public class ProductServlet extends HttpServlet {
 				prod.setId(Integer.parseInt(rowId));
 				prod.setProdName(updatedCellProdName);
 				prod.setProdType(updatedCellProdType);
+				prod.setStatus(1);
 				operationResp = pdao.update(prod);
 				pw.println(operationResp);
 

@@ -142,7 +142,7 @@ public class DriverServlet extends HttpServlet {
 				driver.setPhone(Long.parseLong(updatedCellPhone));
 				driver.setDrLicense(updatedCellDrLicense);
 				driver.setPhoto(updatedCellPhoto);
-
+				driver.setStatus(1);
 				operationResp = ddm.updateData(driver);
 				pw.println(operationResp);
 

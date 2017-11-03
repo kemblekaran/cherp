@@ -138,7 +138,7 @@ public class CustomerServlet extends HttpServlet {
 				cust.setPhone(Long.parseLong(updatedCellPhone));
 				cust.setDateAccOp(updatedCellDateAccOp);
 				cust.setOpBal(Integer.parseInt(updatedCellOpBal));
-
+				cust.setStatus(1);
 				operationResp = custdm.updateData(cust);
 				pw.println(operationResp);
 

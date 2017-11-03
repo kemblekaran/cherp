@@ -114,7 +114,7 @@ public class BankServlet extends HttpServlet {
 				bank.setAccNo(Long.parseLong(updatedCellAccNo));
 				bank.setIfscCode(updatedCellIfscCode);
 				bank.setOpBal(Integer.parseInt(updatedCellOpBal));
-
+				bank.setStatus(1);
 				operationResp = bdm.updateData(bank);
 				pw.println(operationResp);
 
