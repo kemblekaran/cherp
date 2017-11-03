@@ -121,7 +121,7 @@ $(function() {
 			var totalAmount = 0;
 			$.getJSON('/server/jsonfiles/salesView.json', function(data) {
 				var vanWiseData = data['data'];
-				var purchaseNoArray = [];
+				
 				
 				$.each(vanWiseData, function(key, val) {
 					if(selectedDate == val.purchaseDate && selectedVan == val.van){
@@ -213,9 +213,11 @@ $(function() {
 				$('#netProfit').val(netProfit.toFixed(2));
 				
 				var shrinkage = ( ( weightLoss / purchaseTotalKgs ) * 100 );
-				shrinkage = $.trim(shrinkage);
-				$("#shrinkage").val(shrinkage.toFixed(2));
+				
+//				shrinkage = $.trim(shrinkage);
+				$("#shrinkage").val((parseFloat(shrinkage) || 0).toFixed(2) + "%");
 				//purchase no. array
+				
 				$("#purchaseNo").val(purchaseNoArray);
 				
 	//			$("#rent").on('input', function() {

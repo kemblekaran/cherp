@@ -145,49 +145,48 @@ $(function() {
 	var cellData = 0;
 	var cell = 0;
 	var cellKg = 0;
-	$('#salesTable tbody').on( 'click', 'td', function (e) {
-//	    alert( selectItemTable.cell( this ).data() );
-//	    var cell = selectItemTable.cell( this );
-//	    cell.data( cell.data() + 1 ).draw();
-//	    alert(selectItemTable.row( this ).data() );
-//	    var row = selectItemTable.row( this ).data();
-////	    alert(row[11]);
-//	    alert(row[11](row[11] + 1).draw());
-//		alert(selectItemTable.cell(this, 11, { order: 'original' }).data());
-		cellData = selectItemTable.cell(this, 12, { order: 'original' });
+	$('#salesTable tbody').on('click', 'td', function(e) {
+		// alert( selectItemTable.cell( this ).data() );
+		// var cell = selectItemTable.cell( this );
+		// cell.data( cell.data() + 1 ).draw();
+		// alert(selectItemTable.row( this ).data() );
+		// var row = selectItemTable.row( this ).data();
+		cellData = selectItemTable.cell(this, 12, {
+			order : 'original'
+		});
+
 		cell = cellData.data();
-//		alert(cell);
-		$(salesKg).each(function() {
+
 		$("#salesKg").on('keyup', function(e) {
-			cellKg = parseFloat(salesKg.val());
-			
-			var minus = 0;			
-//			$(salesKg).each(function() {
-//			alert(cell);
+			$(salesKg).each(function() {
+				alert(typeof cell + ' first cell');
+				var minus = 0;
+				// $(salesKg).each(function() {
+
 				minus = cell.toFixed(2) - (parseFloat($(salesKg).val()) || 0);
-//			});
-//			alert(cell + "cell");
-//			var minus = $.trim(cell - cellKg);	
-//			alert(minus);
-			if(minus >= 0  && e.keyCode != 46 && e.keyCode != 8){
-				var newCell = cellData.data( minus.toFixed(2) ).draw();	
-				
+				alert(minus + " minus");
+				// });
+				if (minus >= 0 && e.keyCode != 46 && e.keyCode != 8) {
+					var newCell = cellData.data(minus.toFixed(2)).draw();
+
+				} else {
+					e.preventDefault();
+					$(salesKg).val(null);
+					cellData.data(cell).draw();
+				}
 				if (e.keyCode === 13) {
 					// alert(newCell.data());
-					cellData.data(newCell.data());
-					cell = newCell.data();
-					// alert(cell + "new assign cell");
+					// cellData.data(newCell.data());
+					cell = parseFloat(newCell.data());
+					alert(typeof cell + "new assign cell");
 					$(salesKg).val(null);
+
 				}
-			}else{
-				e.preventDefault();  
-				$(salesKg).val(null);
-				cellData.data(cell).draw();
-			}	
-//			alert(cell);
+				// alert(cell);
+				return cell;
+			});
 		});
-		});
-		
+
 	});
 	
 	
@@ -204,12 +203,12 @@ $(function() {
 		selectItemData = selectItemTable.row(this).data();
 		console.log('selected data ' + selectItemData);
 		console.log('purchase Id ' + selectItemData[0])
-		$('#salesProduct').val(selectItemData[4]);
+		$('#salesProduct').val(selectItemData[5]);
 		// console.log('selected id '+JSON.stringify(selectItemData));
 		$('#balanceQtyPieces').val(selectItemData[10]);
 		$('#balanceQtyKg').val(selectItemData[11]);
-		$('#salesQtyPieces').val(selectItemData[5] - $('#balanceQtyPieces').val());
-		$('#salesQtyKg').val(selectItemData[6] - $('#balanceQtyKg').val());
+		$('#salesQtyPieces').val(selectItemData[6] - $('#balanceQtyPieces').val());
+		$('#salesQtyKg').val(selectItemData[7] - $('#balanceQtyKg').val());
 		
 
 	});
@@ -447,7 +446,7 @@ $(function() {
 						var purchaseId = selectItemData[1];
 						// alert(
 						// $('#salesTable').DataTable().row(this).data().purchaseId);
-						var purchaseDate = selectItemData[1];
+						var purchaseDate = selectItemData[2];
 						var balancePieces =  selectItemData[10];
 						var balanceKgs =  selectItemData[11];
 						
@@ -462,7 +461,7 @@ $(function() {
 							"rate" : salesRate.val(),
 							"amount" : salesAmount.val(),
 							"avgWeight" : salesAvgWeight.val(),
-							"id" : id,
+							"purchaseTableId" : id,
 							"purchaseId" : purchaseId,
 							"purchaseDate" : purchaseDate,
 							"van" : van,

@@ -13,6 +13,8 @@ public class Sales {
 	private int id;
 	@Column(name = "purchaseId")
 	private String purchaseId;
+	@Column(name = "purchaseTableId")
+	private String purchaseTableId;
 	@Transient
 	@Column(name = "outstanding")
 	private double outstanding;
@@ -67,6 +69,14 @@ public class Sales {
 	
 
 	
+	public String getPurchaseTableId() {
+		return purchaseTableId;
+	}
+
+	public void setPurchaseTableId(String purchaseTableId) {
+		this.purchaseTableId = purchaseTableId;
+	}
+
 	public String getPurchaseDate() {
 		return purchaseDate;
 	}

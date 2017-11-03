@@ -66,7 +66,7 @@ public class SalesServlet extends HttpServlet {
 		jsonFilePath = request.getServletContext().getInitParameter("JsonFilePath");
 
 		salesDate = request.getParameter("salesDate");
-		System.out.println("sales date "+ salesDate);
+		System.out.println("sales date-------------------- "+ salesDate);
 		invoiceNoLoader = request.getParameter("invoiceNoLoader");
 		System.out.println("invoiceNoLoader-------"+invoiceNoLoader);
 		
