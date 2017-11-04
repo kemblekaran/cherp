@@ -201,31 +201,7 @@ $(function() {
 				return cellP, cellK;
 			});
 			
-//			$(salesKg).each(function() {
-//
-//				var minus1 = 0;
-//				minus1 = cellK.toFixed(2) - (parseFloat($(salesKg).val()) || 0);
-//
-//				if (minus1 >= 0 && e.keyCode != 46 && e.keyCode != 8) {
-//					var newCell = cellKg.data(minus.toFixed(2)).draw();
-//
-//				} else {
-//					e.preventDefault();
-//					$(salesKg).val(null);
-//					cellKg.data(cellK).draw();
-//				}
-//				if (e.keyCode === 13) {
-//					
-//					cellK = parseFloat(newCell.data());
-//					$(salesPieces).val(null);
-//					$(salesKg).val(null);
-//					$(salesRate).val(null);
-//					$(salesAmount).val(null);
-//					$(salesAvgWeight).val(null);
-//
-//				}
-//				return cellK;
-//			});
+
 		});
 
 	});
@@ -242,14 +218,11 @@ $(function() {
 		
 		$("#balanceQtyKg, #balanceQtyPieces, #salesQtyKg, #salesQtyPieces, #salesPieces, #salesKg, #salesRate").val(null);
 		selectItemData = selectItemTable.row(this).data();
-		console.log('selected data ' + selectItemData);
-		console.log('purchase Id ' + selectItemData[0])
+//		console.log('selected data ' + selectItemData);
+//		console.log('purchase Id ' + selectItemData[0])
 		$('#salesProduct').val(selectItemData[5]);
-		// console.log('selected id '+JSON.stringify(selectItemData));
-		$('#balanceQtyPieces').val(selectItemData[10]);
-		$('#balanceQtyKg').val(selectItemData[11]);
-		$('#salesQtyPieces').val(selectItemData[6] - $('#balanceQtyPieces').val());
-		$('#salesQtyKg').val(selectItemData[7] - $('#balanceQtyKg').val());
+		
+		
 		
 
 	});
@@ -267,32 +240,7 @@ $(function() {
 		
 
 		
-		$("#salesPieces").on('input', function() {
-			
-			var balPieces = selectItemData[10] - parseInt(salesPieces.val());
-				if(balPieces >= 0){
-					$('#balanceQtyPieces').val(balPieces);
-					$('#salesQtyPieces').val(selectItemData[5] - $('#balanceQtyPieces').val());
-				}else{
-//					$("#salesPieces,  #salesQtyPieces").val(null);
-//					$('#balanceQtyPieces').val(selectItemData[10]);
-					
-				}
-		});
-		
-		$(" #salesKg").on('input', function() {
-			
-			var balKg = parseFloat(balanceQtyKg.val()) - parseFloat(salesKg.val());
-				if (balKg >= 0  ) {
-					$('#balanceQtyKg').val(balKg);
-					$('#salesQtyKg').val(selectItemData[6] - $('#balanceQtyKg').val());
-					
-				}else{
-//					$(" #salesKg,  #salesQtyKg").val(null);
-//					$('#balanceQtyKg').val(selectItemData[11]);
-					
-				}
-		});
+	
 
 		
 		//calculation for avg weight and amount
@@ -434,20 +382,7 @@ $(function() {
 	// ajaxCall to purchaseServlet
 	$('#insertBtn').on('click', function() {
 		
-//		$.ajax({
-//			url : 'SalesServlet',
-//			type : 'POST',
-//			data : {
-//				update : 'true',
-//				purchaseUpdateData : '{purchaseUpdateData:'+ JSON.stringify(productRowData) + '}',
-//			},
-//			success : function() {
-//				console.log('suceess to purchaseServlet');
-//			},
-//			error : function() {
-//				console.log('error to purchaseServlet');
-//			}
-//		});
+
 
 		$('#SalesForm').submit(function(e) {
 //			e.preventDefault();

@@ -170,6 +170,11 @@ public class SalesServlet extends HttpServlet {
 			}
 		}
 		
+		System.out.println("updating");
+		List<Purchase> purchaseViewList = new ArrayList<>();
+		purchaseViewList = new PurchaseDao().selectAll();
+		new JsonCreator().createJson(purchaseViewList, jsonFilePath + "purchaseView.json");
+		
 		List<Sales> salesViewList = new ArrayList<>();
 		salesViewList = new SalesDAO().selectSales();
 		new JsonCreator().createJson(salesViewList, jsonFilePath + "salesView.json");

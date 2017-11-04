@@ -91,8 +91,8 @@
 				<div class="row" id="tableRow">
 					<h4>Purchase</h4>
 					<table id="salesTable"
-						class="table-bordered responsive stripe hover">
-						<thead style="background-color: #4a4b4c; color: #fff">
+						class=" responsive stripe hover">
+						<thead style="background-color: #4a4b4c; color: #fff" class="table-bordered">
 							<tr>
 								<th>Id</th>
 								<th>Purchase Id</th>
@@ -101,7 +101,7 @@
 								<th>Location</th>
 								<th>Product</th>
 								<th>Pieces</th>
-								<th>KG</th>
+								<th>KG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 								<th>Rate</th>
 								<th>Amount</th>
 								<th>Avg Weight</th>
@@ -109,6 +109,38 @@
 								<th>Bal Kg</th>
 							</tr>
 						</thead>
+						<tfoot >
+							<tr>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th><h4>Total Balance -></h4><h4>Total Sales -></h4></th>
+								<th></th>
+								<th></th>
+							</tr>
+<!-- 							<tr> -->
+<!-- 								<th></th> -->
+<!-- 								<th></th> -->
+<!-- 								<th></th> -->
+<!-- 								<th></th> -->
+<!-- 								<th></th> -->
+<!-- 								<th></th> -->
+<!-- 								<th></th> -->
+<!-- 								<th></th> -->
+<!-- 								<th></th> -->
+<!-- 								<th></th> -->
+<!-- 								<th>Total Sales -></th> -->
+<!-- 								<th></th> -->
+<!-- 								<th></th> -->
+<!-- 							</tr> -->
+						</tfoot>
 					</table>
 				</div>
 
@@ -326,36 +358,71 @@
 			// 			"ajax" : "/server/jsonfiles/salesTable.json",
 
 			"columnDefs" : [ {
-				"className" : "dt-center",
+				"className" : "",
 				"targets" : "_all"
 			} ],
 
 			select : true,
-		// 			"columns" : [ {
-		// 				"data" : "purchaseId"
-		// 			}, {
-		// 				"data" : "date"
-		// 			}, {
-		// 				"data" : "company"
-		// 			}, {
-		// 				"data" : "location"
-		// 			}, {
-		// 				"data" : "product"
-		// 			}, {
-		// 				"data" : "pieces"
-		// 			}, {
-		// 				"data" : "kg"
-		// 			}, {
-		// 				"data" : "rate"
-		// 			}, {
-		// 				"data" : "amount"
-		// 			}, {
-		// 				"data" : "avgWeight"
-		// 			}, {
-		// 				"data" : "balancePieces"
-		// 			}, {
-		// 				"data" : "balanceKG"
-		// 			} ]
+			
+			
+			"footerCallback" : function(row, data, start, end,
+					display) {
+				var api = this.api(), data;
+
+				// Remove the formatting to get integer data for summation
+				var intVal = function(i) {
+					return typeof i === 'string' ? i.replace(
+							/[\$,]/g, '') * 1
+							: typeof i === 'number' ? i : 0;
+				};
+
+				// Total over all pages
+// 				totalPieces = api.column(4).data().reduce(
+// 						function(a, b) {
+// 							return intVal(a) + intVal(b);
+// 						}, 0);
+
+				totalBalPieces = api.column(11).data().reduce(
+						function(a, b) {
+							return intVal(a) + intVal(b);
+						}, 0);
+
+				totalBalKg = api.column(12).data().reduce(
+						function(a, b) {
+							return intVal(a) + intVal(b);
+						}, 0);
+				
+				
+				totalPieces = api.column(6).data().reduce(
+						function(a, b) {
+							return intVal(a) + intVal(b);
+						}, 0);
+				
+				totalKg = api.column(7).data().reduce(
+						function(a, b) {
+							return intVal(a) + intVal(b);
+						}, 0);
+
+				
+				salesPieces = totalPieces - totalBalPieces;
+				
+				salesKg = totalKg - totalBalKg;
+				// Update footer
+// 				$(api.column(10).footer()).html(
+// 						 '');
+
+				$(api.column(6).footer())
+						.html('<h4>'+totalPieces + ' Pieces</h4>');
+				
+				$(api.column(7).footer())
+				.html('<h4>'+totalKg + ' Kg</h4>');
+				
+				$(api.column(11).footer())
+						.html('<h4>'+totalBalPieces + ' Pieces</h4>'+'<h4>'+salesPieces + ' Pieces</h4>');
+
+				$(api.column(12).footer()).html(
+						'<h4>'+totalBalKg + ' Kg</h4>'+ '<h4>'+salesKg + ' Kg</h4>');
+			}
 		});
 		salesReady.column(0).visible(false);
 	</script>

@@ -76,6 +76,7 @@ $(function() {
 		selectedVan = $("#vanNo").val();
 		
 		purchaseVanTable.clear().draw();
+		salesVanTable.clear().draw();
 		driverName1.val(null);
 		driverName2.val(null);
 		purchaseNo.val(null);
