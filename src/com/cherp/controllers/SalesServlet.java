@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.cherp.dao.dataentry.PurchaseDao;
 import com.cherp.dao.dataentry.SalesDAO;
+import com.cherp.data.CollectionDataManager;
 import com.cherp.entities.Data;
 import com.cherp.entities.Purchase;
 import com.cherp.entities.Sales;
@@ -178,6 +179,11 @@ public class SalesServlet extends HttpServlet {
 		List<Sales> salesViewList = new ArrayList<>();
 		salesViewList = new SalesDAO().selectSales();
 		new JsonCreator().createJson(salesViewList, jsonFilePath + "salesView.json");
+
+		// Contains All Data in SalesLoad table
+		List<SalesLoad> salesLoadList = new ArrayList<>();
+		salesLoadList = new CollectionDataManager().selectSalesData();
+		new JsonCreator().createJson(salesLoadList, jsonFilePath + "salesLoad.json");
 
 	}
 	

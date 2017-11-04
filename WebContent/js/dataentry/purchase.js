@@ -219,7 +219,7 @@ $(function() {
 		console.log("payloadJson---" + payloadJson);
 		
 		$('#PurchaseForm').submit(function(e) {
-			e.preventDefault();
+//			e.preventDefault();
 			$.ajax({
 				url : 'PurchaseServlet',
 				type : 'post',

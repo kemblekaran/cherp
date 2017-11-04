@@ -54,17 +54,57 @@ $(function() {
 		var toDate = $('#toDate').val();
 		$.ajax({
 			type : "POST",
+			url : "/server/jsonfiles/purchaseView.json",
+			dataType : "json",
+			select : true,
+			success : function(data) {
+				var jsonDataProduct = data['data'];
+				
+				var amount = 0
+				$.each(jsonDataProduct, function(key, val) {
+					if (companyName == val.company) {
+						amount = amount + val.balanceAmount;
+					}
+				});
+				var balAmt = amount;
+				amount = 0;
+				
+				$.each(jsonDataProduct, function(key, val) {
+
+					if (companyName == val.company) {
+						$('#opeBal').val(balAmt);
+					} else{
+						$("#cmpName").on("change", function() {
+							$('#opeBal').val(0);
+						});
+					}
+				});
+
+			}
+
+		});
+		
+		$.ajax({
+			type : "POST",
 			url : "/server/jsonfiles/payment.json",
 			dataType : "json",
 			select : true,
 			success : function(data) {
 				var jsonDataProduct = data['data'];
-				var jsonPayment = data['data'];
-
+				
+				var amount = 0
+				$.each(jsonDataProduct, function(key, val) {
+					if (companyName == val.company) {
+						amount = amount + val.balanceAmount;
+					}
+				});
+				var balAmt = amount;
+				amount = 0;
+				
 				$.each(jsonDataProduct, function(key, val) {
 
 					if (companyName == val.company) {
-						$('#opeBal').val(val.closingBal);
+						$('#opeBal').val(balAmt);
 					} else{
 						$("#cmpName").on("change", function() {
 							$('#opeBal').val(0);
@@ -80,10 +120,19 @@ $(function() {
 	var purchaseTable = $('#purchaseTable').DataTable();
 	
 	$('#go').on('click', function(e) {
-//		alert('hey');
+
 		event.preventDefault();
+		
+		
+		var date2 = $('#fromDate').datepicker('getDate');
+		alert(date2.getTime());
+		date2.setDate(date2.getDate() - 1);
+//		alert((date2.getMonth() + 1) + '/' + date2.getDate() + '/' +  date2.getFullYear());
+		alert(date2.getTime());
+		
+		
+		
 		var cmpName = $("#cmpName").val();
-//		alert('hey ' + cmpName);
 		$.ajax({
 			type : "POST",
 			url : "/server/jsonfiles/purchaseView.json",

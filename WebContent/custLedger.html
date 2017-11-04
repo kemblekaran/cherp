@@ -103,7 +103,7 @@
 				<label><h3 class="text-primary">Purchase for the
 								period</h3></label>
 								<hr>
-					<table id="salesTable" class="table-bordered">
+					<table id="salesTable" class="responsive stripe hover">
 						<thead style="background-color: #4a4b4c; color: #fff">
 							<tr>
 								<th>Date</th>
@@ -121,7 +121,7 @@
 				<div class="col-md-5">
 				<label><h3 class="text-primary">Payment</h3></label>
 					<hr>
-					<table id="collectionTable" class="table-bordered">
+					<table id="collectionTable" class="responsive stripe hover">
 					
 						<thead style="background-color: #4a4b4c; color: #fff">
 							<tr>
@@ -271,12 +271,12 @@
 		
 	<script type="text/javascript">
 		//add data to datatable(very important)
-		var CherpDataTable = $('#dataTable').DataTable({
-
+	$('#salesTable').DataTable({
+			select : true,
 		});
 
-		var payDataTable = $('#payDataTable').DataTable({
-
+		 $('#collectionTable').DataTable({
+			select : true,
 		});
 	</script>
 </body>

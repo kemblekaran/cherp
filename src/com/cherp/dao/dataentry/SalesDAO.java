@@ -55,20 +55,7 @@ public class SalesDAO {
 		return "Insert Successful";
 	}
 
-//	public String update(Purchase purchase) {
-//
-//		createSession();
-//
-//		Transaction t = session.beginTransaction();
-//
-//		session.update(purchase);
-//
-//		t.commit();
-//
-//		session.close();
-//
-//		return "Update Successful";
-//	}
+
 
 	public String update(Purchase purchase) {
 

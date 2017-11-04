@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.cherp.dao.DebitCreditNote.DebitCreditNoteDao;
 import com.cherp.dao.dataentry.SalesDAO;
+import com.cherp.data.PaymentDataManager;
 import com.cherp.entities.Area;
 import com.cherp.entities.DebitCredit;
+import com.cherp.entities.PayLoad;
 import com.cherp.utils.JsonCreator;
 import com.google.gson.stream.JsonWriter;
 
@@ -65,7 +67,8 @@ public class DebitCreditNoteServlet extends HttpServlet {
 
 		DebitCreditNoteDao dcd = new DebitCreditNoteDao();
 		DebitCredit dc = new DebitCredit();
-
+		PayLoad payload = new PayLoad();
+		
 		if (operation != null) {
 
 			if (operation.equals("insert")) {
@@ -75,12 +78,23 @@ public class DebitCreditNoteServlet extends HttpServlet {
 				dc.setNoteNo(Integer.parseInt(noteNo));
 				dc.setCustomerCompany(customerCompany);
 				dc.setSelectCustCmp(selectCustCmp);
-				dc.setAmount(Integer.parseInt(amount));
+				
+				dc.setAmount(Double.parseDouble(amount));
 				dc.setRemarks(remarks);
 				dc.setStatus(1);
-
+				
 				dcd.insert(dc);
-
+//				if (selectCustCmp != null) {
+//					if (selectCustCmp.equals("Company")) {
+						System.out.println("selected company");
+						new DebitCreditNoteDao().updatePayLoad(dc);
+						new DebitCreditNoteDao().deletePayLoad(payload);
+//					}else if(selectCustCmp.equals("Customer")) {
+						new DebitCreditNoteDao().updateSalesLoad(dc);
+//					}
+//				}
+					
+				
 			}
 		}
 		
@@ -96,6 +110,12 @@ public class DebitCreditNoteServlet extends HttpServlet {
 		List<DebitCredit> debitCreditList = new ArrayList<>();
 		debitCreditList = dcd.selectAll();
 		new JsonCreator().createJson(debitCreditList, jsonFilePath + "debitcreditnote.json");
+		
+		
+		System.out.println("payload json writer++++++++++++++++");
+		List<PayLoad> payloadList = new ArrayList<>();
+		payloadList = new PaymentDataManager().selectPayData();
+		new JsonCreator().createJson(payloadList, jsonFilePath + "payload.json");
 	}
 	
 	

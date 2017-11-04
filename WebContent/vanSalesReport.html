@@ -168,7 +168,7 @@
 			<!--Table Row-->
 			<div class="row " id="tableRow">
 				<div class="">
-					<table id="purchaseVanTable" class="table-bordered">
+					<table id="purchaseVanTable" class="responsive stripe hover">
 						<thead style="background-color: #4a4b4c; color: #fff">
 							<tr>
 								<th>Date</th>
@@ -194,7 +194,7 @@
 			<!--             sales table -->
 			<div class="row " id="tableRow">
 				<div class="">
-					<table id="salesVanTable" class="table-bordered">
+					<table id="salesVanTable" class="responsive stripe hover">
 						<thead style="background-color: #4a4b4c; color: #fff">
 							<tr>
 								<th>Date</th>
@@ -406,6 +406,8 @@
 		var salesVanTable = $('#salesVanTable')
 				.DataTable(
 						{
+							select : true,
+							
 							"footerCallback" : function(row, data, start, end,
 									display) {
 								var api = this.api(), data;

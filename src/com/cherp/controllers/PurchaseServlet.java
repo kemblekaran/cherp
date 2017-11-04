@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cherp.dao.dataentry.PurchaseDao;
+import com.cherp.data.PaymentDataManager;
 import com.cherp.data.PurchaseDataManager;
 import com.cherp.entities.Data;
 import com.cherp.entities.PayLoad;
@@ -199,6 +200,11 @@ public class PurchaseServlet extends HttpServlet {
 		purchaseViewList = new PurchaseDao().selectAll();
 		new JsonCreator().createJson(purchaseViewList, jsonFilePath + "purchaseView.json");
 		// jsonFileWriter(purchaseViewList);
+
+		// Contains All Data in payload table
+		List<PayLoad> payloadList = new ArrayList<>();
+		payloadList = new PaymentDataManager().selectPayData();
+		new JsonCreator().createJson(payloadList, jsonFilePath + "payload.json");
 
 		if (vanWiseSales != null) {
 			if (vanWiseSales.equals("true")) {

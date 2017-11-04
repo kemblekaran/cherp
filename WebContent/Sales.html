@@ -92,7 +92,7 @@
 					<h4>Purchase</h4>
 					<table id="salesTable"
 						class=" responsive stripe hover">
-						<thead style="background-color: #4a4b4c; color: #fff" class="table-bordered">
+						<thead style="background-color: #4a4b4c; color: #fff" >
 							<tr>
 								<th>Id</th>
 								<th>Purchase Id</th>
@@ -116,30 +116,15 @@
 								<th></th>
 								<th></th>
 								<th></th>
+								<th><h4>Total :</h4></th>
 								<th></th>
 								<th></th>
 								<th></th>
 								<th></th>
-								<th></th>
-								<th><h4>Total Balance -></h4><h4>Total Sales -></h4></th>
+								<th><h4>Total Balance :</h4><hr style="border: 1px solid #4a4b4c;"><h4>Total Sales :</h4></th>
 								<th></th>
 								<th></th>
 							</tr>
-<!-- 							<tr> -->
-<!-- 								<th></th> -->
-<!-- 								<th></th> -->
-<!-- 								<th></th> -->
-<!-- 								<th></th> -->
-<!-- 								<th></th> -->
-<!-- 								<th></th> -->
-<!-- 								<th></th> -->
-<!-- 								<th></th> -->
-<!-- 								<th></th> -->
-<!-- 								<th></th> -->
-<!-- 								<th>Total Sales -></th> -->
-<!-- 								<th></th> -->
-<!-- 								<th></th> -->
-<!-- 							</tr> -->
 						</tfoot>
 					</table>
 				</div>
@@ -185,31 +170,31 @@
 
 				<br>
 
-				<div class="row well">
-					<div class="col-md-6">
-						<h3 style="color:#5a5b5c">
-							Total Pieces and Kg remaining in <span id="target" style="color:#1a1b1c"></span> van
-						</h3>
+<!-- 				<div class="row well"> -->
+<!-- 					<div class="col-md-6"> -->
+<!-- 						<h3 style="color:#5a5b5c"> -->
+<!-- 							Total Pieces and Kg remaining in <span id="target" style="color:#1a1b1c"></span> van -->
+<!-- 						</h3> -->
 						
-						<div class="form-inline row">
-							<div class="col-sm-3">
-								<label for="totalPieces"> Total Pieces:</label>
-							</div>
-							<div class="col-sm-7">
-								<input type="text" name="totalPieces" id="totalPieces"
-									class="form-control" >
-							</div>
-						</div><br>
-						<div class="form-inline row">
-							<div class="col-sm-3">
-								<label for="totalKgs"> Total Kg:</label>
-							</div>
-							<div class="col-sm-7">
-								<input type="text" name="totalKgs" id="totalKgs"
-									class="form-control">
-							</div>
-						</div>
-					</div>
+<!-- 						<div class="form-inline row"> -->
+<!-- 							<div class="col-sm-3"> -->
+<!-- 								<label for="totalPieces"> Total Pieces:</label> -->
+<!-- 							</div> -->
+<!-- 							<div class="col-sm-7"> -->
+<!-- 								<input type="text" name="totalPieces" id="totalPieces" -->
+<!-- 									class="form-control" > -->
+<!-- 							</div> -->
+<!-- 						</div><br> -->
+<!-- 						<div class="form-inline row"> -->
+<!-- 							<div class="col-sm-3"> -->
+<!-- 								<label for="totalKgs"> Total Kg:</label> -->
+<!-- 							</div> -->
+<!-- 							<div class="col-sm-7"> -->
+<!-- 								<input type="text" name="totalKgs" id="totalKgs" -->
+<!-- 									class="form-control"> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 <!-- 					<div class="col-md-2"> -->
 <!-- 						<br> <br> -->
 <!-- 						<button id="getTotalPieces" class="btn btn-danger">Get -->
@@ -218,43 +203,43 @@
 
 
 
-					<div class="col-md-6 ">
-						<table class="table  table-bordered">
-							<thead>
-								<tr class="info">
-									<th>#</th>
-									<th><label>Pieces</label></th>
-									<th><label>KG</label></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="active">
-									<th class="text-danger">Balance Qty</th>
-									<td><input type="text" id="balanceQtyPieces"
-										class="form-control" readonly></td>
-									<td><input type="text" id="balanceQtyKg"
-										class="form-control" readonly></td>
-								</tr>
-								<tr class="active">
-									<th class="text-success">Sales Qty</th>
-									<td><input type="text" id="salesQtyPieces"
-										name="salesQtyPieces" class="form-control" readonly></td>
-									<td><input type="text" id="salesQtyKg" name="salesQtyKg"
-										class="form-control" readonly></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
+<!-- 					<div class="col-md-6 "> -->
+<!-- 						<table class="table  table-bordered"> -->
+<!-- 							<thead> -->
+<!-- 								<tr class="info"> -->
+<!-- 									<th>#</th> -->
+<!-- 									<th><label>Pieces</label></th> -->
+<!-- 									<th><label>KG</label></th> -->
+<!-- 								</tr> -->
+<!-- 							</thead> -->
+<!-- 							<tbody> -->
+<!-- 								<tr class="active"> -->
+<!-- 									<th class="text-danger">Balance Qty</th> -->
+<!-- 									<td><input type="text" id="balanceQtyPieces" -->
+<!-- 										class="form-control" readonly></td> -->
+<!-- 									<td><input type="text" id="balanceQtyKg" -->
+<!-- 										class="form-control" readonly></td> -->
+<!-- 								</tr> -->
+<!-- 								<tr class="active"> -->
+<!-- 									<th class="text-success">Sales Qty</th> -->
+<!-- 									<td><input type="text" id="salesQtyPieces" -->
+<!-- 										name="salesQtyPieces" class="form-control" readonly></td> -->
+<!-- 									<td><input type="text" id="salesQtyKg" name="salesQtyKg" -->
+<!-- 										class="form-control" readonly></td> -->
+<!-- 								</tr> -->
+<!-- 							</tbody> -->
+<!-- 						</table> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 
-				<!-- 				sales date -->
+				
 
 
 
 
 				<!-- Table for Product  -->
 				<h4>Sales</h4>
-				<table id="salesReadyTable" class="table-bordered responsive stripe hover">
+				<table id="salesReadyTable" class=" responsive stripe hover">
 					<thead style="background-color: #4a4b4c; color: #fff">
 						<tr>
 							<td>Invoice No</td>
@@ -418,10 +403,10 @@
 				.html('<h4>'+totalKg + ' Kg</h4>');
 				
 				$(api.column(11).footer())
-						.html('<h4>'+totalBalPieces + ' Pieces</h4>'+'<h4>'+salesPieces + ' Pieces</h4>');
+						.html('<h4>'+totalBalPieces + ' Pieces</h4>'+'<hr style="border: 1px solid #4a4b4c;"><h4>'+salesPieces + ' Pieces</h4>');
 
 				$(api.column(12).footer()).html(
-						'<h4>'+totalBalKg + ' Kg</h4>'+ '<h4>'+salesKg + ' Kg</h4>');
+						'<h4>'+totalBalKg + ' Kg</h4>'+ '<hr style="border: 1px solid #4a4b4c;"><h4>'+salesKg + ' Kg</h4>');
 			}
 		});
 		salesReady.column(0).visible(false);

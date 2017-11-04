@@ -24,7 +24,7 @@ public class DebitCredit {
 	@Column(name = "selectCustCmp")
 	private String selectCustCmp;
 	@Column(name = "amount")
-	private int amount ;
+	private double amount ;
 	@Column(name = "remarks")
 	private String remarks ;
 	@Column(name = "status")
@@ -77,10 +77,11 @@ public class DebitCredit {
 	public void setSelectCustCmp(String selectCustCmp) {
 		this.selectCustCmp = selectCustCmp;
 	}
-	public int getAmount() {
+	
+	public double getAmount() {
 		return amount;
 	}
-	public void setAmount(int amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 	public String getRemarks() {
