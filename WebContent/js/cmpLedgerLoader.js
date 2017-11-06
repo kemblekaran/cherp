@@ -1,5 +1,9 @@
 $(function() {
 
+	var purchaseTable = $('#purchaseTable').DataTable();
+	var paymentTable = $('#paymentTable').DataTable();
+	var debitCreditTable = $('#debitCreditTable').DataTable();
+	
 	var cmpLedgerArray = [];
 	var kgs = 0;
 	var pieces = 0;
@@ -9,7 +13,7 @@ $(function() {
 	var totalAmount = $("#totalAmount");
 	var paymentGiven = $("#paymentGiven") ;
 	var closingBal = $("#closingBal") ;
-	var paymentCalc = null ;
+	var paymentCalc = 0 ;
 	var opeBal = $('#opeBal');
 	// Load company into dropdown list
 	$.getJSON('/server/jsonfiles/company.json', function(data) {
@@ -28,7 +32,7 @@ $(function() {
 			type : "POST",
 			url : "/server/jsonfiles/company.json",
 			dataType : "json",
-			select : true,
+			
 			success : function(data) {
 				var jsonDataProduct = data['data'];
 				var jsonPayment = data['data'];
@@ -52,189 +56,358 @@ $(function() {
 	$("#cmpName").on("change", function() {
 		var companyName = $(this).val();
 		var toDate = $('#toDate').val();
-		$.ajax({
-			type : "POST",
-			url : "/server/jsonfiles/purchaseView.json",
-			dataType : "json",
-			select : true,
-			success : function(data) {
-				var jsonDataProduct = data['data'];
-				
-				var amount = 0
-				$.each(jsonDataProduct, function(key, val) {
-					if (companyName == val.company) {
-						amount = amount + val.balanceAmount;
-					}
-				});
-				var balAmt = amount;
-				amount = 0;
-				
-				$.each(jsonDataProduct, function(key, val) {
-
-					if (companyName == val.company) {
-						$('#opeBal').val(balAmt);
-					} else{
-						$("#cmpName").on("change", function() {
-							$('#opeBal').val(0);
-						});
-					}
-				});
-
-			}
-
-		});
+		$('#opeBal').val(null);
+		$("#pcs").val(null);
+		$("#kgs").val(null);
+		$("#payment").val(null);
+		$("#weekPurchase").val(null);
+		$("#totalAmount").val(null);
+		$("#paymentGiven").val(null);
+		$("#addLess").val(null);
+		$("#closingBal").val(null);
 		
-		$.ajax({
-			type : "POST",
-			url : "/server/jsonfiles/payment.json",
-			dataType : "json",
-			select : true,
-			success : function(data) {
-				var jsonDataProduct = data['data'];
-				
-				var amount = 0
-				$.each(jsonDataProduct, function(key, val) {
-					if (companyName == val.company) {
-						amount = amount + val.balanceAmount;
-					}
-				});
-				var balAmt = amount;
-				amount = 0;
-				
-				$.each(jsonDataProduct, function(key, val) {
 
-					if (companyName == val.company) {
-						$('#opeBal').val(balAmt);
-					} else{
-						$("#cmpName").on("change", function() {
-							$('#opeBal').val(0);
-						});
-					}
-				});
-
-			}
-
-		});
 	});
 
-	var purchaseTable = $('#purchaseTable').DataTable();
+	
 	
 	$('#go').on('click', function(e) {
 
 		event.preventDefault();
-		
-		
-		var date2 = $('#fromDate').datepicker('getDate');
-		alert(date2.getTime());
-		date2.setDate(date2.getDate() - 1);
-//		alert((date2.getMonth() + 1) + '/' + date2.getDate() + '/' +  date2.getFullYear());
-		alert(date2.getTime());
-		
-		
+		$('#opeBal').val(null);
+		$("#pcs").val(null);
+		$("#kgs").val(null);
+		$("#payment").val(null);
+		$("#weekPurchase").val(null);
+		$("#totalAmount").val(null);
+		$("#paymentGiven").val(null);
+		$("#addLess").val(null);
+		$("#closingBal").val(null);
 		
 		var cmpName = $("#cmpName").val();
+		
+		var purchaseTotalAmt = 0;
+		var paymentTotalAmt = 0;
+		var debitCreditNoteAmt = 0;
+	
+
 		$.ajax({
 			type : "POST",
 			url : "/server/jsonfiles/purchaseView.json",
 			dataType : "json",
-			select : true,
+			
 			success : function(data) {
 				var purchaseData = data['data'];
-
+				var amount = 0;
+				var purAmount = 0;
 				$.each(purchaseData, function(key, val) {
 
 					if (cmpName == val.company) {
 						//getting from and to date from input
+						var curDate = $('#fromDate').datepicker('getDate');
+						var preDate = curDate.setDate(curDate.getDate() - 1);
+
+						var cmpDate = new Date(val.date);
+						if(cmpDate.getTime() <= preDate){
+							purAmount = purAmount + val.amount;
+						}
+						
+//						--------------------------------------------------------------------------
 						var fromTime = new Date($('#fromDate').val()).getTime();
 						var toTime = new Date($('#toDate').val()).getTime();
-						
-						//getting date from json file
-//						var myDate = '15/07/2011';
-//						var chunks = myDate.split('/');
-//
-//						var formattedDate = chunks[1]+'/'+chunks[0]+'/'+chunks[2];
-//						var newdate = new Date(formattedDate);
-//						alert(newdate + "formated date");
 						var date = new Date(val.date);
-						//check whether date is true from selected date
-						if (date.getTime() >= fromTime && date.getTime() <= toTime) {
-							
-							purchaseTable.row.add([ val.date, val.purchaseId, val.product, val.pieces, val.kg, val.rate, val.amount ]).draw();
-								$("#cmpName").on("change", function() {
-									purchaseTable.clear().draw();
-								});
-								$('#go').on('click', function() {
-									purchaseTable.clear().draw();
-								});
-								kgs = kgs + val.kg;
-								pieces = pieces + val.pieces;
-								amount = amount + val.amount;
+						
+						if (date.getTime() >= fromTime
+								&& date.getTime() <= toTime) {
+
+							purchaseTable.row.add(
+									[ val.date, val.purchaseId,
+											val.product, val.pieces,
+											val.kg, val.rate,
+											val.amount ]).draw();
+							$("#cmpName").on("change", function() {
+								purchaseTable.clear().draw();
+							});
+							$('#go').on('click', function() {
+								purchaseTable.clear().draw();
+							});
+							kgs = kgs + val.kg;
+							pieces = pieces + val.pieces;
+							amount = amount + val.amount;
 						}
+						
 					}
 				});
+				purchaseTotalAmt = purAmount;
+				purAmount = 0; 
+				
 				var totalKgs = kgs;
 				var totalPcs = pieces;
 				var totalAmt = amount;
 				kgs = 0;
 				pieces = 0;
 				amount = 0;
-				$('#kgs').val(totalKgs);
+				$('#kgs').val(totalKgs.toFixed(2));
 				$('#pcs').val(totalPcs);
-				weekPurchase.val(totalAmt);
-				totalAmount.val(totalAmt + parseInt(opeBal.val()));
-			}
+				weekPurchase.val(totalAmt.toFixed(2));
+				
+				//get payment total amount
+				$.ajax({
+					type : "POST",
+					url : "/server/jsonfiles/payment.json",
+					dataType : "json",
+					
+					success : function(data) {
+						var paymentData = data['data'];
+						var amount = 0;
+						$.each(paymentData, function(key, val) {
 
-		});
-	});
+							if (cmpName == val.company) {
+								var curDate = $('#fromDate').datepicker('getDate');
+
+								var preDate = curDate.setDate(curDate.getDate() - 1);
+								var cmpDate = new Date(val.paymentDate);
+
+								if(cmpDate.getTime() <= preDate){
+									amount = amount + val.payNow;
+								}
+								
+//								-----------------------------------------------------
+								var fromTime = new Date($('#fromDate').val()).getTime();
+								var toTime = new Date($('#toDate').val()).getTime();
+								
+								//getting date from json file
+								var date = new Date(val.paymentDate);
+								
+								//check whether date is true from selected date
+								if (date.getTime() >= fromTime && date.getTime() <= toTime) {
+									
+									paymentTable.row.add([ val.paymentDate, val.paymentMode,  val.payNow ]).draw();
+										$("#cmpName").on("change", function() {
+											paymentTable.clear().draw();
+										});
+										$('#go').on('click', function() {
+											paymentTable.clear().draw();
+										});
+										payment = payment + val.payNow;
+								}
+							}
+						});
+						paymentTotalAmt = amount;
+						amount = 0;
+						var weekPayment = payment;
+						$('#payment').val(weekPayment.toFixed(2));
+						paymentGiven.val(weekPayment.toFixed(2));
+						
+						payment = 0;
+						
+						
+						//get debit credit note data
+						$.ajax({
+							type : "POST",
+							url : "/server/jsonfiles/debitcreditnote.json",
+							dataType : "json",
+							
+							success : function(data) {
+								var debitCreditData = data['data'];
+								var amount = 0;
+								var drcrAmt = 0;
+								$.each(debitCreditData, function(key, val) {
+									
+									if (cmpName == val.selectCustCmp) {
+										var curDate = $('#fromDate').datepicker('getDate');
+//										alert(curDate.getTime() + 'cur date');
+										var preDate = curDate.setDate(curDate.getDate() - 1);
+//										alert(preDate + 'pre date');
+										var cmpDate = new Date(val.debitCreditDate);
+//										alert(cmpDate.getTime() <= preDate);
+										if(cmpDate.getTime() <= preDate){
+											amount = amount + val.amount;
+										}
+										
+//					----------------------------------------------------------------------------------------
+										var fromTime = new Date($('#fromDate').val()).getTime();
+										var toTime = new Date($('#toDate').val()).getTime();
+										
+										//getting date from json file
+										var date = new Date(val.debitCreditDate);
+										
+										//check whether date is true from selected date
+										if (date.getTime() >= fromTime && date.getTime() <= toTime) {
+											
+											paymentTable.row.add([ val.debitCreditDate, val.remarks,  val.amount ]).draw();
+												$("#cmpName").on("change", function() {
+													paymentTable.clear().draw();
+												});
+												$('#go').on('click', function() {
+													paymentTable.clear().draw();
+												});
+												drcrAmt = drcrAmt + val.amount;
+										}
+										
+									}
+								});
+								var debitCreditAmt = drcrAmt;
+								drcrAmt = 0;
+//								alert(debitCreditAmt);
+								$('#addLess').val(debitCreditAmt.toFixed(2));
+								
+								debitCreditNoteAmt= amount;
+//								alert(debitCreditNoteAmt + "drcrAmt");
+								amount = 0;
+
+								$('#opeBal').val((purchaseTotalAmt - (paymentTotalAmt + debitCreditNoteAmt)).toFixed(2));
+//								alert(weekPurchase.val());
+								totalAmount.val((parseFloat(weekPurchase.val()) + (purchaseTotalAmt - (paymentTotalAmt + debitCreditNoteAmt))).toFixed(2));
+//								
+								paymentCalc = totalAmount.val() - (weekPayment + debitCreditAmt);
+//								alert(paymentCalc);
+								$('#closingBal').val(paymentCalc.toFixed(2));
+							}
+						});//third ajax method close
+						
+						
+					}
+				});//second ajax method close
+				
+			}
+		});//first ajax method close
+		
+	});//onclick go method
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//loader purchase data into table
 	
-var paymentTable = $('#paymentTable').DataTable();
+//		$('#go').on('click', function() {
+//			var cmpName = $("#cmpName").val();
+//				$.ajax({
+//					type : "POST",
+//					url : "/server/jsonfiles/purchaseView.json",
+//					dataType : "json",
+//					select : true,
+//					success : function(data) {
+//						var purchaseData = data['data'];
+//
+//						$.each(purchaseData, function(key, val) {
+//
+//							if (cmpName == val.company) {
+//								// getting from and to date from input
+//								var fromTime = new Date($('#fromDate').val()).getTime();
+//								var toTime = new Date($('#toDate').val()).getTime();
+//
+//								// getting date from json file
+//								// var myDate = '15/07/2011';
+//								// var chunks = myDate.split('/');
+//								//
+//								// var formattedDate =
+//								// chunks[1]+'/'+chunks[0]+'/'+chunks[2];
+//								// var newdate = new Date(formattedDate);
+//								// alert(newdate + "formated date");
+//								var date = new Date(val.date);
+//								// check whether date is true from selected date
+//								if (date.getTime() >= fromTime
+//										&& date.getTime() <= toTime) {
+//
+//									purchaseTable.row.add(
+//											[ val.date, val.purchaseId,
+//													val.product, val.pieces,
+//													val.kg, val.rate,
+//													val.amount ]).draw();
+//									$("#cmpName").on("change", function() {
+//										purchaseTable.clear().draw();
+//									});
+//									$('#go').on('click', function() {
+//										purchaseTable.clear().draw();
+//									});
+//									kgs = kgs + val.kg;
+//									pieces = pieces + val.pieces;
+//									amount = amount + val.amount;
+//								}
+//							}
+//						});
+//						var totalKgs = kgs;
+//						var totalPcs = pieces;
+//						var totalAmt = amount;
+//						kgs = 0;
+//						pieces = 0;
+//						amount = 0;
+//						$('#kgs').val(totalKgs);
+//						$('#pcs').val(totalPcs);
+//						weekPurchase.val(totalAmt);
+////						totalAmount.val(totalAmt + parseFloat(opeBal.val()));
+//						
+//						
+//						
+//						$.ajax({
+//							type : "POST",
+//							url : "/server/jsonfiles/payment.json",
+//							dataType : "json",
+//							select : true,
+//							success : function(data) {
+//								var paymentData = data['data'];
+//
+//								$.each(paymentData, function(key, val) {
+//
+//									if (cmpName == val.company) {
+//										//getting from and to date from input
+//										var fromTime = new Date($('#fromDate').val()).getTime();
+//										var toTime = new Date($('#toDate').val()).getTime();
+//										
+//										//getting date from json file
+//										var date = new Date(val.paymentDate);
+//										
+//										//check whether date is true from selected date
+//										if (date.getTime() >= fromTime && date.getTime() <= toTime) {
+//											
+//											paymentTable.row.add([ val.paymentDate, val.paymentMode,  val.payNow ]).draw();
+//												$("#cmpName").on("change", function() {
+//													paymentTable.clear().draw();
+//												});
+//												$('#go').on('click', function() {
+//													paymentTable.clear().draw();
+//												});
+//												payment = payment + val.payNow;
+//										}
+//									}
+//								});
+//								var weekPayment = payment;
+//								$('#payment').val(weekPayment);
+//								paymentGiven.val(weekPayment);
+//								paymentCalc = totalAmount.val() - weekPayment;
+////								alert(paymentCalc);
+//								$('#closingBal').val(paymentCalc);
+//								payment = 0;
+//							}
+//
+//						});
+//					}
+//
+//				});
+//	});
+//	
+		
+		//loaded payment data into table
+
 	
 	$('#go').on('click', function(e) {
 		event.preventDefault();
 	var cmpName = $("#cmpName").val();
 
-	$.ajax({
-		type : "POST",
-		url : "/server/jsonfiles/payment.json",
-		dataType : "json",
-		select : true,
-		success : function(data) {
-			var paymentData = data['data'];
-
-			$.each(paymentData, function(key, val) {
-
-				if (cmpName == val.company) {
-					//getting from and to date from input
-					var fromTime = new Date($('#fromDate').val()).getTime();
-					var toTime = new Date($('#toDate').val()).getTime();
-					
-					//getting date from json file
-					var date = new Date(val.paymentDate);
-					
-					//check whether date is true from selected date
-					if (date.getTime() >= fromTime && date.getTime() <= toTime) {
-						
-						paymentTable.row.add([ val.paymentDate, val.paymentMode,  val.payNow ]).draw();
-							$("#cmpName").on("change", function() {
-								paymentTable.clear().draw();
-							});
-							$('#go').on('click', function() {
-								paymentTable.clear().draw();
-							});
-							payment = payment + val.payNow;
-					}
-				}
-			});
-			var weekPayment = payment;
-			$('#payment').val(weekPayment);
-			paymentGiven.val(weekPayment);
-			paymentCalc = totalAmount.val() - weekPayment;
-//			alert(paymentCalc);
-			$('#closingBal').val(paymentCalc);
-			payment = 0;
-		}
-
-	});
+	
 });
 	$("#optionsRadios1, #optionsRadios2").change(function() {
 		$("#addLess").val(null);
@@ -246,15 +419,15 @@ var paymentTable = $('#paymentTable').DataTable();
 		
 		var total = 0;
 		if(radio == "add"){
-			total = paymentCalc + parseInt($("#addLess").val());
+			total = paymentCalc + parseFloat($("#addLess").val());
 		}else if(radio == "less"){
-			total = paymentCalc - parseInt($("#addLess").val());
+			total = paymentCalc - parseFloat($("#addLess").val());
 		}
 			
 		
 		if (total >= 0) {
 
-			var bal = parseInt($('#closingBal').val(total));
+			var bal = parseFloat($('#closingBal').val(total));
 		} else {
 			$('#closingBal').val(paymentCalc);
 			$("#addLess").val(null);

@@ -69,7 +69,7 @@ $(function() {
 												val.finalAmount,
 												val.balanceAmount ]).draw();
 
-								toBePaid = $("#toBePaid").val(balAmt);
+								toBePaid = $("#toBePaid").val(balAmt.toFixed(2));
 								$("#companyList").on("change", function() {
 									oTable.clear().draw();
 									toBePaid.val(null);
@@ -88,12 +88,12 @@ $(function() {
 
 	// AmountDetails
 	$("#payNow").on('input', function() {
-		var total = parseInt(toBePaid.val()) - parseInt(payNow.val());
+		var total = parseFloat(toBePaid.val()) - parseFloat(payNow.val());
 
-		// var balTotal = selectedBal - parseInt(payNow.val());
+		// var balTotal = selectedBal - parseFloat(payNow.val());
 		if (total >= 0) {
 
-			var bal = parseInt(closingBal.val(total));
+			var bal = parseFloat(closingBal.val(total.toFixed(2)));
 		} else {
 			closingBal.val(null);
 			payNow.val(null);

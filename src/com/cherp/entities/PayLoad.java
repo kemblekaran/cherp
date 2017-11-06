@@ -55,14 +55,15 @@ public class PayLoad {
 	public double getFinalAmount() {
 		return finalAmount;
 	}
-	public void setFinalAmount(double finalAmount) {
-		this.finalAmount = finalAmount;
-	}
+	
 	public double getBalanceAmount() {
 		return balanceAmount;
 	}
 	public void setBalanceAmount(double balanceAmount) {
 		this.balanceAmount = balanceAmount;
+	}
+	public void setFinalAmount(double finalAmount) {
+		this.finalAmount = finalAmount;
 	}
 	public int getStatus() {
 		return status;

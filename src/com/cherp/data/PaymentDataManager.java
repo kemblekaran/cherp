@@ -69,7 +69,7 @@ public class PaymentDataManager {
 			ResultSet rs = pst.executeQuery();
 			while(rs.next()){
 				payload = new PayLoad();
-				payload.setBalanceAmount(rs.getInt("balanceAmount"));
+				payload.setBalanceAmount(rs.getDouble("balanceAmount"));
 				payload.setId(rs.getInt("id"));
 //				System.out.println("balance...."+payload.getBalanceAmount());
 //				System.out.println("paynow.........."+payment.getPayNow());
@@ -202,8 +202,8 @@ public class PaymentDataManager {
 				payload.setPurchaseId(rs.getInt("purchaseId"));
 				payload.setDate(rs.getString("date"));
 				payload.setCompany(rs.getString("company"));
-				payload.setFinalAmount(rs.getInt("finalAmount"));
-				payload.setBalanceAmount(rs.getInt("balanceAmount"));
+				payload.setFinalAmount(rs.getDouble("finalAmount"));
+				payload.setBalanceAmount(rs.getDouble("balanceAmount"));
 
 				payloadList.add(payload);
 

@@ -23,9 +23,9 @@ public class Payment {
 //	@Column(name = "purchaseDate")
 	private String purchaseDate;
 //	@Column(name = "finalAmount")
-	private Double finalAmount;
+	private double finalAmount;
 //	@Column(name = "balanceAmount")
-	private Double balanceAmount;
+	private double balanceAmount;
 //	@Column(name = "paymentMode")
 	private String paymentMode;
 //	@Column(name = "name")
@@ -35,11 +35,11 @@ public class Payment {
 //	@Column(name = "chNo")
 	private long chNo;
 //	@Column(name = "toBePaid")
-	private Double toBePaid;
+	private double toBePaid;
 //	@Column(name = "payNow")
-	private Double payNow;
+	private double payNow;
 //	@Column(name = "closingBal")
-	private Double closingBal;
+	private double closingBal;
 //	@Column(name = "status")
 	private int status;
 	

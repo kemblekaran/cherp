@@ -72,7 +72,7 @@ public class CollectionDataManager {
 			ResultSet rs = pst.executeQuery();
 			while(rs.next()){
 				salesload = new SalesLoad();
-				salesload.setBalanceAmount(rs.getInt("balanceAmount"));
+				salesload.setBalanceAmount(rs.getDouble("balanceAmount"));
 				salesload.setId(rs.getInt("id"));
 //				System.out.println("balance...."+salesload.getBalanceAmount());
 //				System.out.println("paynow.........."+collection.getPayNow());
@@ -208,8 +208,8 @@ public class CollectionDataManager {
 				salesload.setInvoiceNo(rs.getInt("invoiceNo"));
 				salesload.setDate(rs.getString("date"));
 				salesload.setCustomer(rs.getString("customer"));
-				salesload.setInvoiceAmount(rs.getInt("invoiceAmount"));
-				salesload.setBalanceAmount(rs.getInt("balanceAmount"));
+				salesload.setInvoiceAmount(rs.getDouble("invoiceAmount"));
+				salesload.setBalanceAmount(rs.getDouble("balanceAmount"));
 				salesload.setStatus(rs.getInt("status"));
 				salesLoadList.add(salesload);
 

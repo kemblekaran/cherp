@@ -78,7 +78,7 @@ $(function() {
 												val.invoiceAmount,
 												val.balanceAmount ]).draw();
 
-								toBeReceived = $("#toBeReceived").val(balAmt);
+								toBeReceived = $("#toBeReceived").val(balAmt.toFixed(2));
 								$("#customerList").on("change", function() {
 									collectionTable.clear().draw();
 									toBeReceived.val(null);
@@ -96,12 +96,12 @@ $(function() {
 
 	// AmountDetails
 	$("#payNow").on('input', function() {
-		var total = parseInt(toBeReceived.val()) - parseInt(payNow.val());
+		var total = parseFloat(toBeReceived.val()) - parseFloat(payNow.val());
 
-		// var balTotal = selectedBal - parseInt(payNow.val());
+		// var balTotal = selectedBal - parseFloat(payNow.val());
 		if (total >= 0) {
 
-			var bal = parseInt(closingBal.val(total));
+			var bal = parseFloat(closingBal.val(total.toFixed(2)));
 		} else {
 			closingBal.val(null);
 			payNow.val(null);

@@ -400,13 +400,13 @@
 						.html('<h4>'+totalPieces + ' Pieces</h4>');
 				
 				$(api.column(7).footer())
-				.html('<h4>'+totalKg + ' Kg</h4>');
+				.html('<h4>'+totalKg.toFixed() + ' Kg</h4>');
 				
 				$(api.column(11).footer())
 						.html('<h4>'+totalBalPieces + ' Pieces</h4>'+'<hr style="border: 1px solid #4a4b4c;"><h4>'+salesPieces + ' Pieces</h4>');
 
 				$(api.column(12).footer()).html(
-						'<h4>'+totalBalKg + ' Kg</h4>'+ '<hr style="border: 1px solid #4a4b4c;"><h4>'+salesKg + ' Kg</h4>');
+						'<h4>'+totalBalKg.toFixed(2) + ' Kg</h4>'+ '<hr style="border: 1px solid #4a4b4c;"><h4>'+salesKg.toFixed(2) + ' Kg</h4>');
 			}
 		});
 		salesReady.column(0).visible(false);

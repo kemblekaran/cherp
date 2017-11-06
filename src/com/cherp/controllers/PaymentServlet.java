@@ -95,9 +95,9 @@ public class PaymentServlet extends HttpServlet {
 					payment.setChDate(chDate);
 					payment.setChNo(Long.parseLong(chNo));
 				}
-				payment.setToBePaid((double) Integer.parseInt(toBePaid));
-				payment.setPayNow((double) Integer.parseInt(payNow));
-				payment.setClosingBal((double) Integer.parseInt(closingBal));
+				payment.setToBePaid(Double.parseDouble(toBePaid));
+				payment.setPayNow(Double.parseDouble(payNow));
+				payment.setClosingBal(Double.parseDouble(closingBal));
 
 				operationResp = pdm.addData(payment); 
 				operationResp = pdm.updatePayLoad(payment);

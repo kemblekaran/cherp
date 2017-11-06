@@ -25,9 +25,9 @@ public class Collection {
 	// @Column(name = "salesDate")
 	private String salesDate;
 	// @Column(name = "invoiceAmount")
-	private Double invoiceAmount;
+	private double invoiceAmount;
 	// @Column(name = "balanceAmount")
-	private Double balanceAmount;
+	private double balanceAmount;
 	// @Column(name = "paymentMode")
 	private String collectionMode;
 	// @Column(name = "name")
@@ -41,11 +41,11 @@ public class Collection {
 	// @Column(name = "chNo")
 	private long chNo;
 	// @Column(name = "toBeReceived")
-	private Double toBeReceived;
+	private double toBeReceived;
 	// @Column(name = "payNow")
-	private Double payNow;
+	private double payNow;
 	// @Column(name = "closingBal")
-	private Double closingBal;
+	private double closingBal;
 	// @Column(name = "status")
 	private int status;
 	

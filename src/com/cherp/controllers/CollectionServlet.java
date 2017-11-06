@@ -99,9 +99,9 @@ public class CollectionServlet extends HttpServlet {
 					collection.setChDate(chDate);
 					collection.setChNo(Long.parseLong(chNo));
 				}
-				collection.setToBeReceived((double) Integer.parseInt(toBeReceived));
-				collection.setPayNow((double) Integer.parseInt(payNow));
-				collection.setClosingBal((double) Integer.parseInt(closingBal));
+				collection.setToBeReceived(Double.parseDouble(toBeReceived));
+				collection.setPayNow(Double.parseDouble(payNow));
+				collection.setClosingBal(Double.parseDouble(closingBal));
 
 				operationResp = cdm.addData(collection); 
 				operationResp = cdm.updateSalesLoad(collection);
