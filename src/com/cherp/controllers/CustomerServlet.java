@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cherp.dao.masters.CustomerDao;
 import com.cherp.data.CustomerDataManager;
 import com.cherp.entities.Customer;
 import com.cherp.utils.JsonCreator;
@@ -99,6 +100,7 @@ public class CustomerServlet extends HttpServlet {
 		getParaValues(request, response);
 
 		CustomerDataManager custdm = new CustomerDataManager();
+		CustomerDao customerDao = new CustomerDao();
 		Customer cust = new Customer();
 
 		if (operation != null) {
@@ -119,7 +121,7 @@ public class CustomerServlet extends HttpServlet {
 				cust.setDateAccOp(dateAccOp);
 				cust.setOpBal(Integer.parseInt(opBal));
 
-				operationResp = custdm.addData(cust);
+				operationResp = customerDao.insert(cust);
 				pw.println(operationResp);
 
 			} else if (operation.equals("update")) {
@@ -139,7 +141,7 @@ public class CustomerServlet extends HttpServlet {
 				cust.setDateAccOp(updatedCellDateAccOp);
 				cust.setOpBal(Integer.parseInt(updatedCellOpBal));
 				cust.setStatus(1);
-				operationResp = custdm.updateData(cust);
+				operationResp = customerDao.update(cust);
 				pw.println(operationResp);
 
 			} else if (operation.equals("delete")) {
@@ -154,7 +156,7 @@ public class CustomerServlet extends HttpServlet {
 
 		// Contains All Data in table
 		List<Customer> custList = new ArrayList<>();
-		custList = custdm.selectData();
+		custList = customerDao.selectAll();
 		new JsonCreator().createJson(custList,jsonFilePath+"customer.json");
 	}
 

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cherp.dao.masters.CleanersDao;
 import com.cherp.data.CleanersDataManager;
 import com.cherp.data.ExpensesDataManager;
 import com.cherp.entities.Cleaners;
@@ -110,6 +111,7 @@ public class CleanersServlet extends HttpServlet {
 		getParaValues(request, response);
 
 		CleanersDataManager cdm = new CleanersDataManager();
+		CleanersDao cleanersDao = new CleanersDao();
 		Cleaners cls = new Cleaners();
 
 		if (operation != null) {
@@ -131,7 +133,7 @@ public class CleanersServlet extends HttpServlet {
 				cls.setAdhaarNo(adhaarNo);
 				cls.setPhoto(photo);
 
-				operationResp = cdm.addData(cls);
+				operationResp = cleanersDao.insert(cls);
 				pw.println(operationResp);
 
 			} else if (operation.equals("update")) {
@@ -151,14 +153,14 @@ public class CleanersServlet extends HttpServlet {
 				cls.setAdhaarNo(updatedCellAdhaarNo);
 				cls.setPhoto(updatedCellPhoto);
 				cls.setStatus(1);
-				operationResp = cdm.updateData(cls);
+				operationResp = cleanersDao.update(cls);
 				pw.println(operationResp);
 
 			} else if (operation.equals("delete")) {
 				// For delete set only ID Parameter
 				System.out.println("Delete Function");
 				cls.setId(Integer.parseInt(rowId));
-				operationResp = cdm.deleteData(cls);
+				operationResp = cleanersDao.delete(cls);
 				pw.println(operationResp);
 
 			}
@@ -166,7 +168,7 @@ public class CleanersServlet extends HttpServlet {
 
 		// Contains All Data in table
 		List<Cleaners> clsList = new ArrayList<>();
-		clsList = cdm.selectData();
+		clsList = cleanersDao.selectAll();
 		new JsonCreator().createJson(clsList,jsonFilePath+"cleaners.json");
 	}
 

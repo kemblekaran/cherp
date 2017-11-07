@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cherp.dao.masters.CityDao;
 import com.cherp.data.CityDataManager;
 import com.cherp.data.UserDataManager;
 import com.cherp.entities.City;
@@ -66,6 +67,7 @@ public class CityServlet extends HttpServlet {
 		getParaValues(request, response);
 
 		CityDataManager cdm = new CityDataManager();
+		CityDao cityDao = new CityDao();
 		City city = new City();
 
 		if (operation != null) {
@@ -75,8 +77,10 @@ public class CityServlet extends HttpServlet {
 				System.out.println("Insert Function");
 				city.setStateName(stateName);
 				city.setCityName(cityName);
+				city.setStatus(1);
 				
-				operationResp = cdm.addData(city);
+//				operationResp = cdm.addData(city);
+				operationResp = cityDao.insert(city);
 				pw.println(operationResp);
 
 			} else if (operation.equals("update")) {
@@ -86,14 +90,14 @@ public class CityServlet extends HttpServlet {
 				city.setCityName(updatedCellCity);
 				city.setStateName(updatedCellState);
 				city.setStatus(1);
-				operationResp = cdm.updateData(city);
+				operationResp = cityDao.update(city);
 				pw.println(operationResp);
 
 			} else if (operation.equals("delete")) {
 				// For delete set only ID Parameter
 				System.out.println("Delete Function");
 				city.setId(Integer.parseInt(rowId));
-				operationResp = cdm.deleteData(city);
+				operationResp = cityDao.delete(city);
 				pw.println(operationResp);
 
 			}
@@ -101,7 +105,7 @@ public class CityServlet extends HttpServlet {
 
 		// Contains All Data in table
 		List<City> cityList = new ArrayList<>();
-		cityList = cdm.selectData();
+		cityList = cityDao.selectAll();
 		new JsonCreator().createJson(cityList,jsonFilePath+"city.json");
 	}
 

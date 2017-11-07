@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cherp.dao.masters.DriversDao;
 import com.cherp.data.CustomerDataManager;
 import com.cherp.data.DriverDataManager;
 import com.cherp.entities.Customer;
@@ -103,6 +104,7 @@ public class DriverServlet extends HttpServlet {
 		getParaValues(request, response);
 
 		DriverDataManager ddm = new DriverDataManager();
+		DriversDao driversDao = new DriversDao();
 		Drivers driver = new Drivers();
 
 		if (operation != null) {
@@ -123,7 +125,7 @@ public class DriverServlet extends HttpServlet {
 				driver.setPhone(Long.parseLong(phone));
 				driver.setDrLicense(drLicense);
 
-				operationResp = ddm.addData(driver);
+				operationResp = driversDao.insert(driver);
 				pw.println(operationResp);
 
 			} else if (operation.equals("update")) {
@@ -143,14 +145,14 @@ public class DriverServlet extends HttpServlet {
 				driver.setDrLicense(updatedCellDrLicense);
 				driver.setPhoto(updatedCellPhoto);
 				driver.setStatus(1);
-				operationResp = ddm.updateData(driver);
+				operationResp = driversDao.update(driver);
 				pw.println(operationResp);
 
 			} else if (operation.equals("delete")) {
 				// For delete set only ID Parameter
 				System.out.println("Delete Function");
 				driver.setId(Integer.parseInt(rowId));
-				operationResp = ddm.deleteData(driver);
+				operationResp = driversDao.delete(driver);
 				pw.println(operationResp);
 
 			}
@@ -158,7 +160,7 @@ public class DriverServlet extends HttpServlet {
 
 		// Contains All Data in table
 		List<Drivers> driverList = new ArrayList<>();
-		driverList = ddm.selectData();
+		driverList = driversDao.selectAll();
 		new JsonCreator().createJson(driverList,jsonFilePath+"driver.json");
 	}
 

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cherp.dao.masters.CompanyDao;
 import com.cherp.data.AreaDataManager;
 import com.cherp.data.CompanyDataManager;
 import com.cherp.entities.Area;
@@ -110,6 +111,7 @@ public class CompanyServlet extends HttpServlet {
 		getParaValues(request, response);
 
 		CompanyDataManager cdm = new CompanyDataManager();
+		CompanyDao companyDao = new CompanyDao();
 		Company comp = new Company();
 
 		if (operation != null) {
@@ -130,7 +132,7 @@ public class CompanyServlet extends HttpServlet {
 				comp.setDateAccOp(dateAccOp);
 				comp.setOpBal(Integer.parseInt(opBal));
 
-				operationResp = cdm.addData(comp);
+				operationResp = companyDao.insert(comp);
 				pw.println(operationResp);
 
 			} else if (operation.equals("update")) {
@@ -150,14 +152,14 @@ public class CompanyServlet extends HttpServlet {
 				comp.setDateAccOp(updatedCellDateAccOp);
 				comp.setOpBal(Integer.parseInt(updatedCellOpBal));
 				comp.setStatus(1);
-				operationResp = cdm.updateData(comp);
+				operationResp = companyDao.update(comp);
 				pw.println(operationResp);
 
 			} else if (operation.equals("delete")) {
 				// For delete set only ID Parameter
 				System.out.println("Delete Function");
 				comp.setId(Integer.parseInt(rowId));
-				operationResp = cdm.deleteData(comp);
+				operationResp = companyDao.delete(comp);
 				pw.println(operationResp);
 
 			}
@@ -165,7 +167,7 @@ public class CompanyServlet extends HttpServlet {
 
 		// Contains All Data in table
 		List<Company> compList = new ArrayList<>();
-		compList = cdm.selectData();
+		compList = companyDao.selectAll();
 		new JsonCreator().createJson(compList,jsonFilePath+"company.json");
 	}
 

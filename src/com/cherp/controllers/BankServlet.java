@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cherp.dao.masters.BankDao;
 import com.cherp.data.BankDataManager;
 import com.cherp.data.UserDataManager;
 import com.cherp.entities.Bank;
@@ -85,6 +86,7 @@ public class BankServlet extends HttpServlet {
 		getParaValues(request, response);
 
 		BankDataManager bdm = new BankDataManager();
+		BankDao bankDao = new BankDao();
 		Bank bank = new Bank();
 
 		if (operation != null) {
@@ -100,7 +102,7 @@ public class BankServlet extends HttpServlet {
 				bank.setIfscCode(ifscCode);
 				bank.setOpBal(Integer.parseInt(opBal));
 
-				operationResp = bdm.addData(bank);
+				operationResp = bankDao.insert(bank);
 				pw.println(operationResp);
 
 			} else if (operation.equals("update")) {
@@ -115,21 +117,21 @@ public class BankServlet extends HttpServlet {
 				bank.setIfscCode(updatedCellIfscCode);
 				bank.setOpBal(Integer.parseInt(updatedCellOpBal));
 				bank.setStatus(1);
-				operationResp = bdm.updateData(bank);
+				operationResp = bankDao.update(bank);
 				pw.println(operationResp);
 
 			} else if (operation.equals("delete")) {
 				// For delete set only ID Parameter
 				System.out.println("Delete Function");
 				bank.setId(Integer.parseInt(rowId));
-				operationResp = bdm.deleteData(bank);
+				operationResp = bankDao.delete(bank);
 				pw.println(operationResp);
 
 			}
 		}
 		// Contains All Data in table
 		List<Bank> bankList = new ArrayList<>();
-		bankList = bdm.selectData();
+		bankList = bankDao.selectAll();
 		new JsonCreator().createJson(bankList,jsonFilePath+"bank.json");
 
 	}
