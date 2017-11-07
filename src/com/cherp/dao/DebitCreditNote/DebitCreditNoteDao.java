@@ -236,7 +236,7 @@ public class DebitCreditNoteDao {
 		Root<DebitCredit> rootDebitCredit = criteriaQuery.from(DebitCredit.class);
 
 		// criteriaQuery.select(criteriaBuilder.max(rootPurchase.get("invoiceNo")));
-		criteriaQuery.select(criteriaBuilder.coalesce(criteriaBuilder.max(rootDebitCredit.get("noteNo")), 0));
+		criteriaQuery.select(criteriaBuilder.coalesce(criteriaBuilder.max(rootDebitCredit.get("id")), 0));
 
 		int noteNo = session.createQuery(criteriaQuery).getSingleResult();
 

@@ -43,9 +43,9 @@
 			</div>
 
 			<!--Table Row-->
-			<div class="row well" id="tableRow">
-				<table id="dataTable" class="table-bordered">
-					<thead>
+			<div class="row " id="tableRow">
+				<table id="dataTable" class="responsive stripe hover">
+					<thead style="background-color: #4a4b4c; color: #fff">
 						<tr>
 							<th>Id</th>
 							<th>Name</th>
@@ -58,7 +58,7 @@
 							<th>Pin code</th>
 							<th>Owner Name</th>
 							<th>PAN No.</th>
-							<th>Date Of Acc Opening</th>
+							<th>DOP</th>
 							<th>Opening Balance</th>
 
 						</tr>
@@ -202,7 +202,7 @@
 		//add data to datatable(very important)
 		var CherpDataTable = $('#dataTable').DataTable({
 			"ajax" : "/server/jsonfiles/company.json",
-			"scrollX" : true,
+			
 			"columns" : [ {
 				"data" : "id"
 			}, {

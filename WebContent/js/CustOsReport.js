@@ -31,58 +31,15 @@ $(document).ready(function() {
 //		alert('hey');
 		event.preventDefault();
 //		var custName = $("#custName").val();
-		var purchaseTotalAmt = 0;
+		curOsTable.clear().draw();
 		
-		$.ajax({
-			type : "POST",
-			url : "/server/jsonfiles/salesView.json",
-			dataType : "json",
-			
-			success : function(data) {
-				var salesData = data['data'];
-				var amount = 0;
-				var saleAmount = 0;
-				$.each(salesData, function(key, val) {
-
-					if (custName == val.company) {
-						//getting from and to date from input
-						var curDate = $('#fromDate').datepicker('getDate');
-						var preDate = curDate.setDate(curDate.getDate() - 1);
-
-						var custDate = new Date(val.date);
-						if(custDate.getTime() <= preDate){
-							saleAmount = saleAmount + val.amount;
-						}
-						
-//						--------------------------------------------------------------------------
-						var fromTime = new Date($('#fromDate').val()).getTime();
-						var toTime = new Date($('#toDate').val()).getTime();
-						var date = new Date(val.date);
-						
-						if (date.getTime() >= fromTime
-								&& date.getTime() <= toTime) {
-
-							curOsTable.row.add(
-									[ val.date, val.purchaseId,
-											val.product, val.pieces,
-											val.kg, val.rate,
-											val.amount ]).draw();
-							$("#cmpName").on("change", function() {
-								curOsTable.clear().draw();
-							});
-							$('#go').on('click', function() {
-								curOsTable.clear().draw();
-							});
-							
-						}
-						
-					}
-				});
-				salesTotalAmt = saleAmount;
-				purAmount = 0; 
-				alert(salesTotalAmt);
-				
-				
+		var totalOpeBal = 0;
+		var totalOpeCollectionAmt = 0;
+		var totalOpeDebitCreditAmt = 0;
+		
+		var totalSaleAmt = 0;
+		var totalCollectionAmt = 0;
+		var totalDebitCreditNoteAmt = 0;
 				
 		
 				$.ajax({
@@ -94,18 +51,212 @@ $(document).ready(function() {
 						var customerData = data['data'];
 		
 						$.each(customerData, function(key, val) {
-							curOsTable.row.add([ val.id, val.fname + val.lname, val.area, val.opBal, val.opBal, val.opBal, val.opBal, val.opBal ]).draw();
-							$('#go').on('click', function() {
-								curOsTable.clear().draw();
-							});
+							
+							var custName = val.fname +" "+ val.lname;
+//							alert(custName);
+							var curDate = $('#fromDate').datepicker('getDate');
+//							alert(curDate+" curDate");
+							var preDate = curDate.setDate(curDate.getDate() - 1);
+							
+							
+							$.ajax({
+								type : "POST",
+								url : "/server/jsonfiles/salesView.json",
+								dataType : "json",
+								
+								success : function(data) {
+									var openingBalData = data['data'];
+									var amount = 0;
+									var opAmount = 0;
+									var saleAmount = 0;
+									$.each(openingBalData, function(key, val) {
+//										alert(custName == val.customer);
+										if (custName == val.customer) {
+											
+//											var curDate = $('#fromDate').datepicker('getDate');
+////											alert(curDate+" curDate");
+//											var preDate = curDate.setDate(curDate.getDate() - 1);
+
+											var custDate = new Date(val.salesDate);
+											if(custDate.getTime() <= preDate){
+												opAmount = opAmount + val.amount;
+//												alert(opAmount);
+											}
+//									      --------------------------------------------------------------
+											
+											var fromTime = new Date($('#fromDate').val()).getTime();
+											var toTime = new Date($('#toDate').val()).getTime();
+											var date = new Date(val.salesDate);
+											
+											if (date.getTime() >= fromTime && date.getTime() <= toTime) {
+												saleAmount = saleAmount + val.amount;
+												
+//												$("#cmpName").on("change", function() {
+//													curOsTable.clear().draw();
+//												});
+												
+												
+											}
+										}
+									});
+									
+//									
+									
+
+											
+//	-------------------------------------------------------------------------------------------------------------------------------------					
+											
+											$.ajax({
+												type : "POST",
+												url : "/server/jsonfiles/collection.json",
+												dataType : "json",
+												
+												success : function(data) {
+													var collectionData = data['data'];
+													var amount = 0;
+													var opCollectionAmount = 0;
+													var collectionAmount = 0;
+													$.each(collectionData, function(key, val) {
+//														alert(custName == val.customer);
+														if (custName == val.customer) {
+															
+//															var curDate = $('#fromDate').datepicker('getDate');
+////															alert(curDate+" curDate");
+//															var preDate = curDate.setDate(curDate.getDate() - 1);
+
+															var custDate = new Date(val.collectionDate);
+															if(custDate.getTime() <= preDate){
+																opCollectionAmount = opCollectionAmount + val.payNow;
+//																alert(opAmount);
+															}
+															
+															
+//															--------------------------------------------------------------------------
+															var fromTime = new Date($('#fromDate').val()).getTime();
+															var toTime = new Date($('#toDate').val()).getTime();
+															var date = new Date(val.collectionDate);
+															
+															if (date.getTime() >= fromTime && date.getTime() <= toTime) {
+																collectionAmount = collectionAmount + val.payNow;
+																
+//																$("#cmpName").on("change", function() {
+//																	curOsTable.clear().draw();
+//																});
+																$('#go').on('click', function() {
+																	curOsTable.clear().draw();
+																});
+																
+															}
+															
+														}
+													});
+													
+													
+//--------------------------------------------------------------------------------------------------------------------------------------									
+													
+													$.ajax({
+														type : "POST",
+														url : "/server/jsonfiles/debitcreditnote.json",
+														dataType : "json",
+														
+														success : function(data) {
+															var debitCreditNoteData = data['data'];
+															var amount = 0;
+															var drCrNoteAmount = 0;
+															var opDebitCreditAmount = 0;
+															$.each(debitCreditNoteData, function(key, val) {
+//																alert(custName == val.customer);
+																if (custName == val.selectCustCmp) {
+																	
+																	
+//																	var curDate = $('#fromDate').datepicker('getDate');
+////																	alert(curDate+" curDate");
+//																	var preDate = curDate.setDate(curDate.getDate() - 1);
+
+																	var custDate = new Date(val.debitCreditDate);
+																	if(custDate.getTime() <= preDate){
+																		opDebitCreditAmount = opDebitCreditAmount + val.amount;
+//																		alert(opAmount);
+																	}
+																	
+//																	--------------------------------------------------------------------------
+																	var fromTime = new Date($('#fromDate').val()).getTime();
+																	var toTime = new Date($('#toDate').val()).getTime();
+																	var date = new Date(val.debitCreditDate);
+																	
+																	if (date.getTime() >= fromTime && date.getTime() <= toTime) {
+																		drCrNoteAmount = drCrNoteAmount + val.amount;
+																		
+//																		$("#cmpName").on("change", function() {
+//																			curOsTable.clear().draw();
+//																		});
+																		$('#go').on('click', function() {
+																			curOsTable.clear().draw();
+																		});
+																		
+																	}
+																	
+																}
+															});
+													
+															//for calculate total debitCreditNoteAmt
+															totalDebitCreditNoteAmt = drCrNoteAmount;
+															drCrNoteAmount = 0;
+//															alert(totalDebitCreditNoteAmt + " debitcredit amt");
+																	
+																
+															//for calculate total collection
+															totalCollectionAmt = collectionAmount;
+															collectionAmount = 0;
+//															alert(totalCollectionAmt + " collection amt");
+															
+															
+															//for calculate total sale
+															totalSaleAmt = saleAmount;
+															saleAmount = 0; 
+															
+//															---------------------------------------------------------
+															//for calculate opening balance
+															totalOpeCollectionAmt = opCollectionAmount;
+															opCollectionAmount = 0;
+//															alert(totalOpeCollectionAmt + "totalOpeCollectionAmt ");
+															
+															totalOpeDebitCreditAmt = opDebitCreditAmount;
+															opDebitCreditAmount = 0;
+															
+															totalOpeBal = opAmount;
+															opAmount = 0; 
+															
+															var openingBalance = (totalOpeBal - (totalOpeCollectionAmt + totalOpeDebitCreditAmt));
+				//											alert(totalSaleAmt + " total sale");
+//															alert(openingBalance + " openingBalance ");
+															var closingBalance = ((openingBalance + totalSaleAmt) - (totalCollectionAmt + totalDebitCreditNoteAmt));
+															
+															//value added to the table
+															curOsTable.row.add([ val.id, val.fname +" "+ val.lname, val.area,
+																openingBalance.toFixed(2), totalSaleAmt.toFixed(2),
+																totalCollectionAmt.toFixed(2), totalDebitCreditNoteAmt.toFixed(2), 
+																closingBalance.toFixed(2) ]).draw();
+											
+															
+											
+														}
+													});//fourth ajax method close
+											
+												}
+											});//third ajax method close
+						
+							
+								}
+							});//second ajax method close
+							
+							
 		
 						});
 						
 					}
-		
-				});
-			}
-		});
+				});//first ajax method close
+			
 	});
 
 	
@@ -145,4 +296,8 @@ $(document).ready(function() {
 //			amount = amount + val.amount;
 //	}
 //}
+	
+	
+	
+	
 });

@@ -17,7 +17,7 @@
 <body>
 <div w3-include-html="main.html"></div>
 	<!--Main container-->
-	<div class="container" id="mainContainer">
+	<div class="container-fluid" id="mainContainer">
 		<div class="jumbotron">
 
 			<!-- Button Row           -->
@@ -37,9 +37,9 @@
 			</div>
 
 			<!--Table Row-->
-			<div class="row well" id="tableRow">
-				<table id="dataTable" class="table-bordered">
-					<thead>
+			<div class="row container" id="tableRow">
+				<table id="dataTable" class="responsive stripe hover">
+					<thead style="background-color: #4a4b4c; color: #fff">
 						<tr>
 							<th>Id</th>
 							<th>Location</th>
