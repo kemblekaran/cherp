@@ -12,7 +12,7 @@
   </welcome-file-list>
   <context-param>
     <param-name>JsonFilePath</param-name>
-    <param-value>D:\\karan\\server\\jsonfiles\\</param-value>
+    <param-value>D:\\shanty\\server\\cherp\\jsonfiles\\</param-value>
   </context-param>
   <servlet>
     <description></description>
@@ -203,5 +203,25 @@
   <servlet-mapping>
     <servlet-name>CollectionServlet</servlet-name>
     <url-pattern>/CollectionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoginServlet</display-name>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.cherp.controllers.login.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SignUpServlet</display-name>
+    <servlet-name>SignUpServlet</servlet-name>
+    <servlet-class>com.cherp.controllers.login.SignUpServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SignUpServlet</servlet-name>
+    <url-pattern>/SignUpServlet</url-pattern>
   </servlet-mapping>
 </web-app>

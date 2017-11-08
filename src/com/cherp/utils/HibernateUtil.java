@@ -5,6 +5,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+import com.cherp.entities.AdminLoginInfo;
 import com.cherp.entities.Area;
 import com.cherp.entities.Bank;
 import com.cherp.entities.City;
@@ -53,6 +54,7 @@ public class HibernateUtil {
 		config.addAnnotatedClass(Cleaners.class);
 		config.addAnnotatedClass(Customer.class);
 		config.addAnnotatedClass(State.class);
+		config.addAnnotatedClass(AdminLoginInfo.class);
 		serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
 		sessionFactory = config.buildSessionFactory(serviceRegistry);
 	}
