@@ -275,5 +275,26 @@ $(function() {
 			
 			$("#grossProfit").val(totalGrossProfit);
 		});
+		
+		//settle van
+		$("#settleVan").on('click',function(e){
+			
+			$.ajax({
+				url:'VanwiseSalesServlet',
+				type:'post',
+				data:{
+					purchaseId:$('#purchaseNo').val(),
+					settleVan:1
+				},
+				success:function(data){
+					var resp = JSON.parse(data);
+					alert(resp.message);
+				},
+				error:function(){
+					alert("Settle van error!");
+				}
+			});
+			
+		});
 
 });

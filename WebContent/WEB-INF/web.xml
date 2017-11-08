@@ -224,4 +224,14 @@
     <servlet-name>SignUpServlet</servlet-name>
     <url-pattern>/SignUpServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>VanwiseSalesServlet</display-name>
+    <servlet-name>VanwiseSalesServlet</servlet-name>
+    <servlet-class>com.cherp.controllers.VanwiseSalesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VanwiseSalesServlet</servlet-name>
+    <url-pattern>/VanwiseSalesServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

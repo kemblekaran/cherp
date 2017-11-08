@@ -109,8 +109,7 @@
 
 				<div class="col-md-2 col-width ">
 					<label>Outstanding</label> <input type="text" class="form-control"
-						id="outstanding" placeholder="OutStanding" 
-						name="outstanding">
+						id="outstanding" placeholder="OutStanding" name="outstanding">
 				</div>
 
 				<div class="col-md-2 col-width ">
@@ -166,12 +165,12 @@
 				</table>
 
 			</div>
-			
-				<div class="well col-md-2">
-					<label for="finalAmount">Final Amount</label> <input type="text"
-						name="finalAmount" id="finalAmount" class="form-control">
-				</div>
-			
+
+			<div class="well col-md-2">
+				<label for="finalAmount">Final Amount</label> <input type="text"
+					name="finalAmount" id="finalAmount" class="form-control">
+			</div>
+
 			<input type="hidden" name="operation" value="insert">
 
 
@@ -180,16 +179,19 @@
 
 			<!-- input type for sending payload json as form value -->
 			<input type="hidden" name="payloadJson" id="payloadJson">
-			<div class="col-md-1 col-md-offset-1"><br>
+			<div class="col-md-1 col-md-offset-1">
+				<br>
 				<button id="insertBtn" class="btn btn-success">save</button>
 			</div>
 		</form>
-		<div class="col-md-1 "><br>
+		<div class="col-md-1 ">
+			<br>
 			<button id="viewBtn" class="btn btn-primary" data-toggle="modal"
 				data-target="#viewModal">view</button>
 		</div>
-		<div class="col-md-1 "><br>
-		<INPUT TYPE="button" onClick="history.go(0)" VALUE="Refresh" class="btn btn-info">
+		<div class="col-md-1 ">
+			<br> <INPUT TYPE="button" onClick="history.go(0)"
+				VALUE="Refresh" class="btn btn-info">
 		</div>
 		<!-- Add Button Modal-->
 		<div id="viewModal" class="modal fade " role="dialog">
@@ -207,8 +209,7 @@
 					<div class="modal-body">
 						<!--Table Row-->
 						<div class="" id="tableRow">
-							<table id="purchaseViewTable"
-								class="responsive stripe hover ">
+							<table id="purchaseViewTable" class="responsive stripe hover ">
 								<thead style="background-color: #4a4b4c; color: #fff">
 									<tr>
 										<th>Purchase Id</th>
@@ -223,6 +224,7 @@
 										<th>Amount</th>
 										<th>Average Weight</th>
 										<th>FinalAmount</th>
+										<th>SettleVan</th>
 									</tr>
 								</thead>
 							</table>
@@ -247,7 +249,7 @@
 	<!-- 		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" -->
 	<!-- 		crossorigin="anonymous"></script> -->
 	<script
-		src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+		src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<!-- 	<script -->
 	<!-- 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" -->
 	<!-- 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" -->
@@ -255,9 +257,7 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 	<script src="validation/validatePurchase.js"></script>
-	<script src="js/dataTables.cellEdit.js"></script>
-	<script
-		src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
+	<script src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
 	<!--<script src="js/dataTable.js" type="text/javascript"></script> -->
 	<script src="js/purchaseDataLoader.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/dataentry/purchase.js"></script>
@@ -282,7 +282,16 @@
 			"columnDefs" : [ {
 				"className" : "dt-center",
 				"targets" : "_all"
+			}, {
+				"targets" : [ 12 ],
+				"visible" : true,
+				"searchable" : false
 			} ],
+			"createdRow" : function(row, data, dataIndex) {
+				if (data[12] == "1") {
+					$(row).css("background-color", "green");
+				}
+			},
 			"order" : [ [ 0, "desc" ] ],
 			"columns" : [ {
 				"data" : "purchaseId"
@@ -308,6 +317,8 @@
 				"data" : "avgWeight"
 			}, {
 				"data" : "finalAmount"
+			}, {
+				"data" : "settleVan"
 			} ]
 		});
 	</script>
