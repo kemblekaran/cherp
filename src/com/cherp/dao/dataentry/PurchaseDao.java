@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.persistence.Table;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
@@ -84,6 +85,29 @@ public class PurchaseDao {
 		session.close();
 
 		return "Update Successful";
+	}
+
+	public int update(int purchaseId, int settleVan) {
+
+		createSession();
+
+		Transaction t = session.beginTransaction();
+
+		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+
+		CriteriaUpdate<Purchase> criteriaUpdate = criteriaBuilder.createCriteriaUpdate(Purchase.class);
+		
+		Root<Purchase> root = criteriaUpdate.from(Purchase.class);
+		criteriaUpdate.set(root.get("settleVan"), settleVan);
+		criteriaUpdate.where(criteriaBuilder.equal(root.get("purchaseId"), purchaseId));
+
+		session.createQuery(criteriaUpdate).executeUpdate();
+
+		t.commit();
+
+		session.close();
+
+		return 1;
 	}
 
 	public String delete(Purchase purchase) {
